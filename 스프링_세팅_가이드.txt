@@ -1,0 +1,92 @@
+~~스프링 세팅 가이드~~
+
+
+https://start.spring.io/ 접속
+Spring Boot > 3.5.13 체크
+Project Metadata > Artifact > 프로젝트 이름 정하기
+Dependencies : Lombok / Spring Boot DevTools / Spring Web / Spring Data JPA / Thymeleaf / MariaDB Driver 추가.
+GENERATE.
+C:\mata12\workspace_springBoot 저장.
+압축풀기.
+idea64.exe 실행.
+기존 열린 플젝 있으면 File > Close Project 후 시작화면으로.
+시작화면 > Open > C:\mata12\workspace_springBoot 경로폴더 클릭 > Select Folder.
+
+
+
+ㅡ
+
+File > Settings 창 들어가기
+plugins > Lombok 설치확인
+Editor > Inspections > Java > Declaration redundancy > Unused declaration 체크 해제
+Editor > Code Style > File Encodings > Default encoding for properties files: UTF-8 적용, 체크
+Inlay Hint > Usages 체크해제
+Build, Execution, Deployment > Build Tools > Gradle > Build and run using, Runtests using: Intellij IDEA 적용 
+Build, Execution, Deployment > Compiler > Build project automatically 체크
+Build, Execution, Deployment > Compiler > Annotation Processors > Enable annotation processing 체크
+Advanced Settings > Compiler > Allow auto-make to start even if developed application is currently running 체크
+
+apply 클릭후 OK.
+
+시작화면에서 Project 마우스 올린 후 ...(Options) > Appearance > Compact Middle Packges 체크해제
+
+
+
+Project > 프로젝트이름 > scr > main > resorces > application.properties에 붙여넣기 :
+
+spring.application.name=플젝이름
+
+# server port
+server.port=808n
+
+# Automatic Restart
+spring.devtools.restart.enabled=true
+
+# Live Reload \uAE30\uB2A5 \uD65C\uC131\uD654
+spring.devtools.livereload.enabled=true
+
+# mariaDB
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.datasource.url=jdbc:mariadb://localhost:3306/플젝이름
+spring.datasource.username=플젝이름
+spring.datasource.password=1234
+
+# jpa
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
+
+logging.level.org.hibernate.type.descriptor.sql=trace
+
+spring.thymeleaf.cache=false
+
+
+
+ㅡ
+명령프롬프트 실행.
+mariadb -u root -p
+1234
+use mysql;
+create database 플젝이름;
+create user '플젝이름'@'localhost' identified by '1234';
+grant all privileges on 플젝이름.* to 플젝이름@localhost;
+flush privileges;
+show databases;
+exit
+
+
+
+ㅡ
+idea64.exe 로 돌아가기.
+
+src > main > java > com > example > 플젝이름 > 플젝이름Application 들어가기
+SpringApplication.run(RemiApplication.class, args); 아래에 :
+System.out.println("-- 플젝이름 start --"); 작성
+
+플젝이름Application 실행
+
+
+
+
+세팅 끝!
