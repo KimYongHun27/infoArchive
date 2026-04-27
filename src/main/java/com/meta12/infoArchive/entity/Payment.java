@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
@@ -27,4 +28,16 @@ public class Payment {
     //(임시) 주문 번호
     private String OrderNumber;
 
+    //(임시) 주문 일시
+    private CreatedDate Orderdate;
+
+    //(임시) 강의 카테고리
+    private LectureCategory lectureCategory;
+
+    //(임시) 결제 상태
+    private PaymentStatus paymentStatus;
+
+    //유저
+
+    //강의
 }
