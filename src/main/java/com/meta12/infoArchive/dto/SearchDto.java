@@ -1,4 +1,4 @@
 package com.meta12.infoArchive.dto;
 
-public class HomebtnDTO {
+public class SearchDto {
 }
