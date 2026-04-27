@@ -19,6 +19,7 @@ public class InstructorApplyService {
     private final UserRepository userRepository;
     private final InstructorRepository instructorRepository;
 
+    // 강사 신청 등록
     public InstructorApply apply(InstructorApplyRequestDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
@@ -36,10 +37,13 @@ public class InstructorApplyService {
         return applyRepository.save(apply);
     }
 
+    // 강사 신청 전체 조회
     public List<InstructorApply> getApplications() {
         return applyRepository.findAll();
     }
 
+
+    // 강사 신청 승인
     public InstructorApply approve(Long applyId) {
         InstructorApply apply = applyRepository.findById(applyId)
                 .orElseThrow(() -> new IllegalArgumentException("신청서를 찾을 수 없습니다."));
@@ -64,6 +68,7 @@ public class InstructorApplyService {
         return applyRepository.save(apply);
     }
 
+    // 강사 신청 반려
     public InstructorApply reject(Long applyId, String reason) {
         InstructorApply apply = applyRepository.findById(applyId)
                 .orElseThrow(() -> new IllegalArgumentException("신청서를 찾을 수 없습니다."));

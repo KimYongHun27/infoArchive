@@ -16,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    // 회원 등록
     public User createUser(UserRequestDto dto) {
         User user = User.builder()
                 .username(dto.getUsername())
@@ -33,12 +34,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // 회원 전체 조회
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
+    // 회원 단건 조회
     public User getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
     }
+
 }
