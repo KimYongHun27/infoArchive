@@ -15,16 +15,19 @@ public class UserController {
 
     private final UserService userService;
 
+    // 회원 등록
     @PostMapping
     public User createUser(@RequestBody UserRequestDto dto) {
         return userService.createUser(dto);
     }
 
+    // 회원 전체 조회
     @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
+    // 회원 단건 조회
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.getUser(id);

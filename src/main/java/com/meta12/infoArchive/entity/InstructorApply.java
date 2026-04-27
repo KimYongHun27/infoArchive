@@ -14,26 +14,26 @@ public class InstructorApply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;                    // 강사 신청 고유 번호
 
-    private String title;
+    private String title;               // 강사 신청 제목
 
-    private String intro;
+    private String intro;               // 강사 소개
 
-    private String career;
+    private String career;              // 강사 경력
 
-    private String portfolioUrl;
+    private String portfolioUrl;        // 포트폴리오 주소
 
     @Enumerated(EnumType.STRING)
-    private ApplyStatus status;
+    private ApplyStatus status;         // 신청 상태: PENDING, APPROVED, REJECTED
 
-    private String rejectReason;
+    private String rejectReason;        // 반려 사유
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;                  // 신청한 회원 정보
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;    // 신청일
 
-    private LocalDateTime reviewedAt;
+    private LocalDateTime reviewedAt;   // 검토일
 }

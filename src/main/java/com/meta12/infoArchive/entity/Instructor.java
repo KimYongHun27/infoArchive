@@ -14,19 +14,19 @@ public class Instructor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;                // 강사 고유 번호
 
-    private String nickname;
+    private String nickname;        // 강사 닉네임
 
-    private String intro;
+    private String intro;           // 강사 소개
 
-    private String career;
+    private String career;          // 강사 경력
 
-    private String category;
+    private String category;        // 강의 분야 또는 카테고리
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;              // 강사와 연결된 회원 정보
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 강사 등록일
 }

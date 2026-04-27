@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer" class="site-footer">
+  <div class="footer-inner">
+
+    <!-- 로고 -->
+    <div class="footer-logo">
+      <img th:src="@{/img/footer/logo.png}" alt="logo">
+      
+    </div>
+
+    <!-- 메뉴 -->
+    <div class="footer-menu">
+      <a href="#">공지사항</a>
+      <span>|</span>
+      <a href="#">강사신청</a>
+      <span>|</span>
+      <a href="#">FAQ</a>
+      <span>|</span>
+      <a href="#">이용약관</a>
+      <span>|</span>
+      <a href="#">개인정보처리방침</a>
+      <span>|</span>
+      <a href="#">환불규정</a>
+    </div>
+
+    <!-- 고객센터 -->
+    <div class="footer-contact">
+      <div class="cs-text">
+        <p class="cs-title">고객센터 <span>*주중 10시~18시 / 주말 및 공휴일 제외</span></p>
+        <p class="cs-info">
+          <strong>010-0000-0000</strong>
+          <span>|</span>
+          <strong>0000@gmail.com</strong>
+        </p>
+      </div>
+
+      <!-- SNS -->
+      <div class="footer-sns">
+        <a href="#"><img th:src="@{/img/footer/youtube.png}" alt=""></a>
+        <a href="#"><img th:src="@{/img/footer/instagram.png}" alt=""></a>
+        <a href="#"><img th:src="@{/img/footer/facebook.png}" alt=""></a>
+        <a href="#"><img th:src="@{/img/footer/blog.png}" alt=""></a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

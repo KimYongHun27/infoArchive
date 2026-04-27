@@ -14,26 +14,26 @@ public class CustomerInquiry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;                    // 고객센터 문의 고유 번호
 
-    private String category;
+    private String category;            // 문의 카테고리
 
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    private String title;               // 문의 제목
 
     @Column(columnDefinition = "TEXT")
-    private String answer;
+    private String content;             // 문의 내용
+
+    @Column(columnDefinition = "TEXT")
+    private String answer;              // 관리자 답변 내용
 
     @Enumerated(EnumType.STRING)
-    private InquiryStatus status;
+    private InquiryStatus status;       // 문의 상태: WAITING, ANSWERED
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;                  // 문의 작성자 회원 정보
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;    // 문의 작성일
 
-    private LocalDateTime answeredAt;
+    private LocalDateTime answeredAt;   // 답변 작성일
 }

@@ -19,6 +19,9 @@ public class CustomerService {
     private final CustomerInquiryRepository inquiryRepository;
     private final UserRepository userRepository;
 
+
+
+    // 고객센터 문의 등록
     public CustomerInquiry createInquiry(CustomerInquiryRequestDto dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
@@ -35,10 +38,12 @@ public class CustomerService {
         return inquiryRepository.save(inquiry);
     }
 
+    // 고객센터 문의 전체 조회
     public List<CustomerInquiry> getInquiries() {
         return inquiryRepository.findAll();
     }
 
+    // 고객센터 문의 답변 등록
     public CustomerInquiry answerInquiry(Long id, String answer) {
         CustomerInquiry inquiry = inquiryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("문의를 찾을 수 없습니다."));
