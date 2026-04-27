@@ -86,7 +86,7 @@ System.out.println("-- 플젝이름 start --"); 작성
 
 플젝이름Application 실행
 
-
+infoarchive
 
 
 세팅 끝!
