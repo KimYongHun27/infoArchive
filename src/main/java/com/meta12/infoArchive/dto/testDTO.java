@@ -1,4 +1,4 @@
-package com.meta12.infoArchive.DTO;
+package com.meta12.infoArchive.dto;
 
 import lombok.Getter;
 import lombok.Setter;
