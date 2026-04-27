@@ -1,9 +1,9 @@
 package com.meta12.infoArchive.repository;
 
-import com.meta12.infoArchive.entity.Cart;
+import com.meta12.infoArchive.entity.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
+public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 }

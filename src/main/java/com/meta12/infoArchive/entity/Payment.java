@@ -29,7 +29,7 @@ public class Payment {
     private String OrderNumber;
 
     //(임시) 주문 일시
-    private CreatedDate Orderdate;
+    private CreatedDate OrderDate;
 
     //(임시) 강의 카테고리
     private LectureCategory lectureCategory;
