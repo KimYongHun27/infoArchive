@@ -6,6 +6,7 @@ import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.meta12.infoArchive.dto.UserLoginRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -69,5 +70,18 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
         userRepository.delete(foundUser);
+    }
+
+    // 회원 로그인
+    public User login(UserLoginRequestDto requestDto) {
+
+        User foundUser = userRepository.findByUsername(requestDto.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다."));
+
+        if (!foundUser.getPassword().equals(requestDto.getPassword())) {
+            throw new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다.");
+        }
+
+        return foundUser;
     }
 }
