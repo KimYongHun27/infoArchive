@@ -20,7 +20,7 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login() {
-        return "fragments/login";
+        return "templates/login";
     }
 }
 
