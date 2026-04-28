@@ -29,10 +29,10 @@ public class AdminController {
         return adminService.getAllInstructors();
     }
 
-    // 관리자 - 강사 신청 목록 조회
-    @GetMapping("/applications")
-    public List<InstructorApply> getAllApplications() {
-        return adminService.getAllApplications();
+    // 관리자 - 전체 강사 신청 조회
+    @GetMapping("/instructor-applications")
+    public List<InstructorApply> getAllInstructorApplications() {
+        return adminService.getAllInstructorApplications();
     }
 
     // 관리자 - 회원 권한 변경
@@ -48,6 +48,6 @@ public class AdminController {
     @DeleteMapping("/users/{userId}")
     public String deleteUserByAdmin(@PathVariable Long userId) {
         adminService.deleteUserByAdmin(userId);
-        return "관리자 회원 삭제 완료";
+        return "관리자가 회원을 삭제했습니다.";
     }
 }
