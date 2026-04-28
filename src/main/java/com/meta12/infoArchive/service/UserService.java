@@ -5,6 +5,7 @@ import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,23 +16,25 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     // 회원 등록
-    public User createUser(UserRequestDto dto) {
-        User user = User.builder()
-                .username(dto.getUsername())
-                .password(dto.getPassword())
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .phone(dto.getPhone())
+    public User createUser(UserRequestDto requestDto) {
+
+        User newUser = User.builder()
+                .username(requestDto.getUsername())
+                .password(passwordEncoder.encode(requestDto.getPassword())) // 비밀번호 암호화
+                .name(requestDto.getName())
+                .email(requestDto.getEmail())
+                .phone(requestDto.getPhone())
                 .role(Role.USER)
-                .emailAgree(dto.getEmailAgree())
-                .smsAgree(dto.getSmsAgree())
-                .pushAgree(dto.getPushAgree())
+                .emailAgree(requestDto.getEmailAgree())
+                .smsAgree(requestDto.getSmsAgree())
+                .pushAgree(requestDto.getPushAgree())
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return userRepository.save(user);
+        return userRepository.save(newUser);
     }
 
     // 회원 전체 조회
@@ -40,9 +43,33 @@ public class UserService {
     }
 
     // 회원 단건 조회
-    public User getUser(Long id) {
-        return userRepository.findById(id)
+    public User getUser(Long userId) {
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
     }
 
+    // 회원 정보 수정
+    public User updateUser(Long userId, UserRequestDto requestDto) {
+
+        User foundUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
+        foundUser.setName(requestDto.getName());
+        foundUser.setEmail(requestDto.getEmail());
+        foundUser.setPhone(requestDto.getPhone());
+        foundUser.setEmailAgree(requestDto.getEmailAgree());
+        foundUser.setSmsAgree(requestDto.getSmsAgree());
+        foundUser.setPushAgree(requestDto.getPushAgree());
+
+        return userRepository.save(foundUser);
+    }
+
+    // 회원 삭제
+    public void deleteUser(Long userId) {
+
+        User foundUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
+        userRepository.delete(foundUser);
+    }
 }
