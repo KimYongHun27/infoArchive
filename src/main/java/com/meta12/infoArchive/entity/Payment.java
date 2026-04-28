@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+//import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
@@ -29,7 +29,7 @@ public class Payment {
     private String OrderNumber;
 
     //(임시) 주문 일시
-    private CreatedDate OrderDate;
+    //private CreatedDate OrderDate;
 
     //(임시) 강의 카테고리
     private LectureCategory lectureCategory;

@@ -16,5 +16,6 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //user n : lecture m
 
 }
