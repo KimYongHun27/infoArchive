@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
+    @GetMapping({"", "/"})
+    public String index() {
+        return "main";
+    }
+
     @GetMapping("/main")
     public String list(){
         return "main";
