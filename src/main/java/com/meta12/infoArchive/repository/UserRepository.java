@@ -8,6 +8,9 @@ import java.util.Optional;
 // 회원 테이블에 접근하는 Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // 아이디로 회원 찾기
-    Optional<User> findByUsername(String username);
+    // 이메일 중복 확인
+    boolean existsByEmail(String email);
+
+    // 이메일로 회원 찾기
+    Optional<User> findByEmail(String email);
 }
