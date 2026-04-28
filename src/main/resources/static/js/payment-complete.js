@@ -1,20 +1,19 @@
-// 아이콘
 lucide.createIcons();
 
-// 타이머
-let total = 3600;
+let totalSeconds = 533041;
 
-setInterval(()=>{
-  if(total <= 0) return;
+setInterval(() => {
 
-  total--;
+    totalSeconds--;
 
-  let h = Math.floor(total/3600);
-  let m = Math.floor((total%3600)/60);
-  let s = total%60;
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-  document.getElementById('h').innerText = h;
-  document.getElementById('m').innerText = m;
-  document.getElementById('s').innerText = s;
+    document.getElementById('day').innerText = days;
+    document.getElementById('hour').innerText = hours;
+    document.getElementById('min').innerText = minutes;
+    document.getElementById('sec').innerText = seconds;
 
 },1000);

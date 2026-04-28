@@ -18,10 +18,9 @@ public class HomeController {
         return "main";
     }
 
-    // 로그인 화면
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "fragments/login";
     }
 }
 

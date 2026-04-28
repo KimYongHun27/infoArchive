@@ -75,11 +75,11 @@ public class UserService {
     // 회원 로그인
     public User login(UserLoginRequestDto requestDto) {
 
-        User foundUser = userRepository.findByUsername(requestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다."));
+        User foundUser = userRepository.findByEmail(requestDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
 
         if (!foundUser.getPassword().equals(requestDto.getPassword())) {
-            throw new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다.");
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
         }
 
         return foundUser;
