@@ -21,9 +21,13 @@ public class UserService {
     // 회원 등록
     public User createUser(UserRequestDto requestDto) {
 
+        if (userRepository.existsByUsername(requestDto.getUsername())) {
+            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
+
         User newUser = User.builder()
                 .username(requestDto.getUsername())
-                .password(passwordEncoder.encode(requestDto.getPassword())) // 비밀번호 암호화
+                .password(passwordEncoder.encode(requestDto.getPassword()))
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .phone(requestDto.getPhone())
