@@ -1,12 +1,10 @@
 package com.meta12.infoArchive.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-//import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,8 +14,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //가격
+    //기존 가격
     private int price;
+
+    //할인 가격
+    private int discountAmount;
 
     //(임시) 강의명
     private String lectureName;
@@ -25,19 +26,30 @@ public class Payment {
     //(임시) 강사명
     private String instructorName;
 
-    //(임시) 주문 번호
-    private String OrderNumber;
+    // 주문 번호
+    private String orderNumber;
 
-    //(임시) 주문 일시
-    //private CreatedDate OrderDate;
+    //주문 일시(실제 영수증 및 내역에 저장될 시간)
+    private LocalDateTime orderDate;
 
     //(임시) 강의 카테고리
     private LectureCategory lectureCategory;
 
-    //(임시) 결제 상태
+    // 결제 상태
     private PaymentStatus paymentStatus;
 
-    //유저
+    //유저 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    //강의
+    //강의 정보
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "lecture_id")
+//    private Lecture lecture;
+
+    //쿠폰 정보
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupon_id")
+    private Coupon coupon;
 }

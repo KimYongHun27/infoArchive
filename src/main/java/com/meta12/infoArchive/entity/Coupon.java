@@ -19,13 +19,6 @@ public class Coupon {
     private String CouponCode;
     //discountAmount 할인 금액
     private int discountAmount;
-    //resultAmount 적용 금액
-    private int resultAmount;
     //minOrderAmount 최소 주문 금액
     private int minOrderAmount;
-    //isUsed 사용 여부
-
-    //UsedStatus 사용 상태
-
-    //user 유저
 }
