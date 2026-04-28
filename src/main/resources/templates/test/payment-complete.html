@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body{margin:0;font-family:'Pretendard';background:#f4f4f4;}
+
+        header{background:#000;color:#fff;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;}
+        header input{width:320px;padding:10px 15px;border-radius:20px;border:none;}
+        header .menu i{margin-left:20px;cursor:pointer;}
+
+        .container{text-align:center;padding:60px 20px;position:relative;}
+
+        /* 체크 SVG */
+        .check{
+          width:100px;height:100px;margin:0 auto 20px;
+        }
+
+        .title{font-size:26px;font-weight:bold;}
+        .sub{color:#777;margin-top:10px;}
+
+        .buttons{margin-top:25px;}
+        .buttons button{padding:12px 22px;margin:5px;border-radius:8px;border:none;cursor:pointer;}
+        .black{background:#000;color:#fff;}
+        .gray{background:#ddd;}
+
+        /* confetti */
+        .confetti span{
+          position:absolute;
+          width:8px;height:8px;
+          background:red;
+          animation:fall 3s linear infinite;
+        }
+        @keyframes fall{
+          0%{transform:translateY(-20px);opacity:1;}
+          100%{transform:translateY(200px);opacity:0;}
+        }
+
+        /* 주문정보 */
+        .order-box{width:80%;margin:40px auto;background:#fff;border-radius:10px;padding:20px;}
+        .order-grid{display:flex;justify-content:space-between;}
+        .product{display:flex;gap:10px;align-items:center;}
+        .product img{width:80px;height:80px;border-radius:8px;}
+
+        /* 기능 */
+        .features{width:80%;margin:20px auto;background:#fff;border-radius:10px;padding:20px;display:flex;justify-content:space-around;text-align:center;}
+        .feature i{width:40px;height:40px;margin-bottom:5px;}
+
+        footer{background:#fff;padding:30px;text-align:center;margin-top:40px;}
+
+        /* 하단 타이머 */
+        .bottom-bar{position:fixed;bottom:0;width:100%;background:#ff4d2d;color:#fff;display:flex;justify-content:center;align-items:center;gap:20px;padding:10px;}
+        .timer{display:flex;gap:10px;}
+        .circle{background:#000;padding:10px 14px;border-radius:50%;min-width:20px;text-align:center;}
+        .subscribe{background:#000;padding:10px 20px;cursor:pointer;}
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div>IA</div>
+    <input placeholder="배우고 싶은 걸 찾아보세요">
+    <div class="menu">
+        <i data-lucide="user"></i>
+        <i data-lucide="heart"></i>
+        <i data-lucide="shopping-cart"></i>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- confetti -->
+    <div class="confetti">
+        <span style="left:20%;animation-delay:0s"></span>
+        <span style="left:40%;animation-delay:1s"></span>
+        <span style="left:60%;animation-delay:0.5s"></span>
+        <span style="left:80%;animation-delay:1.5s"></span>
+    </div>
+
+    <!-- SVG 체크 -->
+    <svg class="check" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" stroke="red" stroke-width="4" fill="none"/>
+        <polyline points="30,50 45,65 70,35" stroke="red" stroke-width="4" fill="none"/>
+    </svg>
+
+    <div class="title">결제가 완료되었습니다!</div>
+    <div class="sub">수강을 시작할 준비가 완료되었어요.</div>
+
+    <div class="buttons">
+        <button class="black">나의 강의실로 이동</button>
+        <button class="gray">주문 내역 확인</button>
+    </div>
+</div>
+
+<div class="order-box">
+    <h3>주문 정보</h3>
+    <div class="order-grid">
+        <div>
+            <p>주문번호: 202405310000</p>
+            <p>주문일시: 2024.05.31</p>
+            <p>결제수단: 카드</p>
+            <p><b>239,000원</b></p>
+        </div>
+        <div class="product">
+            <img src="https://picsum.photos/100">
+            <div>강의 제목<br><b>239,000원</b></div>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature"><i data-lucide="play"></i><p>바로 수강하기</p></div>
+    <div class="feature"><i data-lucide="heart"></i><p>찜한 강의</p></div>
+    <div class="feature"><i data-lucide="ticket"></i><p>할인 혜택</p></div>
+    <div class="feature"><i data-lucide="users"></i><p>커뮤니티</p></div>
+</div>
+
+<footer>
+    INFO ARCHIVE<br>
+    010-0000-0000 | 0000@gmail.com
+</footer>
+
+<div class="bottom-bar">
+    <div>구독 할인 종료까지</div>
+    <div class="timer">
+        <div class="circle" id="h">00</div>
+        <div class="circle" id="m">00</div>
+        <div class="circle" id="s">00</div>
+    </div>
+    <div class="subscribe">구독 시작하기</div>
+</div>
+
+<script>
+    // lucide 아이콘
+    lucide.createIcons();
+
+    // 실제 타이머 (1시간 카운트다운)
+    let total = 3600;
+    setInterval(()=>{
+      if(total <= 0) return;
+      total--;
+      let h = Math.floor(total/3600);
+      let m = Math.floor((total%3600)/60);
+      let s = total%60;
+      document.getElementById('h').innerText = h;
+      document.getElementById('m').innerText = m;
+      document.getElementById('s').innerText = s;
+    },1000);
+</script>
+
+</body>
+</html>
