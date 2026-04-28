@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+    <style>
+        body { margin:0; font-family:'Pretendard'; background:#f8f9fb; }
+        header { display:flex; justify-content:space-between; padding:14px 24px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
+        .logo { font-weight:800; font-size:22px; }
+        .icons span { margin-left:15px; cursor:pointer; transition:.2s; }
+        .icons span:hover { transform:scale(1.2); }
+
+        /* 배너 슬라이드 */
+        .banner { margin:20px; border-radius:20px; overflow:hidden; position:relative; }
+        .slides { display:flex; transition:0.5s; }
+        .slide {
+          min-width:100%;
+          height:180px;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          background:linear-gradient(135deg,#d9ecff,#eef6ff);
+        }
+        .slide h1 { margin:0; }
+
+        /* 카테고리 */
+        .category { display:flex; justify-content:space-between; margin:20px; background:#fff; padding:15px; border-radius:15px; }
+        .category div { text-align:center; cursor:pointer; transition:.2s; }
+        .category div:hover { transform:translateY(-3px); color:#007bff; }
+
+        .section { margin:20px; }
+
+        /* 가로 스크롤 */
+        .cards {
+          display:flex;
+          gap:16px;
+          overflow-x:auto;
+          padding-bottom:10px;
+        }
+        .cards::-webkit-scrollbar { display:none; }
+
+        .card {
+          min-width:180px;
+          background:#fff;
+          border-radius:15px;
+          overflow:hidden;
+          box-shadow:0 4px 12px rgba(0,0,0,0.08);
+          transition:.3s;
+        }
+        .card:hover { transform:translateY(-8px) scale(1.03); box-shadow:0 10px 20px rgba(0,0,0,0.15); }
+        .card img { width:100%; height:120px; object-fit:cover; transition:.3s; }
+        .card:hover img { transform:scale(1.1); }
+
+        .card .info { padding:10px; }
+        .price { font-weight:bold; margin-top:5px; }
+        .rating { color:#ffaa00; font-size:12px; }
+        .tag { display:inline-block; background:#eee; padding:2px 6px; border-radius:5px; font-size:11px; margin-top:5px; }
+
+        /* 아카이브 */
+        .archive { padding:40px 20px; background:#f0f1f4; text-align:center; }
+        .archive-cards { display:flex; gap:14px; justify-content:center; }
+        .archive-card { width:130px; height:160px; background:#fff; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.08); transition:.3s; }
+        .archive-card:hover { transform:translateY(-6px); }
+
+        footer { background:#fff; padding:20px; text-align:center; }
+
+        .bottom-bar { position:fixed; bottom:0; width:100%; background:#ff4d2d; color:#fff; display:flex; justify-content:space-around; padding:12px 0; }
+        .bottom-bar div:hover { transform:scale(1.2); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">IA</div>
+    <div class="icons"><span>🔍</span><span>👤</span><span>🛒</span></div>
+</header>
+
+<!-- 배너 슬라이드 -->
+<div class="banner">
+    <div class="slides" id="slides">
+        <div class="slide"><h1>이런 날을 준비했지!</h1></div>
+        <div class="slide"><h1>지금 인기 강의🔥</h1></div>
+        <div class="slide"><h1>할인 이벤트 진행중!</h1></div>
+    </div>
+</div>
+
+<div class="category">
+    <div>💻<br>IT</div>
+    <div>🎨<br>디자인</div>
+    <div>📊<br>마케팅</div>
+    <div>🎵<br>음악</div>
+    <div>🌐<br>외국어</div>
+</div>
+
+<div class="section">
+    <h2>오늘의 TOP 10</h2>
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://picsum.photos/200?1">
+            <div class="info">
+                강의 제목<br>
+                <div class="rating">★★★★★</div>
+                <div class="price">₩29,000</div>
+                <div class="tag">BEST</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/200?2">
+            <div class="info">
+                강의 제목<br>
+                <div class="rating">★★★★☆</div>
+                <div class="price">₩19,000</div>
+                <div class="tag">NEW</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://picsum.photos/200?3">
+            <div class="info">
+                강의 제목<br>
+                <div class="rating">★★★★★</div>
+                <div class="price">₩39,000</div>
+                <div class="tag">HOT</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="archive">
+    <h2>ARCHIVE 강의 리얼 후기</h2>
+    <div class="archive-cards">
+        <div class="archive-card"></div>
+        <div class="archive-card"></div>
+        <div class="archive-card"></div>
+    </div>
+</div>
+
+<footer>
+    INFO ARCHIVE<br>
+    010-0000-0000 | 0000@gmail.com
+</footer>
+
+<div class="bottom-bar">
+    <div>홈</div>
+    <div>강의</div>
+    <div>검색</div>
+    <div>마이</div>
+</div>
+
+<script>
+    // 슬라이드 자동
+    let index = 0;
+    const slides = document.getElementById('slides');
+    setInterval(()=>{
+      index++;
+      if(index > 2) index = 0;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    },3000);
+</script>
+
+</body>
+</html>
