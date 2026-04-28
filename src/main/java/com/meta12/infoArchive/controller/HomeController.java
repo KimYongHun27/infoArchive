@@ -17,4 +17,12 @@ public class HomeController {
     public String list(){
         return "main";
     }
+
+    // 로그인 화면
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
+
+
