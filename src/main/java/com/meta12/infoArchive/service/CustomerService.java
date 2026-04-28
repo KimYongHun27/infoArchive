@@ -16,42 +16,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final CustomerInquiryRepository inquiryRepository;
+    private final CustomerInquiryRepository customerInquiryRepository;
     private final UserRepository userRepository;
 
-
-
     // 고객센터 문의 등록
-    public CustomerInquiry createInquiry(CustomerInquiryRequestDto dto) {
-        User user = userRepository.findById(dto.getUserId())
+    public CustomerInquiry createInquiry(CustomerInquiryRequestDto requestDto) {
+
+        User foundUser = userRepository.findById(requestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        CustomerInquiry inquiry = CustomerInquiry.builder()
-                .user(user)
-                .category(dto.getCategory())
-                .title(dto.getTitle())
-                .content(dto.getContent())
+        CustomerInquiry newInquiry = CustomerInquiry.builder()
+                .user(foundUser)
+                .category(requestDto.getCategory())
+                .title(requestDto.getTitle())
+                .content(requestDto.getContent())
                 .status(InquiryStatus.WAITING)
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return inquiryRepository.save(inquiry);
+        return customerInquiryRepository.save(newInquiry);
     }
 
     // 고객센터 문의 전체 조회
     public List<CustomerInquiry> getInquiries() {
-        return inquiryRepository.findAll();
+        return customerInquiryRepository.findAll();
     }
 
     // 고객센터 문의 답변 등록
-    public CustomerInquiry answerInquiry(Long id, String answer) {
-        CustomerInquiry inquiry = inquiryRepository.findById(id)
+    public CustomerInquiry answerInquiry(Long inquiryId, String answerContent) {
+
+        CustomerInquiry foundInquiry = customerInquiryRepository.findById(inquiryId)
                 .orElseThrow(() -> new IllegalArgumentException("문의를 찾을 수 없습니다."));
 
-        inquiry.setAnswer(answer);
-        inquiry.setStatus(InquiryStatus.ANSWERED);
-        inquiry.setAnsweredAt(LocalDateTime.now());
+        foundInquiry.setAnswer(answerContent);
+        foundInquiry.setStatus(InquiryStatus.ANSWERED);
+        foundInquiry.setAnsweredAt(LocalDateTime.now());
 
-        return inquiryRepository.save(inquiry);
+        return customerInquiryRepository.save(foundInquiry);
     }
 }

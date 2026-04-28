@@ -17,4 +17,11 @@ public class HomeController {
     public String list(){
         return "main";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "fragments/login";
+    }
 }
+
+

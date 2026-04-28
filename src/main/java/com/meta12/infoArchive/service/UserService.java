@@ -5,8 +5,8 @@ import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.meta12.infoArchive.dto.UserLoginRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,18 +16,13 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     // 회원 등록
     public User createUser(UserRequestDto requestDto) {
 
-        if (userRepository.existsByUsername(requestDto.getUsername())) {
-            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
-        }
-
         User newUser = User.builder()
                 .username(requestDto.getUsername())
-                .password(passwordEncoder.encode(requestDto.getPassword()))
+                .password(requestDto.getPassword())
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .phone(requestDto.getPhone())
@@ -75,5 +70,18 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
         userRepository.delete(foundUser);
+    }
+
+    // 회원 로그인
+    public User login(UserLoginRequestDto requestDto) {
+
+        User foundUser = userRepository.findByEmail(requestDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
+
+        if (!foundUser.getPassword().equals(requestDto.getPassword())) {
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
+        }
+
+        return foundUser;
     }
 }
