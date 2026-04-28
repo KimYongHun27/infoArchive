@@ -1,0 +1,125 @@
+body{
+  margin:0;
+  font-family:'Pretendard';
+  background:#f4f4f4;
+}
+
+header{
+  background:#000;
+  color:#fff;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+header input{
+  width:320px;
+  padding:10px;
+  border-radius:20px;
+  border:none;
+}
+
+.menu i{
+  margin-left:20px;
+  cursor:pointer;
+}
+
+/* 중앙 */
+.container{
+  text-align:center;
+  padding:60px 20px;
+  position:relative;
+}
+
+/* 체크 */
+.check{
+  width:100px;
+  height:100px;
+  stroke:red;
+  fill:none;
+  stroke-width:4;
+}
+
+.title{font-size:26px;font-weight:bold;}
+.sub{color:#777;margin-top:10px;}
+
+.buttons button{
+  padding:12px 20px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+}
+
+.black{background:#000;color:#fff;}
+.gray{background:#ddd;}
+
+/* confetti */
+.confetti span{
+  position:absolute;
+  width:8px;height:8px;
+  background:red;
+  animation:fall 3s infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-20px);}
+  100%{transform:translateY(200px);}
+}
+
+/* 주문 */
+.order-box{
+  width:80%;
+  margin:40px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+}
+
+.order-grid{
+  display:flex;
+  justify-content:space-between;
+}
+
+.product{
+  display:flex;
+  gap:10px;
+}
+
+.product img{
+  width:80px;
+  border-radius:8px;
+}
+
+/* 기능 */
+.features{
+  width:80%;
+  margin:20px auto;
+  background:#fff;
+  padding:20px;
+  display:flex;
+  justify-content:space-around;
+}
+
+.feature{
+  text-align:center;
+}
+
+/* 하단 */
+.bottom-bar{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#ff4d2d;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding:10px;
+}
+
+.circle{
+  background:#000;
+  padding:10px;
+  border-radius:50%;
+}

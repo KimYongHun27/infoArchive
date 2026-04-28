@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>InfoArchive</title>
+    <link rel="stylesheet" th:href="@{/css/payment-complete.css}">
+</head>
+<body>
+
+<header>
+    <div>IA</div>
+    <input placeholder="배우고 싶은 걸 찾아보세요">
+    <div class="menu">
+        <i data-lucide="user"></i>
+        <i data-lucide="heart"></i>
+        <i data-lucide="shopping-cart"></i>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="confetti">
+        <span style="left:20%"></span>
+        <span style="left:40%"></span>
+        <span style="left:60%"></span>
+        <span style="left:80%"></span>
+    </div>
+
+    <svg class="check" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40"/>
+        <polyline points="30,50 45,65 70,35"/>
+    </svg>
+
+    <div class="title">결제가 완료되었습니다!</div>
+    <div class="sub">수강을 시작할 준비가 완료되었어요.</div>
+
+    <div class="buttons">
+        <button class="black">나의 강의실로 이동</button>
+        <button class="gray">주문 내역 확인</button>
+    </div>
+
+</div>
+
+<div class="order-box">
+    <h3>주문 정보</h3>
+    <div class="order-grid">
+        <div>
+            <p>주문번호: 202405310000</p>
+            <p>주문일시: 2024.05.31</p>
+            <p>결제수단: 카드</p>
+            <p><b>239,000원</b></p>
+        </div>
+        <div class="product">
+            <img src="https://picsum.photos/100">
+            <div>강의 제목<br><b>239,000원</b></div>
+        </div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature"><i data-lucide="play"></i><p>바로 수강하기</p></div>
+    <div class="feature"><i data-lucide="heart"></i><p>찜한 강의</p></div>
+    <div class="feature"><i data-lucide="ticket"></i><p>할인 혜택</p></div>
+    <div class="feature"><i data-lucide="users"></i><p>커뮤니티</p></div>
+</div>
+
+<footer>
+    INFO ARCHIVE<br>
+    010-0000-0000 | 0000@gmail.com
+</footer>
+
+<div class="bottom-bar">
+    <div>구독 할인 종료까지</div>
+    <div class="timer">
+        <div class="circle" id="h">00</div>
+        <div class="circle" id="m">00</div>
+        <div class="circle" id="s">00</div>
+    </div>
+    <div class="subscribe">구독 시작하기</div>
+</div>
+
+<script src="js/payment-complete.js"></script>
+</body>
+</html>
