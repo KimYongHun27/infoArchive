@@ -17,8 +17,8 @@ public class CustomerController {
 
     // 고객센터 문의 등록
     @PostMapping("/inquiries")
-    public CustomerInquiry createInquiry(@RequestBody CustomerInquiryRequestDto dto) {
-        return customerService.createInquiry(dto);
+    public CustomerInquiry createInquiry(@RequestBody CustomerInquiryRequestDto requestDto) {
+        return customerService.createInquiry(requestDto);
     }
 
     // 고객센터 문의 전체 조회
@@ -28,8 +28,11 @@ public class CustomerController {
     }
 
     // 고객센터 문의 답변 등록
-    @PutMapping("/inquiries/{id}/answer")
-    public CustomerInquiry answerInquiry(@PathVariable Long id, @RequestParam String answer) {
-        return customerService.answerInquiry(id, answer);
+    @PutMapping("/inquiries/{inquiryId}/answer")
+    public CustomerInquiry answerInquiry(
+            @PathVariable Long inquiryId,
+            @RequestParam String answerContent
+    ) {
+        return customerService.answerInquiry(inquiryId, answerContent);
     }
 }

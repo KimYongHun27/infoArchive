@@ -5,7 +5,6 @@ import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,18 +15,13 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     // 회원 등록
     public User createUser(UserRequestDto requestDto) {
 
-        if (userRepository.existsByUsername(requestDto.getUsername())) {
-            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
-        }
-
         User newUser = User.builder()
                 .username(requestDto.getUsername())
-                .password(passwordEncoder.encode(requestDto.getPassword()))
+                .password(requestDto.getPassword())
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .phone(requestDto.getPhone())

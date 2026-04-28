@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class CustomerInquiryRequestDto {
 
-    private Long userId;        // 문의 작성자 회원 ID
-    private String category;    // 문의 카테고리
-    private String title;       // 문의 제목
-    private String content;     // 문의 내용
+    private Long userId;       // 문의 작성자 회원 ID
+    private String category;   // 문의 카테고리
+    private String title;      // 문의 제목
+    private String content;    // 문의 내용
 }

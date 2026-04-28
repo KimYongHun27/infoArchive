@@ -17,8 +17,8 @@ public class UserController {
 
     // 회원 등록
     @PostMapping
-    public User createUser(@RequestBody UserRequestDto dto) {
-        return userService.createUser(dto);
+    public User createUser(@RequestBody UserRequestDto requestDto) {
+        return userService.createUser(requestDto);
     }
 
     // 회원 전체 조회
@@ -28,8 +28,21 @@ public class UserController {
     }
 
     // 회원 단건 조회
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable Long userId) {
+        return userService.getUser(userId);
+    }
+
+    // 회원 정보 수정
+    @PutMapping("/{userId}")
+    public User updateUser(@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
+        return userService.updateUser(userId, requestDto);
+    }
+
+    // 회원 삭제
+    @DeleteMapping("/{userId}")
+    public String deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return "회원 삭제 완료";
     }
 }
