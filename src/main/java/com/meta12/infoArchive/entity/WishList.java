@@ -1,9 +1,6 @@
 package com.meta12.infoArchive.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +17,10 @@ public class WishList {
     //최근 담은 순서 정렬용
     private LocalDateTime createdAt;
 
-    //user 1 : list m relation
-    //user
+    @ManyToOne
+    private User user;
 
-    //Lecture 강의
+    //강의 정보
+//    @ManyToOne
+//    private Lecture lecture;
 }
