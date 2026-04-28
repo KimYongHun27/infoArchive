@@ -1,84 +1,335 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoArchive</title>
+
     <link rel="stylesheet" th:href="@{/css/payment-complete.css}">
+
+    <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
+<!-- 헤더 -->
 <header>
-    <div>IA</div>
-    <input placeholder="배우고 싶은 걸 찾아보세요">
-    <div class="menu">
-        <i data-lucide="user"></i>
-        <i data-lucide="heart"></i>
-        <i data-lucide="shopping-cart"></i>
+
+    <div class="header-top">
+
+        <div class="logo-search">
+
+            <div class="logo">
+                IA
+            </div>
+
+            <!-- 검색창 -->
+            <div class="search-box">
+
+                <i data-lucide="search"></i>
+
+                <input type="text" placeholder="어떤 분야를 찾으시나요?">
+
+            </div>
+
+        </div>
+
+
+        <div class="top-icons">
+
+            <div class="icon-item">
+                <i data-lucide="user"></i>
+                <span>나의 강의실</span>
+            </div>
+
+            <div class="icon-item">
+                <i data-lucide="heart"></i>
+                <span>찜한 강의</span>
+            </div>
+
+            <div class="icon-item">
+                <i data-lucide="shopping-cart"></i>
+                <span>장바구니</span>
+            </div>
+
+        </div>
+
     </div>
+
+
+    <nav class="header-menu">
+
+        <a href="#">카테고리</a>
+        <a href="#">TOP 10</a>
+        <a href="#">챌린지</a>
+        <a href="#">커뮤니티</a>
+        <a href="#">FAQ</a>
+
+    </nav>
+
 </header>
 
-<div class="container">
 
-    <div class="confetti">
-        <span style="left:20%"></span>
-        <span style="left:40%"></span>
-        <span style="left:60%"></span>
-        <span style="left:80%"></span>
-    </div>
+<!-- 메인 -->
+<main>
 
-    <svg class="check" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40"/>
-        <polyline points="30,50 45,65 70,35"/>
-    </svg>
+    <!-- 체크 -->
+    <div class="check-wrap">
 
-    <div class="title">결제가 완료되었습니다!</div>
-    <div class="sub">수강을 시작할 준비가 완료되었어요.</div>
-
-    <div class="buttons">
-        <button class="black">나의 강의실로 이동</button>
-        <button class="gray">주문 내역 확인</button>
-    </div>
-
-</div>
-
-<div class="order-box">
-    <h3>주문 정보</h3>
-    <div class="order-grid">
-        <div>
-            <p>주문번호: 202405310000</p>
-            <p>주문일시: 2024.05.31</p>
-            <p>결제수단: 카드</p>
-            <p><b>239,000원</b></p>
+        <div class="confetti">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <div class="product">
-            <img src="https://picsum.photos/100">
-            <div>강의 제목<br><b>239,000원</b></div>
+
+        <svg class="check-icon" viewBox="0 0 120 120">
+
+            <circle cx="60" cy="60" r="50"></circle>
+
+            <polyline points="38,63 54,78 83,45"></polyline>
+
+        </svg>
+
+    </div>
+
+
+    <h1>결제가 완료되었습니다!</h1>
+
+    <p class="sub-text">
+        수강을 시작할 준비가 완료되었어요.
+    </p>
+
+
+    <!-- 버튼 -->
+    <div class="button-group">
+
+        <button class="black-btn">
+            나의 강의실로 이동
+        </button>
+
+        <button class="white-btn">
+            주문 내역 확인
+        </button>
+
+    </div>
+
+
+    <!-- 주문 정보 -->
+    <section class="order-box">
+
+        <div class="order-left">
+
+            <h3>주문 정보</h3>
+
+            <div class="info-row">
+                <span>주문번호</span>
+                <p>2024053100001234</p>
+            </div>
+
+            <div class="info-row">
+                <span>주문일시</span>
+                <p>2024.05.31 14:30:25</p>
+            </div>
+
+            <div class="info-row">
+                <span>결제수단</span>
+                <p>신용카드</p>
+            </div>
+
+            <div class="info-row">
+                <span>결제금액</span>
+                <strong>239,000원</strong>
+            </div>
+
         </div>
+
+
+        <div class="order-right">
+
+            <img src="https://picsum.photos/110/110" alt="강의 이미지">
+
+            <div>
+
+                <div class="lecture-title">
+                    엔지에서 태어나는<br>
+                    상상소녀 AtoZ
+                </div>
+
+                <div class="lecture-sub">
+                    일러스트레이터 이성
+                </div>
+
+                <div class="lecture-price">
+                    239,000원
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 더 즐기는 방법 -->
+    <section class="enjoy-box">
+
+        <h2>INFO ARCHIVE를 더 즐기는 방법</h2>
+
+        <div class="enjoy-grid">
+
+            <div class="enjoy-item">
+
+                <i data-lucide="play-circle"></i>
+
+                <h4>바로 수강하기</h4>
+
+                <p>
+                    나의 강의실에서<br>
+                    강의를 수강할 수 있어요
+                </p>
+
+            </div>
+
+            <div class="enjoy-item">
+
+                <i data-lucide="heart"></i>
+
+                <h4>찜한 강의 보기</h4>
+
+                <p>
+                    관심 강의를 찜하고<br>
+                    할인 소식을 받아보세요
+                </p>
+
+            </div>
+
+            <div class="enjoy-item">
+
+                <i data-lucide="ticket"></i>
+
+                <h4>다른 강의 할인받기</h4>
+
+                <p>
+                    다양한 쿠폰과 이벤트로<br>
+                    더 저렴하게 수강해보세요
+                </p>
+
+            </div>
+
+            <div class="enjoy-item">
+
+                <i data-lucide="users"></i>
+
+                <h4>커뮤니티 참여하기</h4>
+
+                <p>
+                    수강생들과 함께<br>
+                    이야기를 나눠보세요
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- footer -->
+
+    <footer>
+
+        <div class="footer-logo">
+            IA INFO ARCHIVE
+        </div>
+
+        <div class="footer-menu">
+            공지사항 ｜ 강사신청 ｜ FAQ ｜ 이용약관 ｜ 개인정보처리방침 ｜ 환불규정
+        </div>
+
+
+        <!-- 아래 줄 -->
+        <div class="footer-bottom">
+
+            <!-- 왼쪽 -->
+            <div class="footer-left">
+
+                <div class="customer-info">
+                    고객센터 · 평일 10:00 ~ 18:00 ｜ 점심 13:00 ~ 14:00
+                </div>
+
+                <!-- 번호 + SNS 같이 -->
+                <div class="footer-contact-row">
+
+                    <div class="footer-number">
+                        010-0000-0000 ｜ 0000@gmail.com
+                    </div>
+
+                    <!-- SNS -->
+                    <div class="sns-icons">
+
+                        <div class="sns red"></div>
+                        <div class="sns pink"></div>
+                        <div class="sns blue"></div>
+                        <div class="sns green"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</main>
+
+
+<!-- 하단 고정 -->
+<div class="bottom-fixed">
+
+    <div class="bottom-left">
+        <span>구독 할인 종료까지</span>
+        <small>남은 시간</small>
     </div>
-</div>
 
-<div class="features">
-    <div class="feature"><i data-lucide="play"></i><p>바로 수강하기</p></div>
-    <div class="feature"><i data-lucide="heart"></i><p>찜한 강의</p></div>
-    <div class="feature"><i data-lucide="ticket"></i><p>할인 혜택</p></div>
-    <div class="feature"><i data-lucide="users"></i><p>커뮤니티</p></div>
-</div>
 
-<footer>
-    INFO ARCHIVE<br>
-    010-0000-0000 | 0000@gmail.com
-</footer>
+    <div class="timer-wrap">
 
-<div class="bottom-bar">
-    <div>구독 할인 종료까지</div>
-    <div class="timer">
-        <div class="circle" id="h">00</div>
-        <div class="circle" id="m">00</div>
-        <div class="circle" id="s">00</div>
+        <div class="timer-box">
+            <span id="day">6</span>
+            <small>일</small>
+        </div>
+
+        <div class="timer-box">
+            <span id="hour">12</span>
+            <small>시</small>
+        </div>
+
+        <div class="timer-box">
+            <span id="min">4</span>
+            <small>분</small>
+        </div>
+
+        <div class="timer-box">
+            <span id="sec">1</span>
+            <small>초</small>
+        </div>
+
     </div>
-    <div class="subscribe">구독 시작하기</div>
+
+    <button class="subscribe-btn">
+        구독 시작하기
+    </button>
+
 </div>
 
-<script src="js/payment-complete.js"></script>
+<script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>
