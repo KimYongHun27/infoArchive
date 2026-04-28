@@ -1,0 +1,117 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style-myhall.css" />
+  </head>
+  <style>
+      *{
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+      }
+      .best {
+        font-size: 32px;
+        border: 2px solid gray;
+        border-radius: 15px;
+        width: 500px;
+        height: 500px;
+        text-align: center;
+        line-height: 1.5;
+        padding: 20px;
+        background-color: aliceblue;
+      }
+
+      .best-title {
+        font-size: smaller;
+        padding: 50px;
+      }
+
+      .best-story {
+        font-size: smaller;
+        padding-bottom: 10px;
+        
+      }
+
+      .review1 {
+        padding-bottom: 10px;
+      }
+
+      .myreview {
+        padding-bottom: 80px;
+        font-size: larger;
+      }
+    </style>
+  <body>
+    <div class="page">
+      <!-- 헤더 -->
+      <header class="header">
+        <div class="search">
+          <input
+            type="search"
+            placeholder="어떤 강의를 찾으시나요?"
+            name="search"
+            style="border: none"
+          />
+        </div>
+        <div class="category1">
+          <a href="#" class="category1">☰ 카테고리</a>
+          <a href="#" class="category1">TOP 10</a>
+          <a href="#" class="category1">멤버십</a>
+          <a href="#" class="category1">커뮤니티</a>
+          <a href="#" class="category1">FAQ</a>
+        </div>
+
+        <div class="category2">
+          <a href="#" class="category2">나의 강의장</a>
+          <a href="#" class="category2">찜한 강의</a>
+          <a href="#" class="category2">장바구니</a>
+        </div>
+      </header>
+
+      <!-- 메인 -->
+      <div class="main">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+          <body>
+            <div class="best">베스트 리뷰
+                <div class="best-title"> 리뷰 제목</div>
+                <div class="best-story"> 리뷰 내용</div>
+                <img src="https://picsum.photos/id/100/300/200" class="review1"/>
+            </div>
+            <div class="myreview">리뷰 작성하기
+              <div><input type="text" placeholder="리뷰 제목" name="review-name"></div>
+              <div><textarea name="memo" cols="100" rows="5"></textarea></div>
+              <input type="submit" value="작성하기">
+            </div>
+          </body>
+        </aside>
+      </div>
+      <footer class="post-footer">
+        <div class="tags">
+          <div class="undermark">INFO ARCHIVE</div>
+          <div class="under-category">
+            <span class="under1">공지사항</span>
+            <span class="under1">강사신청</span>
+            <span class="under1">FAQ</span>
+            <span class="under1">이용약관</span>
+            <span class="under1">개인정보처리방침</span>
+            <span class="under1">환불규정</span>
+          </div>
+          <div class="under-ask">
+            <span class="senter">고객센터</span>
+            <span class="time">평일: 10:00 ~ 18:00 [점심: 12:00 - 13:00]</span
+            ><br /><br />
+          </div>
+          <div class="ask-adress">
+            <span class="under3">010-0000-0000</span>
+            <span class="under3">0000@gmail.com</span>
+          </div>
+        </div>
+      </footer>
+      <footer class="advert">구독시작하기</footer>
+    </div>
+  </body>
+</html>
