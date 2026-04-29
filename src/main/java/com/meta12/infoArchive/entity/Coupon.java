@@ -15,10 +15,13 @@ public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
     //coupon code 쿠폰 코드
     private String CouponCode;
+
     //discountAmount 할인 금액
     private int discountAmount;
+
     //minOrderAmount 최소 주문 금액
     private int minOrderAmount;
 }

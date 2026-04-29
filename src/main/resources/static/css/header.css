@@ -99,13 +99,7 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.header-icons a img {
-  transition: 0.2s;
-}
 
-.header-icons a:hover img {
-  filter: brightness(0) saturate(100%) invert(41%) sepia(99%) saturate(2111%) hue-rotate(343deg) brightness(102%) contrast(103%);
-}
 
 .header-icons span {
   display: block;
