@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <title>로그인</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
 <body>
-
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
 <section class="login-page">
   <div class="login-card">
 
@@ -88,6 +93,12 @@
     </div>
   </div>
 </section>
+</main>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>
