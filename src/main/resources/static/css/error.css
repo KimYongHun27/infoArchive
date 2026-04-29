@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  color: #1f2937;
+  background: #fff;
+}
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.error-box {
+  width: 520px;
+  text-align: center;
+}
+
+.error-box h1 {
+  margin: 0;
+  font-size: 130px;
+  line-height: 1;
+  font-weight: 900;
+  background: linear-gradient(90deg, #79a9ff, #b77cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-box h2 {
+  margin: 20px 0 18px;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.error-box p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #6b7280;
+}
+
+.error-illust {
+  margin: 40px auto 38px;
+}
+
+.error-illust img {
+  width: 420px;
+  display: block;
+  margin: 0 auto;
+}
+
+.home-btn {
+  width: 230px;
+  height: 56px;
+  margin: 0 auto 22px;
+  border-radius: 10px;
+  background: #2f80ed;
+  color: #fff;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 800;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #1f6fd6;
+}
+
+.back-btn {
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  color: #2f80ed;
+}
