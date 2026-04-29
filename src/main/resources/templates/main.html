@@ -4,17 +4,198 @@
   <meta charset="UTF-8">
   <title>InfoArchive</title>
   <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
 
 <main>
-  메인 내용
+
+  <!-- 배너 -->
+  <section class="main-banner">
+    <div class="banner-slider">
+      <div class="banner-track">
+        <img th:src="@{/img/main/banner.png}" alt="메인 배너 1">
+        <img th:src="@{/img/main/banner2.png}" alt="메인 배너 2">
+        <img th:src="@{/img/main/banner3.png}" alt="메인 배너 3">
+      </div>
+
+      <button class="banner-btn prev" type="button">‹</button>
+      <button class="banner-btn next" type="button">›</button>
+
+      <div class="banner-dots">
+        <button class="active" type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 아이콘 카테고리 -->
+  <section class="main-category">
+    <a href="#"><img th:src="@{/img/main/cat01.png}"><span>드로잉</span></a>
+    <a href="#"><img th:src="@{/img/main/cat02.png}"><span>공예</span></a>
+    <a href="#"><img th:src="@{/img/main/cat03.png}"><span>금융 · 재테크</span></a>
+    <a href="#"><img th:src="@{/img/main/cat04.png}"><span>디자인</span></a>
+    <a href="#"><img th:src="@{/img/main/cat05.png}"><span>사진 · 영상</span></a>
+    <a href="#"><img th:src="@{/img/main/cat06.png}"><span>운동</span></a>
+    <a href="#"><img th:src="@{/img/main/cat07.png}"><span>음악</span></a>
+    <a href="#"><img th:src="@{/img/main/cat08.png}"><span>영상/3D</span></a>
+    <a href="#"><img th:src="@{/img/main/cat09.png}"><span>베이킹 · 요리</span></a>
+    <a href="#"><img th:src="@{/img/main/cat10.png}"><span>제2 외국어</span></a>
+    <a href="#"><img th:src="@{/img/main/cat11.png}"><span>프로그래밍</span></a>
+  </section>
+
+  <!-- TOP 10 -->
+  <section class="top-section">
+    <div class="section-title-row">
+      <h2>오늘의 TOP 10</h2>
+      <div class="arrow-box">
+        <button>‹</button>
+        <button>›</button>
+      </div>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course01.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">06.30 오픈</span>
+          <span>디자인</span>
+        </div>
+        <h3>혁신을 디자인하는 ‘디자인 씽킹’</h3>
+        <p>TED강사 김선생</p>
+      </div>
+
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course02.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">수강가능</span>
+          <span>미용</span>
+        </div>
+        <h3>얼굴으로 끝내는 메이크업 완전정복</h3>
+        <p>지니뷰티아카데미</p>
+      </div>
+
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course03.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">수강가능</span>
+          <span>드로잉</span>
+        </div>
+        <h3>엣지에서 태어나는 삽화소설 AtoZ</h3>
+        <p>일러스트레이터 예성</p>
+      </div>
+
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course04.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">06.30 오픈</span>
+          <span>AI</span>
+        </div>
+        <h3>제조업 혁신의 핵심 동력 ‘AI’</h3>
+        <p>민지아I 최선생</p>
+      </div>
+
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course05.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">수강가능</span>
+          <span>3D</span>
+        </div>
+        <h3>쉽게 익히는 블렌더 3D 기초 트레이닝</h3>
+        <p>3D디자이너 루미</p>
+      </div>
+
+      <div class="course-card">
+        <div class="thumb">
+          <img th:src="@{/img/main/course06.png}">
+          <button class="heart">♡</button>
+        </div>
+        <div class="tags">
+          <span class="red">수강가능</span>
+          <span>클래식</span>
+        </div>
+        <h3>11만이 사랑하는 집에서 배우는 클래식</h3>
+        <p>린다쌤</p>
+      </div>
+    </div>
+
+    <a href="#" class="more-link">자세히보기 →</a>
+  </section>
+
+  <!-- 후기 -->
+  <section class="review-section">
+    <h2>ARCHIVE 강의 리얼 후기</h2>
+    <p>실습에서 직접 느낀 학생들의 생생한 후기,<br>지금 바로 만나보세요.</p>
+
+    <div class="archive-bg">ARCHIVE</div>
+
+    <div class="review-list">
+      <div class="review-card side">
+        <div class="review-img"></div>
+        <h3>학생 B</h3>
+        <p>이해가 쏙쏙 되었어요!</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-img"></div>
+        <h3>학생 B</h3>
+        <p>이해가 쏙쏙 되었어요!</p>
+      </div>
+
+      <div class="review-card active">
+        <div class="review-img"></div>
+        <h3>학생 A</h3>
+        <p>애니메이션에 처음 입문하는 사람으로서 이 수업의 커리큘럼을 통해 애니메이션의 생동감을 키우고, 실무적인 도움도 많이 얻을 수 있었습니다.</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-img"></div>
+        <h3>학생 B</h3>
+        <p>이해가 쏙쏙 되었어요!</p>
+      </div>
+
+      <div class="review-card side">
+        <div class="review-img"></div>
+        <h3>학생 B</h3>
+        <p>이해가 쏙쏙 되었어요!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 강사신청 -->
+  <section class="instructor-section">
+    <h2>강사신청하기</h2>
+    <a href="#">
+      <img th:src="@{/img/main/instructor-banner.png}" alt="강사신청 배너">
+    </a>
+  </section>
+
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 </body>
 </html>
