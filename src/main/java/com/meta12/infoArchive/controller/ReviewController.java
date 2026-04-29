@@ -18,11 +18,11 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/review/front10")
+    @GetMapping("/review/taking-course")
     public String list(
 
     ){
-        return "review/front10";
+        return "review/taking-course";
     }
     @GetMapping("/review/review")
     public String review(){

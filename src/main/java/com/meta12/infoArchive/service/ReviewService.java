@@ -6,6 +6,7 @@ import com.meta12.infoArchive.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,8 @@ public class ReviewService {
         Review review = new Review();
         review.setContent(reviewDto.getContent());
         review.setAuthor(reviewDto.getAuthor());
+        review.setNickname(reviewDto.getNickname());
+        review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
     }
@@ -34,6 +37,8 @@ public class ReviewService {
         Review review = new Review();
         review.setContent(reviewDto.getContent());
         review.setAuthor(reviewDto.getAuthor());
+        review.setNickname(reviewDto.getNickname());
+        review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
     }
@@ -42,6 +47,8 @@ public class ReviewService {
         Review review = new Review();
         review.setContent(reviewDto.getContent());
         review.setAuthor(reviewDto.getAuthor());
+        review.setNickname(reviewDto.getNickname());
+        review.setCreateDate(LocalDateTime.now());
         reviewRepository.delete(review);
         return review;
     }

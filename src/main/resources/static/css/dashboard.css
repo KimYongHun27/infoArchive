@@ -17,16 +17,6 @@ body {
   height: 100%;
 }
 
-/* 헤더 */
-.header {
-  display: flex;
-  height: 150px;
-  flex-direction: column;
-  padding: 35px 30px;
-  background-color: #000000;
-  color: white;
-}
-
 .search {
   width: 500px;
   padding: 20px;
@@ -217,64 +207,4 @@ body {
   display: inline;
   background-color: #e1b12c;
   padding: 20px;
-}
-
-.post-footer {
-  background-color: rgb(243, 243, 243);
-  padding: 15px;
-  /* margin-top: 40px; */
-}
-
-.tags {
-  padding: 40px 150px;
-  display: flex;
-  flex-direction: column;
-}
-
-.undermark {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.under-category {
-  display: flex;
-  padding: 30px 0px;
-  gap: 20px;
-  font-size: 14px;
-  color: #777;
-}
-
-.under-category span::after {
-  content: " | ";
-  margin-left: 20px;
-}
-
-.under-ask {
-  .senter {
-    color: rgb(0, 0, 0);
-  }
-
-  .time {
-    color: rgb(161, 161, 161);
-    padding-left: 10px;
-    font-size: 15px;
-  }
-}
-
-.ask-adress {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.ask-adress span::after {
-  content: " | ";
-  margin: 10px;
-}
-
-.advert {
-  display: flex;
-  background-color: rgb(226, 61, 20);
-  padding: 15px;
-  text-align: center;
-  justify-content: center;
 }
