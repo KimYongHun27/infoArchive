@@ -1,0 +1,352 @@
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+.top10-page {
+  width: 1180px;
+  margin: 0 auto;
+  padding: 35px 0 70px;
+}
+
+.top10-hero h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.top10-hero p {
+  margin: 12px 0 35px;
+  color: #555;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* 카테고리 */
+.top10-category {
+  height: 105px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.top10-category a {
+  position: relative;
+  min-width: 70px;
+  height: 100%;
+  color: #222;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.top10-category img {
+
+  object-fit: contain;
+}
+.top10-category img,
+.icon-all svg {
+  width: 55px;
+  height: 55px;
+}
+
+.top10-category a.active {
+  color: #ff1733;
+}
+
+.top10-category a.active::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 3px;
+  background: #ff1733;
+}
+.icon-all svg rect {
+  transition: 0.2s;
+}
+
+.top10-category a:hover svg rect {
+  fill: currentColor;
+}
+
+/* section 공통 */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.section-head a {
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 랭킹 카드 */
+.rank-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+  margin-bottom: 34px;
+}
+
+.rank-sub-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 34px;
+}
+
+.rank-card {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.rank-card.big {
+  height: 420px;
+}
+
+.rank-card.small {
+  height: 340px;
+}
+
+.rank-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.rank-card.small img {
+  height: 145px;
+}
+
+.rank-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 58px;
+  z-index: 2;
+  border-radius: 0 0 12px 0;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-badge.red {
+  background: #ff1733;
+}
+
+.rank-badge.gray {
+  background: rgba(0,0,0,0.35);
+  color: #222;
+}
+
+.rank-info {
+  padding: 16px 18px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.tag.purple { color: #8b5cf6; background: #f3edff; border: 1px solid #c4a5ff; }
+.tag.violet { color: #7c3aed; background: #f5f0ff; border: 1px solid #bfa3ff; }
+.tag.blue { color: #2785ff; background: #eef7ff; border: 1px solid #9bcaff; }
+.tag.orange { color: #ff8a00; background: #fff4e5; border: 1px solid #ffc46b; }
+.tag.green { color: #00a36c; background: #effff8; border: 1px solid #8ee0bd; }
+
+.rank-info h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.rank-info p {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #777;
+}
+
+.meta {
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.meta span {
+  margin-left: 18px;
+  color: #777;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price del {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.price b {
+  color: #ff1733;
+  font-size: 14px;
+}
+
+.price strong,
+.only-price {
+  font-size: 20px;
+  font-weight: 900;
+  color: #111;
+}
+
+.rank-card.small .rank-info h3 {
+  font-size: 14px;
+}
+
+.rank-card.small .meta {
+  font-size: 12px;
+}
+
+.rank-card.small .only-price {
+  display: block;
+  font-size: 18px;
+}
+
+/* 카테고리별 인기 */
+.category-rank-section {
+  margin-top: 70px;
+}
+
+.mini-rank-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.mini-box {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 18px;
+  background: #fff;
+}
+
+.mini-box h3 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mini-box h3 a {
+  color: #999;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mini-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mini-item img {
+  width: 55px;
+  height: 55px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mini-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.mini-item b {
+  margin-right: 6px;
+}
+
+.mini-item span {
+  color: #777;
+  font-size: 12px;
+}
+
+/* 멤버십 배너 */
+.membership-banner {
+  margin-top: 42px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  display: block;
+}
+
+.membership-banner h2 {
+  margin: 0 0 12px;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.membership-banner p {
+  margin: 0 0 22px;
+  font-size: 15px;
+  color: #555;
+}
+
+.membership-banner a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1208px;
+  height: 342px;
+  background: #ff1733;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.membership-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

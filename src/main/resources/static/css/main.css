@@ -177,7 +177,9 @@ main {
 }
 
 .course-card {
-  width: 100%;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .thumb {

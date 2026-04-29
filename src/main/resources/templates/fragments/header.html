@@ -18,20 +18,33 @@
     </div>
 
     <div class="header-icons">
-      <a th:href="@{/mypage}">
-        <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
-        <p>나의 강의실</p>
-      </a>
 
-      <a th:href="@{/wishlist}">
-        <span><img th:src="@{/img/header/12.png}" width="40" alt=""></span>
-        <p>찜한 강의</p>
-      </a>
+      <!-- 로그인 전 -->
+      <div class="header-icons before-login" th:if="${session.loginUser == null}">
+        <a th:href="@{/login}">
+          <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
+          <p>로그인</p>
+        </a>
+      </div>
 
-      <a th:href="@{/cart}">
-        <span><img th:src="@{/img/header/13.png}" width="40" alt=""></span>
-        <p>장바구니</p>
-      </a>
+      <!-- 로그인 후 -->
+      <div class="header-icons after-login" th:if="${session.loginUser != null}">
+        <a th:href="@{/mypage}">
+          <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
+          <p>마이페이지</p>
+        </a>
+
+        <a th:href="@{/wishlist}">
+          <span><img th:src="@{/img/header/12.png}" width="40" alt=""></span>
+          <p>찜한 강의</p>
+        </a>
+
+        <a th:href="@{/cart}">
+          <span><img th:src="@{/img/header/13.png}" width="40" alt=""></span>
+          <p>장바구니</p>
+        </a>
+      </div>
+
     </div>
   </div>
 
@@ -153,4 +166,6 @@
 </header>
 
 </body>
+
+
 </html>
