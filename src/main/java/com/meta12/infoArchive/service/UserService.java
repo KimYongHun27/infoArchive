@@ -17,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+
     // 회원 등록
     public User createUser(UserRequestDto requestDto) {
 
@@ -79,6 +80,19 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
 
         if (!foundUser.getPassword().equals(requestDto.getPassword())) {
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
+        }
+
+        return foundUser;
+    }
+
+    // 이메일 로그인 확인
+    public User loginByEmail(String email, String password) {
+
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
+
+        if (!foundUser.getPassword().equals(password)) {
             throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
         }
 

@@ -3,6 +3,16 @@
        padding: 0;
        box-sizing: border-box;
       }
+
+      .content {
+        flex: 1;
+        padding: 20px;
+        background-color: #f5f6fa;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
       .best {
         font-size: 32px;
         border: 2px solid gray;

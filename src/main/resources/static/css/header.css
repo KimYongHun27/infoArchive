@@ -70,11 +70,20 @@ body {
 
 .header-icons {
   margin-left: auto;
-  width: 360px;
   height: 80px;
   display: flex;
   align-items: stretch;
   gap: 0;
+}
+
+/* 로그인 전: 오른쪽 끝에 로그인 1개만 */
+.header-icons.before-login {
+  width: 120px;
+}
+
+/* 로그인 후: 3개 영역 */
+.header-icons.after-login {
+  width: 360px;
 }
 
 .header-icons a {
@@ -87,12 +96,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.header-icons a:last-child {
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
-}
+
 
 .header-icons a:hover {
   color: #ff4b35;

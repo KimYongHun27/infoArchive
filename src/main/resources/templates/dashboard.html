@@ -3,19 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>dashboard</title>
-    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" th:href="@{/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
   </head>
   <body>
+  <div th:replace="~{fragments/header :: header}"></div>
+
     <div class="page">
-      <!-- 헤더 -->
-      <header class="header">
-        <div class="search">
-          <input
-            type="search"
-            placeholder="어떤 강의를 찾으시나요?"
-            name="search"
-            style="border: none"
-          />
+
         </div>
         <div class="category1">
           <a href="#" class="category1">☰ 카테고리</a>
@@ -71,29 +69,13 @@
           </div>
         </section>
       </div>
-      <footer class="post-footer">
-        <div class="tags">
-          <div class="undermark">INFO ARCHIVE</div>
-          <div class="under-category">
-            <span class="under1">공지사항</span>
-            <span class="under1">강사신청</span>
-            <span class="under1">FAQ</span>
-            <span class="under1">이용약관</span>
-            <span class="under1">개인정보처리방침</span>
-            <span class="under1">환불규정</span>
-          </div>
-          <div class="under-ask">
-            <span class="senter">고객센터</span>
-            <span class="time">평일: 10:00 ~ 18:00 [점심: 12:00 - 13:00]</span
-            ><br /><br />
-          </div>
-          <div class="ask-adress">
-            <span class="under3">010-0000-0000</span>
-            <span class="under3">0000@gmail.com</span>
-          </div>
-        </div>
-      </footer>
-      <footer class="advert">구독시작하기</footer>
+
     </div>
+
+  <div th:replace="~{fragments/footer :: footer}"></div>
+  <div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+  <script th:src="@{/js/main.js}"></script>
+  <script th:src="@{/js/subscribe.js}"></script>
   </body>
 </html>

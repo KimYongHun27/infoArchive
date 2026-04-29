@@ -22,6 +22,28 @@ main {
   position: relative;
 }
 
+/* 양옆 흰색 흐림 */
+.banner-slider::before,
+.banner-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 170px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.banner-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.banner-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
 .banner-track {
   display: flex;
   transition: transform 0.4s ease;
@@ -35,16 +57,29 @@ main {
 
 .banner-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 18px;
+  top: auto;
+  transform: none;
   border: none;
-  background: rgba(255, 255, 255, 0.75);
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  font-size: 34px;
+  background: transparent;
+  width: 26px;
+  height: 26px;
+  font-size: 24px;
   line-height: 1;
   cursor: pointer;
+  color: #aaa;
+  z-index: 10;
+}
+
+.banner-control {
+  position: absolute;
+  left: 95px;
+  bottom: 20px;
+  width: calc(100% - 130px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 9;
 }
 
 .banner-btn.prev {
@@ -52,30 +87,31 @@ main {
 }
 
 .banner-btn.next {
-  right: 18px;
+  left: 48px;
 }
 
-.banner-dots {
-  position: absolute;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
+.banner-count {
+  font-size: 12px;
+  color: #333;
+  white-space: nowrap;
 }
 
-.banner-dots button {
-  width: 8px;
-  height: 8px;
-  border: none;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
+.banner-count b {
+  font-weight: 800;
 }
 
-.banner-dots button.active {
-  width: 24px;
-  background: #ff1733;
+.banner-progress {
+  flex: 1;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.banner-progress-bar {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: #111;
 }
 
 /* 카테고리 */
@@ -141,7 +177,9 @@ main {
 }
 
 .course-card {
-  width: 100%;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .thumb {

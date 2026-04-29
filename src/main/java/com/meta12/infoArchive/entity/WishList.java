@@ -14,12 +14,12 @@ public class WishList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //유저 정보
+    //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    //강의 정보
+    //강의 fk
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "lecture_id")
 //    private Lecture lecture;
