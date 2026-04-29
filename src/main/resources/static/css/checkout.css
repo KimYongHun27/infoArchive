@@ -1,100 +1,169 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Arial", sans-serif;
-}
 
-/* 상단 고정 헤더 */
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 30px;
-  background: white;
-  border-bottom: 1px solid #eee;
-  z-index: 1000;
-}
-
-/* IA 로고 */
-.logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-/* 메뉴 */
-.nav {
-  display: flex;
-  gap: 30px;
-  margin-left: auto;
-  margin-right: 20px;
-}
-
-/* 메뉴 링크 */
-.nav a {
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  position: relative;
-  padding: 5px 0;
-}
-
-/* hover 밑줄 애니메이션 */
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  background: black;
-  transition: 0.3s;
-}
-
-.nav a:hover::after {
-  width: 100%;
-}
-
-/* 메뉴 버튼 */
-.menu-toggle {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* 본문 */
-.content {
-  padding-top: 100px;
-  text-align: center;
-}
-
-/* 모바일 */
-@media (max-width: 768px) {
-  .nav {
-    display: none;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-
-    flex-direction: column;
-    background: white;
-    border: 1px solid #eee;
-    padding: 15px;
-    gap: 15px;
-  }
-
-  .nav.active {
+.checkout {
+    width: 720px;
+    margin: 50px auto;
     display: flex;
-  }
+    flex-direction: column;
+    gap: 18px;
+}
 
-  .menu-toggle {
-    display: block;
-  }
+.box {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 10px 22px 22px 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+h2 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   주문 상품
+========================= */
+
+.tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 6px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.author {
+    font-weight: 900;
+    color: #000;
+}
+
+.price-text {
+    color: #888;
+}
+
+/* =========================
+   상품 카드
+========================= */
+
+.product {
+    display: flex;
+    gap: 15px;
+    background: #eef2f7;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.product img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+}
+
+.info {
+    flex: 1;
+}
+
+.sub-title {
+    font-weight: 900;
+    margin-bottom: 2px;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.desc {
+    font-size: 12px;
+    color: #888;
+}
+
+/* =========================
+   쿠폰 (🔥 핵심)
+========================= */
+
+/* 첫 줄 */
+.coupon-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.coupon-label {
+    font-size: 13px;
+}
+
+/* 오른쪽 (금액 + 버튼) */
+.coupon-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coupon-price {
+    font-weight: 700;
+}
+
+/* 쿠폰선택 버튼 */
+.coupon-select-btn {
+    background: #e91e63;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 입력 줄 */
+.coupon-bottom {
+    display: flex;
+    gap: 10px;
+}
+
+.coupon-bottom input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.coupon-issue-btn {
+    background: #aaa;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* =========================
+   결제
+========================= */
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 16px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
 }
