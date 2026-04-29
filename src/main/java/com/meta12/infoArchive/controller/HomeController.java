@@ -20,7 +20,15 @@ public class HomeController {
 
     @GetMapping("/login")
     public String login() {
-        return "fragments/login";
+        return "login";
+    }
+    @GetMapping("/review")
+    public String review() {
+        return "/review/review";
+    }
+    @GetMapping("/front10")
+    public String front10() {
+        return "/review/front10";
     }
 }
 
