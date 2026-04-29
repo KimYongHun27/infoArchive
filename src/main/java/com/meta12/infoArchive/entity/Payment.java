@@ -38,18 +38,20 @@ public class Payment {
     // 결제 상태
     private PaymentStatus paymentStatus;
 
-    //유저 정보
+    //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    //강의 정보
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lecture_id")
-//    private Lecture lecture;
-
-    //쿠폰 정보
+    //쿠폰 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
+
+    //상품 fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+
 }
