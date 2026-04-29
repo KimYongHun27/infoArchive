@@ -1,12 +1,17 @@
 package com.meta12.infoArchive.controller;
 
+import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
+
+    private final UserService userService;
 
     @GetMapping({"", "/"})
     public String index() {
@@ -14,7 +19,7 @@ public class HomeController {
     }
 
     @GetMapping("/main")
-    public String list(){
+    public String list() {
         return "main";
     }
 
@@ -22,14 +27,18 @@ public class HomeController {
     public String login() {
         return "login";
     }
-    @GetMapping("/review")
-    public String review() {
-        return "/review/review";
-    }
-    @GetMapping("/front10")
-    public String front10() {
-        return "/review/front10";
+
+    // 로그인 성공 시 메인페이지로 이동
+    @PostMapping("/login")
+    public String loginProcess(
+            @RequestParam String email,
+            @RequestParam String password
+    ) {
+        try {
+            userService.loginByEmail(email, password);
+            return "redirect:/main";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/login";
+        }
     }
 }
-
-
