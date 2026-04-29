@@ -19,19 +19,6 @@ public class PaymentController {
     {
         return "payment/checkout";
     }
-//
-//    @GetMapping("/payment-complete")
-//    public String insert()
-//    {
-//        return "payment-complete";
-//    }
-//
-//    @GetMapping("/payment-complete")
-//    public String update()
-//    {
-//        return "payment-complete";
-//    }
-//
 
 
 
