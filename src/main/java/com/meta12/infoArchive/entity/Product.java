@@ -4,28 +4,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
-public class Purchase {
-
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //유저 fk
+    //상품 종류(구독)
+    private ProductType productType;
+
+    //강사 fk
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
 
     //강의 fk
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "lecture_id")
 //    private Lecture lecture;
-
-    //최근 담은 순서 정렬용
-    private LocalDateTime createdAt = LocalDateTime.now();
-
 }

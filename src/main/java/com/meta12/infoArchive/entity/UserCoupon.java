@@ -14,12 +14,12 @@ public class UserCoupon {
     // 사용 여부
     private CouponStatus couponStatus;
 
-    //유저 정보
+    //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    //쿠폰 정보
+    //쿠폰 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
