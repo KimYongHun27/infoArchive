@@ -7,31 +7,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PaymentController {
 
-    @GetMapping("/payment-complete")
+    @GetMapping("/payment/payment-complete")
     public String paymentComplate()
     {
-        return "payment-complete";
+        return "payment/payment-complete";
     }
 
 
-//    @GetMapping("/payment-complete")
-//    public String view()
-//    {
-//        return "payment-complete";
-//    }
-//
-//    @GetMapping("/payment-complete")
-//    public String insert()
-//    {
-//        return "payment-complete";
-//    }
-//
-//    @GetMapping("/payment-complete")
-//    public String update()
-//    {
-//        return "payment-complete";
-//    }
-//
+    @GetMapping("/payment/checkout")
+    public String view()
+    {
+        return "payment/checkout";
+    }
 
 
 

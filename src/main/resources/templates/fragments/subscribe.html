@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="subscribe" class="subscribe-sticky">
+    <div class="subscribe-inner">
+        <p class="subscribe-text">
+            구독 할인 종료까지<br>
+            남은 시간
+        </p>
+
+        <div class="timer">
+            <div class="time-box">
+                <strong id="days">30</strong>
+                <span>일</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="hours">12</strong>
+                <span>시</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="minutes">4</strong>
+                <span>분</span>
+            </div>
+
+            <div class="time-box">
+                <strong id="seconds">1</strong>
+                <span>초</span>
+            </div>
+        </div>
+
+        <a th:href="@{/membership}" class="subscribe-btn">구독 시작하기</a>
+    </div>
+</div>
+
+</body>
+</html>

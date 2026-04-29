@@ -34,55 +34,55 @@ header{
     padding:14px 0 10px;
 }
 
-/* 헤더 전체 */
-.header-top{
-    width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-}
+/* 헤더 전체
+ .header-top{
+     width:1200px;
+     margin:0 auto;
+     display:flex;
+     justify-content:space-between;
+     align-items:flex-start;
+ } */
 
 /* 왼쪽 */
-.logo-search{
+/* .logo-search{
     display:flex;
     align-items:flex-start;
     gap:18px;
-}
+} */
 
 /* IA + 메뉴 */
-.left-area{
+/* .left-area{
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
-}
+} */
 
 /* 로고 */
-.logo{
+/* .logo{
     font-size:34px;
     font-weight:800;
     line-height:1;
     margin-bottom:8px;
     margin-left:2px;
-}
+} */
 
 /* IA 바로 밑 메뉴 */
-.header-menu{
+/* .header-menu{
     display:flex;
     gap:18px;
     font-size:12px;
-    margin-left:160px;
+    margin-left:350px;
     margin-top:2px;
-}
+} */
 
-.header-menu a{
+/*.header-menu a{
     color:#fff;
     text-decoration:none;
     font-weight:500;
-}
+} */
 
 /* 검색창 */
-.search-box{
+/* .search-box{
     width:520px;
     height:38px;
     background:#fff;
@@ -92,18 +92,18 @@ header{
     padding:0 16px;
     color:#999;
     margin-top:1px;
-}
+} */
 
-.search-box input{
+/* .search-box input{
     border:none;
     outline:none;
     width:100%;
     margin-left:10px;
     font-size:12px;
-}
+} */
 
 /* 오른쪽 아이콘 */
-.top-icons{
+/* .top-icons{
     display:flex;
     gap:34px;
     margin-top:2px;
@@ -114,20 +114,20 @@ header{
     display:flex;
     flex-direction:column;
     align-items:center;
-}
+} */
 
 /* 아이콘 */
-.icon-item i{
+/* .icon-item i{
     width:19px;
     height:19px;
-}
+} */
 
 /* 글씨 아래 */
-.icon-item span{
+/* .icon-item span{
     font-size:10px;
     margin-top:7px;
     white-space:nowrap;
-}
+} */
 
 /* ========================= */
 /* 메인 */
@@ -424,7 +424,7 @@ footer{
 /* 하단 고정 */
 /* ========================= */
 
-.bottom-fixed{
+/*.bottom-fixed{
     position:fixed;
     bottom:0;
     width:100%;
@@ -441,6 +441,9 @@ footer{
     display:flex;
     flex-direction:column;
     font-size:13px;
+
+    width:200px;
+    margin:0 auto;
 }
 
 .timer-wrap{
@@ -477,4 +480,4 @@ footer{
     font-size:16px;
     font-weight:700;
     cursor:pointer;
-}
+} */
