@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+/* 상단 고정 헤더 */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 30px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+}
+
+/* IA 로고 */
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* 메뉴 */
+.nav {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+/* 메뉴 링크 */
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* hover 밑줄 애니메이션 */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: black;
+  transition: 0.3s;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* 메뉴 버튼 */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* 본문 */
+.content {
+  padding-top: 100px;
+  text-align: center;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+
+    flex-direction: column;
+    background: white;
+    border: 1px solid #eee;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
