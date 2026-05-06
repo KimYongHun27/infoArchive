@@ -15,16 +15,6 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //유저 fk
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    //상품 fk
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     //주문 정보 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
