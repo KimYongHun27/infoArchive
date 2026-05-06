@@ -33,6 +33,7 @@ public class SecurityConfig {
                                 "/top10",
                                 "/css/**",
                                 "/js/**",
+                                "/mypage/**",
                                 "/images/**",
                                 "/img/**"
                         ).permitAll()
@@ -41,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/instructor/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/mypage/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
