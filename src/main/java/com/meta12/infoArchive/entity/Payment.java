@@ -14,26 +14,14 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //기존 가격
-    private int price;
-
-    //할인 가격
-    private int discountAmount;
-
-    //(임시) 강의명
-    private String lectureName;
-
-    //(임시) 강사명
-    private String instructorName;
+    //할인이 적용된 최종가격
+    private int discountPrice;
 
     // 주문 번호
     private String orderNumber;
 
     //주문 일시(실제 영수증 및 내역에 저장될 시간)
     private LocalDateTime orderDate;
-
-    //(임시) 강의 카테고리
-    private LectureCategory lectureCategory;
 
     // 결제 상태
     private PaymentStatus paymentStatus;
