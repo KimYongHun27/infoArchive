@@ -205,6 +205,58 @@ body {
 
 .banner {
   display: inline;
-  background-color: #e1b12c;
   padding: 20px;
 }
+
+.greeting {
+  color: rgb(126, 126, 126);
+}
+
+.banner-btn {
+  margin-top: -50px;
+  text-align: right;
+}
+
+.info-btn {
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
+
+.profile {
+  display: flex;
+  margin: 10px 30px;
+  padding: 50px;
+  background-color: salmon;
+  border-radius: 10px;
+  font-size: large;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.introduction {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 40px;
+}
+  .name {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .email {
+    font-size: 20px;
+  }
+
+  .last-login {
+    font-size: 20px;
+  }
+
