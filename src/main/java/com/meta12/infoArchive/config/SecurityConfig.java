@@ -50,7 +50,10 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/main", true)
+                        .successHandler((request, response, authentication) -> {
+                            request.getSession().setAttribute("loginUser", authentication.getName());
+                            response.sendRedirect("/main");
+                        })
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
@@ -58,6 +61,9 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .clearAuthentication(true)
                         .permitAll()
                 );
 
