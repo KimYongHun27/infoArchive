@@ -20,58 +20,68 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // 일반 회원 계정
-        if (!userRepository.existsByEmail("user@test.com")) {
-            User user = User.builder()
-                    .username("user")
-                    .password(passwordEncoder.encode("1234"))
-                    .name("일반회원")
-                    .email("user@test.com")
-                    .phone("010-1111-1111")
-                    .role(Role.USER)
-                    .emailAgree(true)
-                    .smsAgree(false)
-                    .pushAgree(true)
-                    .createdAt(LocalDateTime.now())
-                    .build();
+        createOrUpdateUser(
+                "user",
+                "1234",
+                "일반회원",
+                "user@test.com",
+                "010-1111-1111",
+                Role.USER
+        );
 
-            userRepository.save(user);
+        createOrUpdateUser(
+                "instructor",
+                "1234",
+                "강사회원",
+                "instructor@test.com",
+                "010-2222-2222",
+                Role.INSTRUCTOR
+        );
+
+        createOrUpdateUser(
+                "admin",
+                "1234",
+                "관리자",
+                "admin@test.com",
+                "010-3333-3333",
+                Role.ADMIN
+        );
+    }
+
+    private void createOrUpdateUser(
+            String username,
+            String rawPassword,
+            String name,
+            String email,
+            String phone,
+            Role role
+    ) {
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> User.builder()
+                        .username(username)
+                        .name(name)
+                        .email(email)
+                        .phone(phone)
+                        .role(role)
+                        .emailAgree(true)
+                        .smsAgree(false)
+                        .pushAgree(true)
+                        .createdAt(LocalDateTime.now())
+                        .build()
+                );
+
+        // 기존 비밀번호가 평문이면 자동 암호화
+        if (user.getPassword() == null || !isBCrypt(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(rawPassword));
         }
 
-        // 강사 계정
-        if (!userRepository.existsByEmail("instructor@test.com")) {
-            User instructor = User.builder()
-                    .username("instructor")
-                    .password(passwordEncoder.encode("1234"))
-                    .name("강사회원")
-                    .email("instructor@test.com")
-                    .phone("010-2222-2222")
-                    .role(Role.INSTRUCTOR)
-                    .emailAgree(true)
-                    .smsAgree(true)
-                    .pushAgree(true)
-                    .createdAt(LocalDateTime.now())
-                    .build();
+        user.setRole(role);
+        userRepository.save(user);
+    }
 
-            userRepository.save(instructor);
-        }
-
-        // 관리자 계정
-        if (!userRepository.existsByEmail("admin@test.com")) {
-            User admin = User.builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("1234"))
-                    .name("관리자")
-                    .email("admin@test.com")
-                    .phone("010-3333-3333")
-                    .role(Role.ADMIN)
-                    .emailAgree(false)
-                    .smsAgree(false)
-                    .pushAgree(false)
-                    .createdAt(LocalDateTime.now())
-                    .build();
-
-            userRepository.save(admin);
-        }
+    private boolean isBCrypt(String password) {
+        return password.startsWith("$2a$")
+                || password.startsWith("$2b$")
+                || password.startsWith("$2y$");
     }
 }
