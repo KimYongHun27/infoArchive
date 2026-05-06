@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>프리미엄 멤버십</title>
+
+    <link rel="stylesheet" th:href="@{/css/membership.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
 <body>
+
+<main class="membership-page">
+
+    <section class="membership-hero">
+        <div class="hero-top">
+            <a th:href="@{/}" class="hero-logo">
+                <img th:src="@{/img/header/1.png}" alt="INFO ARCHIVE">
+            </a>
+
+            <p>
+                이미 계정이 있으신가요?
+                <a th:href="@{/login}">로그인</a>
+            </p>
+        </div>
+
+        <h1>
+            강의를 <strong>무제한으로</strong><br>
+            즐겨보세요.
+        </h1>
+    </section>
+
+    <section class="premium-section">
+        <h2>프리미엄 멤버십</h2>
+        <p>모든 강의를 무제한으로 수강하고 싶다면</p>
+
+        <div class="premium-card">
+            <div class="premium-left">
+                <h3>프리미엄</h3>
+                <p>모든 강의를 무제한으로<br>원하는 만큼 자유롭게 수강하세요.</p>
+            </div>
+
+            <div class="premium-right">
+                <div class="price">
+                    <span>월</span>
+                    <strong>9,900원</strong>
+                </div>
+                <p>언제든지 해지 가능 / 결제일 기준 30일 주기</p>
+
+                <button type="button" class="premium-btn" id="openPaymentModal">
+                    프리미엄 가입하기
+                    <span>〉</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="notice-box">
+            <div class="notice-title">
+                <span>!</span>
+                <strong>안내사항</strong>
+            </div>
+            <ul>
+                <li>결제는 매월 자동 갱신되며, 원하실 경우 언제든지 해지할 수 있습니다.</li>
+                <li>해지 후에도 남은 기간 동안 프리미엄 혜택을 이용하실 수 있습니다.</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<!-- 결제 모달 -->
+<div class="modal-overlay" id="paymentModal">
+    <div class="payment-modal">
+
+        <button type="button" class="modal-close" id="closePaymentModal">X</button>
+
+        <h2>프리미엄 멤버십 결제</h2>
+        <p class="modal-sub">모든 강의를 무제한으로 시청할 수 있습니다.</p>
+
+        <hr>
+
+        <div class="modal-product">
+            <div>
+                <h3>프리미엄 멤버십</h3>
+                <p>30일 이용권</p>
+            </div>
+
+            <strong>9,900<span>원</span></strong>
+        </div>
+
+        <hr>
+
+        <div class="payment-method">
+            <h3>결제 수단 선택</h3>
+
+            <div class="method-grid">
+                <button type="button" class="method active">
+                    <strong>▭</strong>
+                    <span>신용/체크카드</span>
+                </button>
+
+                <button type="button" class="method">
+                    <strong>kakao pay</strong>
+                    <span>카카오페이</span>
+                </button>
+
+                <button type="button" class="method">
+                    <strong>N pay</strong>
+                    <span>네이버페이</span>
+                </button>
+
+                <button type="button" class="method">
+                    <strong>toss</strong>
+                    <span>토스페이</span>
+                </button>
+            </div>
+        </div>
+
+        <button type="button" class="pay-btn">9,900원 결제하기</button>
+
+        <label class="agree-check">
+            <input type="checkbox">
+            <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
+        </label>
+
+    </div>
+</div>
+
+<script th:src="@{/js/membership.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>

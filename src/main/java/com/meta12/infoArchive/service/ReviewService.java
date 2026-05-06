@@ -30,7 +30,7 @@ public class ReviewService {
         review.setContent(reviewDto.getContent());
         review.setNickname(reviewDto.getNicknameid());
         review.setName(reviewDto.getNameid());
-        review.setCreateDate(LocalDateTime.now());
+//        review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
     }
@@ -40,7 +40,7 @@ public class ReviewService {
         review.setContent(reviewDto.getContent());
         review.setNickname(reviewDto.getNicknameid());
         review.setName(reviewDto.getNameid());
-        review.setCreateDate(LocalDateTime.now());
+//        review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
     }
@@ -51,9 +51,8 @@ public class ReviewService {
         review.setContent(reviewDto.getContent());
         review.setNickname(reviewDto.getNicknameid());
         review.setName(reviewDto.getNameid());
-        review.setCreateDate(LocalDateTime.now());
+//        review.setCreateDate(LocalDateTime.now());
         reviewRepository.delete(review);
         return review;
     }
-
 }
