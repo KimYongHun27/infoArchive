@@ -24,7 +24,7 @@ public class ReviewController {
     ){
         return "review/taking-course";
     }
-    @GetMapping("/review/review")
+    @GetMapping("/review")
     public String review(){
         return "review/review";
     }
