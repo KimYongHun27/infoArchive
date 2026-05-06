@@ -44,21 +44,23 @@ public class OrderService {
         order.setUser(userService.getUser(dto.getUserId()));
         order.setProduct(productService.getProduct(dto.getProductId()));
         order.setUserCoupon(userCouponService.getUserCoupon(dto.getUserCouponId()));
-        orderRepository.save(order);
-        return order;
+        return orderRepository.save(order);
     }
 
     private Payment processPayment(Order  order)
     {
         Payment payment = new Payment();
         int price = order.getProduct().getPrice();
-        int discountAmount = order.getUserCoupon().getCoupon().getDiscountAmount();
-
+        int discountAmount = 0;
+        if (order.getUserCoupon() != null) {
+            discountAmount = order.getUserCoupon().getCoupon().getDiscountAmount();
+        }
+        payment.setOrder(order);
         payment.setOrderDate(LocalDateTime.now());
         payment.setOrderNumber("1");
         payment.setPaymentStatus(PaymentStatus.WAIT);
         payment.setDiscountPrice(price - discountAmount);
-        return payment;
+        return  paymentRepository.save(payment);
     }
 
     private Purchase finalizePurchase(Order Order, Payment payment)

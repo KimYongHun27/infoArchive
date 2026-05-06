@@ -1,10 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <title>회원 정보</title>
 
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+    <link rel="stylesheet" th:href="@{/css/member-info.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="member-page">
+    <div class="member-layout">
+
+        <!-- 왼쪽 사이드바 -->
+        <aside class="member-sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">
+                    <span>▦</span>
+                    <strong>나의 강의장</strong>
+                </div>
+
+                <nav class="side-menu">
+                    <a th:href="@{/dashboard}">
+                        <span>▤</span>
+                        대시보드
+                    </a>
+
+                    <a th:href="@{/taking-course}">
+                        <span>▣</span>
+                        수강중인 강의
+                    </a>
+
+                    <a th:href="@{/wishlist}">
+                        <span>♡</span>
+                        찜한 강의
+                    </a>
+
+                    <a th:href="@{/orders}">
+                        <span>▥</span>
+                        주문 내역
+                    </a>
+
+                    <a th:href="@{/coupon}">
+                        <span>▨</span>
+                        쿠폰함
+                    </a>
+
+                    <a th:href="@{/mypage/member-info}" class="active">
+                        <span>♙</span>
+                        회원 정보
+                    </a>
+
+                    <a th:href="@{/review}">
+                        <span>★</span>
+                        리뷰관리
+                    </a>
+                </nav>
+
+                <div class="customer-box">
+                    <h3>고객센터</h3>
+                    <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
+                    <strong>010-0000-0000</strong>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 오른쪽 본문 -->
+        <section class="member-content">
+
+            <div class="page-title">
+                <h1>회원 정보</h1>
+                <p>회원님의 정보를 관리하고 변경할 수 있습니다.</p>
+            </div>
+
+            <div class="alert success" th:if="${param.update}">
+                회원 정보가 수정되었습니다.
+            </div>
+
+            <div class="alert success" th:if="${param.password}">
+                비밀번호가 변경되었습니다.
+            </div>
+
+            <div class="alert error" th:if="${param.passwordError}">
+                비밀번호 변경에 실패했습니다. 현재 비밀번호와 새 비밀번호를 확인해주세요.
+            </div>
+
+            <!-- 프로필 카드 -->
+            <section class="profile-card">
+                <div class="profile-left">
+                    <div class="profile-img-wrap">
+                        <div class="profile-img">
+                            <span>👤</span>
+                        </div>
+                        <button type="button" class="profile-camera">📷</button>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="profile-name-row">
+                            <h2 th:text="${user.name}">홍길동님</h2>
+                            <span class="premium-badge">PREMIUM</span>
+                        </div>
+
+                        <p th:text="${user.email}">honggildong@email.com</p>
+                        <p th:text="${user.phone}">010-0000-0000</p>
+                        <p>
+                            최근 로그인 :
+                            <span>2024.05.31 14:30</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="profile-right">
+                    <button type="button" class="small-outline-btn">비밀번호 변경</button>
+                </div>
+            </section>
+
+            <!-- 계정 정보 -->
+            <section class="info-card">
+                <h2>계정 정보</h2>
+
+                <form method="post" th:action="@{/mypage/member-info/update}" class="member-form">
+
+                    <div class="form-line">
+                        <label>이름</label>
+                        <input type="text" name="name" th:value="${user.name}" placeholder="이름">
+                    </div>
+
+                    <div class="form-line with-button">
+                        <label>이메일</label>
+                        <input type="email" th:value="${user.email}" readonly>
+                        <button type="button">이메일 변경</button>
+                    </div>
+
+                    <div class="form-line with-button">
+                        <label>휴대폰 번호</label>
+                        <input type="text" name="phone" th:value="${user.phone}" placeholder="010-0000-0000">
+                        <button type="button">번호 변경</button>
+                    </div>
+
+                    <div class="form-line">
+                        <label>아이디</label>
+                        <div class="readonly-wrap">
+                            <input type="text" th:value="${user.username}" readonly>
+                            <span>* 아이디는 변경할 수 없습니다.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-line">
+                        <label>가입일</label>
+                        <div class="join-date" th:text="${#temporals.format(user.createdAt, 'yyyy.MM.dd')}">
+                            2024.01.15
+                        </div>
+                    </div>
+
+                    <!-- 마케팅 동의 -->
+                    <section class="marketing-card">
+                        <h2>마케팅 정보 수신 동의</h2>
+
+                        <div class="agree-row">
+                            <div class="agree-text">
+                                <strong>이메일 수신 동의</strong>
+                                <span>이메일로 유용한 강의 정보와 이벤트 소식을 받아보실 수 있습니다.</span>
+                            </div>
+
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="emailAgree" value="true" th:checked="${user.emailAgree}">
+                                    동의함
+                                </label>
+                                <label>
+                                    <input type="radio" name="emailAgree" value="false" th:checked="${!user.emailAgree}">
+                                    동의하지 않음
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="agree-row">
+                            <div class="agree-text">
+                                <strong>SMS 수신 동의</strong>
+                                <span>SMS로 유용한 강의 정보와 이벤트 소식을 받아보실 수 있습니다.</span>
+                            </div>
+
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="smsAgree" value="true" th:checked="${user.smsAgree}">
+                                    동의함
+                                </label>
+                                <label>
+                                    <input type="radio" name="smsAgree" value="false" th:checked="${!user.smsAgree}">
+                                    동의하지 않음
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="agree-row">
+                            <div class="agree-text">
+                                <strong>푸시 알림 수신 동의</strong>
+                                <span>푸시 알림으로 유용한 강의 정보와 이벤트 소식을 받아보실 수 있습니다.</span>
+                            </div>
+
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="pushAgree" value="true" th:checked="${user.pushAgree}">
+                                    동의함
+                                </label>
+                                <label>
+                                    <input type="radio" name="pushAgree" value="false" th:checked="${!user.pushAgree}">
+                                    동의하지 않음
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="save-area">
+                        <button type="submit">정보 저장하기</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 비밀번호 변경 -->
+            <section class="info-card" id="password-change">
+                <h2>비밀번호 변경</h2>
+
+                <form method="post" th:action="@{/mypage/member-info/password}" class="member-form">
+
+                    <div class="form-line">
+                        <label>현재 비밀번호</label>
+                        <input type="password" name="currentPassword" placeholder="현재 비밀번호를 입력해주세요">
+                    </div>
+
+                    <div class="form-line">
+                        <label>새 비밀번호</label>
+                        <input type="password" name="newPassword" placeholder="새 비밀번호를 입력해주세요">
+                    </div>
+
+                    <div class="form-line">
+                        <label>새 비밀번호 확인</label>
+                        <input type="password" name="newPasswordCheck" placeholder="새 비밀번호를 다시 입력해주세요">
+                    </div>
+
+                    <div class="save-area">
+                        <button type="submit">비밀번호 변경하기</button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- 회원 탈퇴 -->
+            <section class="withdraw-card">
+                <div>
+                    <h2>회원 탈퇴</h2>
+                    <p>회원 탈퇴 시 모든 정보가 삭제되며, 복구할 수 없습니다.</p>
+                </div>
+
+                <button type="button">회원 탈퇴하기</button>
+            </section>
+
+        </section>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 </body>
 </html>

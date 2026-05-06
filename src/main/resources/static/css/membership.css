@@ -12,10 +12,10 @@ body {
 /* 상단 히어로 */
 .membership-hero {
   height: 340px;
-  background:
-    linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+  background: #000;
+    /*linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
     url("/img/membership/membership-bg.png") center / cover no-repeat;
-  color: #fff;
+  color: #fff;*/
   position: relative;
   padding: 24px 44px;
 }
