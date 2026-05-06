@@ -28,6 +28,12 @@ public class ReviewController {
     public String review(){
         return "review/review";
     }
+    @PostMapping("/review/chugaProc")
+    public String chugaProc(ReviewDto reviewDto){
+        reviewService.chugaProc(reviewDto);
+        return "redirect:/review/review";
+    }
+
 //    @GetMapping("/ /chuga")
 //    public String chuga(){
 //        return "/chuga";
