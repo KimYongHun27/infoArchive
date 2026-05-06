@@ -2,9 +2,7 @@ package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.OrderRequestDto;
 import com.meta12.infoArchive.dto.PurchaseDto;
-import com.meta12.infoArchive.entity.Order;
-import com.meta12.infoArchive.entity.Payment;
-import com.meta12.infoArchive.entity.Purchase;
+import com.meta12.infoArchive.entity.*;
 import com.meta12.infoArchive.repository.OrderRepository;
 import com.meta12.infoArchive.repository.PaymentRepository;
 import com.meta12.infoArchive.repository.PurchaseRepository;
@@ -12,12 +10,17 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
     private final PurchaseRepository purchaseRepository;
+    private final UserService userService;
+    private final UserCouponService userCouponService;
+    private final ProductService productService;
 
     @Transactional
     public PurchaseDto processEntireOrder(OrderRequestDto dto) {
@@ -38,13 +41,23 @@ public class OrderService {
     {
         Order order = new Order();
 
+        order.setUser(userService.getUser(dto.getUserId()));
+        order.setProduct(productService.getProduct(dto.getProductId()));
+        order.setUserCoupon(userCouponService.getUserCoupon(dto.getUserCouponId()));
+        orderRepository.save(order);
         return order;
     }
 
     private Payment processPayment(Order  order)
     {
         Payment payment = new Payment();
+        int price = order.getProduct().getPrice();
+        int discountAmount = order.getUserCoupon().getCoupon().getDiscountAmount();
 
+        payment.setOrderDate(LocalDateTime.now());
+        payment.setOrderNumber("1");
+        payment.setPaymentStatus(PaymentStatus.WAIT);
+        payment.setDiscountPrice(price - discountAmount);
         return payment;
     }
 

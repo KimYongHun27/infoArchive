@@ -11,17 +11,8 @@ public class OrderRequestDto {
 
     private Long userId;
     private Long productId;
+    private Long userCouponId;
     private int originPrice;
     private int discountPrice;
     private int finalPrice;
-
-    public OrderRequestDto(Order order, Product product)
-    {
-        this.userId = order.getId();
-        this.productId = product.getId();
-        this.originPrice = product.getPrice();
-        this.discountPrice = 0;
-        this.finalPrice = originPrice - discountPrice;
-    }
-
 }

@@ -22,4 +22,9 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    //유저 별 쿠폰 fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userCoupon_id")
+    private UserCoupon userCoupon;
 }

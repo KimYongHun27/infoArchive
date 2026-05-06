@@ -14,7 +14,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //상품 종류(구독)
+    //상품 종류(구독, 강의)
     private ProductType productType;
 
     //가격
