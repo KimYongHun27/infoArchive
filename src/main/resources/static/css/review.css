@@ -9,10 +9,13 @@ body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
 
-/* 전체 */
+/* =========================
+   전체 레이아웃
+========================= */
+
 .lecture-review-page {
   width: 100%;
-  padding: 60px 0 100px;
+  padding: 50px 0 90px;
   background: #f7f7f8;
 }
 
@@ -24,83 +27,114 @@ body {
   align-items: flex-start;
 }
 
-/* 왼쪽 사이드바 */
-.review-sidebar {
-  width: 260px;
-  flex-shrink: 0;
-  position: sticky;
-  top: 120px;
-}
-
-.sidebar-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 26px 22px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  border: 1px solid #eee;
-}
-
-.sidebar-card h2 {
-  margin: 0 0 22px;
-  font-size: 24px;
-  font-weight: 900;
-}
-
-.side-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.side-menu a {
-  display: block;
-  padding: 14px 14px;
-  border-radius: 12px;
-  color: #222;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.side-menu a:hover,
-.side-menu a.active {
-  background: #111;
-  color: #fff;
-}
-
-.customer-box {
-  margin-top: 28px;
-  padding: 20px;
-  border-radius: 16px;
-  background: #f3f4f6;
-}
-
-.customer-box h3 {
-  margin: 0 0 12px;
-  font-size: 18px;
-  font-weight: 900;
-}
-
-.customer-box p {
-  margin: 4px 0;
-  font-size: 13px;
-  color: #666;
-}
-
-.customer-box strong {
-  display: block;
-  margin-top: 10px;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-/* 오른쪽 본문 */
 .lecture-review-content {
   flex: 1;
   min-width: 0;
 }
 
-/* 강의 요약 카드 */
+/* =========================
+   리뷰 페이지 전용 사이드바
+========================= */
+
+.review-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+}
+
+.review-sidebar-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.review-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 18px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.review-sidebar-title span {
+  width: 18px;
+  text-align: center;
+}
+
+.review-side-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 18px;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.review-side-menu a span {
+  width: 18px;
+  text-align: center;
+  color: #777;
+}
+
+.review-side-menu a:hover {
+  background: #fafafa;
+}
+
+.review-side-menu a.active {
+  color: #ff2448;
+  background: #fff;
+  border-left: 3px solid #ff2448;
+}
+
+.review-side-menu a.active span {
+  color: #ff2448;
+}
+
+.review-customer-box {
+  padding: 18px;
+  background: #fafafa;
+}
+
+.review-customer-box h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.review-customer-box p {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.review-customer-box strong {
+  display: block;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+/* =========================
+   강의 요약 카드
+========================= */
+
 .lecture-summary-card {
   display: flex;
   gap: 34px;
@@ -184,7 +218,10 @@ body {
   font-weight: 800;
 }
 
-/* 섹션 타이틀 */
+/* =========================
+   섹션 타이틀
+========================= */
+
 .section-title {
   margin-bottom: 22px;
 }
@@ -201,7 +238,10 @@ body {
   font-size: 15px;
 }
 
-/* 리뷰 작성 카드 */
+/* =========================
+   리뷰 작성 카드
+========================= */
+
 .review-write-card {
   background: #fff;
   border: 1px solid #eee;
@@ -307,7 +347,10 @@ body {
   opacity: 0.9;
 }
 
-/* 리뷰 목록 */
+/* =========================
+   리뷰 목록
+========================= */
+
 .review-list-section {
   background: #fff;
   border: 1px solid #eee;
@@ -398,4 +441,39 @@ body {
 
 .review-buttons button:hover {
   opacity: 0.88;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 1200px) {
+  .lecture-review-layout {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 900px) {
+  .lecture-review-layout {
+    flex-direction: column;
+  }
+
+  .review-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .lecture-summary-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lecture-thumbnail {
+    width: 100%;
+    height: 240px;
+  }
+
+  .review-top {
+    flex-direction: column;
+  }
 }
