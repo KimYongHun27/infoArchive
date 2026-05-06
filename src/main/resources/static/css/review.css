@@ -1,44 +1,273 @@
-*{
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
-      }
+* {
+  box-sizing: border-box;
+}
 
-      .bests {
-        padding-top: 20px;
-        display: flex;
-        gap: 15px;
-        padding-left: 40px;
-      }
-      .best {
-        font-size: 25px;
-        border: 2px solid gray;
-        border-radius: 15px;
-        width: 300px;
-        height: 300px;
-        text-align: center;
-        line-height: 1.5;
-        padding: 20px;
-        background-color: aliceblue;
-      }
+body {
+  margin: 0;
+  background: #f7f7f8;
+  color: #111;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
 
-      .best-title {
-        font-size: 20px;
-        padding: 30px;
-      }
+body,
+.review-page,
+.review-layout {
+  overflow: visible;
+}
 
-      .best-story {
-        font-size: 15px;
-        padding-bottom: 10px;
+.review-page {
+  width: 100%;
+  padding: 60px 0 100px;
+}
 
-      }
+.review-layout {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
 
-      .review1 {
-        padding-bottom: 10px;
-      }
+/* 사이드바 */
+.review-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+}
 
-      .myreview {
-        padding-left: 40px;
-        padding-top: 50px;
-        font-size: larger;
-      }
+.sidebar-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eee;
+}
+
+.sidebar-card h2 {
+  margin: 0 0 22px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.side-menu a {
+  display: block;
+  padding: 13px 14px;
+  border-radius: 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.side-menu a:hover,
+.side-menu a.active {
+  background: #111;
+  color: #fff;
+}
+
+.customer-box {
+  margin-top: 28px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #f3f4f6;
+}
+
+.customer-box h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+
+.customer-box p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.customer-box strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* 본문 */
+.review-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-title {
+  margin-bottom: 28px;
+}
+
+.page-title h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.page-title p {
+  margin: 10px 0 0;
+  color: #777;
+  font-size: 15px;
+}
+
+/* 베스트 리뷰 */
+.best-review-section {
+  margin-bottom: 34px;
+}
+
+.best-review-section h2,
+.review-form-section h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.best-review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.best-review-card {
+  overflow: hidden;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #eee;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+}
+
+.best-review-card img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.best-review-info {
+  padding: 18px;
+}
+
+.best-review-info span {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #ff2448;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.best-review-info h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.best-review-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 폼 */
+.review-form-section {
+  margin-top: 24px;
+  padding: 26px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  outline: none;
+  resize: none;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #111;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-actions button {
+  min-width: 130px;
+  height: 46px;
+  border: none;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.form-actions button:hover {
+  opacity: 0.85;
+}
+
+.form-actions .edit-btn {
+  background: #2563eb;
+}
+
+.form-actions .delete-btn {
+  background: #ef4444;
+}
+
+.review-page,
+.review-layout {
+  overflow: visible;
+}
+
+.review-layout {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.review-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+}
+
+.review-content {
+  flex: 1;
+  min-width: 0;
+}
