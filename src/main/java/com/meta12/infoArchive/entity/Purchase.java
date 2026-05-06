@@ -20,12 +20,15 @@ public class Purchase {
     @JoinColumn(name = "user_id")
     private User user;
 
-    //강의 fk
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lecture_id")
-//    private Lecture lecture;
+    //상품 fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    //최근 담은 순서 정렬용
-    private LocalDateTime createdAt = LocalDateTime.now();
+    //주문 정보 fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
 
 }

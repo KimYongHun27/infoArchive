@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -15,13 +17,16 @@ public class Product {
     //상품 종류(구독)
     private ProductType productType;
 
-    //강사 fk
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "instructor_id")
-    private Instructor instructor;
+    //가격
+    private int price;
 
-    //강의 fk
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lecture_id")
-//    private Lecture lecture;
+    //구독권 사용 상태
+    private SubscriptionStatus subscriptionStatus;
+
+    //구독 시작 일시(연, 월, 일, 시, 분)
+    private LocalDateTime start_time;
+
+    //구독 종료 일시(연, 월, 일, 시, 분)
+    private LocalDateTime end_time;
+
 }
