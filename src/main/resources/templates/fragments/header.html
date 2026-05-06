@@ -55,109 +55,66 @@
 
   <nav class="gnb">
     <div class="gnb-inner">
+
       <div class="category-wrap">
         <div class="category-trigger">☰ 카테고리</div>
 
-        <div class="mega-menu">
-          <div class="mega-inner">
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/111.png}" alt="">드로잉</h4>
-              <a href="#">캐릭터 드로잉</a>
-              <a href="#">일러스트</a>
-              <a href="#">컨셉아트</a>
-              <a href="#">웹툰</a>
-              <a href="#">기초 드로잉</a>
-            </div>
+        <div class="mega-menu simple-category-menu">
+          <div class="simple-category-inner">
+            <a th:href="@{/category/drawing}">
+              <img th:src="@{/img/H_inner/111.png}" alt="">
+              <span>드로잉</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1112.png}" alt="">공예</h4>
-              <a href="#">캘리그라피</a>
-              <a href="#">플라워</a>
-              <a href="#">비즈 · 레진</a>
-              <a href="#">뜨개 · 자수</a>
-              <a href="#">소품 제작</a>
-            </div>
+            <a th:href="@{/category/craft}">
+              <img th:src="@{/img/H_inner/1112.png}" alt="">
+              <span>공예</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1113.png}" alt="">금융 · 재테크</h4>
-              <a href="#">주식</a>
-              <a href="#">부동산</a>
-              <a href="#">경제상식</a>
-              <a href="#">가계부 · 절약</a>
-              <a href="#">재테크 입문</a>
-            </div>
+            <a th:href="@{/category/finance}">
+              <img th:src="@{/img/H_inner/1113.png}" alt="">
+              <span>금융 · 재테크</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1114.png}" alt="">디자인</h4>
-              <a href="#">그래픽디자인</a>
-              <a href="#">브랜딩디자인</a>
-              <a href="#">UX/UI</a>
-              <a href="#">편집디자인</a>
-              <a href="#">포트폴리오</a>
-            </div>
+            <a th:href="@{/category/design}">
+              <img th:src="@{/img/H_inner/1114.png}" alt="">
+              <span>디자인</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1115.png}" alt="">사진 · 영상</h4>
-              <a href="#">사진 촬영</a>
-              <a href="#">사진 보정</a>
-              <a href="#">영상 촬영</a>
-              <a href="#">영상 편집</a>
-              <a href="#">숏폼 제작</a>
-            </div>
+            <a th:href="@{/category/photo-video}">
+              <img th:src="@{/img/H_inner/1115.png}" alt="">
+              <span>사진 · 영상</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1116.png}" alt="">운동</h4>
-              <a href="#">홈트레이닝</a>
-              <a href="#">필라테스</a>
-              <a href="#">요가</a>
-              <a href="#">스트레칭</a>
-              <a href="#">다이어트</a>
-            </div>
+            <a th:href="@{/category/fitness}">
+              <img th:src="@{/img/H_inner/1116.png}" alt="">
+              <span>운동</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1117.png}" alt="">음악</h4>
-              <a href="#">보컬</a>
-              <a href="#">작곡</a>
-              <a href="#">피아노</a>
-              <a href="#">기타</a>
-              <a href="#">음악 이론</a>
-            </div>
+            <a th:href="@{/category/music}">
+              <img th:src="@{/img/H_inner/1117.png}" alt="">
+              <span>음악</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1118.png}" alt="">영상/3D</h4>
-              <a href="#">3D 모델링</a>
-              <a href="#">블렌더</a>
-              <a href="#">모션그래픽</a>
-              <a href="#">애니메이션</a>
-              <a href="#">VFX</a>
-            </div>
+            <a th:href="@{/category/video-3d}">
+              <img th:src="@{/img/H_inner/1118.png}" alt="">
+              <span>영상/3D</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1119.png}" alt="">베이킹 · 요리</h4>
-              <a href="#">홈베이킹</a>
-              <a href="#">디저트</a>
-              <a href="#">한식</a>
-              <a href="#">양식</a>
-              <a href="#">자취요리</a>
-            </div>
+            <a th:href="@{/category/cooking}">
+              <img th:src="@{/img/H_inner/1119.png}" alt="">
+              <span>베이킹 · 요리</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1120.png}" alt="">제2 외국어</h4>
-              <a href="#">영어</a>
-              <a href="#">일본어</a>
-              <a href="#">중국어</a>
-              <a href="#">스페인어</a>
-              <a href="#">회화 입문</a>
-            </div>
+            <a th:href="@{/category/language}">
+              <img th:src="@{/img/H_inner/1120.png}" alt="">
+              <span>제2 외국어</span>
+            </a>
 
-            <div class="mega-col">
-              <h4><img th:src="@{/img/H_inner/1121.png}" alt="">프로그래밍</h4>
-              <a href="#">웹 개발</a>
-              <a href="#">앱 개발</a>
-              <a href="#">게임 개발</a>
-              <a href="#">데이터 분석</a>
-              <a href="#">AI · 머신러닝</a>
-            </div>
+            <a th:href="@{/category/programming}">
+              <img th:src="@{/img/H_inner/1121.png}" alt="">
+              <span>프로그래밍</span>
+            </a>
           </div>
         </div>
       </div>
@@ -166,6 +123,7 @@
       <a th:href="@{/membership}">멤버십</a>
       <a th:href="@{/community}">커뮤니티</a>
       <a th:href="@{/faq}">FAQ</a>
+
     </div>
   </nav>
 </header>

@@ -169,56 +169,54 @@ body {
 .mega-menu {
   position: absolute;
   top: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1500px;
-  height: 250px;
+  left: 0;
+  transform: none;
+  width: 210px;
   background: #fff;
   color: #111;
   border: 1px solid #ddd;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   display: none;
-  padding: 18px 24px 24px;
+  padding: 14px 0;
+  z-index: 1001;
+}
+.category-wrap {
+  position: relative;
+  height: 35px;
+  display: flex;
+  align-items: center;
 }
 
 .category-wrap:hover .mega-menu {
   display: block;
 }
 
-.mega-inner {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  gap: 10px;
+.simple-category-inner {
+  display: flex;
+  flex-direction: column;
 }
 
-.mega-col h4 {
-  margin: 0 0 12px;
-  font-size: 15px;
-  font-weight: 800;
-  color: #222;
+.simple-category-inner a {
+  height: 34px;
+  padding: 0 18px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  color: #111;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 800;
   white-space: nowrap;
 }
 
-.mega-col h4 img {
-  width: 22px;
-  height: 22px;
+.simple-category-inner a img {
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  display: block;
 }
 
-.mega-col a {
-  display: block;
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  margin-bottom: 8px;
-  line-height: 1.3;
+.simple-category-inner a:hover {
+  background: #f7f7f7;
+  color: #ff1733;
 }
 
-.mega-col a:hover {
-  color: #ff4b35;
-  font-weight: 700;
-}
