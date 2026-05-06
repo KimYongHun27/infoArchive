@@ -1,0 +1,348 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  color: #111;
+  background: #fff;
+}
+
+/* 상단 히어로 */
+.membership-hero {
+  height: 340px;
+  background:
+    linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+    url("/img/membership/membership-bg.png") center / cover no-repeat;
+  color: #fff;
+  position: relative;
+  padding: 24px 44px;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-logo img {
+  width: 70px;
+}
+
+.hero-top p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hero-top a {
+  color: #ff1733;
+  text-decoration: none;
+  margin-left: 8px;
+}
+
+.membership-hero h1 {
+  margin: 60px 0 0;
+  text-align: center;
+  font-size: 54px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+.membership-hero strong {
+  color: #ff1733;
+}
+
+/* 본문 */
+.premium-section {
+  width: 900px;
+  margin: 38px auto 34px;
+  text-align: center;
+}
+
+.premium-section > h2 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 900;
+}
+
+.premium-section > p {
+  margin: 16px 0 38px;
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.premium-card {
+  height: 270px;
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  background: #fff;
+}
+
+.premium-left {
+  width: 42%;
+  background: linear-gradient(135deg, #a31318, #1b0000);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium-left h3 {
+  margin: 0 0 34px;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.premium-left p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+.premium-right {
+  width: 58%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.price span {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.price strong {
+  font-size: 56px;
+  color: #ff0f18;
+  font-weight: 900;
+}
+
+.premium-right p {
+  margin: 0 0 20px;
+  color: #777;
+  font-size: 14px;
+}
+
+.premium-btn {
+  width: 360px;
+  height: 70px;
+  border: none;
+  border-radius: 8px;
+  background: #ff1119;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.premium-btn span {
+  margin-left: 24px;
+}
+
+.notice-box {
+  margin-top: 40px;
+  height: 90px;
+  border-radius: 12px;
+  background: #ffe3e3;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  text-align: left;
+}
+
+.notice-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 34px;
+  white-space: nowrap;
+}
+
+.notice-title span {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #ff1733;
+  color: #ff1733;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.notice-box ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 모달 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.78);
+  z-index: 20000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.payment-modal {
+  position: relative;
+  width: 660px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 58px 58px 50px;
+}
+
+.modal-close {
+  position: absolute;
+  right: 34px;
+  top: 26px;
+  border: none;
+  background: none;
+  font-size: 28px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.payment-modal h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.modal-sub {
+  margin: 14px 0 34px;
+  text-align: center;
+  color: #999;
+  font-size: 17px;
+}
+
+.payment-modal hr {
+  border: none;
+  border-top: 1px solid #bbb;
+  margin: 0;
+}
+
+.modal-product {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-product h3 {
+  margin: 0 0 16px;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.modal-product p {
+  margin: 0;
+  color: #777;
+  font-size: 18px;
+}
+
+.modal-product strong {
+  font-size: 40px;
+  color: #ff0f18;
+  font-weight: 900;
+}
+
+.modal-product strong span {
+  font-size: 20px;
+}
+
+.payment-method h3 {
+  margin: 48px 0 34px;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.method {
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 800;
+}
+
+.method.active {
+  border: 2px solid #ff1733;
+  color: #ff1733;
+}
+
+.method strong {
+  font-size: 18px;
+}
+
+.method span {
+  font-size: 14px;
+}
+
+.pay-btn {
+  width: 100%;
+  height: 64px;
+  margin-top: 26px;
+  border: none;
+  border-radius: 7px;
+  background: #ff1119;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.agree-check {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.agree-check input {
+  width: 22px;
+  height: 22px;
+  accent-color: #ff1733;
+}
+
+.agree-check b {
+  color: #ff1733;
+}
