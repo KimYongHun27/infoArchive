@@ -10,6 +10,7 @@ import com.meta12.infoArchive.repository.InstructorApplyRepository;
 import com.meta12.infoArchive.repository.InstructorRepository;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,10 +25,22 @@ public class InstructorApplyService {
     private final InstructorRepository instructorRepository;
 
     // 강사 신청 등록
-    public InstructorApply createInstructorApplication(InstructorApplyRequestDto requestDto) {
+    public InstructorApply createInstructorApplication(
+            Authentication authentication,
+            InstructorApplyRequestDto requestDto
+    ) {
+        String email = authentication.getName();
 
-        User foundUser = userRepository.findById(requestDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("로그인 회원을 찾을 수 없습니다."));
+
+        if (foundUser.getRole() == Role.INSTRUCTOR) {
+            throw new IllegalArgumentException("이미 강사 회원입니다.");
+        }
+
+        if (foundUser.getRole() == Role.INSTRUCTOR_PENDING) {
+            throw new IllegalArgumentException("이미 강사 신청 검토 중입니다.");
+        }
 
         InstructorApply newApplication = InstructorApply.builder()
                 .user(foundUser)
@@ -39,7 +52,12 @@ public class InstructorApplyService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return instructorApplyRepository.save(newApplication);
+        InstructorApply savedApplication = instructorApplyRepository.save(newApplication);
+
+        foundUser.setRole(Role.INSTRUCTOR_PENDING);
+        userRepository.save(foundUser);
+
+        return savedApplication;
     }
 
     // 강사 신청 전체 조회
@@ -55,6 +73,7 @@ public class InstructorApplyService {
 
         foundApplication.setStatus(ApplyStatus.APPROVED);
         foundApplication.setReviewedAt(LocalDateTime.now());
+        foundApplication.setRejectReason(null);
 
         User applicantUser = foundApplication.getUser();
         applicantUser.setRole(Role.INSTRUCTOR);
@@ -83,6 +102,10 @@ public class InstructorApplyService {
         foundApplication.setStatus(ApplyStatus.REJECTED);
         foundApplication.setRejectReason(rejectReason);
         foundApplication.setReviewedAt(LocalDateTime.now());
+
+        User applicantUser = foundApplication.getUser();
+        applicantUser.setRole(Role.USER);
+        userRepository.save(applicantUser);
 
         return instructorApplyRepository.save(foundApplication);
     }
