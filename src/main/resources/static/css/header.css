@@ -81,9 +81,9 @@ body {
   width: 120px;
 }
 
-/* 로그인 후: 3개 영역 */
+/* 로그인 후: 4개 영역 */
 .header-icons.after-login {
-  width: 360px;
+  width: 480px;
 }
 
 .header-icons a {
