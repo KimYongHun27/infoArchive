@@ -3,7 +3,6 @@ package com.meta12.infoArchive.controller;
 import com.meta12.infoArchive.dto.UserRequestDto;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.UserService;
-import com.meta12.infoArchive.dto.UserLoginRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,11 +44,5 @@ public class UserController {
     public String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return "회원 삭제 완료";
-    }
-
-    // 회원 로그인
-    @PostMapping("/login")
-    public User login(@RequestBody UserLoginRequestDto requestDto) {
-        return userService.login(requestDto);
     }
 }

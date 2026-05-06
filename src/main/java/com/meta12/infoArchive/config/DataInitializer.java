@@ -5,6 +5,7 @@ import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
@@ -22,7 +24,7 @@ public class DataInitializer implements CommandLineRunner {
         if (!userRepository.existsByEmail("user@test.com")) {
             User user = User.builder()
                     .username("user")
-                    .password("1234")
+                    .password(passwordEncoder.encode("1234"))
                     .name("일반회원")
                     .email("user@test.com")
                     .phone("010-1111-1111")
@@ -40,7 +42,7 @@ public class DataInitializer implements CommandLineRunner {
         if (!userRepository.existsByEmail("instructor@test.com")) {
             User instructor = User.builder()
                     .username("instructor")
-                    .password("1234")
+                    .password(passwordEncoder.encode("1234"))
                     .name("강사회원")
                     .email("instructor@test.com")
                     .phone("010-2222-2222")
@@ -58,7 +60,7 @@ public class DataInitializer implements CommandLineRunner {
         if (!userRepository.existsByEmail("admin@test.com")) {
             User admin = User.builder()
                     .username("admin")
-                    .password("1234")
+                    .password(passwordEncoder.encode("1234"))
                     .name("관리자")
                     .email("admin@test.com")
                     .phone("010-3333-3333")

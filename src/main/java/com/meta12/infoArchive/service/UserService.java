@@ -4,26 +4,48 @@ import com.meta12.infoArchive.dto.UserRequestDto;
 import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.meta12.infoArchive.dto.UserLoginRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
+    public UserService(
+            UserRepository userRepository,
+            @Lazy BCryptPasswordEncoder passwordEncoder
+    ) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    // 회원 등록
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User foundUser = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("이메일 또는 비밀번호가 틀렸습니다."));
+
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(foundUser.getEmail())
+                .password(foundUser.getPassword())
+                .roles(foundUser.getRole().name())
+                .build();
+    }
+
     public User createUser(UserRequestDto requestDto) {
 
         User newUser = User.builder()
                 .username(requestDto.getUsername())
-                .password(requestDto.getPassword())
+                .password(passwordEncoder.encode(requestDto.getPassword()))
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .phone(requestDto.getPhone())
@@ -37,18 +59,15 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    // 회원 전체 조회
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
-    // 회원 단건 조회
     public User getUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
     }
 
-    // 회원 정보 수정
     public User updateUser(Long userId, UserRequestDto requestDto) {
 
         User foundUser = userRepository.findById(userId)
@@ -64,38 +83,11 @@ public class UserService {
         return userRepository.save(foundUser);
     }
 
-    // 회원 삭제
     public void deleteUser(Long userId) {
 
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
         userRepository.delete(foundUser);
-    }
-
-    // 회원 로그인
-    public User login(UserLoginRequestDto requestDto) {
-
-        User foundUser = userRepository.findByEmail(requestDto.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
-
-        if (!foundUser.getPassword().equals(requestDto.getPassword())) {
-            throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
-        }
-
-        return foundUser;
-    }
-
-    // 이메일 로그인 확인
-    public User loginByEmail(String email, String password) {
-
-        User foundUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다."));
-
-        if (!foundUser.getPassword().equals(password)) {
-            throw new IllegalArgumentException("이메일 또는 비밀번호가 틀렸습니다.");
-        }
-
-        return foundUser;
     }
 }
