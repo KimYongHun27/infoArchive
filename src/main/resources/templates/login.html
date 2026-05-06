@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <title>로그인</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
 <body>
-
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
 <section class="login-page">
   <div class="login-card">
 
@@ -14,7 +19,7 @@
       <h1>INFO ARCHIVE 로그인</h1>
       <p class="login-sub">계정에 로그인하고 나만의 학습을 이어가세요.</p>
 
-      <form>
+      <form th:action="@{/login}" method="post">
         <div class="input-box">
           <span class="input-icon">♙</span>
           <input type="email" placeholder="이메일을 입력해주세요">
@@ -88,6 +93,12 @@
     </div>
   </div>
 </section>
+</main>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>
