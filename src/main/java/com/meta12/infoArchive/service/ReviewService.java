@@ -26,18 +26,20 @@ public class ReviewService {
 
     public Review chugaProc(ReviewDto reviewDto){
         Review review = new Review();
+        review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
-        review.setAuthor(reviewDto.getAuthor());
-        review.setNickname(reviewDto.getNickname());
+        review.setNickname(reviewDto.getNicknameid());
+        review.setName(reviewDto.getNameid());
         review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
     }
     public Review sujungProc(ReviewDto reviewDto){
         Review review = new Review();
+        review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
-        review.setAuthor(reviewDto.getAuthor());
-        review.setNickname(reviewDto.getNickname());
+        review.setNickname(reviewDto.getNicknameid());
+        review.setName(reviewDto.getNameid());
         review.setCreateDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review;
@@ -45,9 +47,10 @@ public class ReviewService {
 
     public Review sakjeProc(ReviewDto reviewDto){
         Review review = new Review();
+        review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
-        review.setAuthor(reviewDto.getAuthor());
-        review.setNickname(reviewDto.getNickname());
+        review.setNickname(reviewDto.getNicknameid());
+        review.setName(reviewDto.getNameid());
         review.setCreateDate(LocalDateTime.now());
         reviewRepository.delete(review);
         return review;

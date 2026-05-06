@@ -1,74 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>review</title>
-
   <link rel="stylesheet" th:href="@{/css/review.css}">
   <link rel="stylesheet" th:href="@{/css/taking-course.css}">
   <link rel="stylesheet" th:href="@{/css/header.css}">
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
   <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-
 </head>
 
-  <body>
-  <div th:replace="~{fragments/header :: header}"></div>
-    <div class="page">
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+  <div class="page">
 
-      <!-- 메인 -->
-      <div class="main">
-        <!-- 사이드바 -->
-        <aside class="sidebar">
-          <div class="card-container">
-            <div class="info-box1">나의 강의장</div>
-            <div class="info-box2">
-              <a href="dashboard.html" class="side2">대시보드</a>
-            </div>
-            <div class="info-box3">
-              <a href="taking-course.html" class="side3">수강중인 강의</a>
-            </div>
-            <div class="info-box4">
-              <a href="call-dibs.html" class="side4">찜한 강의</a>
-            </div>
-            <div class="info-box5">
-              <a href="order-details.html" class="side5">주문내역</a>
-            </div>
-            <div class="info-box6">
-              <a href="coupon.html" class="side6">쿠폰함</a>
-            </div>
-            <div class="info-box7">
-              <a href="member-info.html" class="side7">회원 정보</a>
-            </div>
-            <div class="info-box8">
-              <div class="ask">고객센터</div><br>
-              <div class="time">평일: 10:00 ~ 18:00 [점심: 12:00 - 13:00]</div><br>
-              <div class="phone">010-0000-0000</div><br>
-            </div>
+    <!-- 메인 -->
+    <div class="main">
+      <!-- 사이드바 -->
+      <aside class="sidebar">
+        <div class="card-container">
+          <div class="info-box1">나의 강의장</div>
+          <div class="info-box2">
+            <a href="dashboard.html" class="side2">대시보드</a>
           </div>
-        </aside>
-        <section class="content">
-          <body>
+          <div class="info-box3">
+            <a href="taking-course.html" class="side3">수강중인 강의</a>
+          </div>
+          <div class="info-box4">
+            <a href="call-dibs.html" class="side4">찜한 강의</a>
+          </div>
+          <div class="info-box5">
+            <a href="order-details.html" class="side5">주문내역</a>
+          </div>
+          <div class="info-box6">
+            <a href="coupon.html" class="side6">쿠폰함</a>
+          </div>
+          <div class="info-box7">
+            <a href="member-info.html" class="side7">회원 정보</a>
+          </div>
+          <div class="info-box8">
+            <div class="ask">고객센터</div><br>
+            <div class="time">평일: 10:00 ~ 18:00 [점심: 12:00 - 13:00]</div><br>
+            <div class="phone">010-0000-0000</div><br>
+          </div>
+        </div>
+      </aside>
+      <section class="content">
+        <body>
+
+        <div class="bests">
           <div class="best">베스트 리뷰
-            <div class="best-title"> 리뷰 제목</div>
-            <div class="best-story"> 리뷰 내용</div>
-            <img src="https://picsum.photos/id/100/300/200" class="review1"/>
-          </div>
-          <div class="myreview">리뷰 작성하기
-            <div><input type="text" placeholder="리뷰 제목" name="review-name"></div>
-            <div><textarea name="memo" cols="100" rows="5"></textarea></div>
-            <input type="submit" value="작성하기">
-          </div>
-          </body>
-        </section>
-      </div>
+            <div class="best-title">리뷰 제목</div>
+            <div class="best-story">리뷰 내용</div>
+            <img src="https://picsum.photos/id/100/200/100" class="review1"/>
+          </div><br><br>
+
+          <div class="best">베스트 리뷰
+            <div class="best-title">리뷰 제목</div>
+            <div class="best-story">리뷰 내용</div>
+            <img src="https://picsum.photos/id/102/200/100" class="review1"/>
+          </div><br><br>
+
+          <div class="best"> 베스트 리뷰
+            <div class="best-title">리뷰 제목</div>
+            <div class="best-story">리뷰 내용</div>
+            <img src="https://picsum.photos/id/103/200/100" class="review1"/>
+          </div><br><br>
+        </div>
+
+        <form name="reviewform" method="post" action="review.html">
+        <div class="myreview">리뷰 작성하기
+          <div><input type="text" placeholder="리뷰 제목" name="review-name"></div>
+          <div><textarea name="memo" cols="100" rows="5"></textarea></div>
+          <input type="submit" value="작성하기">
+        </div>
+
+        <div class="myreview">나의 리뷰 수정하기
+          <div><input type="text" placeholder="리뷰 제목" name="review-name"></div>
+          <div><textarea name="memo" cols="100" rows="5"></textarea></div>
+          <input type="submit" value="수정하기">
+        </div>
+
+        <div class="myreview">나의 리뷰 삭제하기
+          <div><input type="text" placeholder="리뷰 제목" name="review-name"></div>
+          <span><textarea name="memo" cols="100" rows="5"></textarea></span><br>
+          <input type="submit" value="삭제하기">
+        </div>
+        </form>
+
+        </body>
+      </section>
     </div>
 
-  <div th:replace="~{fragments/footer :: footer}"></div>
-  <div th:replace="~{fragments/subscribe :: subscribe}"></div>
+  </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-  <script th:src="@{/js/main.js}"></script>
-  <script th:src="@{/js/subscribe.js}"></script>
-  </body>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
+</body>
 </html>
