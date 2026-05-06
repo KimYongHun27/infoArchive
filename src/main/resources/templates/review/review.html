@@ -15,133 +15,137 @@
 
 <main class="lecture-review-page">
 
-  <section class="lecture-review-container">
+  <div class="lecture-review-layout">
 
-    <!-- 강의 정보 -->
-    <section class="lecture-summary-card">
-      <div class="lecture-thumbnail">
-        <img src="https://picsum.photos/id/103/420/260" alt="강의 이미지">
-      </div>
+    <!-- 왼쪽 사이드바 -->
+    <aside class="review-sidebar">
+      <div class="sidebar-card">
+        <h2>나의 강의장</h2>
 
-      <div class="lecture-info">
-        <span class="lecture-category">강의 리뷰</span>
-        <h1>강의명 또는 상품명</h1>
-        <p>
-          이 강의를 수강한 회원들의 리뷰를 확인하고,
-          직접 강의에 대한 후기를 남길 수 있습니다.
-        </p>
+        <nav class="side-menu">
+          <a th:href="@{/dashboard}">대시보드</a>
+          <a th:href="@{/taking-course}">수강중인 강의</a>
+          <a th:href="@{/wishlist}">찜한 강의</a>
+          <a th:href="@{/orders}">주문내역</a>
+          <a th:href="@{/coupon}">쿠폰함</a>
+          <a th:href="@{/member-info}">회원 정보</a>
+          <a th:href="@{/review}" class="active">리뷰 관리</a>
+        </nav>
 
-        <div class="lecture-rating-box">
-          <strong>평균 평점</strong>
-          <span>★★★★★</span>
-          <em>4.8 / 5.0</em>
+        <div class="customer-box">
+          <h3>고객센터</h3>
+          <p>평일 10:00 ~ 18:00</p>
+          <p>점심 12:00 ~ 13:00</p>
+          <strong>010-0000-0000</strong>
         </div>
       </div>
-    </section>
+    </aside>
 
-    <!-- 리뷰 작성 -->
-    <section class="review-write-card">
-      <div class="section-title">
-        <h2>리뷰 작성하기</h2>
-        <p>강의를 수강한 후기를 남겨주세요.</p>
-      </div>
+    <!-- 오른쪽 본문 -->
+    <section class="lecture-review-content">
 
-      <form class="review-form" method="post" th:action="@{/review/chugaProc}">
-
-        <!-- 나중에 강의 ID 연결할 때 사용 -->
-        <input type="hidden" name="productId" th:value="${productId}">
-
-        <div class="rating-select">
-          <label>평점</label>
-          <div class="star-area">
-            <input type="radio" id="star5" name="rating" value="5" checked>
-            <label for="star5">★</label>
-
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4">★</label>
-
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3">★</label>
-
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2">★</label>
-
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1">★</label>
-          </div>
+      <!-- 강의 정보 -->
+      <section class="lecture-summary-card">
+        <div class="lecture-thumbnail">
+          <img src="https://picsum.photos/id/103/420/260" alt="강의 이미지">
         </div>
 
-        <div class="form-group">
-          <label>리뷰 제목</label>
-          <input type="text" name="title" placeholder="리뷰 제목을 입력해주세요">
-        </div>
-
-        <div class="form-group">
-          <label>리뷰 내용</label>
-          <textarea name="content" rows="6" placeholder="강의에 대한 리뷰를 입력해주세요"></textarea>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit">리뷰 등록</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- 리뷰 목록 -->
-    <section class="review-list-section">
-      <div class="section-title">
-        <h2>수강생 리뷰</h2>
-        <p>이 강의에 등록된 리뷰입니다.</p>
-      </div>
-
-      <div class="review-list">
-
-        <!-- 예시 리뷰 카드 -->
-        <article class="review-item">
-          <div class="review-top">
-            <div>
-              <strong class="review-user">user</strong>
-              <span class="review-date">2026.05.06</span>
-            </div>
-            <div class="review-stars">★★★★★</div>
-          </div>
-
-          <h3>정말 이해하기 쉬운 강의였습니다.</h3>
+        <div class="lecture-info">
+          <span class="lecture-category">강의 리뷰</span>
+          <h1>강의명 또는 상품명</h1>
           <p>
-            설명이 깔끔하고 예제가 많아서 따라가기 좋았습니다.
-            처음 배우는 사람도 충분히 이해할 수 있는 강의였습니다.
+            이 강의를 수강한 회원들의 리뷰를 확인하고,
+            직접 강의에 대한 후기를 남길 수 있습니다.
           </p>
 
-          <div class="review-buttons">
-            <button type="button" class="edit-btn">수정</button>
-            <button type="button" class="delete-btn">삭제</button>
+          <div class="lecture-rating-box">
+            <strong>평균 평점</strong>
+            <span>★★★★★</span>
+            <em>4.8 / 5.0</em>
           </div>
-        </article>
+        </div>
+      </section>
 
-        <article class="review-item">
-          <div class="review-top">
-            <div>
-              <strong class="review-user">test</strong>
-              <span class="review-date">2026.05.05</span>
+      <!-- 리뷰 작성 -->
+      <section class="review-write-card">
+        <div class="section-title">
+          <h2>리뷰 작성하기</h2>
+          <p>강의를 수강한 후기를 남겨주세요.</p>
+        </div>
+
+        <form class="review-form" method="post" th:action="@{/review/chugaProc}">
+          <input type="hidden" name="productId" th:value="${productId}">
+
+          <div class="rating-select">
+            <label>평점</label>
+
+            <div class="star-area">
+              <input type="radio" id="star5" name="rating" value="5" checked>
+              <label for="star5">★</label>
+
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4">★</label>
+
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3">★</label>
+
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2">★</label>
+
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1">★</label>
             </div>
-            <div class="review-stars">★★★★☆</div>
           </div>
 
-          <h3>실습 위주라 좋았습니다.</h3>
-          <p>
-            이론만 있는 강의가 아니라 직접 따라할 수 있는 부분이 많아서 좋았습니다.
-          </p>
-
-          <div class="review-buttons">
-            <button type="button" class="edit-btn">수정</button>
-            <button type="button" class="delete-btn">삭제</button>
+          <div class="form-group">
+            <label>리뷰 제목</label>
+            <input type="text" name="title" placeholder="리뷰 제목을 입력해주세요">
           </div>
-        </article>
 
-      </div>
+          <div class="form-group">
+            <label>리뷰 내용</label>
+            <textarea name="content" rows="6" placeholder="강의에 대한 리뷰를 입력해주세요"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">리뷰 등록</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 리뷰 목록 -->
+      <section class="review-list-section">
+        <div class="section-title">
+          <h2>수강생 리뷰</h2>
+          <p>이 강의에 등록된 리뷰입니다.</p>
+        </div>
+
+        <div class="review-list">
+          <article class="review-item">
+            <div class="review-top">
+              <div>
+                <strong class="review-user">일반회원</strong>
+                <span class="review-date">2026.05.06</span>
+              </div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+
+            <h3>정말 이해하기 쉬운 강의였습니다.</h3>
+            <p>
+              설명이 깔끔하고 예제가 많아서 따라가기 좋았습니다.
+            </p>
+
+            <div class="review-buttons">
+              <button type="button" class="edit-btn">수정</button>
+              <button type="button" class="delete-btn">삭제</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
     </section>
 
-  </section>
+  </div>
 
 </main>
 
