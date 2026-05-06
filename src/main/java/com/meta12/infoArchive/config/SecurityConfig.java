@@ -37,8 +37,8 @@ public class SecurityConfig {
                                 "/img/**"
                         ).permitAll()
 
+                        .requestMatchers("/instructor/apply/**").hasAnyRole("USER", "INSTRUCTOR_PENDING")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/instructor/apply/status").hasRole("INSTRUCTOR_PENDING")
                         .requestMatchers("/instructor/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/user/**").hasRole("USER")
 

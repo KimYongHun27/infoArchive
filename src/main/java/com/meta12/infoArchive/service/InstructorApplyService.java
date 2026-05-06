@@ -71,6 +71,14 @@ public class InstructorApplyService {
         InstructorApply foundApplication = instructorApplyRepository.findById(applicationId)
                 .orElseThrow(() -> new IllegalArgumentException("신청서를 찾을 수 없습니다."));
 
+        if (foundApplication.getStatus() == ApplyStatus.APPROVED) {
+            throw new IllegalArgumentException("이미 승인된 신청서입니다.");
+        }
+
+        if (foundApplication.getStatus() == ApplyStatus.REJECTED) {
+            throw new IllegalArgumentException("이미 반려된 신청서입니다.");
+        }
+
         foundApplication.setStatus(ApplyStatus.APPROVED);
         foundApplication.setReviewedAt(LocalDateTime.now());
         foundApplication.setRejectReason(null);
@@ -98,6 +106,14 @@ public class InstructorApplyService {
 
         InstructorApply foundApplication = instructorApplyRepository.findById(applicationId)
                 .orElseThrow(() -> new IllegalArgumentException("신청서를 찾을 수 없습니다."));
+
+        if (foundApplication.getStatus() == ApplyStatus.APPROVED) {
+            throw new IllegalArgumentException("이미 승인된 신청서는 반려할 수 없습니다.");
+        }
+
+        if (foundApplication.getStatus() == ApplyStatus.REJECTED) {
+            throw new IllegalArgumentException("이미 반려된 신청서입니다.");
+        }
 
         foundApplication.setStatus(ApplyStatus.REJECTED);
         foundApplication.setRejectReason(rejectReason);
