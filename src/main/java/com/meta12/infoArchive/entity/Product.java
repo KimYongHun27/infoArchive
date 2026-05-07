@@ -9,24 +9,20 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Product {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype")
+public abstract class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //상품 종류(구독, 강의)
+    @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    //상품명
+    private String productName;
 
     //가격
     private int price;
-
-    //구독권 사용 상태
-    private SubscriptionStatus subscriptionStatus;
-
-    //구독 시작 일시(연, 월, 일, 시, 분)
-    private LocalDateTime start_time;
-
-    //구독 종료 일시(연, 월, 일, 시, 분)
-    private LocalDateTime end_time;
-
 }

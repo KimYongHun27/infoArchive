@@ -27,4 +27,9 @@ public class Instructor {
     private User user;               // 연결된 회원 정보
 
     private LocalDateTime createdAt; // 강사 등록일
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

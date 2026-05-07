@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>강사 신청 관리</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-instructor-applications.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="admin-apply-page">
+
+    <section class="page-title">
+        <div>
+            <h1>강사 신청 관리</h1>
+            <p>회원의 강사 신청을 검토하고 승인 또는 반려할 수 있습니다.</p>
+        </div>
+
+        <a th:href="@{/admin}" class="back-btn">관리자 홈</a>
+    </section>
+
+    <section class="summary-box">
+        <div class="summary-card">
+            <p>전체 신청 수</p>
+            <strong th:text="${applicationCount}">0</strong>
+        </div>
+    </section>
+
+    <section class="table-section">
+        <table class="apply-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>신청자</th>
+                <th>이메일</th>
+                <th>신청 제목</th>
+                <th>소개</th>
+                <th>경력</th>
+                <th>포트폴리오</th>
+                <th>상태</th>
+                <th>신청일</th>
+                <th>검토일</th>
+                <th>관리</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="apply : ${applications}">
+                <td th:text="${apply.id}">1</td>
+
+                <td th:text="${apply.user != null ? apply.user.name : '-'}">홍길동</td>
+
+                <td th:text="${apply.user != null ? apply.user.email : '-'}">test@test.com</td>
+
+                <td th:text="${apply.title}">프로그래밍 강사 신청</td>
+
+                <td class="long-text" th:text="${apply.intro}">소개 내용</td>
+
+                <td class="long-text" th:text="${apply.career}">경력 내용</td>
+
+                <td>
+                    <a th:if="${apply.portfolioUrl != null and !#strings.isEmpty(apply.portfolioUrl)}"
+                       th:href="${apply.portfolioUrl}"
+                       target="_blank"
+                       class="portfolio-link">
+                        보기
+                    </a>
+
+                    <span th:if="${apply.portfolioUrl == null or #strings.isEmpty(apply.portfolioUrl)}">-</span>
+                </td>
+
+                <td>
+                    <span class="status-badge"
+                          th:classappend="${apply.status.name() == 'PENDING'} ? ' pending' :
+                                          (${apply.status.name() == 'APPROVED'} ? ' approved' : ' rejected')"
+                          th:text="${apply.status}">
+                        PENDING
+                    </span>
+
+                    <p class="reject-reason"
+                       th:if="${apply.rejectReason != null and !#strings.isEmpty(apply.rejectReason)}"
+                       th:text="'사유: ' + ${apply.rejectReason}">
+                        사유
+                    </p>
+                </td>
+
+                <td th:text="${apply.createdAt != null ? #temporals.format(apply.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
+                    2026-01-01
+                </td>
+
+                <td th:text="${apply.reviewedAt != null ? #temporals.format(apply.reviewedAt, 'yyyy-MM-dd HH:mm') : '-'}">
+                    -
+                </td>
+
+                <td>
+                    <div class="action-box" th:if="${apply.status.name() == 'PENDING'}">
+
+                        <form th:action="@{/admin/instructor-applications/{id}/approve(id=${apply.id})}"
+                              method="post"
+                              onsubmit="return confirm('이 강사 신청을 승인하시겠습니까?');">
+                            <button type="submit" class="approve-btn">승인</button>
+                        </form>
+
+                        <form th:action="@{/admin/instructor-applications/{id}/reject(id=${apply.id})}"
+                              method="post"
+                              onsubmit="return confirm('이 강사 신청을 반려하시겠습니까?');">
+                            <input type="text"
+                                   name="rejectReason"
+                                   placeholder="반려 사유"
+                                   class="reject-input">
+                            <button type="submit" class="reject-btn">반려</button>
+                        </form>
+
+                    </div>
+
+                    <span th:if="${apply.status.name() != 'PENDING'}" class="done-text">
+                        처리완료
+                    </span>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(applications)}">
+                <td colspan="11" class="empty">
+                    강사 신청 내역이 없습니다.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

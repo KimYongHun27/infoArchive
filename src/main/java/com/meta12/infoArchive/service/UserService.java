@@ -1,6 +1,9 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.UserRequestDto;
+import com.meta12.infoArchive.dto.UserSignupRequestDto;
+import com.meta12.infoArchive.dto.MemberInfoUpdateDto;
+import com.meta12.infoArchive.dto.PasswordChangeDto;
 import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
@@ -10,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.meta12.infoArchive.dto.MemberInfoUpdateDto;
-import com.meta12.infoArchive.dto.PasswordChangeDto;
 import org.springframework.security.core.Authentication;
-
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -137,6 +137,53 @@ public class UserService implements UserDetailsService {
         }
 
         user.setPassword(passwordEncoder.encode(requestDto.getNewPassword()));
+        userRepository.save(user);
+    }
+
+    public void signup(UserSignupRequestDto dto) {
+
+        if (dto.getName() == null || dto.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("이름을 입력해주세요.");
+        }
+
+        if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("이메일을 입력해주세요.");
+        }
+
+        if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("휴대폰 번호를 입력해주세요.");
+        }
+
+        if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("비밀번호를 입력해주세요.");
+        }
+
+        if (!dto.getPassword().equals(dto.getPasswordCheck())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+
+        if (!Boolean.TRUE.equals(dto.getAgreeTerms())
+                || !Boolean.TRUE.equals(dto.getAgreePrivacy())
+                || !Boolean.TRUE.equals(dto.getAgreeAge())) {
+            throw new IllegalArgumentException("필수 약관에 동의해야 합니다.");
+        }
+
+        User user = User.builder()
+                .username(dto.getEmail())
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .name(dto.getName())
+                .phone(dto.getPhone())
+                .role(Role.USER)
+                .emailAgree(Boolean.TRUE.equals(dto.getEmailAgree()))
+                .smsAgree(Boolean.TRUE.equals(dto.getSmsAgree()))
+                .pushAgree(Boolean.TRUE.equals(dto.getPushAgree()))
+                .build();
+
         userRepository.save(user);
     }
 }

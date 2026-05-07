@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 상세 관리</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-user-detail.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="admin-detail-page">
+
+    <section class="page-title">
+        <div>
+            <h1>회원 상세 관리</h1>
+            <p>회원 정보를 확인하고 권한을 변경할 수 있습니다.</p>
+        </div>
+
+        <a th:href="@{/admin/users}" class="back-btn">회원 목록</a>
+    </section>
+
+    <section class="detail-card">
+
+        <div class="info-row">
+            <span>회원 번호</span>
+            <strong th:text="${user.id}">1</strong>
+        </div>
+
+        <div class="info-row">
+            <span>이름</span>
+            <strong th:text="${user.name}">홍길동</strong>
+        </div>
+
+        <div class="info-row">
+            <span>이메일</span>
+            <strong th:text="${user.email}">test@test.com</strong>
+        </div>
+
+        <div class="info-row">
+            <span>전화번호</span>
+            <strong th:text="${user.phone}">010-0000-0000</strong>
+        </div>
+
+        <div class="info-row">
+            <span>현재 권한</span>
+            <strong th:text="${user.role}">USER</strong>
+        </div>
+
+        <div class="info-row">
+            <span>가입일</span>
+            <strong th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
+                2026-01-01
+            </strong>
+        </div>
+
+    </section>
+
+    <section class="action-card">
+        <h2>권한 변경</h2>
+
+        <form th:action="@{/admin/users/{id}/role(id=${user.id})}" method="post">
+            <select name="role">
+                <option value="USER" th:selected="${user.role.name() == 'USER'}">일반 회원</option>
+                <option value="INSTRUCTOR_PENDING" th:selected="${user.role.name() == 'INSTRUCTOR_PENDING'}">강사 신청 대기</option>
+                <option value="INSTRUCTOR" th:selected="${user.role.name() == 'INSTRUCTOR'}">강사</option>
+                <option value="ADMIN" th:selected="${user.role.name() == 'ADMIN'}">관리자</option>
+            </select>
+
+            <button type="submit" class="save-btn">권한 변경</button>
+        </form>
+    </section>
+
+    <section class="danger-card">
+        <h2>회원 삭제</h2>
+        <p>회원 삭제는 되돌릴 수 없습니다. 신중하게 진행하세요.</p>
+
+        <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post"
+              onsubmit="return confirm('정말 이 회원을 삭제하시겠습니까?');">
+            <button type="submit" class="delete-btn">회원 삭제</button>
+        </form>
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

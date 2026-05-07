@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+    color: #111;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+}
+
+.admin-detail-page {
+    width: 900px;
+    max-width: calc(100% - 40px);
+    margin: 50px auto 100px;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-title h1 {
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.page-title p {
+    color: #666;
+    font-size: 15px;
+}
+
+.back-btn {
+    height: 42px;
+    padding: 0 18px;
+    background: #111;
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-card,
+.action-card,
+.danger-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span {
+    color: #666;
+    font-size: 14px;
+}
+
+.info-row strong {
+    font-size: 15px;
+}
+
+.action-card h2,
+.danger-card h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.action-card form {
+    display: flex;
+    gap: 10px;
+}
+
+.action-card select {
+    width: 240px;
+    height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0 12px;
+    font-size: 14px;
+}
+
+.save-btn {
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    padding: 0 18px;
+    background: #111;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.danger-card {
+    border: 1px solid #ffd1d1;
+}
+
+.danger-card p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.delete-btn {
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    padding: 0 18px;
+    background: #ff1515;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+}
