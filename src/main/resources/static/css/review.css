@@ -192,6 +192,10 @@ body {
   line-height: 1.7;
 }
 
+/* =========================
+   평균 평점
+========================= */
+
 .lecture-rating-box {
   margin-top: 24px;
   display: flex;
@@ -202,19 +206,53 @@ body {
 .lecture-rating-box strong {
   font-size: 15px;
   font-weight: 900;
+  white-space: nowrap;
 }
 
-.lecture-rating-box span {
-  color: #ff2448;
-  font-size: 22px;
+.avg-star-box {
+  position: relative;
+  display: inline-block;
+  width: 132px;
+  height: 26px;
+  font-size: 24px;
+  line-height: 26px;
   letter-spacing: 2px;
+  vertical-align: middle;
+}
+
+.avg-star-base,
+.avg-star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 26px;
+  line-height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.avg-star-base {
+  width: 132px;
+  color: #ddd;
+}
+
+.avg-star-fill {
+  color: #ff2448;
+  width: 0;
 }
 
 .lecture-rating-box em {
   font-style: normal;
-  color: #555;
+  color: #111;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.lecture-rating-box em span {
+  color: #ff2448;
+  font-size: 22px;
+  font-weight: 900;
 }
 
 /* =========================
@@ -256,7 +294,7 @@ body {
   gap: 18px;
 }
 
-/* 별점 */
+/* 별점 선택 */
 .rating-select {
   display: flex;
   flex-direction: column;
@@ -575,50 +613,6 @@ body {
   }
 
   .lecture-rating-box {
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .lecture-rating-box strong {
-    font-size: 15px;
-    font-weight: 900;
-  }
-
-  .avg-star-box {
-    position: relative;
-    display: inline-block;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: 2px;
-  }
-
-  .avg-star-base {
-    color: #ddd;
-  }
-
-  .avg-star-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    color: #ff2448;
-    width: 0;
-  }
-
-  .lecture-rating-box em {
-    font-style: normal;
-    color: #333;
-    font-size: 15px;
-    font-weight: 900;
-  }
-
-  .review-count {
-    color: #777;
-    font-size: 14px;
-    font-weight: 700;
+    align-items: flex-start;
   }
 }
