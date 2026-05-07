@@ -4,6 +4,10 @@ import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.ArrayList;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +29,15 @@ public class HomeController {
     public String top10() {
         return "top10";
 
+    }
 
+    @GetMapping("/category/{categoryName}")
+    public String categoryPage(
+            @PathVariable String categoryName,
+            Model model
+    ) {
+        model.addAttribute("courses", new ArrayList<>());
+
+        return "category/" + categoryName;
     }
 }

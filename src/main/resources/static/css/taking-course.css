@@ -17,37 +17,6 @@ body {
   height: 100%;
 }
 
-.search {
-  width: 500px;
-  padding: 20px;
-  margin-left: 200px;
-  background-color: #ffffff;
-  padding: 10px 20px;
-  color: #b9b9b9;
-  border-radius: 20px;
-  position: sticky;
-  top: 0px;
-  z-index: 10;
-  opacity: 0.9;
-  font-size: 20px;
-}
-
-.category1 {
-  text-decoration: none;
-  color: #ffffff;
-  padding: 20px 10px;
-  margin-left: 40px;
-}
-
-.category2 {
-  justify-content: right;
-  text-align: right;
-  text-decoration: none;
-  color: #ffffff;
-  padding-right: 60px;
-  margin-top: -45px;
-}
-
 /* 메인 */
 .main {
   display: flex;
@@ -108,10 +77,6 @@ body {
     color: rgb(0, 0, 0);
   }
 }
-
-/* .info-box3:hover {
-  background-color: #eeeeee;
-} */
 
 .info-box4 {
   background-color: rgb(255, 255, 255);
@@ -207,51 +172,92 @@ body {
   font-weight: bolder;
 }
 
-.cards {
+.course-card {
   display: flex;
-  gap: 15px;
-  padding: 30px 0px;
-}
+  padding: 10px 70px;
 
-.card {
-  flex: 1;
+}
+.course-container {
   display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.card-header {
-  background-color: #f0ba46;
-  color: white;
-  padding: 30px;
+.course-box {
+  height: 250px;
 }
 
-.card-body {
-  background: #f5f6fa;
-  padding: 30px;
-  flex: 1;
-}
-.card-end {
-  padding: 30px;
+.course-img {
+  width: 400px;
+  height: 250px;
 }
 
-.cardend1 {
-  background-color: rgb(252, 69, 56);
-  font-size: 30px;
+.course-content {
+  width: 500px;
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  border-right: 1.5px solid rgb(212, 212, 212);
+
+}
+
+.course-name {
+  padding-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.instructor {
+  font-size: 14px;
+  font-weight: bold;
+  color: #525252;
+  margin-bottom: 10px;
+}
+
+.percent {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.progress {
+  width: 450px;
+  height: 7px;
+  background-color: #d3d3d3;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.course-move {
+  width: 300px;
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.learn {
+  padding: 50px 0px;
+}
+
+.learn-btn {
+  background-color: rgb(255, 17, 68);
+  color: rgb(255, 255, 255);
   text-decoration: none;
-  
+  padding: 20px 70px;
+  border-radius: 10px;
 }
 
-.cardend2 {
-  background-color: rgb(250, 141, 122);
-  font-size: 30px;
+.admission {
+  padding: 10px 0px;
+}
+
+.admission-btn {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(73, 73, 73);
   text-decoration: none;
+  padding: 20px 80px;
+  border-radius: 10px;
 }
-
-.cardend3 {
-  background-color: rgb(248, 181, 176);
-  font-size: 30px;
-  text-decoration: none;
-}
-
