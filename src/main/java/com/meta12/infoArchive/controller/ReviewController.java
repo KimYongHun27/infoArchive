@@ -3,7 +3,9 @@ package com.meta12.infoArchive.controller;
 import com.meta12.infoArchive.dto.AnswerDto;
 import com.meta12.infoArchive.dto.ReviewDto;
 import com.meta12.infoArchive.entity.Answer;
+import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.entity.Review;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.AnswerService;
 import com.meta12.infoArchive.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -32,24 +34,30 @@ public class ReviewController {
     ) {
         List<Review> reviewList = reviewService.findAll();
         model.addAttribute("reviewList", reviewList);
-        return "review/review";
+        return "mypage/review";
     }
     @PostMapping("/review/chugaProc")
-    public String chugaProc(ReviewDto reviewDto) {
-        reviewService.chugaProc(reviewDto);
+    public String chugaProc(ReviewDto reviewDto, User user, Instructor instructor) {
+        reviewService.chugaProc(reviewDto,user,instructor);
         return "redirect:/review";
     }
     @PostMapping("/review/sujungProc/{id}")
-    public String sujungProc(@PathVariable("id") Long id, ReviewDto reviewDto) {
+    public String sujungProc(@PathVariable("id") Long id,ReviewDto reviewDto, User user,
+                             Instructor instructor) {
         reviewDto.setId(id);
-        reviewService.sujungProc(reviewDto);
+        reviewDto.setNameid(user);
+        reviewDto.setNicknameid(instructor);
+        reviewService.sujungProc(reviewDto,user,instructor);
         return "redirect:/review";
     }
     @PostMapping("/review/sakjeProc/{id}")
-    public String sakjeProc(@PathVariable("id") Long id) {
-        ReviewDto reviewDto = new ReviewDto();
+    public String sakjeProc(@PathVariable("id") Long id,
+    ReviewDto reviewDto, User user, Instructor instructor) {
+
         reviewDto.setId(id);
-        reviewService.sakjeProc(reviewDto);
+        reviewDto.setNameid(user);
+        reviewDto.setNicknameid(instructor);
+        reviewService.sakjeProc(reviewDto,user,instructor);
         return "redirect:/review";
     }
 //    @GetMapping("/ /chuga")

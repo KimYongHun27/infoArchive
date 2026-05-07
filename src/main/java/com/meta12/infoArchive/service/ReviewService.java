@@ -1,7 +1,9 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.ReviewDto;
+import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.entity.Review;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,23 +31,23 @@ public class ReviewService {
         return review;
     }
 
-    public Review creatEntity(ReviewDto reviewDto){
+    public Review creatEntity(ReviewDto reviewDto, User user, Instructor instructor){
         Review review = new Review();
         review.setId(reviewDto.getId());
         review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
-        review.setNickname(reviewDto.getNicknameid());
-        review.setName(reviewDto.getNameid());
+        review.setName(user);
+        review.setNickname(instructor);
         return review;
     }
 
-    public void chugaProc(ReviewDto reviewDto){
-        reviewRepository.save(creatEntity(reviewDto));
+    public void chugaProc(ReviewDto reviewDto, User user, Instructor instructor){
+        reviewRepository.save(creatEntity(reviewDto,user,instructor));
     }
-    public void sujungProc(ReviewDto reviewDto){
-        reviewRepository.save(creatEntity(reviewDto));
+    public void sujungProc(ReviewDto reviewDto, User user, Instructor instructor){
+        reviewRepository.save(creatEntity(reviewDto,user,instructor));
     }
-    public void sakjeProc(ReviewDto reviewDto){
-        reviewRepository.delete(creatEntity(reviewDto));
+    public void sakjeProc(ReviewDto reviewDto, User user, Instructor instructor){
+        reviewRepository.delete(creatEntity(reviewDto,user,instructor));
     }
 }
