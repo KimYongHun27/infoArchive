@@ -17,6 +17,16 @@ body {
   height: 100%;
 }
 
+/* 헤더 */
+.header {
+  display: flex;
+  height: 150px;
+  flex-direction: column;
+  padding: 35px 30px;
+  background-color: #000000;
+  color: white;
+}
+
 .search {
   width: 500px;
   padding: 20px;
@@ -61,7 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-color: rgb(90, 90, 90);
+  background-color: rgb(212, 212, 212);
 }
 
 .card-container {
@@ -197,7 +207,7 @@ body {
 .content {
   flex: 1;
   padding: 20px;
-  background-color: #f5f6fa;
+  background-color: #e9e9e9;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -206,6 +216,7 @@ body {
 .banner {
   display: inline;
   padding: 20px;
+
 }
 
 .greeting {
@@ -215,6 +226,7 @@ body {
 .banner-btn {
   margin-top: -50px;
   text-align: right;
+
 }
 
 .info-btn {
@@ -225,13 +237,14 @@ body {
   font-weight: bold;
   border: 2px solid rgb(0, 0, 0);
   border-radius: 5px;
+
 }
 
 .profile {
   display: flex;
-  margin: 10px 30px;
+  margin: 10px 20px;
   padding: 50px;
-  background-color: salmon;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   font-size: large;
 }
@@ -267,7 +280,6 @@ body {
   background-color: rgb(230, 230, 230);
   width: 5px;
   height: 120px;
-
 }
 
 .class-count {
@@ -287,6 +299,7 @@ body {
 .ongoing-title {
   font-size: 30px;
   font-weight: bold;
+  padding: 40px 0px;
 }
 
 .ongoing-btn {
@@ -301,4 +314,252 @@ body {
   font-weight: bold;
   font-size: large;
 
+}
+
+.course-container {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.course-box {
+  height: 250px;
+}
+
+.course-img {
+  width: 400px;
+  height: 250px;
+}
+
+.course-content {
+  width: 400px;
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+}
+
+.progress {
+  margin: 10px 0px;
+  width: 350px;
+  height: 7px;
+  background-color: #d3d3d3;
+  justify-content: center;
+}
+
+.course-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.instructor {
+  font-size: 14px;
+  font-weight: bold;
+  color: #525252;
+  margin-bottom: 16px;
+}
+
+.period {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.get {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dibs-course {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  width: 700px;
+  border: 1.5px solid rgb(204, 204, 204);
+}
+
+.dibs-header{
+  display: flex;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  border: 1.5px solid rgb(204, 204, 204);
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.dibs-btn {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.dibs-body{
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border: 1.5px solid rgb(204, 204, 204);
+  padding: 20px;
+  align-items: center;
+}
+
+.dibs-img {
+  width: 120px;
+  height: 80px;
+  border-radius: 5px;
+}
+
+.dibs-data {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+}
+
+.dibs-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  padding: 5px 0px;
+}
+
+.dibs-instructor {
+  font-size: 14px;
+  font-weight: bold;
+  color: #525252;
+  padding: 5px 0px;
+}
+
+.dibs-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+  padding: 5px 0px;
+}
+
+.order-course {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  width: 700px;
+  border: 1.5px solid rgb(204, 204, 204);
+  margin-right: 20px;
+}
+
+.order-header{
+  display: flex;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  border: 1.5px solid rgb(204, 204, 204);
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.order-btn {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.order-body{
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border: 1.5px solid rgb(204, 204, 204);
+  padding: 20px;
+  align-items: center;
+}
+
+.order-img {
+  width: 120px;
+  height: 80px;
+  border-radius: 5px;
+}
+
+.order-data {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+}
+
+.order-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  padding: 5px 0px;
+}
+
+.order-instructor {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7a7a7a;
+  padding: 5px 0px;
+}
+
+.order-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  padding: 5px 0px;
+}
+
+.payment {
+  color: rgb(0, 119, 255);
+  font-weight: bolder;
+  font-size: 20px;
+  padding-left: 200px;
+
+}
+.post-footer {
+  background-color: rgb(243, 243, 243);
+  padding: 15px;
+  /* margin-top: 40px; */
+}
+
+.tags {
+  padding: 40px 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.undermark {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.under-category {
+  display: flex;
+  padding: 30px 0px;
+  gap: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+.under-category span::after {
+  content: " | ";
+  margin-left: 20px;
+}
+
+.under-ask {
+  .senter {
+    color: rgb(0, 0, 0);
+  }
+
+  .time {
+    color: rgb(161, 161, 161);
+    padding-left: 10px;
+    font-size: 15px;
+  }
+}
+
+.ask-adress {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.ask-adress span::after {
+  content: " | ";
+  margin: 10px;
+}
+
+.advert {
+  display: flex;
+  background-color: rgb(226, 61, 20);
+  padding: 15px;
+  text-align: center;
+  justify-content: center;
 }
