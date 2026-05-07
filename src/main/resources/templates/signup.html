@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>InfoArchive 회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+
+<div class="signup-page">
+
+    <!-- 배경 이미지: HTML img 태그로 연결 -->
+    <img th:src="@{/images/signup-bg.png}" alt="회원가입 배경" class="bg-img">
+
+    <header class="signup-header">
+        <a th:href="@{/}" class="logo">I.A</a>
+
+        <div class="login-area">
+            이미 계정이 있으신가요?
+            <a th:href="@{/login}">로그인</a>
+        </div>
+    </header>
+
+    <section class="top-copy">
+        <h2>첫 달 30일은 <span>구독</span>로 즐겨보세요.</h2>
+        <p>멤버십은 언제든 취소 가능합니다.</p>
+    </section>
+
+    <main class="signup-main">
+        <section class="signup-card">
+            <h1>회원가입</h1>
+            <p>필수 정보를 입력해주세요.</p>
+
+            <form th:action="@{/signup}" method="post" onsubmit="return validateSignup();">
+
+                <div class="input-box">
+                    <span>♡</span>
+                    <input type="text" name="name" id="name" placeholder="이름을 입력해주세요.">
+                </div>
+
+                <div class="input-box">
+                    <span>✉</span>
+                    <input type="email" name="email" id="email" placeholder="이메일 주소를 입력해주세요.">
+                </div>
+
+                <div class="input-box">
+                    <span>🔒</span>
+                    <input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요.">
+                    <button type="button" onclick="togglePassword('password')">⌧</button>
+                </div>
+
+                <div class="input-box">
+                    <span>🔒</span>
+                    <input type="password" name="passwordCheck" id="passwordCheck" placeholder="비밀번호를 다시 입력해주세요.">
+                    <button type="button" onclick="togglePassword('passwordCheck')">⌧</button>
+                </div>
+
+                <div class="agree-box">
+                    <label>
+                        <input type="checkbox" id="agreeAll" onclick="checkAll();">
+                        모두 동의합니다.
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="required-check" name="agreeTerms">
+                        <b>[필수]</b> 이용약관에 동의합니다.
+                        <span>›</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="required-check" name="agreePrivacy">
+                        <b>[필수]</b> 개인정보처리방침에 동의합니다.
+                        <span>›</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="required-check" name="agreeAge">
+                        <b>[필수]</b> 만 14세 이상입니다.
+                        <span>›</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="signup-btn">회원가입</button>
+
+                <p class="bottom-notice">
+                    가입하면 <strong>이용약관</strong> 및 <strong>개인정보처리방침</strong>에 동의하게 됩니다.
+                </p>
+
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <strong>I.A</strong>
+                <span>INFO ARCHIVE</span>
+            </div>
+
+            <ul>
+                <li>공지사항</li>
+                <li>강사신청</li>
+                <li>FAQ</li>
+                <li>이용약관</li>
+                <li>개인정보처리방침</li>
+                <li>환불규정</li>
+            </ul>
+
+            <div class="footer-bottom">
+                <div>
+                    <p>고객센터 ㆍ 평일 10시 ~ 18시 / 주말 및 공휴일 휴무</p>
+                    <h3>010-0000-0000 | 0000@gmail.com</h3>
+                </div>
+
+                <div class="sns">
+                    <span>▶</span>
+                    <span>◎</span>
+                    <span>f</span>
+                    <span>B</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="subscribe-bar">
+        <div class="subscribe-title">
+            구독 할인 종료까지<br>
+            남은 시간
+        </div>
+
+        <div class="timer">
+            <span>6</span>일
+            <span>12</span>시
+            <span>4</span>분
+            <span>1</span>초
+        </div>
+
+        <button type="button">구독 시작하기</button>
+    </div>
+
+</div>
+
+<script th:src="@{/js/signup.js}"></script>
+
+</body>
+</html>
