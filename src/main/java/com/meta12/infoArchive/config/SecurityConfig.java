@@ -37,11 +37,12 @@ public class SecurityConfig {
                                 "/img/**"
                         ).permitAll()
 
+                        .requestMatchers("/mypage", "/mypage/**").authenticated()
+                        .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/instructor/apply/**").hasAnyRole("USER", "INSTRUCTOR_PENDING")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/instructor/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/mypage", "/mypage/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -55,6 +56,14 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .successHandler((request, response, authentication) -> {
                             request.getSession().setAttribute("loginUser", authentication.getName());
+
+                            String role = authentication.getAuthorities()
+                                    .iterator()
+                                    .next()
+                                    .getAuthority();
+
+                            request.getSession().setAttribute("loginRole", role);
+
                             response.sendRedirect("/main");
                         })
                         .failureUrl("/login?error=true")

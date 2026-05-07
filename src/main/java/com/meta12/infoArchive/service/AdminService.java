@@ -9,6 +9,8 @@ import com.meta12.infoArchive.repository.InstructorRepository;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.meta12.infoArchive.entity.ApplyStatus;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -35,15 +37,72 @@ public class AdminService {
         return instructorApplyRepository.findAll();
     }
 
-    // 관리자 - 회원 권한 변경
-    public User changeUserRole(Long userId, Role role) {
-
-        User foundUser = userRepository.findById(userId)
+    // 관리자 - 회원 단건 조회
+    public User getUser(Long userId) {
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+    }
 
-        foundUser.setRole(role);
+    // 관리자 - 강사 신청 단건 조회
+    public InstructorApply getInstructorApplication(Long applyId) {
+        return instructorApplyRepository.findById(applyId)
+                .orElseThrow(() -> new IllegalArgumentException("강사 신청을 찾을 수 없습니다."));
+    }
 
-        return userRepository.save(foundUser);
+    // 관리자 - 강사 신청 승인
+    public void approveInstructorApplication(Long applyId) {
+
+        InstructorApply apply = instructorApplyRepository.findById(applyId)
+                .orElseThrow(() -> new IllegalArgumentException("강사 신청을 찾을 수 없습니다."));
+
+        if (apply.getStatus() == ApplyStatus.APPROVED) {
+            throw new IllegalArgumentException("이미 승인된 신청입니다.");
+        }
+
+        User user = apply.getUser();
+
+        // 회원 권한을 강사로 변경
+        user.setRole(Role.INSTRUCTOR);
+
+        // Instructor 테이블에 강사 정보 생성
+        // 이미 강사로 등록되어 있으면 중복 생성 방지
+        if (!instructorRepository.existsByUser(user)) {
+            Instructor instructor = Instructor.builder()
+                    .nickname(user.getName())
+                    .intro(apply.getIntro())
+                    .career(apply.getCareer())
+                    .category(apply.getTitle())
+                    .user(user)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+
+            instructorRepository.save(instructor);
+        }
+
+        // 신청 상태 승인 처리
+        apply.setStatus(ApplyStatus.APPROVED);
+        apply.setReviewedAt(LocalDateTime.now());
+        apply.setRejectReason(null);
+
+        userRepository.save(user);
+        instructorApplyRepository.save(apply);
+    }
+
+    // 관리자 - 강사 신청 반려
+    public void rejectInstructorApplication(Long applyId, String rejectReason) {
+
+        InstructorApply apply = instructorApplyRepository.findById(applyId)
+                .orElseThrow(() -> new IllegalArgumentException("강사 신청을 찾을 수 없습니다."));
+
+        if (apply.getStatus() == ApplyStatus.APPROVED) {
+            throw new IllegalArgumentException("이미 승인된 신청은 반려할 수 없습니다.");
+        }
+
+        apply.setStatus(ApplyStatus.REJECTED);
+        apply.setRejectReason(rejectReason);
+        apply.setReviewedAt(LocalDateTime.now());
+
+        instructorApplyRepository.save(apply);
     }
 
     // 관리자 - 회원 삭제
@@ -53,5 +112,16 @@ public class AdminService {
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
         userRepository.delete(foundUser);
+    }
+
+    // 기존 권한 변경 기능은 일단 남겨둬도 됨
+    public User changeUserRole(Long userId, Role role) {
+
+        User foundUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
+        foundUser.setRole(role);
+
+        return userRepository.save(foundUser);
     }
 }

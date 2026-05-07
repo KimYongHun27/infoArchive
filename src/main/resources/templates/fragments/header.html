@@ -27,8 +27,17 @@
         </a>
       </div>
 
+
       <!-- 로그인 후 -->
       <div class="header-icons after-login" th:if="${session.loginUser != null}">
+
+        <!-- 관리자만 보임 -->
+        <a th:if="${session.loginRole == 'ROLE_ADMIN'}"
+           th:href="@{/admin}">
+          <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
+          <p>관리자</p>
+        </a>
+
         <a th:href="@{/mypage}">
           <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
           <p>마이페이지</p>
