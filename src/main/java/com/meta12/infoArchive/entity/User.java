@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 public class User {
 
+    private Boolean membershipActive; // 멤버십 활성 여부
+    private LocalDateTime membershipStartedAt; // 멤버십 시작일
+    private LocalDateTime membershipExpiredAt; // 멤버십 만료일
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                 // 회원 고유 번호
@@ -59,6 +63,10 @@ public class User {
 
         if (this.pushAgree == null) {
             this.pushAgree = false;
+        }
+
+        if (this.membershipActive == null) {
+            this.membershipActive = false;
         }
     }
 }

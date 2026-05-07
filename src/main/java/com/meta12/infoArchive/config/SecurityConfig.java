@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/payment", "/payment/**").authenticated()
                         .requestMatchers("/instructor/apply", "/instructor/apply/**").hasAnyRole("USER", "INSTRUCTOR")
                         .requestMatchers("/instructor/apply", "/instructor/apply/**").authenticated()
                         .requestMatchers("/user/**").hasRole("USER")

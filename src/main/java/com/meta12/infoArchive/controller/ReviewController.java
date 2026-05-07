@@ -34,7 +34,7 @@ public class ReviewController {
     ) {
         List<Review> reviewList = reviewService.findAll();
         model.addAttribute("reviewList", reviewList);
-        return "review/review";
+        return "mypage/review";
     }
     @PostMapping("/review/chugaProc")
     public String chugaProc(ReviewDto reviewDto, User user, Instructor instructor) {
