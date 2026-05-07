@@ -17,8 +17,8 @@ public class MemberInfoController {
 
     private final UserService userService;
 
-    // 회원 정보 페이지
-    @GetMapping("/mypage")
+    // 마이페이지 화면: /mypage
+    @GetMapping
     public String memberInfoPage(Authentication authentication, Model model) {
         User user = userService.getLoginUser(authentication);
         model.addAttribute("user", user);
@@ -26,26 +26,26 @@ public class MemberInfoController {
     }
 
     // 회원 정보 수정
-    @PostMapping("/member-info/update")
+    @PostMapping("/update")
     public String updateMemberInfo(
             Authentication authentication,
             MemberInfoUpdateDto requestDto
     ) {
         userService.updateMyInfo(authentication, requestDto);
-        return "redirect:/mypage/member-info?update=true";
+        return "redirect:/mypage?update=true";
     }
 
     // 비밀번호 변경
-    @PostMapping("/member-info/password")
+    @PostMapping("/password")
     public String changePassword(
             Authentication authentication,
             PasswordChangeDto requestDto
     ) {
         try {
             userService.changeMyPassword(authentication, requestDto);
-            return "redirect:/mypage/member-info?password=true";
+            return "redirect:/mypage?password=true";
         } catch (IllegalArgumentException e) {
-            return "redirect:/mypage/member-info?passwordError=true";
+            return "redirect:/mypage?passwordError=true";
         }
     }
 }
