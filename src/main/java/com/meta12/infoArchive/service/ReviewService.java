@@ -1,53 +1,77 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.ReviewDto;
-import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.entity.Review;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final UserService userService;
 
     public List<Review> findAll() {
         return reviewRepository.findAll();
     }
 
-    public Review view(Long id){
-        Optional<Review> optionalReview = reviewRepository.findById(id);
-        Review review = null;
-        if (optionalReview.isPresent()){
-            review = optionalReview.get();
-        }
-        return review;
-    }
+    public void chugaProc(Authentication authentication, ReviewDto reviewDto) {
 
-    public Review creatEntity(ReviewDto reviewDto, User user, Instructor instructor){
+        User user = userService.getLoginUser(authentication);
+
         Review review = new Review();
-        review.setId(reviewDto.getId());
+
         review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
-        review.setName(user);
-        review.setNickname(instructor);
-        return review;
+        review.setRating(reviewDto.getRating());
+        review.setCreateDate(LocalDateTime.now());
+        review.setUser(user);
+
+        reviewRepository.save(review);
     }
 
-    public void chugaProc(ReviewDto reviewDto, User user, Instructor instructor){
-        reviewRepository.save(creatEntity(reviewDto,user,instructor));
+    public void sujungProc(ReviewDto reviewDto) {
+        Review review = reviewRepository.findById(reviewDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("리뷰를 찾을 수 없습니다."));
+
+        review.setTitle(reviewDto.getTitle());
+        review.setContent(reviewDto.getContent());
+        review.setRating(reviewDto.getRating());
+
+        reviewRepository.save(review);
     }
-    public void sujungProc(ReviewDto reviewDto, User user, Instructor instructor){
-        reviewRepository.save(creatEntity(reviewDto,user,instructor));
+
+    public void sakjeProc(ReviewDto reviewDto) {
+        Review review = reviewRepository.findById(reviewDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("리뷰를 찾을 수 없습니다."));
+
+        reviewRepository.delete(review);
     }
-    public void sakjeProc(ReviewDto reviewDto, User user, Instructor instructor){
-        reviewRepository.delete(creatEntity(reviewDto,user,instructor));
+
+    public double getAverageRating() {
+        Double avg = reviewRepository.findAverageRating();
+
+        if (avg == null) {
+            return 0.0;
+        }
+
+        return Math.round(avg * 10.0) / 10.0; // 소수점 1자리
+    }
+
+    public long getReviewCount() {
+        Long count = reviewRepository.countAllReviews();
+        return count != null ? count : 0;
+    }
+
+    public int getAverageRatingPercent() {
+        double avg = getAverageRating();
+        return (int) Math.round((avg / 5.0) * 100);
     }
 }
