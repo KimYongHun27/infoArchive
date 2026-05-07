@@ -15,6 +15,7 @@ public class ReviewDto {
 
     private Long id;
 
+    // 제목
     private  String title;
 
     // 내용

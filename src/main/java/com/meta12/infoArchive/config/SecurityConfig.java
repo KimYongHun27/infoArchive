@@ -33,7 +33,6 @@ public class SecurityConfig {
                                 "/top10",
                                 "/css/**",
                                 "/js/**",
-                                "/mypage/**",
                                 "/images/**",
                                 "/img/**"
                         ).permitAll()
@@ -42,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/instructor/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/mypage/**").authenticated()
+                        .requestMatchers("/mypage", "/mypage/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -52,6 +51,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .successHandler((request, response, authentication) -> {
                             request.getSession().setAttribute("loginUser", authentication.getName());
                             response.sendRedirect("/main");
