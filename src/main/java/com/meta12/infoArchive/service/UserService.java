@@ -150,6 +150,10 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("이메일을 입력해주세요.");
         }
 
+        if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("휴대폰 번호를 입력해주세요.");
+        }
+
         if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
             throw new IllegalArgumentException("비밀번호를 입력해주세요.");
         }
