@@ -23,3 +23,40 @@ methods.forEach(function (method) {
     method.classList.add("active");
   });
 });
+
+function selectPaymentMethod(method, button) {
+    const paymentMethodInput = document.getElementById("paymentMethod");
+
+    if (paymentMethodInput) {
+        paymentMethodInput.value = method;
+    }
+
+    document.querySelectorAll(".method").forEach(function (btn) {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+}
+
+function selectPaymentMethod(method, button) {
+    const paymentMethodInput = document.getElementById("paymentMethod");
+    const mockCardBox = document.getElementById("mockCardBox");
+
+    if (paymentMethodInput) {
+        paymentMethodInput.value = method;
+    }
+
+    document.querySelectorAll(".method").forEach(function (btn) {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    if (mockCardBox) {
+        if (method === "CARD") {
+            mockCardBox.style.display = "block";
+        } else {
+            mockCardBox.style.display = "none";
+        }
+    }
+}

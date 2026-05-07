@@ -93,38 +93,88 @@
 
         <hr>
 
-        <div class="payment-method">
-            <h3>결제 수단 선택</h3>
+        <form th:action="@{/payment/confirm}" method="post">
 
-            <div class="method-grid">
-                <button type="button" class="method active">
-                    <strong>▭</strong>
-                    <span>신용/체크카드</span>
-                </button>
+            <input type="hidden" name="orderId" value="MEMBERSHIP-9900">
+            <input type="hidden" name="amount" value="9900">
+            <input type="hidden" name="membershipType" value="MONTHLY">
+            <input type="hidden" name="paymentMethod" id="paymentMethod" value="CARD">
 
-                <button type="button" class="method">
-                    <strong>kakao pay</strong>
-                    <span>카카오페이</span>
-                </button>
+            <div class="payment-method">
+                <h3>결제 수단 선택</h3>
 
-                <button type="button" class="method">
-                    <strong>N pay</strong>
-                    <span>네이버페이</span>
-                </button>
+                <div class="method-grid">
+                    <button type="button" class="method active" onclick="selectPaymentMethod('CARD', this)">
+                        <strong>▭</strong>
+                        <span>신용/체크카드</span>
+                    </button>
 
-                <button type="button" class="method">
-                    <strong>toss</strong>
-                    <span>토스페이</span>
-                </button>
+                    <button type="button" class="method" onclick="selectPaymentMethod('KAKAO_PAY', this)">
+                        <strong>kakao pay</strong>
+                        <span>카카오페이</span>
+                    </button>
+
+                    <button type="button" class="method" onclick="selectPaymentMethod('NAVER_PAY', this)">
+                        <strong>N pay</strong>
+                        <span>네이버페이</span>
+                    </button>
+
+                    <button type="button" class="method" onclick="selectPaymentMethod('TOSS_PAY', this)">
+                        <strong>toss</strong>
+                        <span>토스페이</span>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <button type="button" class="pay-btn">9,900원 결제하기</button>
+            <!-- 카드 정보 입력 -->
+            <div class="mock-card-box" id="mockCardBox">
+                <h3>카드 정보 입력</h3>
 
-        <label class="agree-check">
-            <input type="checkbox">
-            <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
-        </label>
+                <div class="card-input-group">
+                    <label>카드번호</label>
+                    <input type="text"
+                           name="cardNumber"
+                           placeholder="카드번호 19자리를 입력하세요."
+                           maxlength="19">
+                </div>
+
+                <div class="card-row">
+                    <div class="card-input-group">
+                        <label>유효기간</label>
+                        <input type="text"
+                               name="cardExpire"
+                               placeholder="유효기간을 입력하세요."
+                               maxlength="5">
+                    </div>
+
+                    <div class="card-input-group">
+                        <label>CVC</label>
+                        <input type="password"
+                               name="cardCvc"
+                               placeholder="CVC를 입력하세요."
+                               maxlength="3">
+                    </div>
+                </div>
+
+                <div class="card-input-group">
+                    <label>카드 비밀번호 앞 2자리</label>
+                    <input type="password"
+                           name="cardPassword"
+                           placeholder="카드비밀번호 앞 2자리 입력하세요."
+                           maxlength="2">
+                </div>
+
+
+            </div>
+
+            <button type="submit" class="pay-btn">9,900원 결제하기</button>
+
+            <label class="agree-check">
+                <input type="checkbox" name="agree" required checked>
+                <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
+            </label>
+
+        </form>
 
     </div>
 </div>
