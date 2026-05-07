@@ -17,47 +17,6 @@ body {
   height: 100%;
 }
 
-/* 헤더 */
-.header {
-  display: flex;
-  height: 150px;
-  flex-direction: column;
-  padding: 35px 30px;
-  background-color: #000000;
-  color: white;
-}
-
-.search {
-  width: 500px;
-  padding: 20px;
-  margin-left: 200px;
-  background-color: #ffffff;
-  padding: 10px 20px;
-  color: #b9b9b9;
-  border-radius: 20px;
-  position: sticky;
-  top: 0px;
-  z-index: 10;
-  opacity: 0.9;
-  font-size: 20px;
-}
-
-.category1 {
-  text-decoration: none;
-  color: #ffffff;
-  padding: 20px 10px;
-  margin-left: 40px;
-}
-
-.category2 {
-  justify-content: right;
-  text-align: right;
-  text-decoration: none;
-  color: #ffffff;
-  padding-right: 60px;
-  margin-top: -45px;
-}
-
 /* 메인 */
 .main {
   display: flex;
@@ -501,65 +460,86 @@ body {
   color: rgb(0, 119, 255);
   font-weight: bolder;
   font-size: 20px;
-  padding-left: 200px;
-
-}
-.post-footer {
-  background-color: rgb(243, 243, 243);
-  padding: 15px;
-  /* margin-top: 40px; */
+  padding-left: 250px;
 }
 
-.tags {
-  padding: 40px 150px;
+.etc {
+  display: flex;
+  justify-content: space-between;
+}
+
+.benefit {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  width: 740px;
 }
 
-.undermark {
+.benefit-header {
+  display: flex;
+  border: 1.5px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
   font-size: 25px;
   font-weight: bold;
+
 }
 
-.under-category {
+.benefit-body {
   display: flex;
-  padding: 30px 0px;
-  gap: 20px;
-  font-size: 14px;
-  color: #777;
+  flex-direction: column;
+  border: 1.5px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
 }
 
-.under-category span::after {
-  content: " | ";
-  margin-left: 20px;
+.point {
+  padding: 20px;
 }
 
-.under-ask {
-  .senter {
-    color: rgb(0, 0, 0);
-  }
-
-  .time {
-    color: rgb(161, 161, 161);
-    padding-left: 10px;
-    font-size: 15px;
-  }
+.coupon {
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.ask-adress {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.ask-adress span::after {
-  content: " | ";
-  margin: 10px;
-}
-
-.advert {
+.coupon-btn {
   display: flex;
-  background-color: rgb(226, 61, 20);
-  padding: 15px;
-  text-align: center;
+  flex-direction: column;
   justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  text-decoration: none;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  margin-top: 30px;
+  padding: 20px 40px;
 }
+
+.notify {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  width: 740px;
+}
+
+.notify-header {
+  display: flex;
+  border: 1.5px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  font-size: 25px;
+  font-weight: bold;
+
+}
+
+.notify-body {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+}
+
+
