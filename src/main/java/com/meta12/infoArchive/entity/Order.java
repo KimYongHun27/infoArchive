@@ -13,6 +13,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //가격 정보 스냅샷
+    private int orderPrice;
+
     //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
