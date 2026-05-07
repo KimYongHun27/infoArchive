@@ -40,9 +40,11 @@ public class OrderService {
     private Order saveOrder(OrderRequestDto dto)
     {
         Order order = new Order();
+        Product product = productService.getProduct(dto.getProductId());
 
         order.setUser(userService.getUser(dto.getUserId()));
-        order.setProduct(productService.getProduct(dto.getProductId()));
+        order.setProduct(product);
+        order.setOrderPrice(product.getPrice());
         order.setUserCoupon(userCouponService.getUserCoupon(dto.getUserCouponId()));
         return orderRepository.save(order);
     }
@@ -50,13 +52,16 @@ public class OrderService {
     private Payment processPayment(Order  order)
     {
         Payment payment = new Payment();
-        int price = order.getProduct().getPrice();
+
+        int price = order.getOrderPrice();
         int discountAmount = 0;
         if (order.getUserCoupon() != null) {
             discountAmount = order.getUserCoupon().getCoupon().getDiscountAmount();
         }
+
         payment.setOrder(order);
         payment.setOrderDate(LocalDateTime.now());
+
         payment.setOrderNumber("1");
         payment.setPaymentStatus(PaymentStatus.WAIT);
         payment.setDiscountPrice(price - discountAmount);
@@ -68,15 +73,14 @@ public class OrderService {
         Purchase purchase = new Purchase();
         purchase.setOrder(order);
         purchase.setPayment(payment);
-
-        return purchase;
+        return purchaseRepository.save(purchase);
     }
 
     //영수증 정보
     private PurchaseDto convertToReceiptDto(Purchase purchase)
     {
         PurchaseDto purchaseDto = new PurchaseDto();
-        purchaseDto.setOrderId(purchase.getOrder().getId());
+        purchaseDto.setOrderNumber(purchase.getPayment().getOrderNumber());
         purchaseDto.setPrice(purchase.getPayment().getDiscountPrice());
         purchaseDto.setProductName(purchase.getOrder().getProduct().getProductName());
         purchaseDto.setCreateAt(purchase.getPayment().getOrderDate());

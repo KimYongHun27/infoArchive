@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 public class PurchaseDto {
     private Long id;
 
-    //주문 정보 fk
-    private Long orderId;
+    // 주문 번호
+    private String orderNumber;
 
     //상품 가격
     private int price;
