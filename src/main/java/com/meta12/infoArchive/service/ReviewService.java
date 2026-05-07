@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +15,10 @@ import java.util.Optional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+
+    public List<Review> findAll() {
+        return reviewRepository.findAll();
+    }
 
     public Review view(Long id){
         Optional<Review> optionalReview = reviewRepository.findById(id);
@@ -24,35 +29,23 @@ public class ReviewService {
         return review;
     }
 
-    public Review chugaProc(ReviewDto reviewDto){
+    public Review creatEntity(ReviewDto reviewDto){
         Review review = new Review();
+        review.setId(reviewDto.getId());
         review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
         review.setNickname(reviewDto.getNicknameid());
         review.setName(reviewDto.getNameid());
-//        review.setCreateDate(LocalDateTime.now());
-        reviewRepository.save(review);
-        return review;
-    }
-    public Review sujungProc(ReviewDto reviewDto){
-        Review review = new Review();
-        review.setTitle(reviewDto.getTitle());
-        review.setContent(reviewDto.getContent());
-        review.setNickname(reviewDto.getNicknameid());
-        review.setName(reviewDto.getNameid());
-//        review.setCreateDate(LocalDateTime.now());
-        reviewRepository.save(review);
         return review;
     }
 
-    public Review sakjeProc(ReviewDto reviewDto){
-        Review review = new Review();
-        review.setTitle(reviewDto.getTitle());
-        review.setContent(reviewDto.getContent());
-        review.setNickname(reviewDto.getNicknameid());
-        review.setName(reviewDto.getNameid());
-//        review.setCreateDate(LocalDateTime.now());
-        reviewRepository.delete(review);
-        return review;
+    public void chugaProc(ReviewDto reviewDto){
+        reviewRepository.save(creatEntity(reviewDto));
+    }
+    public void sujungProc(ReviewDto reviewDto){
+        reviewRepository.save(creatEntity(reviewDto));
+    }
+    public void sakjeProc(ReviewDto reviewDto){
+        reviewRepository.delete(creatEntity(reviewDto));
     }
 }
