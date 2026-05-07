@@ -18,7 +18,7 @@ public class MemberInfoController {
     private final UserService userService;
 
     // 회원 정보 페이지
-    @GetMapping("/member-info")
+    @GetMapping("/mypage")
     public String memberInfoPage(Authentication authentication, Model model) {
         User user = userService.getLoginUser(authentication);
         model.addAttribute("user", user);
