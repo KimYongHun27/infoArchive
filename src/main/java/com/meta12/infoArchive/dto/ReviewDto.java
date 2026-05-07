@@ -1,9 +1,5 @@
 package com.meta12.infoArchive.dto;
 
-import com.meta12.infoArchive.entity.Instructor;
-import com.meta12.infoArchive.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,18 +11,21 @@ public class ReviewDto {
 
     private Long id;
 
-    // 제목
-    private  String title;
+    // 상품/강의 ID
+    private Long productId;
 
-    // 내용
+    // 평점
+    private Integer rating;
+
+    // 리뷰 제목
+    private String title;
+
+    // 리뷰 내용
     private String content;
 
-    // 작성자
-    private User nameid;
-    //id
-    // 강사 작성자 연동
-    private Instructor nicknameid;
+    // 화면 출력용 작성자 이름
+    private String nickname;
 
-    // 날짜 생성
+    // 작성일
     private LocalDateTime createDate;
 }

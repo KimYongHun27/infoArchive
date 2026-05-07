@@ -32,7 +32,7 @@
             대시보드
           </a>
 
-          <a th:href="@{/taking-course}">
+          <a th:href="@{/review/taking-course}">
             <span>▶</span>
             수강중인 강의
           </a>
@@ -153,37 +153,103 @@
         </div>
 
         <div class="review-list">
-          <article class="review-item">
-            <div class="review-top">
-              <div>
-                <strong class="review-user">일반회원</strong>
-                <span class="review-date">2026.05.06</span>
-              </div>
-              <div class="review-stars">★★★★★</div>
-            </div>
 
+          <article class="review-item" th:each="review : ${reviewList}">
 
-            <article class="review-item" th:each="review : ${reviewList}">
+            <!-- 기본 리뷰 보기 -->
+            <div class="review-view" th:id="'reviewView-' + ${review.id}">
               <div class="review-top">
                 <div>
-                  <!-- 닉네임 출력[cite: 8] -->
-                  <strong class="review-user" th:text="${review.nickname}">작성자</strong>
-                  <span class="review-date">2026.05.06</span>
+                  <strong class="review-user"
+                          th:text="${review.user != null ? review.user.name : '작성자'}">
+                    작성자
+                  </strong>
+                  <span class="review-date"
+                        th:text="${review.createDate != null ? #temporals.format(review.createDate, 'yyyy.MM.dd') : '-'}">
+                    2026.05.06
+                </span>
                 </div>
-                <div class="review-stars">★★★★★</div>
+
+                <div class="review-stars">
+                  <span th:if="${review.rating != null and review.rating >= 1}">★</span>
+                  <span th:if="${review.rating != null and review.rating >= 2}">★</span>
+                  <span th:if="${review.rating != null and review.rating >= 3}">★</span>
+                  <span th:if="${review.rating != null and review.rating >= 4}">★</span>
+                  <span th:if="${review.rating != null and review.rating >= 5}">★</span>
+                </div>
               </div>
-              <h3 th:text="${review.title}">제목</h3>
-              <p th:text="${review.content}">내용</p>
-              <!--            <h3>정말 이해하기 쉬운 강의였습니다.</h3>-->
-              <!--            <p>-->
-              <!--              설명이 깔끔하고 예제가 많아서 따라가기 좋았습니다.-->
-              <!--            </p>-->
+
+              <h3 th:text="${review.title}">리뷰 제목</h3>
+              <p th:text="${review.content}">리뷰 내용</p>
 
               <div class="review-buttons">
-                <button type="button" class="edit-btn">수정</button>
-                <button type="button" class="delete-btn">삭제</button>
+                <button type="button"
+                        class="edit-btn"
+                        th:onclick="'openReviewEdit(' + ${review.id} + ')'">
+                  수정
+                </button>
+
+                <form th:action="@{/review/sakjeProc/{id}(id=${review.id})}"
+                      method="post"
+                      onsubmit="return confirm('리뷰를 삭제하시겠습니까?');">
+                  <button type="submit" class="delete-btn">삭제</button>
+                </form>
               </div>
-            </article>
+            </div>
+
+            <!-- 수정 폼 -->
+            <form class="review-edit-box"
+                  th:id="'reviewEdit-' + ${review.id}"
+                  th:action="@{/review/sujungProc/{id}(id=${review.id})}"
+                  method="post"
+                  style="display:none;">
+
+              <div class="rating-select">
+                <label>평점</label>
+                <div class="star-area">
+                  <input type="radio" th:id="'edit-star5-' + ${review.id}" name="rating" value="5" th:checked="${review.rating == 5}">
+                  <label th:for="'edit-star5-' + ${review.id}">★</label>
+
+                  <input type="radio" th:id="'edit-star4-' + ${review.id}" name="rating" value="4" th:checked="${review.rating == 4}">
+                  <label th:for="'edit-star4-' + ${review.id}">★</label>
+
+                  <input type="radio" th:id="'edit-star3-' + ${review.id}" name="rating" value="3" th:checked="${review.rating == 3}">
+                  <label th:for="'edit-star3-' + ${review.id}">★</label>
+
+                  <input type="radio" th:id="'edit-star2-' + ${review.id}" name="rating" value="2" th:checked="${review.rating == 2}">
+                  <label th:for="'edit-star2-' + ${review.id}">★</label>
+
+                  <input type="radio" th:id="'edit-star1-' + ${review.id}" name="rating" value="1" th:checked="${review.rating == 1}">
+                  <label th:for="'edit-star1-' + ${review.id}">★</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>리뷰 제목</label>
+                <input type="text" name="title" th:value="${review.title}">
+              </div>
+
+              <div class="form-group">
+                <label>리뷰 내용</label>
+                <textarea name="content" rows="5" th:text="${review.content}"></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="button"
+                        class="cancel-btn"
+                        th:onclick="'closeReviewEdit(' + ${review.id} + ')'">
+                  취소
+                </button>
+                <button type="submit" class="submit-btn">수정 완료</button>
+              </div>
+            </form>
+
+          </article>
+
+          <p th:if="${#lists.isEmpty(reviewList)}" class="empty-review">
+            등록된 리뷰가 없습니다.
+          </p>
+
         </div>
       </section>
 
@@ -197,6 +263,7 @@
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/review.js}"></script>
 <script th:src="@{/js/subscribe.js}"></script>
 </body>
 </html>

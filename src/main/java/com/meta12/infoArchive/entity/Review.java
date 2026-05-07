@@ -10,26 +10,37 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    // 내용
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)             //private User name;
+    private Long id;                                                //private Instructor nickname;
+
+    // 리뷰 제목
+    @Column(length = 200)
+    private String title;
+
+    // 리뷰 내용
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    // 제목
-    @Column(length = 200)
-    private  String title;
+    // 평점
+    private Integer rating;
 
-    // 유저 작성자 연동
-    @ManyToOne
-    private User name;
+    // 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // 강사 작성자 연동
-    @ManyToOne
-    private Instructor nickname;
+    // 상품/강의
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     // 작성일
     private LocalDateTime createDate;
+
+    @PrePersist
+    public void prePersist() {
+        this.createDate = LocalDateTime.now();
+    }
 }

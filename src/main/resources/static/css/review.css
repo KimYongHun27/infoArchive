@@ -33,7 +33,7 @@ body {
 }
 
 /* =========================
-   리뷰 페이지 전용 사이드바
+   사이드바
 ========================= */
 
 .review-sidebar {
@@ -47,7 +47,7 @@ body {
   overflow: hidden;
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
@@ -163,7 +163,6 @@ body {
   display: block;
 }
 
-/* 강의 정보 */
 .lecture-info {
   flex: 1;
 }
@@ -293,7 +292,7 @@ body {
   color: #ff2448;
 }
 
-/* 입력 폼 */
+/* 입력 폼 공통 */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -314,6 +313,7 @@ body {
   font-size: 15px;
   background: #fff;
   outline: none;
+  font-family: inherit;
 }
 
 .form-group textarea {
@@ -329,6 +329,7 @@ body {
 .form-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 .form-actions button {
@@ -368,8 +369,12 @@ body {
 .review-item {
   padding: 24px;
   border: 1px solid #eee;
-  border-radius: 18px;
+  border-radius: 20px;
   background: #fcfcfc;
+}
+
+.review-view {
+  display: block;
 }
 
 .review-top {
@@ -412,15 +417,30 @@ body {
   line-height: 1.7;
 }
 
-/* 수정 삭제 버튼 */
+.empty-review {
+  padding: 30px;
+  text-align: center;
+  color: #888;
+  font-size: 15px;
+}
+
+/* =========================
+   리뷰 버튼
+========================= */
+
 .review-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 22px;
 }
 
-.review-buttons button {
+.review-buttons form {
+  margin: 0;
+}
+
+.edit-btn,
+.delete-btn {
   min-width: 74px;
   height: 36px;
   border: none;
@@ -431,16 +451,93 @@ body {
   cursor: pointer;
 }
 
-.review-buttons .edit-btn {
+.edit-btn {
   background: #2563eb;
 }
 
-.review-buttons .delete-btn {
+.delete-btn {
   background: #ef4444;
 }
 
-.review-buttons button:hover {
+.edit-btn:hover,
+.delete-btn:hover {
   opacity: 0.88;
+}
+
+/* =========================
+   리뷰 수정 폼
+========================= */
+
+.review-edit-box {
+  display: none;
+  padding: 4px 0 0;
+}
+
+.review-edit-box .rating-select {
+  margin-bottom: 16px;
+}
+
+.review-edit-box .star-area {
+  margin-top: 4px;
+}
+
+.review-edit-box .form-group {
+  margin-bottom: 16px;
+}
+
+.review-edit-box input[type="text"],
+.review-edit-box textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 14px 16px;
+  font-size: 15px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.review-edit-box textarea {
+  min-height: 140px;
+  resize: none;
+  line-height: 1.6;
+}
+
+.review-edit-box input[type="text"]:focus,
+.review-edit-box textarea:focus {
+  border-color: #ff2448;
+  outline: none;
+}
+
+.review-edit-box .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.cancel-btn,
+.submit-btn {
+  min-width: 120px;
+  height: 48px;
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #777;
+}
+
+.submit-btn {
+  background: #ff2448;
+}
+
+.cancel-btn:hover,
+.submit-btn:hover {
+  opacity: 0.9;
 }
 
 /* =========================
