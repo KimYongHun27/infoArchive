@@ -1,9 +1,11 @@
 package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.dto.OrderRequestDto;
+import com.meta12.infoArchive.dto.PurchaseDto;
 import com.meta12.infoArchive.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,13 +20,21 @@ public class OrderController {
     {
         return "membership";
     }
-    @PostMapping("")
-    public String orderProduct(
-            OrderRequestDto orderRequestDto
+
+    @GetMapping("/cartList")
+            public String orderList()
+    {
+        return "cartList";
+    }
+
+    @PostMapping("/cartInsert")
+    public String orderProductInsert(
+            OrderRequestDto orderRequestDto,
+            Model model
     )
     {
-        orderService.processEntireOrder(orderRequestDto);
-
-        return "";
+        PurchaseDto purchaseDto = orderService.processEntireOrder(orderRequestDto);
+        model.addAttribute("purchaseDto", purchaseDto);
+        return "cartList";
     }
 }

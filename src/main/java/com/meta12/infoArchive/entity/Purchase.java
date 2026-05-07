@@ -20,5 +20,13 @@ public class Purchase {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    //결제 정보 fk
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
+    //유저 fk (역정규화 필요시 사용)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 }

@@ -24,16 +24,16 @@ public class OrderService {
 
     @Transactional
     public PurchaseDto processEntireOrder(OrderRequestDto dto) {
-        // 1단계: Order 생성 및 저장
+        //Order 생성 및 저장
         Order order = saveOrder(dto);
 
-        // 2단계: 생성된 Order를 넘겨서 Payment 생성
+        //생성된 Order를 넘겨서 Payment 생성
         Payment payment = processPayment(order);
 
-        // 3단계: Payment 결과를 확인하고 Purchase 생성
+        //Payment 결과를 확인하고 Purchase 생성
         Purchase purchase = finalizePurchase(order, payment);
 
-        // 4단계: 영수증에 보여줄 DTO로 변환해서 반환
+        //영수증에 보여줄 DTO로 변환해서 반환
         return convertToReceiptDto(purchase);
     }
 
@@ -63,17 +63,23 @@ public class OrderService {
         return  paymentRepository.save(payment);
     }
 
-    private Purchase finalizePurchase(Order Order, Payment payment)
+    private Purchase finalizePurchase(Order order, Payment payment)
     {
         Purchase purchase = new Purchase();
+        purchase.setOrder(order);
+        purchase.setPayment(payment);
 
         return purchase;
     }
 
+    //영수증 정보
     private PurchaseDto convertToReceiptDto(Purchase purchase)
     {
         PurchaseDto purchaseDto = new PurchaseDto();
-
+        purchaseDto.setOrderId(purchase.getOrder().getId());
+        purchaseDto.setPrice(purchase.getPayment().getDiscountPrice());
+        purchaseDto.setProductName(purchase.getOrder().getProduct().getProductName());
+        purchaseDto.setCreateAt(purchase.getPayment().getOrderDate());
         return purchaseDto;
     }
 }

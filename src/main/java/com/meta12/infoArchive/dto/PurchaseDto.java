@@ -10,12 +10,15 @@ import java.time.LocalDateTime;
 public class PurchaseDto {
     private Long id;
 
-    //유저 번호
-    private int userId;
+    //주문 정보 fk
+    private Long orderId;
 
-    //강의 번호
-    private int lectureId;
+    //상품 가격
+    private int price;
 
-    //구매 예정일(정렬용)
+    //상품명
+    private String productName;
+
+    //구매일
     private LocalDateTime createAt;
 }
