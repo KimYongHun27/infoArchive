@@ -92,8 +92,18 @@
 
           <div class="lecture-rating-box">
             <strong>평균 평점</strong>
-            <span>★★★★★</span>
-            <em>4.8 / 5.0</em>
+
+            <div class="avg-star-box">
+              <div class="avg-star-base">★★★★★</div>
+              <div class="avg-star-fill"
+                   th:style="'width:' + ${avgRatingPercent} + '%;'">
+                ★★★★★
+              </div>
+            </div>
+
+            <em>
+              <span th:text="${avgRating}">4.8</span> / 5.0
+            </em>
           </div>
         </div>
       </section>

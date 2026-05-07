@@ -27,7 +27,16 @@ public class ReviewController {
     @GetMapping("/review")
     public String review(Model model) {
         List<Review> reviewList = reviewService.findAll();
+
+        double avgRating = reviewService.getAverageRating();
+        long reviewCount = reviewService.getReviewCount();
+        int avgRatingPercent = reviewService.getAverageRatingPercent();
+
         model.addAttribute("reviewList", reviewList);
+        model.addAttribute("avgRating", avgRating);
+        model.addAttribute("reviewCount", reviewCount);
+        model.addAttribute("avgRatingPercent", avgRatingPercent);
+
         return "mypage/review";
     }
 

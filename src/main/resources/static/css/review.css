@@ -573,4 +573,52 @@ body {
   .review-top {
     flex-direction: column;
   }
+
+  .lecture-rating-box {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .lecture-rating-box strong {
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .avg-star-box {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .avg-star-base {
+    color: #ddd;
+  }
+
+  .avg-star-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #ff2448;
+    width: 0;
+  }
+
+  .lecture-rating-box em {
+    font-style: normal;
+    color: #333;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .review-count {
+    color: #777;
+    font-size: 14px;
+    font-weight: 700;
+  }
 }

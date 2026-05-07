@@ -54,4 +54,24 @@ public class ReviewService {
 
         reviewRepository.delete(review);
     }
+
+    public double getAverageRating() {
+        Double avg = reviewRepository.findAverageRating();
+
+        if (avg == null) {
+            return 0.0;
+        }
+
+        return Math.round(avg * 10.0) / 10.0; // 소수점 1자리
+    }
+
+    public long getReviewCount() {
+        Long count = reviewRepository.countAllReviews();
+        return count != null ? count : 0;
+    }
+
+    public int getAverageRatingPercent() {
+        double avg = getAverageRating();
+        return (int) Math.round((avg / 5.0) * 100);
+    }
 }
