@@ -19,25 +19,57 @@
 
     <!-- 왼쪽 사이드바 -->
     <aside class="review-sidebar">
-      <div class="sidebar-card">
-        <h2>나의 강의장</h2>
+      <div class="review-sidebar-card">
 
-        <nav class="side-menu">
-          <a th:href="@{/dashboard}">대시보드</a>
-          <a th:href="@{/taking-course}">수강중인 강의</a>
-          <a th:href="@{/wishlist}">찜한 강의</a>
-          <a th:href="@{/orders}">주문내역</a>
-          <a th:href="@{/coupon}">쿠폰함</a>
-          <a th:href="@{/member-info}">회원 정보</a>
-          <a th:href="@{/review}" class="active">리뷰 관리</a>
+        <div class="review-sidebar-title">
+          <span>▦</span>
+          <strong>나의 강의장</strong>
+        </div>
+
+        <nav class="review-side-menu">
+          <a th:href="@{/dashboard}">
+            <span>⌂</span>
+            대시보드
+          </a>
+
+          <a th:href="@{/taking-course}">
+            <span>▶</span>
+            수강중인 강의
+          </a>
+
+          <a th:href="@{/wishlist}">
+            <span>♡</span>
+            찜한 강의
+          </a>
+
+          <a th:href="@{/orders}">
+            <span>▤</span>
+            주문내역
+          </a>
+
+          <a th:href="@{/coupon}">
+            <span>%</span>
+            쿠폰함
+          </a>
+
+          <a th:href="@{/mypage}">
+            <span>◎</span>
+            회원 정보
+          </a>
+
+          <a th:href="@{/review}" class="active">
+            <span>★</span>
+            리뷰 관리
+          </a>
         </nav>
 
-        <div class="customer-box">
+        <div class="review-customer-box">
           <h3>고객센터</h3>
           <p>평일 10:00 ~ 18:00</p>
           <p>점심 12:00 ~ 13:00</p>
           <strong>010-0000-0000</strong>
         </div>
+
       </div>
     </aside>
 
