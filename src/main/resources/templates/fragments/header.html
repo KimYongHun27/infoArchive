@@ -47,14 +47,14 @@
         <!-- 강사만 강사센터 표시 -->
         <a th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}"
            th:href="@{/instructor}">
-          <span>🎓</span>
+          <span><img th:src="@{/img/instructor/instructor.png}" width="40" alt=""></span>
           <p>강사센터</p>
         </a>
 
         <!-- 관리자만 관리자센터 표시 -->
         <a th:if="${session.loginRole == 'ROLE_ADMIN'}"
            th:href="@{/admin}">
-          <span>🛡️</span>
+          <span><img th:src="@{/img/admin/admin.png}" width="40" alt=""></span>
           <p>관리자센터</p>
         </a>
 
