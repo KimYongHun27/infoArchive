@@ -1,10 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>call-dibs</title>
+    <link rel="stylesheet" href="call-dibs.css" />
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
+
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="page">
+    <!-- 메인 -->
+    <div class="main">
+        <!-- 사이드바 -->
+        <aside class="call-dibs-sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">
+                    <span>▦</span>
+                    <strong>나의 강의장</strong>
+                </div>
+
+                <nav class="side-menu">
+                    <a th:href="@{/dashboard}">
+                        <span>▤</span>
+                        대시보드
+                    </a>
+
+                    <a th:href="@{/taking-course}">
+                        <span>▣</span>
+                        수강중인 강의
+                    </a>
+
+                    <a th:href="@{/wishlist}">
+                        <span>♡</span>
+                        찜한 강의
+                    </a>
+
+                    <a th:href="@{/orders}">
+                        <span>▥</span>
+                        주문 내역
+                    </a>
+
+                    <a th:href="@{/coupon}">
+                        <span>▨</span>
+                        쿠폰함
+                    </a>
+
+                    <a th:href="@{/mypage}" class="active">
+                        <span>♙</span>
+                        회원 정보
+                    </a>
+
+                    <a th:href="@{/review}">
+                        <span>★</span>
+                        리뷰관리
+                    </a>
+                </nav>
+
+                <div class="customer-box">
+                    <h3>고객센터</h3>
+                    <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
+                    <strong>010-0000-0000</strong>
+                </div>
+            </div>
+        </aside>
+
+        <section class="content">
+            <div class="banner">
+                <div class="banner-title">찜한 강의
+                    <div class="banner-heart">♡</div>
+                </div><br>
+                <div class="banner-text">관심있는 강의를 찜하고 나중에 쉽게 찾아보세요</div>
+                <div class="banner-btn">
+                    <a href="" class="recently">최근 찜한 순 ∨</a>
+                    <a href="" class="sort">찜한 강의 정렬</a>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <div class="box-heart">♥</div>
+                        <div class="box-img"><img src="https://picsum.photos/110" alt="수강 중 강의 이미지" class="course-img" /></div>
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <div class="evaluation">
+                            <div class="score">★ 4.9 (000)</div>
+                            <div class="participant">수강생 000명</div>
+                        </div>
+                        <div class="price">
+                            <div class="cost">000,000원</div>
+                            <div class="sale">00%</div>
+                            <div class="final-price">000,000원~</div>
+                        </div>
+                    </div>
+                    <div class="course-move">
+                        <div class="view">
+                            <a href="" class="view-btn">강의 상세 보기</a>
+                        </div>
+                        <div class="clear">
+                            <a href="" class="clear-btn">찜 해제</a>
+                        </div>
+                        <div class="dibs-date">찜한 날짜:  0000.00.00</div>
+                    </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <div class="box-heart">♥</div>
+                        <img src="https://picsum.photos/120" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <div class="evaluation">
+                            <div class="score">★ 4.9 (000)</div>
+                            <div class="participant">수강생 000명</div>
+                        </div>
+                        <div class="price">
+                            <div class="cost">000,000원</div>
+                            <div class="sale">00%</div>
+                            <div class="final-price">000,000원~</div>
+                        </div>
+                    </div>
+                    <div class="course-move">
+                        <div class="view">
+                            <a href="" class="view-btn">강의 상세 보기</a>
+                        </div>
+                        <div class="clear">
+                            <a href="" class="clear-btn">찜 해제</a>
+                        </div>
+                        <div class="dibs-date">찜한 날짜:  0000.00.00</div>
+                    </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <div class="box-heart">♥</div>
+                        <img src="https://picsum.photos/130" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <div class="evaluation">
+                            <div class="score">★ 4.9 (000)</div>
+                            <div class="participant">수강생 000명</div>
+                        </div>
+                        <div class="price">
+                            <div class="cost">000,000원</div>
+                            <div class="sale">00%</div>
+                            <div class="final-price">000,000원~</div>
+                        </div>
+                    </div>
+                    <div class="course-move">
+                        <div class="view">
+                            <a href="" class="view-btn">강의 상세 보기</a>
+                        </div>
+                        <div class="clear">
+                            <a href="" class="clear-btn">찜 해제</a>
+                        </div>
+                        <div class="dibs-date">찜한 날짜:  0000.00.00</div>
+                    </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <div class="box-heart">♥</div>
+                        <img src="https://picsum.photos/140" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <div class="evaluation">
+                            <div class="score">★ 4.9 (000)</div>
+                            <div class="participant">수강생 000명</div>
+                        </div>
+                        <div class="price">
+                            <div class="cost">000,000원</div>
+                            <div class="sale">00%</div>
+                            <div class="final-price">000,000원~</div>
+                        </div>
+                    </div>
+                    <div class="course-move">
+                        <div class="view">
+                            <a href="" class="view-btn">강의 상세 보기</a>
+                        </div>
+                        <div class="clear">
+                            <a href="" class="clear-btn">찜 해제</a>
+                        </div>
+                        <div class="dibs-date">찜한 날짜:  0000.00.00</div>
+                    </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <div class="box-heart">♥</div>
+                        <img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <div class="evaluation">
+                            <div class="score">★ 4.9 (000)</div>
+                            <div class="participant">수강생 000명</div>
+                        </div>
+                        <div class="price">
+                            <div class="cost">000,000원</div>
+                            <div class="sale">00%</div>
+                            <div class="final-price">000,000원~</div>
+                        </div>
+                    </div>
+                    <div class="course-move">
+                        <div class="view">
+                            <a href="" class="view-btn">강의 상세 보기</a>
+                        </div>
+                        <div class="clear">
+                            <a href="" class="clear-btn">찜 해제</a>
+                        </div>
+                        <div class="dibs-date">찜한 날짜:  0000.00.00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>

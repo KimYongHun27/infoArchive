@@ -1,0 +1,324 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: rgb(236, 236, 236);
+}
+
+/* 전체 */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 메인 */
+.main {
+  display: flex;
+  flex: 1;
+}
+
+/* 왼쪽 사이드바 */
+.call-dibs-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+}
+
+.sidebar-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 18px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 18px;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.side-menu a span {
+  width: 18px;
+  text-align: center;
+  color: #777;
+}
+
+.side-menu a:hover {
+  background: #fafafa;
+}
+
+.side-menu a.active {
+  color: #ff2448;
+  background: #fff;
+  border-left: 3px solid #ff2448;
+}
+
+.side-menu a.active span {
+  color: #ff2448;
+}
+
+.customer-box {
+  padding: 18px;
+  background: #fafafa;
+}
+
+.customer-box h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.customer-box p {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.customer-box strong {
+  display: block;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  padding: 35px 70px;
+}
+
+.banner-title {
+  display: flex;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+.banner-heart{
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(255, 17, 68);
+  padding-left: 10px;
+}
+
+.banner-text {
+  color: rgb(134, 134, 134);
+  font-weight: bolder;
+}
+
+.banner-btn {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+  padding-right: 80px;
+}
+
+.recently {
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: rgb(255, 255, 255);
+  color: rgb(105, 105, 105);
+  border: 1.5px solid rgb(212, 212, 212);
+  padding: 10px 20px;
+  border-radius: 5px;
+
+}
+
+.sort {
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: rgb(255, 255, 255);
+  color: rgb(105, 105, 105);
+  border: 1.5px solid rgb(212, 212, 212);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.recently:hover {
+  height: 100px;
+}
+
+.sort:hover {
+  height: 100px;
+}
+
+.course-card {
+  padding: 10px 70px;
+}
+
+.course-container {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.course-box {
+  display: flex;
+  height: 250px;
+  position: relative;
+}
+
+.course-img {
+  width: 400px;
+  height: 250px;
+}
+
+.box-icon {
+  margin: 20px;
+  position: absolute;
+  padding: 5px 15px;
+  background-color: rgb(255, 255, 255);
+  color: #9962e0;
+  border: 3px solid #9962e0;
+  border-radius: 5px;
+
+}
+.box-heart{
+  position: absolute;
+  padding: 10px 350px;
+  font-size: 50px;
+  color: rgb(255, 17, 68);
+}
+
+.course-content {
+  width: 600px;
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  border-right: 1.5px solid rgb(212, 212, 212);
+
+}
+
+.course-name {
+  padding-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.instructor {
+  font-size: 14px;
+  font-weight: bold;
+  color: #525252;
+  margin-bottom: 10px;
+}
+
+.evaluation {
+  display: flex;
+  color: #7e7e7e;
+  font-weight: bold;
+  gap: 20px;
+}
+
+.price {
+  display: flex;
+  gap: 20px;
+  padding-top: 30px;
+  text-align: center;
+  align-items: center;
+}
+
+.cost {
+  color: #979797;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: line-through;
+  align-items: center;
+
+}
+
+.sale {
+  color: rgb(255, 17, 68);
+  font-size: 22px;
+  font-weight: bold;
+  align-items: center;
+
+}
+
+.final-price{
+  color: rgb(0, 0, 0);
+  font-size: 23px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.course-move {
+  width: 300px;
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.view {
+  padding: 50px 0px;
+}
+
+.view-btn {
+  background-color: rgb(255, 17, 68);
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 20px 60px;
+  border-radius: 10px;
+}
+
+.clear {
+  padding: 10px 0px;
+}
+
+.clear-btn {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(73, 73, 73);
+  text-decoration: none;
+  padding: 20px 80px;
+  border-radius: 10px;
+}
+
+.dibs-date {
+  display: flex;
+  padding: 20px 20px;
+  font-weight: bold;
+  color: #979797;
+}
