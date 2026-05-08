@@ -142,15 +142,25 @@ a {
 .arrow-box {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
 }
 
-.arrow-btn {
-  width: 42px;
-  height: 42px;
+button.arrow-btn {
+  width: 18px !important;
+  height: 18px !important;
 
-  border-radius: 50%;
+  min-width: 18px !important;
+  min-height: 18px !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
   border: 1px solid #ddd;
+  border-radius: 50%;
 
   background: #fff;
 
@@ -159,12 +169,13 @@ a {
   transition: 0.2s;
 }
 
-.arrow-btn i {
-  font-size: 15px;
+button.arrow-btn i {
+  font-size: 7px !important;
+  line-height: 1;
   color: #666;
 }
 
-.arrow-btn:hover {
+button.arrow-btn:hover {
   background: #f6f6f6;
   transform: scale(1.05);
 }
@@ -210,9 +221,9 @@ a {
 }
 
 .rank-num.red {
-  background: #ff3b30;
-  color: white;
-}
+  background:  color: white;
+             }
+ #ff3b30;
 
 /* 이미지 */
 
