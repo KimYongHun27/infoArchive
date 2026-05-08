@@ -17,33 +17,30 @@
     <section class="page-title">
         <div>
             <h1>강사 신청 관리</h1>
-            <p>회원의 강사 신청을 검토하고 승인 또는 반려할 수 있습니다.</p>
+            <p>회원의 강사 신청을 승인하거나 반려할 수 있습니다.</p>
         </div>
 
         <a th:href="@{/admin}" class="back-btn">관리자 홈</a>
     </section>
 
-    <section class="summary-box">
-        <div class="summary-card">
-            <p>전체 신청 수</p>
-            <strong th:text="${applicationCount}">0</strong>
-        </div>
+    <section class="summary-card">
+        <p>전체 신청 수</p>
+        <strong th:text="${applicationCount}">0</strong>
     </section>
 
-    <section class="table-section">
+    <section class="apply-table-section">
         <table class="apply-table">
             <thead>
             <tr>
                 <th>번호</th>
                 <th>신청자</th>
                 <th>이메일</th>
-                <th>신청 제목</th>
+                <th>제목</th>
                 <th>소개</th>
                 <th>경력</th>
                 <th>포트폴리오</th>
                 <th>상태</th>
                 <th>신청일</th>
-                <th>검토일</th>
                 <th>관리</th>
             </tr>
             </thead>
@@ -54,13 +51,13 @@
 
                 <td th:text="${apply.user != null ? apply.user.name : '-'}">홍길동</td>
 
-                <td th:text="${apply.user != null ? apply.user.email : '-'}">test@test.com</td>
+                <td th:text="${apply.user != null ? apply.user.email : '-'}">user@test.com</td>
 
-                <td th:text="${apply.title}">프로그래밍 강사 신청</td>
+                <td th:text="${apply.title}">강사 신청</td>
 
-                <td class="long-text" th:text="${apply.intro}">소개 내용</td>
+                <td class="long-text" th:text="${apply.intro}">소개</td>
 
-                <td class="long-text" th:text="${apply.career}">경력 내용</td>
+                <td class="long-text" th:text="${apply.career}">경력</td>
 
                 <td>
                     <a th:if="${apply.portfolioUrl != null and !#strings.isEmpty(apply.portfolioUrl)}"
@@ -89,10 +86,6 @@
                 </td>
 
                 <td th:text="${apply.createdAt != null ? #temporals.format(apply.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
-                    2026-01-01
-                </td>
-
-                <td th:text="${apply.reviewedAt != null ? #temporals.format(apply.reviewedAt, 'yyyy-MM-dd HH:mm') : '-'}">
                     -
                 </td>
 
@@ -124,9 +117,7 @@
             </tr>
 
             <tr th:if="${#lists.isEmpty(applications)}">
-                <td colspan="11" class="empty">
-                    강사 신청 내역이 없습니다.
-                </td>
+                <td colspan="10" class="empty">강사 신청 내역이 없습니다.</td>
             </tr>
             </tbody>
         </table>

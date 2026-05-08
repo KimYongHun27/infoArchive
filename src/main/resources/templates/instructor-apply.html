@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
     <link rel="stylesheet" th:href="@{/css/instructor-apply.css}">
 </head>
 <body>
@@ -15,8 +16,16 @@
 <main class="apply-page">
 
     <section class="apply-hero">
-        <h1>InfoArchive 강사 신청</h1>
-        <p>나만의 지식과 경험을 강의로 만들어 수강생과 공유해보세요.</p>
+        <span class="hero-badge">INSTRUCTOR APPLICATION</span>
+        <h1>당신의 지식을 강의로 만들어보세요</h1>
+        <p>
+            InfoArchive에서 강사로 활동하고, 수강생들과 경험과 전문성을 나눠보세요.
+            신청서는 관리자 검토 후 승인됩니다.
+        </p>
+    </section>
+
+    <section class="message-box success" th:if="${param.success}">
+        강사 신청이 완료되었습니다. 관리자의 승인을 기다려주세요.
     </section>
 
     <section class="status-card" th:if="${latestApply != null}">
@@ -24,23 +33,23 @@
 
         <div class="status-row">
             <span>신청 제목</span>
-            <strong th:text="${latestApply.title}">프로그래밍 강사 신청</strong>
+            <strong th:text="${latestApply.title}">강사 신청</strong>
         </div>
 
         <div class="status-row">
-            <span>상태</span>
+            <span>신청 상태</span>
             <strong th:text="${latestApply.status}">PENDING</strong>
         </div>
 
         <div class="status-row" th:if="${latestApply.rejectReason != null}">
             <span>반려 사유</span>
-            <strong th:text="${latestApply.rejectReason}">사유</strong>
+            <strong th:text="${latestApply.rejectReason}">반려 사유</strong>
         </div>
     </section>
 
     <section class="apply-card">
         <h2>강사 신청서 작성</h2>
-        <p class="sub-text">관리자가 내용을 검토한 후 승인 여부를 결정합니다.</p>
+        <p class="sub-text">전문 분야, 강의 경력, 포트폴리오를 작성해주세요.</p>
 
         <form th:action="@{/instructor/apply}" method="post">
 
@@ -48,19 +57,22 @@
                 <label>신청 제목 / 강의 분야</label>
                 <input type="text"
                        name="title"
-                       placeholder="예: 자바 백엔드 입문 강사 신청">
+                       placeholder="예: 자바 백엔드 입문 강사 신청"
+                       required>
             </div>
 
             <div class="form-group">
                 <label>강사 소개</label>
                 <textarea name="intro"
-                          placeholder="본인의 강의 스타일, 전문 분야, 수강생에게 제공할 수 있는 가치를 작성해주세요."></textarea>
+                          placeholder="본인의 전문 분야, 강의 스타일, 수강생에게 제공할 수 있는 가치를 작성해주세요."
+                          required></textarea>
             </div>
 
             <div class="form-group">
                 <label>경력</label>
                 <textarea name="career"
-                          placeholder="관련 경력, 프로젝트 경험, 자격증, 수상 이력 등을 작성해주세요."></textarea>
+                          placeholder="관련 경력, 프로젝트 경험, 자격증, 수상 이력 등을 작성해주세요."
+                          required></textarea>
             </div>
 
             <div class="form-group">
@@ -77,6 +89,9 @@
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>

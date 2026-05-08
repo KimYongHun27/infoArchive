@@ -40,4 +40,9 @@ public class HomeController {
 
         return "category/" + categoryName;
     }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+        return "mypage/dashboard";
+    }
 }

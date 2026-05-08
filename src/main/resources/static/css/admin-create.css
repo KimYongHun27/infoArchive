@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+    color: #111;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+}
+
+.admin-create-page {
+    width: 900px;
+    max-width: calc(100% - 40px);
+    margin: 54px auto 100px;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-title h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.page-title p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+}
+
+.back-btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 34px;
+    border: 1px solid #eee;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 0 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #ff1515;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #ff1515;
+}
