@@ -19,7 +19,7 @@
     <div class="category-title">
       <img th:src="@{/img/main/cat01.png}" alt="">
       <div>
-        <h1>드로잉</h1>
+        <h1>공예</h1>
         <p>인물 스케치부터 디지털 일러스트까지, 드로잉의 모든 것을 배워보세요.</p>
       </div>
     </div>
@@ -79,7 +79,7 @@
 
   <section class="category-rank">
     <div class="section-head">
-      <h2>드로잉 TOP 10</h2>
+      <h2>공예 TOP 10</h2>
 
       <div class="arrow-box">
         <button type="button">‹</button>
@@ -87,9 +87,9 @@
       </div>
     </div>
 
-    <div class="drawing-grid">
-      <a class="drawing-card"
-         th:each="course, stat : ${drawingCourses}"
+    <div class="craft-grid">
+      <a class="craft-card"
+         th:each="course, stat : ${craftCourses}"
          th:href="@{/course/view/{id}(id=${course.id})}">
 
         <span class="rank-num"
@@ -102,7 +102,7 @@
 
         <div class="card-info">
           <span class="tag" th:text="${course.subCategory}">스케치</span>
-          <h3 th:text="${course.title}">인체 드로잉 기초 마스터</h3>
+          <h3 th:text="${course.title}">인체 공예 기초 마스터</h3>
           <p th:text="${course.instructorName}">일러스트레이터 하루</p>
 
           <div class="meta">
