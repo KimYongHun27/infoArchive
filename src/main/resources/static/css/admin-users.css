@@ -9,8 +9,8 @@ body {
     font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
 }
 
-.admin-apply-page {
-    width: 1280px;
+.admin-users-page {
+    width: 1180px;
     max-width: calc(100% - 40px);
     margin: 54px auto 100px;
 }
@@ -70,7 +70,7 @@ body {
     font-weight: 900;
 }
 
-.apply-table-section {
+.user-table-section {
     background: #fff;
     border-radius: 20px;
     padding: 28px;
@@ -79,45 +79,32 @@ body {
     overflow-x: auto;
 }
 
-.apply-table {
+.user-table {
     width: 100%;
-    min-width: 1150px;
     border-collapse: collapse;
+    min-width: 900px;
 }
 
-.apply-table th {
+.user-table th {
     background: #f1f2f4;
     padding: 14px;
     text-align: left;
     font-size: 13px;
     color: #444;
-    white-space: nowrap;
 }
 
-.apply-table td {
+.user-table td {
     padding: 14px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
-.apply-table tr:hover {
+.user-table tr:hover {
     background: #fafafa;
 }
 
-.long-text {
-    max-width: 180px;
-    line-height: 1.5;
-    word-break: keep-all;
-}
-
-.portfolio-link {
-    color: #ff1515;
-    font-weight: 900;
-    text-decoration: none;
-}
-
-.status-badge {
+.role-badge {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 999px;
@@ -127,72 +114,50 @@ body {
     font-weight: 900;
 }
 
-.status-badge.pending {
+.role-badge.user {
     background: #111;
 }
 
-.status-badge.approved {
+.role-badge.instructor {
     background: #2563eb;
 }
 
-.status-badge.rejected {
+.role-badge.admin {
     background: #ff1515;
-}
-
-.reject-reason {
-    margin: 8px 0 0;
-    color: #ff1515;
-    font-size: 12px;
-    line-height: 1.4;
 }
 
 .action-box {
     display: flex;
-    flex-direction: column;
     gap: 8px;
+    align-items: center;
 }
 
 .action-box form {
     margin: 0;
-    display: flex;
-    gap: 6px;
 }
 
-.approve-btn,
-.reject-btn {
-    height: 32px;
-    border: none;
-    border-radius: 8px;
+.detail-btn,
+.delete-btn {
+    height: 34px;
     padding: 0 12px;
+    border-radius: 9px;
+    border: none;
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 900;
     cursor: pointer;
-    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.approve-btn {
-    background: #111;
+.detail-btn {
+    background: #2563eb;
 }
 
-.reject-btn {
+.delete-btn {
     background: #ff1515;
-}
-
-.reject-input {
-    width: 130px;
-    height: 32px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0 8px;
-    font-size: 12px;
-    outline: none;
-}
-
-.done-text {
-    color: #999;
-    font-size: 12px;
-    font-weight: 800;
 }
 
 .empty {

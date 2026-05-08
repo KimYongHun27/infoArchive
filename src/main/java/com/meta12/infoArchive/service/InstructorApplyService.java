@@ -86,6 +86,20 @@ public class InstructorApplyService {
         User applicantUser = foundApplication.getUser();
         applicantUser.setRole(Role.INSTRUCTOR);
 
+        // 이미 강사 테이블에 등록된 회원이면 중복 생성 방지
+        if (!instructorRepository.existsByUser(applicantUser)) {
+            Instructor newInstructor = Instructor.builder()
+                    .user(applicantUser)
+                    .nickname(applicantUser.getName())
+                    .intro(foundApplication.getIntro())
+                    .career(foundApplication.getCareer())
+                    .category(foundApplication.getTitle())
+                    .createdAt(LocalDateTime.now())
+                    .build();
+
+            instructorRepository.save(newInstructor);
+        }
+
         Instructor newInstructor = Instructor.builder()
                 .user(applicantUser)
                 .nickname(applicantUser.getName())

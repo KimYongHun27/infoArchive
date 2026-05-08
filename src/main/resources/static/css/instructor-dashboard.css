@@ -13,7 +13,7 @@ body {
    전체 레이아웃
 ========================= */
 
-.admin-layout {
+.instructor-layout {
   width: 1220px;
   max-width: calc(100% - 40px);
   margin: 54px auto 100px;
@@ -22,23 +22,23 @@ body {
   align-items: flex-start;
 }
 
-.admin-content {
+.instructor-content {
   flex: 1;
   min-width: 0;
 }
 
 /* =========================
-   관리자 사이드바
+   강사 사이드바
 ========================= */
 
-.admin-sidebar {
+.instructor-sidebar {
   width: 240px;
   flex-shrink: 0;
   position: sticky;
   top: 120px;
 }
 
-.admin-sidebar-card {
+.instructor-sidebar-card {
   overflow: hidden;
   background: #fff;
   border: 1px solid #eee;
@@ -46,7 +46,7 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
-.admin-sidebar-title {
+.instructor-sidebar-title {
   height: 58px;
   padding: 0 20px;
   display: flex;
@@ -58,12 +58,12 @@ body {
   font-weight: 900;
 }
 
-.admin-side-menu {
+.instructor-side-menu {
   display: flex;
   flex-direction: column;
 }
 
-.admin-side-menu a {
+.instructor-side-menu a {
   height: 54px;
   padding: 0 18px;
   display: flex;
@@ -76,38 +76,49 @@ body {
   font-weight: 800;
 }
 
-.admin-side-menu a span {
+.instructor-side-menu a span {
   width: 22px;
   text-align: center;
 }
 
-.admin-side-menu a:hover {
+.instructor-side-menu a:hover {
   background: #fafafa;
   color: #ff2448;
 }
 
-.admin-side-menu a.active {
+.instructor-side-menu a.active {
   color: #ff2448;
   background: #fff0f3;
   border-left: 4px solid #ff2448;
 }
 
 /* =========================
-   헤더 영역
+   상단 헤더
 ========================= */
 
-.admin-header {
+.instructor-header {
   margin-bottom: 26px;
 }
 
-.admin-header h1 {
+.page-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #fff0f3;
+  color: #ff2448;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.instructor-header h1 {
   margin: 0 0 10px;
   font-size: 38px;
   font-weight: 900;
   letter-spacing: -1px;
 }
 
-.admin-header p {
+.instructor-header p {
   margin: 0;
   color: #666;
   font-size: 16px;
@@ -117,7 +128,7 @@ body {
    요약 카드
 ========================= */
 
-.admin-summary {
+.instructor-summary {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -142,22 +153,22 @@ body {
 .summary-card strong {
   display: block;
   color: #ff1515;
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 900;
 }
 
 /* =========================
-   관리자 메뉴 카드
+   강사 메뉴 카드
 ========================= */
 
-.admin-menu {
+.instructor-menu {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   margin-bottom: 28px;
 }
 
-.admin-menu-card {
+.instructor-menu-card {
   min-height: 150px;
   background: #111;
   border-radius: 22px;
@@ -168,7 +179,7 @@ body {
   transition: 0.2s;
 }
 
-.admin-menu-card:hover {
+.instructor-menu-card:hover {
   transform: translateY(-4px);
   background: #ff2448;
 }
@@ -185,13 +196,13 @@ body {
   font-size: 22px;
 }
 
-.admin-menu-card h3 {
+.instructor-menu-card h3 {
   margin: 0 0 10px;
   font-size: 20px;
   font-weight: 900;
 }
 
-.admin-menu-card p {
+.instructor-menu-card p {
   margin: 0;
   color: #ddd;
   font-size: 14px;
@@ -199,10 +210,10 @@ body {
 }
 
 /* =========================
-   테이블
+   최근 강의 영역
 ========================= */
 
-.admin-table-section {
+.recent-section {
   background: #fff;
   border-radius: 22px;
   padding: 28px;
@@ -230,64 +241,14 @@ body {
   text-decoration: none;
 }
 
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.admin-table th {
-  background: #f1f2f4;
-  padding: 14px;
-  text-align: left;
-  color: #444;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.admin-table td {
-  padding: 15px 14px;
-  border-bottom: 1px solid #eee;
-  color: #111;
-  font-size: 14px;
-}
-
-.admin-table tr:hover {
-  background: #fafafa;
-}
-
-.role-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 70px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #111;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.role-badge.user {
-  background: #111;
-}
-
-.role-badge.admin {
-  background: #ff1515;
-}
-
-.role-badge.instructor {
-  background: #2563eb;
-}
-
-.role-badge.pending {
-  background: #f59e0b;
-}
-
-.empty {
-  padding: 34px;
+.empty-box {
+  padding: 42px;
+  border-radius: 18px;
+  background: #f7f7f8;
   text-align: center;
-  color: #999;
+  color: #888;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 /* =========================
@@ -295,27 +256,27 @@ body {
 ========================= */
 
 @media (max-width: 1100px) {
-  .admin-summary {
+  .instructor-summary {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .admin-menu {
+  .instructor-menu {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 900px) {
-  .admin-layout {
+  .instructor-layout {
     flex-direction: column;
   }
 
-  .admin-sidebar {
+  .instructor-sidebar {
     width: 100%;
     position: static;
   }
 
-  .admin-summary,
-  .admin-menu {
+  .instructor-summary,
+  .instructor-menu {
     grid-template-columns: 1fr;
   }
 }
