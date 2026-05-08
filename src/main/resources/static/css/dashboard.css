@@ -216,6 +216,10 @@ body {
   font-weight: bold;
 }
 
+.ongoing-btn {
+  padding: 15px 0px;
+}
+
 .taking-btn {
   color: rgb(0, 0, 0);
   text-decoration: none;
