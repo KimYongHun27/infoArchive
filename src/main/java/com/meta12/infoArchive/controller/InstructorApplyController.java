@@ -23,7 +23,7 @@ public class InstructorApplyController {
     // 강사 신청 페이지
     @GetMapping("/instructor/apply")
     public String applyPage() {
-        return "instructor/apply";
+        return "instructor-apply";
     }
 
     // 강사 신청 처리
@@ -39,7 +39,7 @@ public class InstructorApplyController {
     // 신청 완료 페이지
     @GetMapping("/instructor/apply/complete")
     public String applyComplete() {
-        return "instructor/apply-complete";
+        return "instructor-apply-complete";
     }
 
     // =========================

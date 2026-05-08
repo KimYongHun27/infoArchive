@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>강사 신청 완료</title>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+  <link rel="stylesheet" th:href="@{/css/instructor-apply.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="apply-page">
+
+  <section class="apply-hero">
+    <span class="hero-badge">APPLICATION COMPLETE</span>
+    <h1>강사 신청이 완료되었습니다</h1>
+    <p>
+      신청서는 관리자 검토 후 승인 또는 반려됩니다.
+      승인되면 회원 권한이 강사로 변경됩니다.
+    </p>
+  </section>
+
+  <section class="apply-card">
+    <h2>신청 완료</h2>
+    <p class="sub-text">
+      강사 신청이 정상적으로 접수되었습니다.
+      관리자 승인 후 강사 기능을 이용할 수 있습니다.
+    </p>
+
+    <a th:href="@{/main}" class="submit-btn complete-link">메인으로 이동</a>
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
+
+</body>
+</html>

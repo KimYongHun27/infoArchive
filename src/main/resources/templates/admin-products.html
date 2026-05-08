@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>강의 관리</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-products.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="admin-products-page">
+
+    <section class="page-title">
+        <div>
+            <h1>강의 관리</h1>
+            <p>등록된 강의와 상품 정보를 확인할 수 있습니다.</p>
+        </div>
+
+        <a th:href="@{/admin}" class="back-btn">관리자 홈</a>
+    </section>
+
+    <section class="summary-card">
+        <p>등록 강의 수</p>
+        <strong th:text="${productCount}">0</strong>
+    </section>
+
+    <section class="product-table-section">
+        <table class="product-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>이미지</th>
+                <th>강의명</th>
+                <th>강사명</th>
+                <th>카테고리</th>
+                <th>가격</th>
+                <th>관리</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}">1</td>
+
+                <td>
+                    <img class="product-thumb"
+                         th:src="${product.thumbnailUrl != null ? product.thumbnailUrl : '/img/sample.jpg'}"
+                         alt="강의 이미지">
+                </td>
+
+                <td th:text="${product.title}">강의명</td>
+
+                <td th:text="${product.instructorName}">강사명</td>
+
+                <td th:text="${product.category}">카테고리</td>
+
+                <td th:text="${product.price} + '원'">0원</td>
+
+                <td>
+                    <div class="action-box">
+                        <a th:href="@{/admin/products/{id}(id=${product.id})}" class="detail-btn">상세</a>
+
+                        <form th:action="@{/admin/products/{id}/delete(id=${product.id})}"
+                              method="post"
+                              onsubmit="return confirm('이 강의를 삭제하시겠습니까?');">
+                            <button type="submit" class="delete-btn">삭제</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(products)}">
+                <td colspan="7" class="empty">등록된 강의가 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
