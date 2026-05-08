@@ -10,12 +10,18 @@
       </span>
     </a>
 
+<!--    서치       -->
     <div class="search-box">
-      <input type="text" placeholder="어떤 강의를 찾으시나요?">
-      <button class="search-btn" type="button">
-        <img th:src="@{/img/header/1093183.png}" alt="검색">
-      </button>
+      <form th:action="@{/main}" method="get" id="searchBox">
+
+        <input type="text" name="kw" placeholder="어떤 강의를 찾으시나요?" th:value="${kw}">
+        <button class="search-btn" type="submit">
+          <img th:src="@{/img/header/1093183.png}" alt="검색">
+        </button>
+
+      </form>
     </div>
+
 
     <div class="header-icons">
 
