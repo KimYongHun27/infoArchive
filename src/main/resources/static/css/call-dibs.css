@@ -114,14 +114,6 @@ body {
   font-weight: 900;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .banner {
   display: flex;
   flex-direction: column;
@@ -151,7 +143,6 @@ body {
   display: flex;
   justify-content: right;
   gap: 20px;
-  padding-right: 80px;
 }
 
 .recently {
