@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 public class OrderRequestDto {
 
+    //유저 fk
     private Long userId;
+    //상품 fk
     private Long productId;
+    //쿠폰 fk
     private Long userCouponId;
-    private int originPrice;
-    private int discountPrice;
-    private int finalPrice;
 }
