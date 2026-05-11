@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.meta12.infoArchive.entity.Instructor;
+import com.meta12.infoArchive.dto.AdminCreateRequestDto;
+import com.meta12.infoArchive.entity.Product;
 
 import java.util.List;
 
@@ -20,10 +23,11 @@ public class AdminPageController {
     public String adminPage(Model model) {
 
         List<User> users = adminService.getAllUsers();
+        List<Instructor> instructors = adminService.getAllInstructors();
         List<InstructorApply> applications = adminService.getAllInstructorApplications();
 
-        model.addAttribute("users", users);
         model.addAttribute("userCount", users.size());
+        model.addAttribute("instructorCount", instructors.size());
         model.addAttribute("applicationCount", applications.size());
 
         return "admin";
@@ -75,10 +79,10 @@ public class AdminPageController {
 
     // 강사 신청 승인
     @PostMapping("/admin/instructor-applications/{applyId}/approve")
-    public String approveInstructorApplication(
-            @PathVariable Long applyId
-    ) {
+    public String approveInstructorApplication(@PathVariable Long applyId) {
+
         adminService.approveInstructorApplication(applyId);
+
         return "redirect:/admin/instructor-applications";
     }
 
@@ -88,7 +92,33 @@ public class AdminPageController {
             @PathVariable Long applyId,
             @RequestParam(required = false) String rejectReason
     ) {
+
         adminService.rejectInstructorApplication(applyId, rejectReason);
+
         return "redirect:/admin/instructor-applications";
+    }
+
+    // 관리자 계정 생성 페이지
+    @GetMapping("/admin/create")
+    public String adminCreatePage() {
+        return "admin-create";
+    }
+
+    // 관리자 계정 생성 처리
+    @PostMapping("/admin/create")
+    public String createAdmin(AdminCreateRequestDto dto) {
+        adminService.createAdmin(dto);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/products")
+    public String adminProductsPage(Model model) {
+
+        List<Product> products = adminService.getAllProducts();
+
+        model.addAttribute("products", products);
+        model.addAttribute("productCount", products.size());
+
+        return "admin-products";
     }
 }

@@ -17,31 +17,54 @@
     <!-- 메인 -->
     <div class="main">
         <!-- 사이드바 -->
-        <aside class="sidebar">
-            <div class="card-container">
-                <div class="info-box1">나의 강의장</div>
-                <div class="info-box2">
-                    <a href="dashboard.html" class="side2">대시보드</a>
+        <aside class="taking-course-sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">
+                    <span>▦</span>
+                    <strong>나의 강의장</strong>
                 </div>
-                <div class="info-box3">
-                    <a href="taking-course.html" class="side3">수강중인 강의</a>
-                </div>
-                <div class="info-box4">
-                    <a href="call-dibs.html" class="side4">찜한 강의</a>
-                </div>
-                <div class="info-box5">
-                    <a href="order-details.html" class="side5">주문내역</a>
-                </div>
-                <div class="info-box6">
-                    <a href="coupon.html" class="side6">쿠폰함</a>
-                </div>
-                <div class="info-box7">
-                    <a href="member-info.html" class="side7">회원 정보</a>
-                </div>
-                <div class="info-box8">
-                    <div class="ask">고객센터</div><br>
-                    <div class="time">평일: 10:00 ~ 18:00 [점심: 12:00 - 13:00]</div><br>
-                    <div class="phone">010-0000-0000</div><br>
+
+                <nav class="side-menu">
+                    <a th:href="@{/dashboard}">
+                        <span>▤</span>
+                        대시보드
+                    </a>
+
+                    <a th:href="@{/taking-course}">
+                        <span>▣</span>
+                        수강중인 강의
+                    </a>
+
+                    <a th:href="@{/wishlist}">
+                        <span>♡</span>
+                        찜한 강의
+                    </a>
+
+                    <a th:href="@{/orders}">
+                        <span>▥</span>
+                        주문 내역
+                    </a>
+
+                    <a th:href="@{/coupon}">
+                        <span>▨</span>
+                        쿠폰함
+                    </a>
+
+                    <a th:href="@{/mypage}" class="active">
+                        <span>♙</span>
+                        회원 정보
+                    </a>
+
+                    <a th:href="@{/review}">
+                        <span>★</span>
+                        리뷰관리
+                    </a>
+                </nav>
+
+                <div class="customer-box">
+                    <h3>고객센터</h3>
+                    <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
+                    <strong>010-0000-0000</strong>
                 </div>
             </div>
         </aside>
@@ -54,7 +77,8 @@
             <div class="course-card">
                 <div class="course-container">
                     <div class="course-box">
-                        <img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="course-img" />
+                        <div class="box-icon">카테고리</div>
+                        <img src="https://picsum.photos/110" alt="수강 중 강의 이미지" class="course-img" />
                     </div>
                     <div class="course-content">
                         <h2 class="course-name">강의명</h2>
@@ -70,6 +94,55 @@
                             <a href="" class="admission-btn">강의실 입장</a>
                         </div>
                     </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <img src="https://picsum.photos/120" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <p class="percent">00% 학습 중</p><br>
+                        <div class="progress"></div>
+                    </div>
+                    <div class="course-move">
+                        <div class="learn">
+                            <a href="" class="learn-btn">이어서 학습하기</a>
+                        </div>
+                        <div class="admission">
+                            <a href="" class="admission-btn">강의실 입장</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-container">
+                    <div class="course-box">
+                        <div class="box-icon">카테고리</div>
+                        <img src="https://picsum.photos/130" alt="수강 중 강의 이미지" class="course-img" />
+                    </div>
+                    <div class="course-content">
+                        <h2 class="course-name">강의명</h2>
+                        <p class="instructor">강의자명</p><br>
+                        <p class="percent">00% 학습 중</p><br>
+                        <div class="progress"></div>
+                    </div>
+                    <div class="course-move">
+                        <div class="learn">
+                            <a href="" class="learn-btn">이어서 학습하기</a>
+                        </div>
+                        <div class="admission">
+                            <a href="" class="admission-btn">강의실 입장</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget">
+                <div class="pause">
+                    <h2>학습이 잠시 멈췄나요?</h2><br>
+                    <div class="guide">
+                        <a href="" class="guide-btn">일시정지 가이드 보기 ></a>
+                    </div>
+                    <p class="explain">일시 정지 기능을 이용하면 학습기록이 그대로 유지됩니다.</p>
                 </div>
             </div>
         </section>

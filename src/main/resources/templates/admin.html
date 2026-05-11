@@ -12,94 +12,164 @@
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<main class="admin-page">
+<main class="admin-layout">
 
-  <section class="admin-header">
-    <h1>관리자 페이지</h1>
-    <p>InfoArchive의 회원, 강의, 결제, 강사 신청을 관리합니다.</p>
-  </section>
+  <!-- 왼쪽 관리자 사이드바 -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-card">
 
-  <section class="admin-summary">
-    <div class="summary-card">
-      <p>전체 회원</p>
-      <strong th:text="${userCount}">0</strong>
+      <div class="admin-sidebar-title">
+        <span><img th:src="@{/img/admin/admin.png}" alt=""></span>
+        <strong>관리자 센터</strong>
+      </div>
+
+      <nav class="admin-side-menu">
+        <a th:href="@{/admin}" class="active">
+          <span><img th:src="@{/img/admin/home.png}" alt=""></span>
+          관리자 홈
+        </a>
+
+        <a th:href="@{/admin/users}">
+          <span><img th:src="@{/img/admin/user.png}" alt=""></span>
+          회원 관리
+        </a>
+
+        <a th:href="@{/admin/create}">
+          <span><img th:src="@{/img/admin/admin.png}" alt=""></span>
+          관리자 계정 생성
+        </a>
+
+        <a th:href="@{/admin/instructor-applications}">
+          <span><img th:src="@{/img/admin/apply.png}" alt=""></span>
+          강사 신청 관리
+        </a>
+
+        <a th:href="@{/admin/products}">
+          <span><img th:src="@{/img/admin/study.png}" alt=""></span>
+          강의 관리
+        </a>
+
+        <a th:href="@{/admin/payments}">
+          <span><img th:src="@{/img/admin/card.png}" alt=""></span>
+          결제 관리
+        </a>
+
+        <a th:href="@{/admin/coupons}">
+          <span><img th:src="@{/img/admin/coupon.png}" alt=""></span>
+          쿠폰 관리
+        </a>
+      </nav>
+
     </div>
+  </aside>
 
-    <div class="summary-card">
-      <p>등록 강의</p>
-      <strong>0</strong>
-    </div>
+  <!-- 오른쪽 관리자 본문 -->
+  <section class="admin-content">
 
-    <div class="summary-card">
-      <p>결제 내역</p>
-      <strong>0</strong>
-    </div>
+    <section class="admin-header">
+      <h1>관리자 페이지</h1>
+      <p>InfoArchive의 회원, 강의, 결제, 강사 신청을 관리합니다.</p>
+    </section>
 
-    <div class="summary-card">
-      <p>강사 신청</p>
-      <strong>0</strong>
-    </div>
-  </section>
+    <section class="admin-summary">
+      <div class="summary-card">
+        <p>전체 회원</p>
+        <strong th:text="${userCount}">0</strong>
+      </div>
 
-  <section class="admin-menu">
-    <a th:href="@{/admin/users}" class="admin-menu-card">
-      <h3>회원 관리</h3>
-      <p>회원 목록, 권한, 가입 정보를 관리합니다.</p>
-    </a>
+      <div class="summary-card">
+        <p>등록 강의</p>
+        <strong>0</strong>
+      </div>
 
-    <a th:href="@{/admin/lectures}" class="admin-menu-card">
-      <h3>강의 관리</h3>
-      <p>강의 등록, 수정, 삭제를 관리합니다.</p>
-    </a>
+      <div class="summary-card">
+        <p>결제 내역</p>
+        <strong>0</strong>
+      </div>
 
-    <a th:href="@{/admin/payments}" class="admin-menu-card">
-      <h3>결제 관리</h3>
-      <p>결제 내역과 환불 상태를 확인합니다.</p>
-    </a>
+      <div class="summary-card">
+        <p>강사 신청</p>
+        <strong>0</strong>
+      </div>
+    </section>
 
-    <a th:href="@{/admin/instructor-applications}" class="admin-menu-card">
-      <h3>강사 신청 관리</h3>
-      <p>강사 신청 승인과 반려를 처리합니다.</p>
-    </a>
-  </section>
+    <section class="admin-menu">
+      <a th:href="@{/admin/users}" class="admin-menu-card">
+        <div class="menu-icon">👤</div>
+        <h3>회원 관리</h3>
+        <p>회원 목록과 가입 정보를 확인하고 관리합니다.</p>
+      </a>
 
-  <section class="admin-table-section">
-    <div class="table-title">
-      <h2>최근 회원 목록</h2>
-      <a th:href="@{/admin/users}">전체 보기</a>
-    </div>
+      <a th:href="@{/admin/products}" class="admin-menu-card">
+        <div class="menu-icon">📚</div>
+        <h3>강의 관리</h3>
+        <p>강의 등록, 수정, 삭제를 관리합니다.</p>
+      </a>
 
-    <table class="admin-table">
-      <thead>
-      <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>이메일</th>
-        <th>전화번호</th>
-        <th>권한</th>
-        <th>가입일</th>
-      </tr>
-      </thead>
+      <a th:href="@{/admin/payments}" class="admin-menu-card">
+        <div class="menu-icon">💳</div>
+        <h3>결제 관리</h3>
+        <p>결제 내역과 환불 상태를 확인합니다.</p>
+      </a>
 
-      <tbody>
-      <tr th:each="user : ${users}">
-        <td th:text="${user.id}">1</td>
-        <td th:text="${user.name}">홍길동</td>
-        <td th:text="${user.email}">test@test.com</td>
-        <td th:text="${user.phone}">010-0000-0000</td>
-        <td>
-          <span class="role-badge" th:text="${user.role}">USER</span>
-        </td>
-        <td th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
-          2026-01-01
-        </td>
-      </tr>
+      <a th:href="@{/admin/instructor-applications}" class="admin-menu-card">
+        <div class="menu-icon">🎓</div>
+        <h3>강사 신청 관리</h3>
+        <p>강사 신청 승인과 반려를 처리합니다.</p>
+      </a>
 
-      <tr th:if="${#lists.isEmpty(users)}">
-        <td colspan="6" class="empty">가입된 회원이 없습니다.</td>
-      </tr>
-      </tbody>
-    </table>
+      <a th:href="@{/admin/create}" class="admin-menu-card">
+        <div class="menu-icon">🛡️</div>
+        <h3>관리자 계정 생성</h3>
+        <p>새로운 관리자 계정을 생성합니다.</p>
+      </a>
+    </section>
+
+    <section class="admin-table-section">
+      <div class="table-title">
+        <h2>최근 회원 목록</h2>
+        <a th:href="@{/admin/users}">전체 보기</a>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>이름</th>
+          <th>이메일</th>
+          <th>전화번호</th>
+          <th>권한</th>
+          <th>가입일</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.id}">1</td>
+          <td th:text="${user.name}">홍길동</td>
+          <td th:text="${user.email}">test@test.com</td>
+          <td th:text="${user.phone}">010-0000-0000</td>
+          <td>
+            <span class="role-badge"
+                  th:classappend="${user.role.name() == 'ADMIN'} ? ' admin' :
+                                  (${user.role.name() == 'INSTRUCTOR'} ? ' instructor' :
+                                  (${user.role.name() == 'INSTRUCTOR_PENDING'} ? ' pending' : ' user'))"
+                  th:text="${user.role}">
+              USER
+            </span>
+          </td>
+          <td th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
+            2026-01-01
+          </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(users)}">
+          <td colspan="6" class="empty">가입된 회원이 없습니다.</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
   </section>
 
 </main>

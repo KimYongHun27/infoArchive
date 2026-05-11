@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+    color: #111;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+}
+
+.admin-users-page {
+    width: 1180px;
+    max-width: calc(100% - 40px);
+    margin: 54px auto 100px;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-title h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.page-title p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+}
+
+.back-btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-card {
+    width: 240px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.summary-card p {
+    margin: 0 0 10px;
+    color: #666;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.summary-card strong {
+    color: #ff1515;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.user-table-section {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    overflow-x: auto;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.user-table th {
+    background: #f1f2f4;
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+    color: #444;
+}
+
+.user-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.user-table tr:hover {
+    background: #fafafa;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.role-badge.user {
+    background: #111;
+}
+
+.role-badge.instructor {
+    background: #2563eb;
+}
+
+.role-badge.admin {
+    background: #ff1515;
+}
+
+.action-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.action-box form {
+    margin: 0;
+}
+
+.detail-btn,
+.delete-btn {
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 9px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-btn {
+    background: #2563eb;
+}
+
+.delete-btn {
+    background: #ff1515;
+}
+
+.empty {
+    text-align: center;
+    color: #999;
+    padding: 32px;
+}

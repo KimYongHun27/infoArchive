@@ -14,13 +14,13 @@ public class InstructorController {
 
     private final InstructorService instructorService;
 
-    // 강사 전체 조회
+    // 강사 전체 조회 API
     @GetMapping
     public List<Instructor> getInstructors() {
         return instructorService.getInstructors();
     }
 
-    // 강사 단건 조회
+    // 강사 단건 조회 API
     @GetMapping("/{instructorId}")
     public Instructor getInstructor(@PathVariable Long instructorId) {
         return instructorService.getInstructor(instructorId);

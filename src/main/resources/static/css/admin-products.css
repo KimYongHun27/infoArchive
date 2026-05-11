@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+    color: #111;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+}
+
+.admin-products-page {
+    width: 1180px;
+    max-width: calc(100% - 40px);
+    margin: 54px auto 100px;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-title h1 {
+    margin: 0 0 10px;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.page-title p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+}
+
+.back-btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-card {
+    width: 240px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.summary-card p {
+    margin: 0 0 10px;
+    color: #666;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.summary-card strong {
+    color: #ff1515;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.product-table-section {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    overflow-x: auto;
+}
+
+.product-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+.product-table th {
+    background: #f1f2f4;
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+    color: #444;
+}
+
+.product-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.product-thumb {
+    width: 90px;
+    height: 58px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #eee;
+}
+
+.action-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.action-box form {
+    margin: 0;
+}
+
+.detail-btn,
+.delete-btn {
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 9px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-btn {
+    background: #2563eb;
+}
+
+.delete-btn {
+    background: #ff1515;
+}
+
+.empty {
+    text-align: center;
+    color: #999;
+    padding: 32px;
+}

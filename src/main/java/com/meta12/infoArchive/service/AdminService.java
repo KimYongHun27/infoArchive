@@ -11,6 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.meta12.infoArchive.entity.ApplyStatus;
 import java.time.LocalDateTime;
+import com.meta12.infoArchive.dto.AdminCreateRequestDto;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.meta12.infoArchive.repository.ProductRepository;
+import com.meta12.infoArchive.entity.Product;
 
 import java.util.List;
 
@@ -19,6 +23,8 @@ import java.util.List;
 public class AdminService {
 
     private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
     private final InstructorRepository instructorRepository;
     private final InstructorApplyRepository instructorApplyRepository;
 
@@ -123,5 +129,37 @@ public class AdminService {
         foundUser.setRole(role);
 
         return userRepository.save(foundUser);
+    }
+
+    // 관리자 - 관리자 계정 생성
+    public void createAdmin(AdminCreateRequestDto dto) {
+
+        if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("이메일을 입력해주세요.");
+        }
+
+        if (dto.getPassword() == null || dto.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("비밀번호를 입력해주세요.");
+        }
+
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+
+        User admin = User.builder()
+                .username(dto.getEmail())
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .name(dto.getName())
+                .phone(dto.getPhone())
+                .role(Role.ADMIN)
+                .build();
+
+        userRepository.save(admin);
+    }
+
+    // 관리자 - 전체 강의/상품 조회
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 }

@@ -10,12 +10,18 @@
       </span>
     </a>
 
+<!--    서치       -->
     <div class="search-box">
-      <input type="text" placeholder="어떤 강의를 찾으시나요?">
-      <button class="search-btn" type="button">
-        <img th:src="@{/img/header/1093183.png}" alt="검색">
-      </button>
+      <form th:action="@{/main}" method="get" id="searchBox">
+
+        <input type="text" name="kw" placeholder="어떤 강의를 찾으시나요?" th:value="${kw}">
+        <button class="search-btn" type="submit">
+          <img th:src="@{/img/header/1093183.png}" alt="검색">
+        </button>
+
+      </form>
     </div>
+
 
     <div class="header-icons">
 
@@ -31,32 +37,47 @@
       <!-- 로그인 후 -->
       <div class="header-icons after-login" th:if="${session.loginUser != null}">
 
-        <!-- 관리자만 보임 -->
-        <a th:if="${session.loginRole == 'ROLE_ADMIN'}"
-           th:href="@{/admin}">
-          <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
-          <p>관리자</p>
-        </a>
-
-        <a th:href="@{/mypage}">
+        <!-- 일반회원만 마이페이지 표시 -->
+        <a th:if="${session.loginRole == 'ROLE_USER'}"
+           th:href="@{/mypage}">
           <span><img th:src="@{/img/header/11.png}" width="40" alt=""></span>
           <p>마이페이지</p>
         </a>
 
-        <a th:href="@{/wishlist}">
+        <!-- 강사만 강사센터 표시 -->
+        <a th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}"
+           th:href="@{/instructor}">
+          <span><img th:src="@{/img/instructor/instructor.png}" width="40" alt=""></span>
+          <p>강사센터</p>
+        </a>
+
+        <!-- 관리자만 관리자센터 표시 -->
+        <a th:if="${session.loginRole == 'ROLE_ADMIN'}"
+           th:href="@{/admin}">
+          <span><img th:src="@{/img/admin/admin.png}" width="40" alt=""></span>
+          <p>관리자센터</p>
+        </a>
+
+        <!-- 일반회원만 찜한 강의 표시 -->
+        <a th:if="${session.loginRole == 'ROLE_USER'}"
+           th:href="@{/wishlist}">
           <span><img th:src="@{/img/header/12.png}" width="40" alt=""></span>
           <p>찜한 강의</p>
         </a>
 
-        <a th:href="@{/cart}">
+        <!-- 일반회원만 장바구니 표시 -->
+        <a th:if="${session.loginRole == 'ROLE_USER'}"
+           th:href="@{/cart}">
           <span><img th:src="@{/img/header/13.png}" width="40" alt=""></span>
           <p>장바구니</p>
         </a>
 
+        <!-- 로그인한 사람은 전부 로그아웃 표시 -->
         <a th:href="@{/logout}">
           <span><img th:src="@{/img/header/logout.png}" width="40" alt=""></span>
           <p>로그아웃</p>
         </a>
+
       </div>
 
     </div>

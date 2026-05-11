@@ -2,13 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>드로잉</title>
+  <title>공예</title>
 
   <link rel="stylesheet" th:href="@{/css/header.css}">
   <link rel="stylesheet" th:href="@{/css/category.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
   <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
@@ -19,24 +23,24 @@
     <div class="category-title">
       <img th:src="@{/img/main/cat01.png}" alt="">
       <div>
-        <h1>드로잉</h1>
+        <h1>공예</h1>
         <p>인물 스케치부터 디지털 일러스트까지, 드로잉의 모든 것을 배워보세요.</p>
       </div>
     </div>
   </section>
 
   <section class="category-tabs">
-    <a th:href="@{/top10}" class="active">
+    <a th:href="@{/top10}">
       <img th:src="@{/img/top10/cat-all.png}" alt="">
       <span>전체</span>
     </a>
 
-    <a th:href="@{/category/drawing}" class="active">
+    <a th:href="@{/category/drawing}">
       <img th:src="@{/img/main/cat01.png}" alt="">
       <span>드로잉</span>
     </a>
 
-    <a th:href="@{/category/craft}">
+    <a th:href="@{/category/craft}" class="active">
       <img th:src="@{/img/main/cat02.png}" alt=""><span>공예</span>
     </a>
 
@@ -79,7 +83,7 @@
 
   <section class="category-rank">
     <div class="section-head">
-      <h2>드로잉 TOP 10</h2>
+      <h2>공예 TOP 10</h2>
 
       <div class="arrow-box">
         <button type="button">‹</button>
@@ -87,9 +91,9 @@
       </div>
     </div>
 
-    <div class="drawing-grid">
-      <a class="drawing-card"
-         th:each="course, stat : ${drawingCourses}"
+    <div class="craft-grid">
+      <a class="craft-card"
+         th:each="course, stat : ${craftCourses}"
          th:href="@{/course/view/{id}(id=${course.id})}">
 
         <span class="rank-num"
@@ -102,7 +106,7 @@
 
         <div class="card-info">
           <span class="tag" th:text="${course.subCategory}">스케치</span>
-          <h3 th:text="${course.title}">인체 드로잉 기초 마스터</h3>
+          <h3 th:text="${course.title}">인체 공예 기초 마스터</h3>
           <p th:text="${course.instructorName}">일러스트레이터 하루</p>
 
           <div class="meta">
