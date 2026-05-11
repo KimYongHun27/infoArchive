@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.dto.AdminCreateRequestDto;
 import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.dto.PasswordChangeDto;
+import org.springframework.security.core.Authentication;
+import com.meta12.infoArchive.service.UserService;
+
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ import java.util.List;
 public class AdminPageController {
 
     private final AdminService adminService;
+    private final UserService userService;
 
     @GetMapping("/admin")
     public String adminPage(Model model) {
@@ -120,5 +125,14 @@ public class AdminPageController {
         model.addAttribute("productCount", products.size());
 
         return "admin-products";
+    }
+
+    @PostMapping("/admin/password/change")
+    public String changeAdminPassword(
+            Authentication authentication,
+            PasswordChangeDto passwordChangeDto
+    ) {
+        userService.changeMyPassword(authentication, passwordChangeDto);
+        return "redirect:/admin?passwordSuccess=true";
     }
 }
