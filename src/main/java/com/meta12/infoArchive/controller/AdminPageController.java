@@ -28,12 +28,15 @@ public class AdminPageController {
     public String adminPage(Model model) {
 
         List<User> users = adminService.getAllUsers();
-        List<Instructor> instructors = adminService.getAllInstructors();
-        List<InstructorApply> applications = adminService.getAllInstructorApplications();
 
+        model.addAttribute("users", users);
         model.addAttribute("userCount", users.size());
-        model.addAttribute("instructorCount", instructors.size());
-        model.addAttribute("applicationCount", applications.size());
+
+        // 아직 강의/결제는 연결 안 되어 있으면 0으로
+        model.addAttribute("userCount", users.size());
+        model.addAttribute("productCount", 0);
+        model.addAttribute("paymentCount", 0);
+        model.addAttribute("applyCount", adminService.getAllInstructorApplications().size());
 
         return "admin";
     }
