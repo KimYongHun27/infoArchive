@@ -96,13 +96,13 @@ public class ReviewService {
 
             // 리뷰 작성자(User) 조인
             Join<Review, User> u = r.join("user", JoinType.LEFT);
-
+            // 상품 조인
+            Join<Review, Product> p = r.join("product",JoinType.LEFT);
 
 
             return cb.or(
-                    cb.like(r.get("title"), "%" + kw + "%"),      // 리뷰 제목
-                    cb.like(r.get("content"), "%" + kw + "%"),    // 리뷰 내용
-                    cb.like(u.get("name"), "%" + kw + "%")        // 유저 이름
+                    cb.like(u.get("name"), "%" + kw + "%"),      // 유저 이름
+                    cb.like(p.get("productName"),"%" + kw + "%") // 상품명
             );
         };
     }
