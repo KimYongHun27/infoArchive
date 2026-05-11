@@ -30,9 +30,6 @@ public class SecurityConfig {
                                 "/main",
                                 "/login",
                                 "/signup",
-                                "/account/find",
-                                "/account/find-id",
-                                "/account/reset-password",
                                 "/top10",
                                 "/category/**",
                                 "/css/**",
@@ -41,16 +38,15 @@ public class SecurityConfig {
                                 "/img/**"
                         ).permitAll()
 
+                        .requestMatchers("/account/**").permitAll()
+
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/payment", "/payment/**").authenticated()
 
                         .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // 강사 신청은 로그인한 일반 회원도 가능
                         .requestMatchers("/instructor/apply", "/instructor/apply/**").authenticated()
-
-                        // 강사센터는 강사만 가능
                         .requestMatchers("/instructor", "/instructor/**").hasRole("INSTRUCTOR")
 
                         .anyRequest().authenticated()
