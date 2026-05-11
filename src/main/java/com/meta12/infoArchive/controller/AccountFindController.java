@@ -23,11 +23,24 @@ public class AccountFindController {
     @PostMapping("/account/find-id")
     public String findIdProc(IdFindRequestDto dto, Model model) {
 
-        String foundEmail = userService.findEmail(dto);
+        System.out.println("===== 이메일 찾기 진입 =====");
+        System.out.println("name = " + dto.getName());
+        System.out.println("phone = " + dto.getPhone());
 
-        model.addAttribute("foundEmail", foundEmail);
         model.addAttribute("activeTab", "id");
+        model.addAttribute("debugName", dto.getName());
+        model.addAttribute("debugPhone", dto.getPhone());
 
+        try {
+            String foundEmail = userService.findEmail(dto);
+
+            model.addAttribute("foundEmail", foundEmail);
+            model.addAttribute("activeTab", "id");
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("activeTab", "id");
+        }
         return "account-find";
     }
 

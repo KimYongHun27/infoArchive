@@ -19,53 +19,83 @@
         <!-- 왼쪽 사이드바 -->
         <aside class="member-sidebar">
             <div class="sidebar-card">
-                <div class="sidebar-title">
+
+                <!-- 일반 회원용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_USER'}">
                     <span>▦</span>
                     <strong>나의 강의장</strong>
                 </div>
 
+                <!-- 관리자용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_ADMIN'}">
+                    <span>🛡️</span>
+                    <strong>관리자 정보</strong>
+                </div>
+
+                <!-- 강사용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}">
+                    <span>🎓</span>
+                    <strong>강사 정보</strong>
+                </div>
+
                 <nav class="side-menu">
-                    <a th:href="@{/dashboard}">
+
+                    <!-- 일반 회원만 보이는 메뉴 -->
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/dashboard}">
                         <span>▤</span>
                         대시보드
                     </a>
 
-                    <a th:href="@{/taking-course}">
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/taking-course}">
                         <span>▣</span>
                         수강중인 강의
                     </a>
 
-                    <a th:href="@{/wishlist}">
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/wishlist}">
                         <span>♡</span>
                         찜한 강의
                     </a>
 
-                    <a th:href="@{/orders}">
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/orders}">
                         <span>▥</span>
                         주문 내역
                     </a>
 
-                    <a th:href="@{/coupon}">
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/coupon}">
                         <span>▨</span>
                         쿠폰함
                     </a>
 
+                    <!-- 공통: 회원 정보만 표시 -->
                     <a th:href="@{/mypage}" class="active">
                         <span>♙</span>
                         회원 정보
                     </a>
 
-                    <a th:href="@{/review}">
+                    <!-- 일반 회원만 리뷰관리 표시 -->
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/review}">
                         <span>★</span>
                         리뷰관리
                     </a>
                 </nav>
 
-                <div class="customer-box">
+                <!-- 고객센터도 일반 회원만 표시 -->
+                <div class="customer-box"
+                     th:if="${session.loginRole == 'ROLE_USER'}">
                     <h3>고객센터</h3>
                     <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
                     <strong>010-0000-0000</strong>
                 </div>
+
             </div>
         </aside>
 
@@ -157,8 +187,8 @@
                         </div>
                     </div>
 
-                    <!-- 마케팅 동의 -->
-                    <section class="marketing-card">
+                    <!-- 마케팅 동의 : 일반 회원만 표시 -->
+                    <section class="marketing-card" th:if="${session.loginRole == 'ROLE_USER'}">
                         <h2>마케팅 정보 수신 동의</h2>
 
                         <div class="agree-row">
@@ -216,12 +246,6 @@
                         </div>
                     </section>
 
-                    <div class="save-area">
-                        <button type="submit">정보 저장하기</button>
-                    </div>
-                </form>
-            </section>
-
             <!-- 비밀번호 변경 -->
             <section class="info-card" id="password-change">
                 <h2>비밀번호 변경</h2>
@@ -250,8 +274,8 @@
                 </form>
             </section>
 
-            <!-- 회원 탈퇴 -->
-            <section class="withdraw-card">
+            <!-- 회원 탈퇴 : 일반 회원만 표시 -->
+            <section class="withdraw-card" th:if="${session.loginRole == 'ROLE_USER'}">
                 <div>
                     <h2>회원 탈퇴</h2>
                     <p>회원 탈퇴 시 모든 정보가 삭제되며, 복구할 수 없습니다.</p>

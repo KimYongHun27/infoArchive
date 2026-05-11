@@ -189,7 +189,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    // 아이디 찾기
+    // 이메일 찾기
     public String findEmail(IdFindRequestDto dto) {
 
         if (dto.getName() == null || dto.getName().trim().isEmpty()) {
@@ -200,10 +200,14 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("전화번호를 입력해주세요.");
         }
 
-        User user = userRepository.findByNameAndPhone(
-                        dto.getName(),
-                        dto.getPhone()
-                )
+        String inputName = dto.getName().trim();
+        String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
+
+        User user = userRepository.findAll().stream()
+                .filter(u -> u.getName() != null && u.getName().equals(inputName))
+                .filter(u -> u.getPhone() != null)
+                .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
+                .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
 
         return user.getEmail();
@@ -232,15 +236,19 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
         }
 
-        User user = userRepository.findByEmailAndNameAndPhone(
-                        dto.getEmail(),
-                        dto.getName(),
-                        dto.getPhone()
-                )
+        String inputEmail = dto.getEmail().trim();
+        String inputName = dto.getName().trim();
+        String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
+
+        User user = userRepository.findAll().stream()
+                .filter(u -> u.getEmail() != null && u.getEmail().equals(inputEmail))
+                .filter(u -> u.getName() != null && u.getName().equals(inputName))
+                .filter(u -> u.getPhone() != null)
+                .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
+                .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
 
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
-
         userRepository.save(user);
     }
 }

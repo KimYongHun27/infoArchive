@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.dto.AdminCreateRequestDto;
 import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.dto.PasswordChangeDto;
+import org.springframework.security.core.Authentication;
+import com.meta12.infoArchive.service.UserService;
+
 
 import java.util.List;
 
@@ -18,17 +22,21 @@ import java.util.List;
 public class AdminPageController {
 
     private final AdminService adminService;
+    private final UserService userService;
 
     @GetMapping("/admin")
     public String adminPage(Model model) {
 
         List<User> users = adminService.getAllUsers();
-        List<Instructor> instructors = adminService.getAllInstructors();
-        List<InstructorApply> applications = adminService.getAllInstructorApplications();
 
+        model.addAttribute("users", users);
         model.addAttribute("userCount", users.size());
-        model.addAttribute("instructorCount", instructors.size());
-        model.addAttribute("applicationCount", applications.size());
+
+        // 아직 강의/결제는 연결 안 되어 있으면 0으로
+        model.addAttribute("userCount", users.size());
+        model.addAttribute("productCount", 0);
+        model.addAttribute("paymentCount", 0);
+        model.addAttribute("applyCount", adminService.getAllInstructorApplications().size());
 
         return "admin";
     }
@@ -120,5 +128,14 @@ public class AdminPageController {
         model.addAttribute("productCount", products.size());
 
         return "admin-products";
+    }
+
+    @PostMapping("/admin/password/change")
+    public String changeAdminPassword(
+            Authentication authentication,
+            PasswordChangeDto passwordChangeDto
+    ) {
+        userService.changeMyPassword(authentication, passwordChangeDto);
+        return "redirect:/admin?passwordSuccess=true";
     }
 }
