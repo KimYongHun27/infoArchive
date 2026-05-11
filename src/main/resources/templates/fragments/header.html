@@ -12,7 +12,7 @@
 
 <!--    서치       -->
     <div class="search-box">
-      <form th:action="@{/main}" method="get" id="searchBox">
+      <form th:action="@{/search}" method="get" id="searchBox">
 
         <input type="text" name="kw" placeholder="어떤 강의를 찾으시나요?" th:value="${kw}">
         <button class="search-btn" type="submit">
