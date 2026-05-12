@@ -50,25 +50,23 @@
         </header>
 
         <section class="summary-grid">
-
             <div class="summary-card">
                 <p>계정 상태</p>
                 <h3>ACTIVE</h3>
-                <span>특별계정 권한 사용 가능</span>
+                <span>SPECIAL 권한 사용 가능</span>
             </div>
 
             <div class="summary-card">
-                <p>내부 도구</p>
-                <h3>3개</h3>
-                <span>도구 메뉴에서 관리 가능</span>
+                <p>성공 로그</p>
+                <h3 th:text="${successLogCount} + '건'">0건</h3>
+                <span>정상 처리된 내부 기능</span>
             </div>
 
             <div class="summary-card">
-                <p>최근 로그</p>
-                <h3>0건</h3>
-                <span>아직 실행 기록이 없습니다.</span>
+                <p>전체 로그</p>
+                <h3 th:text="${totalLogCount} + '건'">0건</h3>
+                <span>DB에 저장된 실행 기록</span>
             </div>
-
         </section>
 
         <section class="panel-grid">

@@ -40,6 +40,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/account/**").permitAll()
                         .requestMatchers("/special/**").hasRole("SPECIAL")
+                        .requestMatchers("/api/special/**").hasRole("SPECIAL")
 
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/payment", "/payment/**").authenticated()

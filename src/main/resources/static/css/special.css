@@ -555,3 +555,95 @@ body {
         gap: 16px;
     }
 }
+
+.tool-link-btn {
+    display: inline-block;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #6366f1;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tool-link-btn:hover {
+    background: #4f46e5;
+}
+
+.empty-log {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+.log-action-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.delete-log-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete-log-btn:hover {
+    background: #fecaca;
+}
+
+.delete-all-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #ef4444;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.delete-all-btn:hover {
+    background: #dc2626;
+}
+
+@media (max-width: 900px) {
+    .log-action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .log-action-buttons a,
+    .log-action-buttons button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.recent-report-log-box {
+    margin-top: 30px;
+    padding: 28px;
+    border-radius: 22px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.recent-report-log-box .log-table {
+    margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+    .recent-report-log-box {
+        overflow-x: auto;
+    }
+
+    .recent-report-log-box .log-table {
+        min-width: 760px;
+    }
+}
