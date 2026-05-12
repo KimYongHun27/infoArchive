@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>특별계정 리포트 - InfoArchive</title>
+  <link rel="stylesheet" th:href="@{/css/special.css}">
+</head>
+<body>
+
+<div class="special-page">
+
+  <aside class="special-sidebar">
+    <div class="logo-box">
+      <div class="logo-icon">IA</div>
+      <div>
+        <h2>Special Account</h2>
+        <p>Internal Report</p>
+      </div>
+    </div>
+
+    <nav class="side-menu">
+      <a th:href="@{/special}">대시보드</a>
+      <a th:href="@{/special/tools}">내부 도구</a>
+      <a th:href="@{/special/logs}">실행 로그</a>
+      <a th:href="@{/special/report}" class="active">리포트</a>
+      <a th:href="@{/main}">메인으로</a>
+    </nav>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+      <button type="submit">로그아웃</button>
+    </form>
+  </aside>
+
+  <main class="special-content">
+
+    <header class="top-bar">
+      <div>
+        <p class="page-label">SPECIAL REPORT</p>
+        <h1>내부 리포트</h1>
+        <p class="page-desc">
+          특별계정 기능의 상태와 실행 결과를 요약해서 확인하는 페이지입니다.
+        </p>
+      </div>
+
+      <div class="login-card">
+        <span>로그인 계정</span>
+        <strong sec:authentication="name">special@test.com</strong>
+      </div>
+    </header>
+
+    <section class="report-summary-grid">
+
+      <div class="summary-card">
+        <p>전체 상태</p>
+        <h3>정상</h3>
+        <span>SPECIAL 페이지 접근 가능</span>
+      </div>
+
+      <div class="summary-card">
+        <p>내부 도구</p>
+        <h3>READY</h3>
+        <span>기본 기능 테스트 완료</span>
+      </div>
+
+      <div class="summary-card">
+        <p>리포트 상태</p>
+        <h3>임시</h3>
+        <span>DB 연결 전 화면 테스트</span>
+      </div>
+
+    </section>
+
+    <section class="report-box">
+
+      <div class="report-header">
+        <div>
+          <h3>특별계정 점검 리포트</h3>
+          <p>현재 페이지는 화면 테스트용 리포트입니다.</p>
+        </div>
+
+        <button type="button" class="tool-btn" onclick="generateReport()">
+          리포트 생성
+        </button>
+      </div>
+
+      <div class="report-content" id="reportContent">
+
+        <div class="report-item">
+          <h4>1. 계정 권한 상태</h4>
+          <p>
+            현재 특별계정은 <strong>SPECIAL</strong> 권한으로 보호된 페이지에 접근할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="report-item">
+          <h4>2. 접근 제한 상태</h4>
+          <p>
+            `/special/**` 경로는 SPECIAL 권한을 가진 계정만 접근할 수 있도록 설정되어 있습니다.
+          </p>
+        </div>
+
+        <div class="report-item">
+          <h4>3. 내부 도구 상태</h4>
+          <p>
+            내부 도구 페이지, 실행 로그 페이지, 리포트 페이지가 정상적으로 연결되었습니다.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="report-result" id="reportResult">
+        아직 새 리포트가 생성되지 않았습니다.
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script th:src="@{/js/special.js}"></script>
+</body>
+</html>
