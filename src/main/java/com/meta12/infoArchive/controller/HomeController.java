@@ -36,7 +36,7 @@ public class HomeController {
         return "top10";
 
     }
-    
+
     @GetMapping("/category/{categoryName}")
     public String categoryPage(
             @PathVariable String categoryName,

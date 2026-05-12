@@ -35,46 +35,152 @@ body {
 }
 
 .search-box {
-    width: 520px;
-    height: 48px;
-    background: #fff;
-    border-radius: 999px;
-    display: flex;
-    align-items: center;
-    padding: 0 18px;
-    gap: 10px;
-}
+  width: 520px;
+  height: 48px;
+  background: #fff;
+  border-radius: 999px;
 
-.search-box input {
-    flex: 1;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 15px;
-    color: #111;
-}
+  display: flex;
+  align-items: center;
 
-.search-box input::placeholder {
-    color: #888;
+  padding: 0 22px;
+  gap: 12px;
+
+  overflow: hidden;
 }
 
 .search-btn {
-    width: 26px;
-    height: 26px;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   검색 영역
+========================= */
+
+.header-search {
+  position: relative;
+  width: 520px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+/* 처음 보이는 검색 버튼 */
+.search-open-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-open-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* 열리는 검색창 */
+.search-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 520px;
+  height: 48px;
+  background: #fff;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 0 16px 0 22px;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleX(0.85);
+  transform-origin: left center;
+  transition: 0.22s ease;
+}
+
+/* 검색창 열림 */
+.search-box.open {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.search-btn {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-btn img {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  display: block;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: #111;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.search-box input::placeholder {
+  color: #888;
+}
+
+.search-close-btn {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+
+  border: none;
+  background: transparent;
+  color: #111;
+
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
 }
 
 .header-icons {

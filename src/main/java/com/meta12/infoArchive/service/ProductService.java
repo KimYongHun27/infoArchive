@@ -3,9 +3,10 @@ package com.meta12.infoArchive.service;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,22 +17,16 @@ public class ProductService {
 
     public Product getProduct(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        Product product = null;
 
-        if (optionalProduct.isPresent()) {
-            product = optionalProduct.get();
-        }
-
-        return product;
+        return optionalProduct.orElse(null);
     }
 
-    // 상품명 검색
-    public List<Product> searchProducts(String keyword) {
+    public Page<Product> searchProducts(String kw, Pageable pageable) {
 
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return List.of();
+        if (kw == null || kw.trim().isEmpty()) {
+            return productRepository.findAll(pageable);
         }
 
-        return productRepository.findByProductNameContaining(keyword.trim());
+        return productRepository.findByProductNameContaining(kw.trim(), pageable);
     }
 }
