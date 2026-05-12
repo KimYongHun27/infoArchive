@@ -5,6 +5,7 @@ import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +17,12 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... args) {
+
+        fixUsersRoleColumn();
 
         createOrUpdateUser(
                 "user",
@@ -51,10 +55,19 @@ public class DataInitializer implements CommandLineRunner {
                 "special",
                 "1234",
                 "특별계정",
-                "admin2@test.com",
+                "special@test.com",
                 "010-4444-4444",
                 Role.SPECIAL
         );
+    }
+
+    private void fixUsersRoleColumn() {
+        try {
+            jdbcTemplate.execute("ALTER TABLE users MODIFY COLUMN role VARCHAR(30) NOT NULL");
+            System.out.println("users.role 컬럼 VARCHAR(30) 수정 완료");
+        } catch (Exception e) {
+            System.out.println("users.role 컬럼 수정 생략 또는 실패: " + e.getMessage());
+        }
     }
 
     private void createOrUpdateUser(
@@ -79,7 +92,6 @@ public class DataInitializer implements CommandLineRunner {
                         .build()
                 );
 
-        // 기존 비밀번호가 평문이면 자동 암호화
         if (user.getPassword() == null || !isBCrypt(user.getPassword())) {
             user.setPassword(passwordEncoder.encode(rawPassword));
         }

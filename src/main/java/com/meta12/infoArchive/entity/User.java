@@ -36,7 +36,7 @@ public class User {
     private String phone;            // 전화번호
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private Role role;               // 회원 권한
 
     private Boolean emailAgree;      // 이메일 수신 동의
