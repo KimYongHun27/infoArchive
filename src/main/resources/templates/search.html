@@ -1,82 +1,95 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>검색 결과 - InfoArchive</title>
+
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/footer.css}" />
     <link rel="stylesheet" th:href="@{/css/subscribe.css}" />
-    <link rel="stylesheet" th:href="@{/css/search.css}">
-  </head>
-  <body>
-    <div th:replace="~{fragments/header :: header}"></div>
+    <link rel="stylesheet" th:href="@{/css/search.css}" />
+</head>
 
-    <main style="padding: 50px; max-width: 1200px; margin: 0 auto">
-      <section class="search-results">
-        <h2>"<span th:text="${kw}"></span>" 검색 결과</h2>
-        <hr />
+<body>
 
-        <div
-          th:if="${!paging.isEmpty()}"
-          th:with="blockSize=10,
-              startPage=${(paging.number / blockSize) * blockSize},
-              endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}"
-        >
-          <div
-            th:each="review : ${paging}"
-            style="border-bottom: 1px solid #ddd; padding: 15px 0"
-          >
-            <h3 th:text="${review.title}" style="margin: 0 0 10px 0">
-              리뷰 제목
-            </h3>
-            <p th:text="${review.content}">리뷰 본문 내용...</p>
-            <div style="font-size: 0.9em; color: #666">
-              작성자: <span th:text="${review.user.name}"></span> | 평점:
-              <span th:text="${review.rating}"></span> | 날짜:
-              <span
-                th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd')}"
-              ></span>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="search-page">
+
+    <section class="search-header">
+        <h1>검색 결과</h1>
+        <p>
+            "<strong th:text="${kw}">검색어</strong>" 에 대한 검색 결과입니다.
+        </p>
+    </section>
+
+    <section class="search-results">
+
+        <div th:if="${!paging.isEmpty()}"
+             th:with="blockSize=10,
+                      startPage=${(paging.number / blockSize) * blockSize},
+                      endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}">
+
+            <div class="search-grid">
+
+                <a class="search-card"
+                   th:each="product : ${paging}"
+                   th:href="@{/course/view/{id}(id=${product.id})}">
+
+                    <div class="search-card-body">
+                        <span class="product-type" th:text="${product.productType}">상품 종류</span>
+
+                        <h3 th:text="${product.productName}">상품명</h3>
+
+                        <strong th:text="${product.price} + '원'">0원</strong>
+                    </div>
+
+                </a>
+
             </div>
-          </div>
 
-          <div>
-              <ul class="pagination">
-                  <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-                      <a class="page-link" th:href="@{|?page=0&kw=${kw}|}"><span>처음</span></a>
-                  </li>
+            <ul class="pagination">
 
-                  <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                      <a class="page-link" th:href="@{|?page=${paging.number - 1}&kw=${kw}|}"><span>이전</span></a>
-                  </li>
+                <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=0&kw=${kw}|}">처음</a>
+                </li>
 
-                  <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
-                      th:classappend="${page == paging.number} ? 'active'" class="page-item">
-                      <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}&kw=${kw}|}"></a>
-                  </li>
+                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number - 1}&kw=${kw}|}">이전</a>
+                </li>
 
-                  <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                      <a class="page-link" th:href="@{|?page=${paging.number + 1}&kw=${kw}|}"><span>다음</span></a>
-                  </li>
+                <li th:each="page : ${#numbers.sequence(startPage, endPage)}"
+                    class="page-item"
+                    th:classappend="${page == paging.number} ? 'active'">
+                    <a class="page-link"
+                       th:text="${page + 1}"
+                       th:href="@{|?page=${page}&kw=${kw}|}">
+                        1
+                    </a>
+                </li>
 
-                  <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-                      <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}&kw=${kw}|}"><span>끝</span></a>
-                  </li>
-              </ul>
-          </div>
+                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number + 1}&kw=${kw}|}">다음</a>
+                </li>
 
-            
+                <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}&kw=${kw}|}">끝</a>
+                </li>
+
+            </ul>
+
         </div>
 
-        <div
-          th:if="${paging.isEmpty()}"
-          style="padding: 50px; text-align: center"
-        >
-          <p>검색 결과가 없습니다.</p>
+        <div class="empty-box" th:if="${paging.isEmpty()}">
+            <p>검색 결과가 없습니다.</p>
         </div>
-      </section>
-    </main>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
-  </body>
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
 </html>

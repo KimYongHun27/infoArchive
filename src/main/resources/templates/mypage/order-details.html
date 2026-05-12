@@ -1,10 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>order-details</title>
+    <link rel="stylesheet" th:href="@{/css/order-details.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
+
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="page">
+    <!-- 메인 -->
+    <div class="main">
+        <!-- 왼쪽 사이드바 -->
+        <aside class="order-details-sidebar">
+            <div class="sidebar-card">
+
+                <!-- 일반 회원용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_USER'}">
+                    <span>▦</span>
+                    <strong>나의 강의장</strong>
+                </div>
+
+                <!-- 관리자용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_ADMIN'}">
+                    <span>🛡️</span>
+                    <strong>관리자 정보</strong>
+                </div>
+
+                <!-- 강사용 제목 -->
+                <div class="sidebar-title"
+                     th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}">
+                    <span>🎓</span>
+                    <strong>강사 정보</strong>
+                </div>
+
+                <nav class="side-menu">
+
+                    <!-- 일반 회원만 보이는 메뉴 -->
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/dashboard}">
+                        <span>▤</span>
+                        대시보드
+                    </a>
+
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/taking-course}">
+                        <span>▣</span>
+                        수강중인 강의
+                    </a>
+
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/wishlist}">
+                        <span>♡</span>
+                        찜한 강의
+                    </a>
+
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/orders}">
+                        <span>▥</span>
+                        주문 내역
+                    </a>
+
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/coupon}">
+                        <span>▨</span>
+                        쿠폰함
+                    </a>
+
+                    <!-- 공통: 회원 정보만 표시 -->
+                    <a th:href="@{/mypage}" class="active">
+                        <span>♙</span>
+                        회원 정보
+                    </a>
+
+                    <!-- 일반 회원만 리뷰관리 표시 -->
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/review}">
+                        <span>★</span>
+                        리뷰관리
+                    </a>
+                </nav>
+
+                <!-- 고객센터도 일반 회원만 표시 -->
+                <div class="customer-box"
+                     th:if="${session.loginRole == 'ROLE_USER'}">
+                    <h3>고객센터</h3>
+                    <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
+                    <strong>010-0000-0000</strong>
+                </div>
+
+            </div>
+        </aside>
+
+        <section class="content">
+            <div class="banner">
+                <h1>주문 내역</h1><br/>
+                <p class="p1">INFO ARCHIVE에서 구매하신 내역을 확인하실 수 있습니다.</p><br><br><br>
+                <div class="banner-btn">
+                    <div class="left">
+                        <a href="" class="total">전체( )</a>
+                        <a href="" class="course">강의( )</a>
+                        <a href="" class="membership">멤버십( )</a>
+                    </div>
+                    <div class="right">
+                        <a href="" class="recently">최근 주문 순 ∨</a>
+                        <form action="">
+                            <div class="find"><input type="search" placeholder="주문상품을 검색하세요" name="search" style="border: none"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="line"></div>
+            </div>
+
+            <div class="order-card">
+                <div class="order-container">
+                    <div class="order-box">
+                        <div class="receipt">
+                            <div class="order-number">주문번호<p>00000000</p></div>
+                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
+                            <div class="order-price">000,000원</div>
+                        </div>
+                        <div class="order-img"><img src="https://picsum.photos/115" alt="수강 중 강의 이미지" class="course-img" /></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="category">카테고리</div>
+                        <div class="course-name">강의명</div>
+                        <div class="instructor">강의자명</div>
+                        <div class="price">000,000원</div>
+                    </div>
+                    <div class="right-btn">
+                        <div class="payment">결제완료</div>
+                        <div class="course-btn">
+                            <a href="" class="course-move">강의로 이동</a>
+                        </div>
+                        <div class="order-btn">
+                            <a href="" class="order-view">주문 상세 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-container">
+                    <div class="order-box">
+                        <div class="receipt">
+                            <div class="order-number">주문번호<p>00000000</p></div>
+                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
+                            <div class="order-price">000,000원</div>
+                        </div>
+                        <div class="order-img"><img src="https://picsum.photos/125" alt="수강 중 강의 이미지" class="course-img" /></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="category">카테고리</div>
+                        <div class="course-name">강의명</div>
+                        <div class="instructor">강의자명</div>
+                        <div class="price">000,000원</div>
+                    </div>
+                    <div class="right-btn">
+                        <div class="payment">결제완료</div>
+                        <div class="course-btn">
+                            <a href="" class="course-move">강의로 이동</a>
+                        </div>
+                        <div class="order-btn">
+                            <a href="" class="order-view">주문 상세 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-container">
+                    <div class="order-box">
+                        <div class="receipt">
+                            <div class="order-number">주문번호<p>00000000</p></div>
+                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
+                            <div class="order-price">000,000원</div>
+                        </div>
+                        <div class="order-img"><img src="https://picsum.photos/135" alt="수강 중 강의 이미지" class="course-img" /></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="category">카테고리</div>
+                        <div class="course-name">강의명</div>
+                        <div class="instructor">강의자명</div>
+                        <div class="price">000,000원</div>
+                    </div>
+                    <div class="right-btn">
+                        <div class="payment">결제완료</div>
+                        <div class="course-btn">
+                            <a href="" class="course-move">강의로 이동</a>
+                        </div>
+                        <div class="order-btn">
+                            <a href="" class="order-view">주문 상세 보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-container">
+                    <div class="order-box">
+                        <div class="receipt">
+                            <div class="order-number">주문번호<p>00000000</p></div>
+                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
+                            <div class="order-price">월 0,000원</div>
+                        </div>
+                        <div class="order-img"><img src="https://picsum.photos/145" alt="수강 중 강의 이미지" class="course-img" /></div>
+                    </div>
+                    <div class="course-content">
+                        <div class="category">멤버십</div>
+                        <div class="membership-name">INFO ARCHIVE 프리미엄 멤버십</div>
+                        <div class="subscription">정기 결제 (매월 1일)</div>
+                        <div class="price">0,000원</div>
+                    </div>
+                    <div class="right-btn">
+                        <div class="use">이용중</div>
+                        <div class="membership-btn">
+                            <a href="" class="membership-manage">멤버십 관리</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>
