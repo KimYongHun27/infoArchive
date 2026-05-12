@@ -39,6 +39,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers("/account/**").permitAll()
+                        .requestMatchers("/special/**").hasRole("SPECIAL")
 
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/payment", "/payment/**").authenticated()
@@ -69,7 +70,15 @@ public class SecurityConfig {
 
                             request.getSession().setAttribute("loginRole", role);
 
-                            response.sendRedirect("/main");
+                            if (role.equals("ROLE_SPECIAL")) {
+                                response.sendRedirect("/special");
+                            } else if (role.equals("ROLE_ADMIN")) {
+                                response.sendRedirect("/admin");
+                            } else if (role.equals("ROLE_INSTRUCTOR")) {
+                                response.sendRedirect("/instructor");
+                            } else {
+                                response.sendRedirect("/main");
+                            }
                         })
                         .failureUrl("/login?error=true")
                         .permitAll()

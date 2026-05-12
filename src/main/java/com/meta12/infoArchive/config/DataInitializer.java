@@ -46,6 +46,15 @@ public class DataInitializer implements CommandLineRunner {
                 "010-3333-3333",
                 Role.ADMIN
         );
+
+        createOrUpdateUser(
+                "special",
+                "1234",
+                "특별계정",
+                "admin2@test.com",
+                "010-4444-4444",
+                Role.SPECIAL
+        );
     }
 
     private void createOrUpdateUser(

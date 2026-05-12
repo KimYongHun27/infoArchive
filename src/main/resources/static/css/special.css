@@ -1,0 +1,316 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8fafc;
+    color: #111827;
+}
+
+/* 전체 레이아웃 */
+.special-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 사이드바 */
+.special-sidebar {
+    width: 280px;
+    min-height: 100vh;
+    padding: 28px 22px;
+    background: #020617;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 38px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: #6366f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.logo-box h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.logo-box p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* 사이드 메뉴 */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.side-menu a {
+    padding: 13px 15px;
+    border-radius: 12px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.side-menu a:hover,
+.side-menu a.active {
+    background: #1e293b;
+    color: white;
+}
+
+/* 로그아웃 */
+.logout-form {
+    margin-top: auto;
+}
+
+.logout-form button {
+    width: 100%;
+    padding: 13px 15px;
+    border: none;
+    border-radius: 12px;
+    background: #ef4444;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-form button:hover {
+    background: #dc2626;
+}
+
+/* 메인 영역 */
+.special-content {
+    flex: 1;
+    padding: 42px;
+    background: #f8fafc;
+}
+
+/* 상단 */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+    color: #6366f1;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.top-bar h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.page-desc {
+    margin-top: 10px;
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* 로그인 정보 카드 */
+.login-card {
+    min-width: 220px;
+    padding: 16px 18px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.login-card span {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.login-card strong {
+    font-size: 15px;
+}
+
+/* 요약 카드 */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    padding: 26px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    transition: 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+}
+
+.summary-card p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.summary-card h3 {
+    margin: 14px 0 8px;
+    font-size: 28px;
+}
+
+.summary-card span {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* 패널 카드 */
+.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.panel-card {
+    display: block;
+    padding: 28px;
+    border-radius: 22px;
+    background: white;
+    color: #111827;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    transition: 0.2s;
+}
+
+.panel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.card-badge {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.panel-card h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+}
+
+.panel-card p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* 안내 박스 */
+.notice-box {
+    padding: 28px;
+    border-radius: 22px;
+    background: #111827;
+    color: white;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+}
+
+.notice-box h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+}
+
+.notice-box p {
+    margin: 0;
+    color: #d1d5db;
+    line-height: 1.7;
+}
+
+.notice-box strong {
+    color: #a5b4fc;
+}
+
+/* JS 애니메이션용 */
+.fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 0.45s ease;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 모바일 */
+@media (max-width: 900px) {
+    .special-page {
+        flex-direction: column;
+    }
+
+    .special-sidebar {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .side-menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .logout-form {
+        margin-top: 20px;
+    }
+
+    .special-content {
+        padding: 28px 20px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .login-card {
+        width: 100%;
+    }
+
+    .summary-grid,
+    .panel-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar h1 {
+        font-size: 28px;
+    }
+}
