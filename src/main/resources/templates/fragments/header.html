@@ -11,16 +11,17 @@
     </a>
 
 <!--    서치       -->
-    <div class="search-box">
-      <form th:action="@{/search}" method="get" id="searchBox">
+    <form class="search-box" th:action="@{/search}" method="get">
+      <button type="submit" class="search-btn">
+        <img th:src="@{/img/header/search.png}" alt="검색">
+      </button>
 
-        <input type="text" name="kw" placeholder="어떤 강의를 찾으시나요?" th:value="${kw}">
-        <button class="search-btn" type="submit">
-          <img th:src="@{/img/header/1093183.png}" alt="검색">
-        </button>
-
-      </form>
-    </div>
+      <input type="text"
+             name="keyword"
+             placeholder="어떤 강의를 찾으시나요?"
+             autocomplete="off"
+             required>
+    </form>
 
 
     <div class="header-icons">
