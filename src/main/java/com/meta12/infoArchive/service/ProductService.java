@@ -25,13 +25,13 @@ public class ProductService {
         return product;
     }
 
-    // 강의 검색
+    // 상품명 검색
     public List<Product> searchProducts(String keyword) {
 
         if (keyword == null || keyword.trim().isEmpty()) {
             return List.of();
         }
 
-        return productRepository.findByTitleContaining(keyword.trim());
+        return productRepository.findByProductNameContaining(keyword.trim());
     }
 }
