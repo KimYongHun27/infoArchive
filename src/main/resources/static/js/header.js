@@ -1,31 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
     const openBtn = document.getElementById("searchOpenBtn");
     const closeBtn = document.getElementById("searchCloseBtn");
-    const searchBox = document.getElementById("searchBox");
+    const searchForm = document.getElementById("searchForm");
 
-    if (!openBtn || !closeBtn || !searchBox) {
+    if (!openBtn || !closeBtn || !searchForm) {
+        console.log("검색 요소 없음");
+        console.log("openBtn =", openBtn);
+        console.log("closeBtn =", closeBtn);
+        console.log("searchForm =", searchForm);
         return;
     }
 
-    const searchInput = searchBox.querySelector("input[name='kw']");
+    const searchInput = searchForm.querySelector("input[name='kw']");
 
     openBtn.addEventListener("click", function () {
-        searchBox.classList.add("open");
+        searchForm.classList.add("open");
 
         setTimeout(function () {
-            searchInput.focus();
+            if (searchInput) {
+                searchInput.focus();
+            }
         }, 100);
     });
 
     closeBtn.addEventListener("click", function () {
-        searchBox.classList.remove("open");
-        searchInput.value = "";
+        searchForm.classList.remove("open");
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
     });
 
-    searchBox.addEventListener("submit", function (event) {
-        if (searchInput.value.trim() === "") {
+    searchForm.addEventListener("submit", function (event) {
+        if (!searchInput || searchInput.value.trim() === "") {
             event.preventDefault();
-            searchInput.focus();
+
+            if (searchInput) {
+                searchInput.focus();
+            }
         }
     });
 });
