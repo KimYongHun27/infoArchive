@@ -42,7 +42,7 @@ public class HomeController {
             @PathVariable String categoryName,
             Model model
     ) {
-        model.addAttribute("courses", reviewService.findAll());
+        model.addAttribute("courses", new ArrayList<>());
 
         return "category/" + categoryName;
     }
