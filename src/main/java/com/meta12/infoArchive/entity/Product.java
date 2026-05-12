@@ -16,7 +16,7 @@ public abstract class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //상품 종류(구독, 강의)
+    //상품 종류(구독)
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 

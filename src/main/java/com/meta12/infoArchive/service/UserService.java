@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
+import com.meta12.infoArchive.dto.IdFindRequestDto;
+import com.meta12.infoArchive.dto.PasswordFindRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -184,6 +186,69 @@ public class UserService implements UserDetailsService {
                 .pushAgree(Boolean.TRUE.equals(dto.getPushAgree()))
                 .build();
 
+        userRepository.save(user);
+    }
+
+    // 이메일 찾기
+    public String findEmail(IdFindRequestDto dto) {
+
+        if (dto.getName() == null || dto.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("이름을 입력해주세요.");
+        }
+
+        if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("전화번호를 입력해주세요.");
+        }
+
+        String inputName = dto.getName().trim();
+        String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
+
+        User user = userRepository.findAll().stream()
+                .filter(u -> u.getName() != null && u.getName().equals(inputName))
+                .filter(u -> u.getPhone() != null)
+                .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
+
+        return user.getEmail();
+    }
+
+    // 비밀번호 재설정
+    public void resetPassword(PasswordFindRequestDto dto) {
+
+        if (dto.getName() == null || dto.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("이름을 입력해주세요.");
+        }
+
+        if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("이메일을 입력해주세요.");
+        }
+
+        if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("전화번호를 입력해주세요.");
+        }
+
+        if (dto.getNewPassword() == null || dto.getNewPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("새 비밀번호를 입력해주세요.");
+        }
+
+        if (!dto.getNewPassword().equals(dto.getNewPasswordConfirm())) {
+            throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
+        }
+
+        String inputEmail = dto.getEmail().trim();
+        String inputName = dto.getName().trim();
+        String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
+
+        User user = userRepository.findAll().stream()
+                .filter(u -> u.getEmail() != null && u.getEmail().equals(inputEmail))
+                .filter(u -> u.getName() != null && u.getName().equals(inputName))
+                .filter(u -> u.getPhone() != null)
+                .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
+
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.save(user);
     }
 }

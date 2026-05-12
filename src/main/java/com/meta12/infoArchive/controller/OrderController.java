@@ -21,20 +21,19 @@ public class OrderController {
         return "membership";
     }
 
-    @GetMapping("/cartList")
+    @GetMapping("/orderList")
             public String orderList()
     {
         return "cartList";
     }
 
-    @PostMapping("/cartInsert")
-    public String orderProductInsert(
+    @PostMapping("/orderInsert")
+    public void orderInsert(
             OrderRequestDto orderRequestDto,
             Model model
     )
     {
         PurchaseDto purchaseDto = orderService.processEntireOrder(orderRequestDto);
         model.addAttribute("purchaseDto", purchaseDto);
-        return "cartList";
     }
 }

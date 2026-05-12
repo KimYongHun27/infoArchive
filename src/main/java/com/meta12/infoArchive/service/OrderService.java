@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @Service
@@ -41,8 +42,8 @@ public class OrderService {
     {
         Order order = new Order();
         Product product = productService.getProduct(dto.getProductId());
-
         order.setUser(userService.getUser(dto.getUserId()));
+
         order.setProduct(product);
         order.setOrderPrice(product.getPrice());
         order.setUserCoupon(userCouponService.getUserCoupon(dto.getUserCouponId()));
@@ -61,8 +62,8 @@ public class OrderService {
 
         payment.setOrder(order);
         payment.setOrderDate(LocalDateTime.now());
-
-        payment.setOrderNumber("1");
+        int randomNumber = ThreadLocalRandom.current().nextInt(1, 101);
+        payment.setOrderNumber(payment.getOrderDate() + order.getUser().getId().toString() + randomNumber);
         payment.setPaymentStatus(PaymentStatus.WAIT);
         payment.setDiscountPrice(price - discountAmount);
         return  paymentRepository.save(payment);
@@ -80,6 +81,7 @@ public class OrderService {
     private PurchaseDto convertToReceiptDto(Purchase purchase)
     {
         PurchaseDto purchaseDto = new PurchaseDto();
+
         purchaseDto.setOrderNumber(purchase.getPayment().getOrderNumber());
         purchaseDto.setPrice(purchase.getPayment().getDiscountPrice());
         purchaseDto.setProductName(purchase.getOrder().getProduct().getProductName());

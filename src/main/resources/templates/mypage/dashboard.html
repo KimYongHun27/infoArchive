@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>dashboard</title>
-  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
   <link rel="stylesheet" th:href="@{/css/header.css}">
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
@@ -92,19 +92,45 @@
         </div>
       </div>
       <div class="ongoing">
-        <p class="ongoing-title">수강중인 강의</p>
-        <div class="ongoing-btn">
-          <a href="taking-course.html" class="taking-btn">전체 보기 ></a>
-        </div>
-        <div class="course-container">
-          <div class="course-box">
-            <img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="course-img" />
+        <div class="ongoing-text">
+          <p class="ongoing-title">수강중인 강의</p>
+          <div class="ongoing-btn">
+            <a href="taking-course.html" class="taking-btn">전체 보기 ></a>
           </div>
-          <div class="course-content">
-            <div class="progress"></div>
-            <h2 class="course-name">강의명</h2>
-            <p class="instructor">강의자명</p><br>
-            <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
+        </div>
+        <div class="course-card">
+          <div class="course-container">
+            <div class="course-box">
+              <img src="https://picsum.photos/50" alt="수강 중 강의 이미지" class="course-img" />
+            </div>
+            <div class="course-content">
+              <div class="progress"></div>
+              <h2 class="course-name">강의명</h2>
+              <p class="instructor">강의자명</p><br>
+              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
+            </div>
+          </div>
+          <div class="course-container">
+            <div class="course-box">
+              <img src="https://picsum.photos/60" alt="수강 중 강의 이미지" class="course-img" />
+            </div>
+            <div class="course-content">
+              <div class="progress"></div>
+              <h2 class="course-name">강의명</h2>
+              <p class="instructor">강의자명</p><br>
+              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
+            </div>
+          </div>
+          <div class="course-container">
+            <div class="course-box">
+              <img src="https://picsum.photos/70" alt="수강 중 강의 이미지" class="course-img" />
+            </div>
+            <div class="course-content">
+              <div class="progress"></div>
+              <h2 class="course-name">강의명</h2>
+              <p class="instructor">강의자명</p><br>
+              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
+            </div>
           </div>
         </div>
       </div>

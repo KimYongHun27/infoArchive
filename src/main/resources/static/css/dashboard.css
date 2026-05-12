@@ -205,16 +205,19 @@ body {
   padding: 20px;
 }
 
+.ongoing-text {
+  display: flex;
+  padding: 20px 0px;
+  justify-content: space-between;
+}
+
 .ongoing-title {
   font-size: 30px;
   font-weight: bold;
-  padding: 40px 0px;
 }
 
 .ongoing-btn {
-  margin-top: -30px;
-  text-align: right;
-
+  padding: 15px 0px;
 }
 
 .taking-btn {
@@ -222,6 +225,11 @@ body {
   text-decoration: none;
   font-weight: bold;
   font-size: large;
+}
+
+.course-card {
+  display: flex;
+  justify-content: space-between;
 
 }
 

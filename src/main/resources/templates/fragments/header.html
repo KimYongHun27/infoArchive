@@ -10,18 +10,43 @@
       </span>
     </a>
 
-<!--    서치       -->
-    <div class="search-box">
-      <form th:action="@{/main}" method="get" id="searchBox">
+    <!-- 서치 -->
+    <div class="header-search">
 
-        <input type="text" name="kw" placeholder="어떤 강의를 찾으시나요?" th:value="${kw}">
+      <!-- 처음 보이는 검색 아이콘 -->
+      <button type="button"
+              class="search-open-btn"
+              onclick="document.querySelector('.search-form').classList.add('open');
+                   document.querySelector('.search-form input[name=kw]').focus();">
+        <img th:src="@{/img/header/1093183.png}" alt="검색">
+      </button>
+
+      <!-- 열리는 검색창 -->
+      <form th:action="@{/search}"
+            method="get"
+            class="search-form">
+
         <button class="search-btn" type="submit">
           <img th:src="@{/img/header/1093183.png}" alt="검색">
         </button>
 
-      </form>
-    </div>
+        <input type="text"
+               name="kw"
+               placeholder="어떤 강의를 찾으시나요?"
+               th:value="${kw}"
+               autocomplete="off"
+               required>
 
+        <button type="button"
+                class="search-close-btn"
+                onclick="document.querySelector('.search-form').classList.remove('open');
+                     document.querySelector('.search-form input[name=kw]').value = '';">
+          ×
+        </button>
+
+      </form>
+
+    </div>
 
     <div class="header-icons">
 
@@ -47,14 +72,14 @@
         <!-- 강사만 강사센터 표시 -->
         <a th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}"
            th:href="@{/instructor}">
-          <span>🎓</span>
+          <span><img th:src="@{/img/instructor/instructor.png}" width="40" alt=""></span>
           <p>강사센터</p>
         </a>
 
         <!-- 관리자만 관리자센터 표시 -->
         <a th:if="${session.loginRole == 'ROLE_ADMIN'}"
            th:href="@{/admin}">
-          <span>🛡️</span>
+          <span><img th:src="@{/img/admin/admin.png}" width="40" alt=""></span>
           <p>관리자센터</p>
         </a>
 
@@ -157,8 +182,6 @@
     </div>
   </nav>
 </header>
-
 </body>
-
 
 </html>

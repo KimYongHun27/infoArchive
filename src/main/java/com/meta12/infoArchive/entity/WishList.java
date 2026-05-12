@@ -20,9 +20,9 @@ public class WishList {
     private User user;
 
     //강의 fk
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lecture_id")
-//    private Lecture lecture;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id")
+    private Product product;
 
     //최근 담은 순서 정렬용
     private LocalDateTime createdAt = LocalDateTime.now();

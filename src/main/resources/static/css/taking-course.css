@@ -125,6 +125,17 @@ body {
 
 .course-card {
   padding: 10px 70px;
+  position: relative;
+}
+
+.box-icon {
+  margin: 20px;
+  position: absolute;
+  padding: 5px 15px;
+  background-color: rgb(255, 255, 255);
+  color: #9962e0;
+  border: 3px solid #9962e0;
+  border-radius: 5px;
 }
 
 .course-container {
