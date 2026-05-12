@@ -1,84 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>검색 결과 - InfoArchive</title>
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-</head>
-<style>
-</style>
-<body>
-<div th:replace="~{fragments/header :: header}"></div>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}" />
+  </head>
 
-<main style="padding: 50px; max-width: 1200px; margin: 0 auto;">
-    <section class="search-results">
+  <style>
+      /* 페이지네이션 컨테이너 */
+      .pagination {
+          display: flex;
+          justify-content: center;
+          list-style: none;
+          padding: 0;
+          margin: 40px 0;
+      }
+
+      /* 각 페이지 아이템 */
+      .page-item {
+          margin: 0 5px;
+      }
+
+      /* 페이지 링크 버튼 공통 */
+      .page-link {
+          display: block;
+          padding: 8px 16px;
+          border: 1px solid #ddd;
+          color: #333;
+          text-decoration: none;
+          border-radius: 4px;
+          transition: background-color 0.3s, color 0.3s;
+      }
+
+      /* 마우스 올렸을 때 */
+      .page-link:hover {
+          background-color: #f8f9fa;
+          border-color: #bbb;
+      }
+
+      /* 현재 활성화된 페이지 */
+      .page-item.active .page-link {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
+          font-weight: bold;
+      }
+
+      /* 비활성화된 버튼 (이전/다음 없을 때) */
+      .page-item.disabled .page-link {
+          color: #ccc;
+          pointer-events: none;
+      }
+  </style>
+
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <main style="padding: 50px; max-width: 1200px; margin: 0 auto">
+      <section class="search-results">
         <h2>"<span th:text="${kw}"></span>" 검색 결과</h2>
-        <hr>
+        <hr />
 
-
-        <div th:if="${!paging.isEmpty()}"
-             th:with="blockSize=10,
+        <div
+          th:if="${!paging.isEmpty()}"
+          th:with="blockSize=10,
               startPage=${(paging.number / blockSize) * blockSize},
-              endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}">
-
-            <div th:each="review : ${paging}" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
-                <h3 th:text="${review.title}" style="margin: 0 0 10px 0;">리뷰 제목</h3>
-                <p th:text="${review.content}">리뷰 본문 내용...</p>
-                <div style="font-size: 0.9em; color: #666;">
-                    작성자: <span th:text="${review.user.name}"></span> |
-                    평점: <span th:text="${review.rating}"></span> |
-                    날짜: <span th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd')}"></span>
-                </div>
+              endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}"
+        >
+          <div
+            th:each="review : ${paging}"
+            style="border-bottom: 1px solid #ddd; padding: 15px 0"
+          >
+            <h3 th:text="${review.title}" style="margin: 0 0 10px 0">
+              리뷰 제목
+            </h3>
+            <p th:text="${review.content}">리뷰 본문 내용...</p>
+            <div style="font-size: 0.9em; color: #666">
+              작성자: <span th:text="${review.user.name}"></span> | 평점:
+              <span th:text="${review.rating}"></span> | 날짜:
+              <span
+                th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd')}"
+              ></span>
             </div>
+          </div>
 
-            <div>
+          <div>
+              <ul class="pagination">
+                  <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+                      <a class="page-link" th:href="@{|?page=0&kw=${kw}|}"><span>처음</span></a>
+                  </li>
 
-                <ul class="pagination justify-content-center">
+                  <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                      <a class="page-link" th:href="@{|?page=${paging.number - 1}&kw=${kw}|}"><span>이전</span></a>
+                  </li>
 
-                    <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=0|}">
-                            <span>처음</span>
-                        </a>
-                    </li>
+                  <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                      th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                      <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}&kw=${kw}|}"></a>
+                  </li>
 
-                    <li class="page-item" th:classappend="${startPage == 0} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${startPage - 1}|}">
-                            <span>이전</span>
-                        </a>
-                    </li>
+                  <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                      <a class="page-link" th:href="@{|?page=${paging.number + 1}&kw=${kw}|}"><span>다음</span></a>
+                  </li>
 
-                    <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
-                        th:classappend="${page == paging.number} ? 'active'"
-                        class="page-item">
-                        <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
-                    </li>
+                  <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+                      <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}&kw=${kw}|}"><span>끝</span></a>
+                  </li>
+              </ul>
+          </div>
 
-                    <li class="page-item" th:classappend="${endPage >= paging.totalPages - 1} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${endPage + 1}|}">
-                            <span>다음</span>
-                        </a>
-                    </li>
-
-                    <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}|}">
-                            <span>끝</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-
+            
         </div>
 
-        <div th:if="${paging.isEmpty()}" style="padding: 50px; text-align: center;">
-            <p>검색 결과가 없습니다.</p>
+        <div
+          th:if="${paging.isEmpty()}"
+          style="padding: 50px; text-align: center"
+        >
+          <p>검색 결과가 없습니다.</p>
         </div>
-    </section>
-</main>
+      </section>
+    </main>
 
-<div th:replace="~{fragments/footer :: footer}"></div>
-</body>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
 </html>
