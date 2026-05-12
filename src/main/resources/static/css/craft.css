@@ -100,7 +100,7 @@ a {
 }
 
 .category-tabs a.active {
-  color: #8b5cf6;
+  color: #00a86b !important;
   font-weight: 700;
 }
 
@@ -115,7 +115,7 @@ a {
 
   border-radius: 99px;
 
-  background: #8b5cf6;
+  background: #00a86b !important;
 }
 
 /* =========================
@@ -221,9 +221,9 @@ button.arrow-btn:hover {
 }
 
 .rank-num.red {
-  background:  color: white;
-             }
- #ff3b30;
+  background: #ff3b30;
+  color: white;
+}
 
 /* 이미지 */
 
