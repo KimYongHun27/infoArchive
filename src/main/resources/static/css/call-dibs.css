@@ -215,10 +215,9 @@ body {
 
 .course-content {
   width: 600px;
-  padding: 10px 20px;
+  padding: 20px 40px;
   background-color: rgb(255, 255, 255);
   border-right: 1.5px solid rgb(212, 212, 212);
-
 }
 
 .course-name {
