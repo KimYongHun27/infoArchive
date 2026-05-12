@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>특별계정 실행 로그 - InfoArchive</title>
+  <link rel="stylesheet" th:href="@{/css/special.css}">
+</head>
+<body>
+
+<div class="special-page">
+
+  <aside class="special-sidebar">
+    <div class="logo-box">
+      <div class="logo-icon">IA</div>
+      <div>
+        <h2>Special Account</h2>
+        <p>Execution Logs</p>
+      </div>
+    </div>
+
+    <nav class="side-menu">
+      <a th:href="@{/special}">대시보드</a>
+      <a th:href="@{/special/tools}">내부 도구</a>
+      <a th:href="@{/special/logs}" class="active">실행 로그</a>
+      <a th:href="@{/special/report}">리포트</a>
+      <a th:href="@{/main}">메인으로</a>
+    </nav>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+      <button type="submit">로그아웃</button>
+    </form>
+  </aside>
+
+  <main class="special-content">
+
+    <header class="top-bar">
+      <div>
+        <p class="page-label">SPECIAL LOGS</p>
+        <h1>실행 로그</h1>
+        <p class="page-desc">
+          특별계정에서 실행한 내부 기능 기록을 확인하는 페이지입니다.
+        </p>
+      </div>
+
+      <div class="login-card">
+        <span>로그인 계정</span>
+        <strong sec:authentication="name">special@test.com</strong>
+      </div>
+    </header>
+
+    <section class="log-summary-grid">
+
+      <div class="summary-card">
+        <p>전체 로그</p>
+        <h3>3건</h3>
+        <span>화면 테스트용 기본 로그</span>
+      </div>
+
+      <div class="summary-card">
+        <p>성공</p>
+        <h3>2건</h3>
+        <span>정상 처리된 작업</span>
+      </div>
+
+      <div class="summary-card">
+        <p>대기</p>
+        <h3>1건</h3>
+        <span>추후 기능 연결 예정</span>
+      </div>
+
+    </section>
+
+    <section class="log-box">
+
+      <div class="log-header">
+        <div>
+          <h3>최근 실행 기록</h3>
+          <p>현재는 화면 확인용 임시 데이터입니다.</p>
+        </div>
+
+        <button type="button" class="tool-btn" onclick="addLogRow()">
+          임시 로그 추가
+        </button>
+      </div>
+
+      <table class="log-table">
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>기능명</th>
+          <th>상태</th>
+          <th>메시지</th>
+          <th>실행 시간</th>
+        </tr>
+        </thead>
+
+        <tbody id="logTableBody">
+        <tr>
+          <td>1</td>
+          <td>시스템 상태 확인</td>
+          <td><span class="status success">성공</span></td>
+          <td>특별계정 페이지 정상 작동</td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>접근 권한 테스트</td>
+          <td><span class="status success">성공</span></td>
+          <td>SPECIAL 권한 확인 완료</td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>리포트 생성</td>
+          <td><span class="status wait">대기</span></td>
+          <td>추후 기능 연결 예정</td>
+          <td>-</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script th:src="@{/js/special.js}"></script>
+</body>
+</html>

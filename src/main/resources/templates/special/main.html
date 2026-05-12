@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>특별계정 메인 - InfoArchive</title>
+    <link rel="stylesheet" th:href="@{/css/special.css}">
+</head>
+<body>
+
+<div class="special-page">
+
+    <aside class="special-sidebar">
+        <div class="logo-box">
+            <div class="logo-icon">IA</div>
+            <div>
+                <h2>Special Account</h2>
+                <p>InfoArchive</p>
+            </div>
+        </div>
+
+        <nav class="side-menu">
+            <a href="/special" class="active">대시보드</a>
+            <a href="/special/tools">내부 도구</a>
+            <a href="/special/logs">실행 로그</a>
+            <a href="/special/report">리포트</a>
+            <a href="/main">메인으로</a>
+        </nav>
+
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit">로그아웃</button>
+        </form>
+    </aside>
+
+    <main class="special-content">
+
+        <header class="top-bar">
+            <div>
+                <p class="page-label">SPECIAL ACCOUNT ONLY</p>
+                <h1>특별계정 대시보드</h1>
+                <p class="page-desc">
+                    일반 사용자와 관리자와 분리된 특별계정 전용 공간입니다.
+                </p>
+            </div>
+
+            <div class="login-card">
+                <span>로그인 계정</span>
+                <strong sec:authentication="name">special@test.com</strong>
+            </div>
+        </header>
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <p>계정 상태</p>
+                <h3>ACTIVE</h3>
+                <span>특별계정 권한 사용 가능</span>
+            </div>
+
+            <div class="summary-card">
+                <p>내부 도구</p>
+                <h3>3개</h3>
+                <span>도구 메뉴에서 관리 가능</span>
+            </div>
+
+            <div class="summary-card">
+                <p>최근 로그</p>
+                <h3>0건</h3>
+                <span>아직 실행 기록이 없습니다.</span>
+            </div>
+
+        </section>
+
+        <section class="panel-grid">
+
+            <a href="/special/tools" class="panel-card">
+                <div class="card-badge">TOOLS</div>
+                <h3>내부 도구</h3>
+                <p>
+                    특별계정에서만 접근 가능한 내부 기능과 테스트 도구를 관리합니다.
+                </p>
+            </a>
+
+            <a href="/special/logs" class="panel-card">
+                <div class="card-badge">LOGS</div>
+                <h3>실행 로그</h3>
+                <p>
+                    특별계정에서 실행한 작업 기록과 성공/실패 상태를 확인합니다.
+                </p>
+            </a>
+
+            <a href="/special/report" class="panel-card">
+                <div class="card-badge">REPORT</div>
+                <h3>리포트</h3>
+                <p>
+                    내부 점검 결과나 특별 기능 사용 결과를 리포트로 확인합니다.
+                </p>
+            </a>
+
+        </section>
+
+        <section class="notice-box">
+            <h3>특별계정 안내</h3>
+            <p>
+                이 페이지는 <strong>SPECIAL</strong> 권한을 가진 계정만 접근할 수 있습니다.
+                URL을 직접 입력하더라도 권한이 없으면 접근이 차단됩니다.
+            </p>
+        </section>
+
+    </main>
+
+</div>
+<script th:src="@{/js/special.js}"></script>
+</body>
+</html>
