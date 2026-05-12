@@ -1,95 +1,143 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("special.js 연결됨");
+async function saveSpecialLog(actionName, status, message) {
+    const params = new URLSearchParams();
+    params.append("actionName", actionName);
+    params.append("status", status);
+    params.append("message", message);
 
-    // 현재 URL에 맞는 사이드바 메뉴 active 처리
-    const currentPath = window.location.pathname;
-    const menuLinks = document.querySelectorAll(".side-menu a");
+    const response = await fetch("/api/special/log", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: params
+    });
 
-    menuLinks.forEach(function (link) {
-        const linkPath = link.getAttribute("href");
+    if (!response.ok) {
+        throw new Error("로그 저장 실패");
+    }
 
-        link.classList.remove("active");
+    return await response.json();
+}
 
-        if (linkPath === currentPath) {
-            link.classList.add("active");
+async function checkSystemStatus() {
+    const resultText = document.getElementById("resultText");
+
+    try {
+        const savedLog = await saveSpecialLog(
+            "시스템 상태 확인",
+            "SUCCESS",
+            "특별계정 페이지가 정상 작동 중입니다."
+        );
+
+        if (resultText) {
+            resultText.innerText =
+                "시스템 상태 확인 완료: DB 로그 저장 성공 / 로그 번호: " + savedLog.id;
         }
-    });
 
-    // 카드 등장 애니메이션
-    const animatedItems = document.querySelectorAll(
-        ".summary-card, .panel-card, .notice-box"
-    );
+        console.log("시스템 상태 확인 로그 저장:", savedLog);
+    } catch (error) {
+        if (resultText) {
+            resultText.innerText = "시스템 상태 확인 실패: " + error.message;
+        }
 
-    animatedItems.forEach(function (item, index) {
-        item.classList.add("fade-up");
-
-        setTimeout(function () {
-            item.classList.add("show");
-        }, index * 120);
-    });
-
-    // 패널 카드 클릭 로그
-    const panelCards = document.querySelectorAll(".panel-card");
-
-    panelCards.forEach(function (card) {
-        card.addEventListener("click", function () {
-            console.log("특별계정 메뉴 이동:", card.getAttribute("href"));
-        });
-    });
-});
-
-function checkSystemStatus() {
-    const resultText = document.getElementById("resultText");
-
-    if (resultText) {
-        resultText.innerText = "시스템 상태 확인 완료: 특별계정 페이지가 정상 작동 중입니다.";
+        console.error(error);
     }
-
-    console.log("시스템 상태 확인 실행");
 }
 
-function checkAccessRole() {
+async function checkAccessRole() {
     const resultText = document.getElementById("resultText");
 
-    if (resultText) {
-        resultText.innerText = "접근 권한 확인 완료: 현재 계정은 SPECIAL 권한으로 접근 중입니다.";
-    }
+    try {
+        const savedLog = await saveSpecialLog(
+            "접근 권한 테스트",
+            "SUCCESS",
+            "현재 계정은 SPECIAL 권한으로 접근 중입니다."
+        );
 
-    console.log("접근 권한 확인 실행");
+        if (resultText) {
+            resultText.innerText =
+                "접근 권한 확인 완료: DB 로그 저장 성공 / 로그 번호: " + savedLog.id;
+        }
+
+        console.log("접근 권한 테스트 로그 저장:", savedLog);
+    } catch (error) {
+        if (resultText) {
+            resultText.innerText = "접근 권한 확인 실패: " + error.message;
+        }
+
+        console.error(error);
+    }
 }
 
-function createTempLog() {
+async function createTempLog() {
     const resultText = document.getElementById("resultText");
-    const now = new Date().toLocaleString();
 
-    if (resultText) {
-        resultText.innerText = "임시 로그 생성 완료: " + now;
+    try {
+        const now = new Date().toLocaleString();
+
+        const savedLog = await saveSpecialLog(
+            "임시 로그 생성",
+            "SUCCESS",
+            "화면 테스트용 임시 로그가 생성되었습니다. 생성 시간: " + now
+        );
+
+        if (resultText) {
+            resultText.innerText =
+                "임시 로그 생성 완료: DB 저장 성공 / 로그 번호: " + savedLog.id;
+        }
+
+        console.log("임시 로그 생성 저장:", savedLog);
+    } catch (error) {
+        if (resultText) {
+            resultText.innerText = "임시 로그 생성 실패: " + error.message;
+        }
+
+        console.error(error);
     }
-
-    console.log("임시 로그 생성 실행:", now);
 }
 
-function addLogRow() {
-    const tableBody = document.getElementById("logTableBody");
-
-    if (!tableBody) {
+async function deleteSpecialLog(id) {
+    if (!confirm("이 로그를 삭제할까요?")) {
         return;
     }
 
-    const rowCount = tableBody.querySelectorAll("tr").length + 1;
-    const now = new Date().toLocaleString();
+    try {
+        const response = await fetch("/api/special/log/" + id, {
+            method: "DELETE"
+        });
 
-    const newRow = document.createElement("tr");
+        if (!response.ok) {
+            throw new Error("로그 삭제 실패");
+        }
 
-    newRow.innerHTML = `
-        <td>${rowCount}</td>
-        <td>임시 로그 생성</td>
-        <td><span class="status success">성공</span></td>
-        <td>화면 테스트용 로그가 추가되었습니다.</td>
-        <td>${now}</td>
-    `;
+        alert("로그가 삭제되었습니다.");
+        location.reload();
+    } catch (error) {
+        alert(error.message);
+        console.error(error);
+    }
+}
 
-    tableBody.prepend(newRow);
+async function deleteAllSpecialLogs() {
+    if (!confirm("전체 로그를 모두 삭제할까요?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/special/logs", {
+            method: "DELETE"
+        });
+
+        if (!response.ok) {
+            throw new Error("전체 로그 삭제 실패");
+        }
+
+        alert("전체 로그가 삭제되었습니다.");
+        location.reload();
+    } catch (error) {
+        alert(error.message);
+        console.error(error);
+    }
 }
 
 function generateReport() {
@@ -101,9 +149,21 @@ function generateReport() {
 
     const now = new Date().toLocaleString();
 
+    const totalText =
+        document.querySelector(".report-summary-grid .summary-card:nth-child(1) h3")?.innerText || "0건";
+
+    const successRateText =
+        document.querySelector(".report-summary-grid .summary-card:nth-child(2) h3")?.innerText || "0%";
+
+    const failText =
+        document.querySelector(".report-summary-grid .summary-card:nth-child(3) h3")?.innerText || "0건";
+
     reportResult.innerText =
         "리포트 생성 완료: " + now +
-        " / 특별계정 페이지, 내부 도구, 실행 로그, 리포트 화면이 정상 연결되었습니다.";
+        " / 전체 로그: " + totalText +
+        " / 성공률: " + successRateText +
+        " / 실패 로그: " + failText +
+        " / 특별계정 기능 상태를 정상적으로 확인했습니다.";
 
     console.log("특별계정 리포트 생성:", now);
 }
