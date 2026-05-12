@@ -1,31 +1,39 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: rgb(236, 236, 236);
+  margin: 0;
+  background: #f5f6f8;
+  color: #111;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
 }
 
-/* 전체 */
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f6f8;
 }
 
-/* 메인 */
+/* =========================
+   전체 레이아웃
+========================= */
+
 .main {
+  width: 1220px;
+  max-width: calc(100% - 40px);
+  margin: 54px auto 100px;
   display: flex;
-  flex: 1;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-/* 왼쪽 사이드바 */
+/* =========================
+   사이드바
+========================= */
+
 .dashboard-sidebar {
-  width: 230px;
+  width: 240px;
   flex-shrink: 0;
   position: sticky;
   top: 120px;
@@ -35,20 +43,20 @@ body {
   overflow: hidden;
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 4px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 .sidebar-title {
+  height: 58px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 54px;
-  padding: 0 18px;
   background: #111;
   color: #fff;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .side-menu {
@@ -57,32 +65,34 @@ body {
 }
 
 .side-menu a {
+  height: 54px;
+  padding: 0 18px;
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 52px;
-  padding: 0 18px;
   color: #222;
   text-decoration: none;
   border-bottom: 1px solid #eee;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .side-menu a span {
-  width: 18px;
+  width: 20px;
   text-align: center;
   color: #777;
 }
 
 .side-menu a:hover {
   background: #fafafa;
+  color: #ff2448;
 }
 
 .side-menu a.active {
   color: #ff2448;
-  background: #fff;
-  border-left: 3px solid #ff2448;
+  background: #fff0f3;
+  border-left: 4px solid #ff2448;
+  padding-left: 14px;
 }
 
 .side-menu a.active span {
@@ -90,414 +100,531 @@ body {
 }
 
 .customer-box {
-  padding: 18px;
+  padding: 20px;
   background: #fafafa;
 }
 
 .customer-box h3 {
   margin: 0 0 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
 }
 
 .customer-box p {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: #777;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
 .customer-box strong {
   display: block;
   color: #111;
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 900;
 }
 
+/* =========================
+   본문
+========================= */
+
 .content {
   flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  min-width: 0;
 }
 
 .banner {
-  display: inline;
-  padding: 20px;
+  margin-bottom: 30px;
+  padding: 0;
+}
 
+.banner h1 {
+  margin: 0 0 18px;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
 .greeting {
-  color: rgb(126, 126, 126);
+  margin: 0;
+  color: #666;
+  font-size: 16px;
 }
 
 .banner-btn {
-  margin-top: -50px;
-  text-align: right;
-
+  display: none;
 }
 
-.info-btn {
-  padding: 10px 20px;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: bold;
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 5px;
-
-}
+/* =========================
+   프로필 카드
+========================= */
 
 .profile {
-  display: flex;
-  margin: 10px 20px;
-  padding: 50px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  font-size: large;
+  width: 100%;
+  min-height: 220px;
+  margin: 0 0 54px;
+  padding: 38px 44px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 26px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.06);
+
+  display: grid;
+  grid-template-columns: 140px 250px 1px minmax(0, 1fr);
+  align-items: center;
+  gap: 30px;
+  overflow: hidden;
 }
 
 .profile-img {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
+  object-fit: cover;
+  background: #ddd;
+  display: block;
 }
 
 .introduction {
+  min-width: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  padding: 0px 40px;
+  gap: 12px;
 }
-  .name {
-    font-size: 30px;
-    font-weight: bold;
-  }
 
-  .email {
-    font-size: 20px;
-  }
+.name {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.2;
+}
 
-  .last-login {
-    font-size: 20px;
-  }
+.email,
+.last-login {
+  color: #222;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
 
 .center-line {
-  display: flex;
-  justify-content: center;
-  margin-left: 100px;
-  background-color: rgb(230, 230, 230);
-  width: 5px;
-  height: 120px;
+  width: 1px;
+  height: 110px;
+  background: #e5e5e5;
 }
 
 .class-count {
-  color: rgb(65, 65, 65);
-  display: flex;
-  gap: 20px;
-  padding: 20px 100px;
-  justify-content: center;
+  min-width: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  gap: 18px;
+  color: #111;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 900;
 }
 
+.class-count > div {
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.class-count br {
+  display: none;
+}
+
+/* =========================
+   수강중인 강의
+========================= */
+
 .ongoing {
-  padding: 20px;
+  padding: 0;
+  margin-bottom: 34px;
 }
 
 .ongoing-text {
+  margin-bottom: 22px;
+  padding: 0;
   display: flex;
-  padding: 20px 0px;
+  align-items: center;
   justify-content: space-between;
 }
 
 .ongoing-title {
+  margin: 0;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 900;
+  letter-spacing: -0.5px;
 }
 
 .ongoing-btn {
-  padding: 15px 0px;
+  padding: 0;
 }
 
 .taking-btn {
-  color: rgb(0, 0, 0);
+  color: #111;
   text-decoration: none;
-  font-weight: bold;
-  font-size: large;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.taking-btn:hover {
+  color: #ff2448;
 }
 
 .course-card {
-  display: flex;
-  justify-content: space-between;
-
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
 .course-container {
-  border-radius: 10px;
+  min-width: 0;
   overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+  transition: 0.2s;
+}
+
+.course-container:hover {
+  transform: translateY(-4px);
 }
 
 .course-box {
-  height: 250px;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #ddd;
 }
 
 .course-img {
-  width: 400px;
-  height: 250px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
 }
 
 .course-content {
-  width: 400px;
-  padding: 10px 20px;
-  background-color: rgb(255, 255, 255);
+  width: 100%;
+  padding: 20px;
+  background: #fff;
 }
 
 .progress {
-  margin: 10px 0px;
-  width: 350px;
-  height: 7px;
-  background-color: #d3d3d3;
-  justify-content: center;
+  width: 100%;
+  height: 8px;
+  margin: 0 0 16px;
+  background: #e5e5e5;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .course-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  color: #111;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.35;
 }
 
 .instructor {
+  margin: 0 0 12px;
+  color: #666;
   font-size: 14px;
-  font-weight: bold;
-  color: #525252;
-  margin-bottom: 16px;
+  font-weight: 800;
 }
 
 .period {
+  margin: 0;
+  color: #777;
   font-size: 13px;
-  color: #666;
-  margin-bottom: 10px;
   line-height: 1.6;
 }
 
+.course-content br {
+  display: none;
+}
+
+/* =========================
+   찜한 강의 / 주문 내역
+========================= */
+
 .get {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 34px;
 }
 
-.dibs-course {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-  width: 700px;
-  border: 1.5px solid rgb(204, 204, 204);
-}
-
-.dibs-header{
-  display: flex;
-  font-weight: bold;
-  background-color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(204, 204, 204);
-  padding: 20px;
-  justify-content: space-between;
-}
-
-.dibs-btn {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
-
-.dibs-body{
-  display: flex;
-  background-color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(204, 204, 204);
-  padding: 20px;
-  align-items: center;
-}
-
-.dibs-img {
-  width: 120px;
-  height: 80px;
-  border-radius: 5px;
-}
-
-.dibs-data {
-  display: flex;
-  flex-direction: column;
-  padding: 0px 30px;
-}
-
-.dibs-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000000;
-  padding: 5px 0px;
-}
-
-.dibs-instructor {
-  font-size: 14px;
-  font-weight: bold;
-  color: #525252;
-  padding: 5px 0px;
-}
-
-.dibs-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #000000;
-  padding: 5px 0px;
-}
-
+.dibs-course,
 .order-course {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-  width: 700px;
-  border: 1.5px solid rgb(204, 204, 204);
-  margin-right: 20px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
 }
 
-.order-header{
-  display: flex;
-  font-weight: bold;
-  background-color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(204, 204, 204);
+.dibs-header,
+.order-header {
   padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  display: flex;
   justify-content: space-between;
-}
-
-.order-btn {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
-
-.order-body{
-  display: flex;
-  background-color: rgb(255, 255, 255);
-  border: 1.5px solid rgb(204, 204, 204);
-  padding: 20px;
   align-items: center;
+  font-size: 20px;
+  font-weight: 900;
 }
 
+.dibs-btn,
+.order-btn {
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.dibs-btn:hover,
+.order-btn:hover {
+  color: #ff2448;
+}
+
+.dibs-body,
+.order-body {
+  min-width: 0;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.dibs-body:last-child,
+.order-body:last-child {
+  border-bottom: none;
+}
+
+.dibs-img,
 .order-img {
-  width: 120px;
-  height: 80px;
-  border-radius: 5px;
+  width: 110px;
+  height: 74px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
+.dibs-data,
 .order-data {
+  min-width: 0;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  padding: 0px 30px;
+  gap: 6px;
 }
 
+.dibs-title,
 .order-title {
-  font-size: 15px;
-  font-weight: bold;
-  color: #000000;
-  padding: 5px 0px;
+  color: #111;
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.dibs-instructor,
 .order-instructor {
+  color: #666;
   font-size: 14px;
-  font-weight: bold;
-  color: #7a7a7a;
-  padding: 5px 0px;
+  font-weight: 700;
 }
 
+.dibs-price,
 .order-price {
-  font-size: 20px;
-  font-weight: bold;
-  color: #000000;
-  padding: 5px 0px;
+  color: #111;
+  font-size: 17px;
+  font-weight: 900;
 }
 
 .payment {
-  color: rgb(0, 119, 255);
-  font-weight: bolder;
-  font-size: 20px;
-  padding-left: 250px;
+  margin-left: auto;
+  padding-left: 12px;
+  color: #0077ff;
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
 }
+
+/* =========================
+   혜택 / 공지
+========================= */
 
 .etc {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
 }
 
-.benefit {
-  display: flex;
-  flex-direction: column;
+.benefit,
+.notify {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+}
+
+.benefit-header,
+.notify-header {
   padding: 20px;
-  border-radius: 10px;
-  width: 740px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 900;
 }
 
-.benefit-header {
-  display: flex;
-  border: 1.5px solid rgb(204, 204, 204);
-  background-color: rgb(255, 255, 255);
+.benefit-body,
+.notify-body {
   padding: 20px;
-  font-size: 25px;
-  font-weight: bold;
-
+  background: #fff;
 }
 
-.benefit-body {
-  display: flex;
-  flex-direction: column;
-  border: 1.5px solid rgb(204, 204, 204);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-}
-
-.point {
-  padding: 20px;
-}
-
+.point,
 .coupon {
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 12px 0;
+  color: #333;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .coupon-btn {
-  display: flex;
-  flex-direction: column;
+  margin-top: 16px;
+  padding: 14px 20px;
+  display: inline-flex;
   justify-content: center;
-  text-align: center;
-  border-radius: 10px;
+  align-items: center;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
   text-decoration: none;
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-  margin-top: 30px;
-  padding: 20px 40px;
+  font-size: 14px;
+  font-weight: 900;
 }
 
-.notify {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 10px;
-  width: 740px;
+.coupon-btn:hover {
+  background: #ff2448;
 }
 
-.notify-header {
-  display: flex;
-  border: 1.5px solid rgb(204, 204, 204);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-  font-size: 25px;
-  font-weight: bold;
+/* =========================
+   반응형
+========================= */
 
+@media (max-width: 1180px) {
+  .profile {
+    grid-template-columns: 120px 220px 1px minmax(0, 1fr);
+    gap: 22px;
+    padding: 32px;
+  }
+
+  .profile-img {
+    width: 115px;
+    height: 115px;
+  }
+
+  .class-count {
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .course-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.notify-body {
-  display: flex;
-  flex-direction: column;
-  border: 1.5px solid rgb(204, 204, 204);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
+@media (max-width: 980px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .profile {
+    grid-template-columns: 120px 1fr;
+  }
+
+  .center-line {
+    display: none;
+  }
+
+  .class-count {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 12px;
+  }
+
+  .get,
+  .etc {
+    grid-template-columns: 1fr;
+  }
 }
 
+@media (max-width: 700px) {
+  .main {
+    max-width: calc(100% - 24px);
+    margin: 30px auto 70px;
+  }
 
+  .banner h1 {
+    font-size: 34px;
+  }
+
+  .profile {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 28px;
+  }
+
+  .profile-img {
+    margin: 0 auto;
+  }
+
+  .introduction {
+    align-items: center;
+  }
+
+  .email,
+  .last-login {
+    white-space: normal;
+  }
+
+  .class-count {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .course-card {
+    grid-template-columns: 1fr;
+  }
+
+  .ongoing-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
