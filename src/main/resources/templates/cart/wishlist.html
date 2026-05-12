@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>찜한 강의 - InfoArchive</title>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/cart.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="cart-page">
+
+  <section class="cart-title-box">
+    <div>
+      <p class="page-label">WISHLIST</p>
+      <h1>찜한 강의</h1>
+      <p>관심 있는 강의를 모아두고 나중에 다시 확인하세요.</p>
+    </div>
+  </section>
+
+  <section class="wishlist-grid">
+
+    <div class="wishlist-card">
+
+      <button type="button" class="heart-btn active">
+        <i class="fa-solid fa-heart"></i>
+      </button>
+
+      <div class="wish-thumb">
+        <img src="/img/test/test3.jpg" alt="강의 이미지">
+      </div>
+
+      <div class="wish-info">
+        <span class="item-category">디자인</span>
+        <h3>인물 드로잉 완성 클래스</h3>
+        <p>만화가 김도연</p>
+
+        <div class="item-meta">
+          <span><i class="fa-solid fa-star"></i> 4.9</span>
+          <span>수강생 3,812명</span>
+        </div>
+
+        <strong class="wish-price">99,000원</strong>
+
+        <div class="wish-buttons">
+          <button type="button" class="cart-add-btn">
+            장바구니 담기
+          </button>
+          <button type="button" class="wish-delete-btn">
+            삭제
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="wishlist-card">
+
+      <button type="button" class="heart-btn active">
+        <i class="fa-solid fa-heart"></i>
+      </button>
+
+      <div class="wish-thumb">
+        <img src="/img/test/test4.jpg" alt="강의 이미지">
+      </div>
+
+      <div class="wish-info">
+        <span class="item-category">사진 · 영상</span>
+        <h3>사실적인 인물 일러화</h3>
+        <p>인물화 작가 도아</p>
+
+        <div class="item-meta">
+          <span><i class="fa-solid fa-star"></i> 4.8</span>
+          <span>수강생 5,341명</span>
+        </div>
+
+        <strong class="wish-price">89,000원</strong>
+
+        <div class="wish-buttons">
+          <button type="button" class="cart-add-btn">
+            장바구니 담기
+          </button>
+          <button type="button" class="wish-delete-btn">
+            삭제
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="wishlist-card">
+
+      <button type="button" class="heart-btn active">
+        <i class="fa-solid fa-heart"></i>
+      </button>
+
+      <div class="wish-thumb">
+        <img src="/img/test/test5.jpg" alt="강의 이미지">
+      </div>
+
+      <div class="wish-info">
+        <span class="item-category">프로그래밍</span>
+        <h3>아이패드 드로잉 올인원 클래스</h3>
+        <p>디지털 아티스트 RIE</p>
+
+        <div class="item-meta">
+          <span><i class="fa-solid fa-star"></i> 4.8</span>
+          <span>수강생 4,085명</span>
+        </div>
+
+        <strong class="wish-price">129,000원</strong>
+
+        <div class="wish-buttons">
+          <button type="button" class="cart-add-btn">
+            장바구니 담기
+          </button>
+          <button type="button" class="wish-delete-btn">
+            삭제
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+</body>
+</html>
