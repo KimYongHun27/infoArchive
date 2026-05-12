@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>장바구니 - InfoArchive</title>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/cart.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="cart-page">
+
+  <section class="cart-title-box">
+    <div>
+      <p class="page-label">CART</p>
+      <h1>장바구니</h1>
+      <p>수강하고 싶은 강의를 장바구니에서 확인하세요.</p>
+    </div>
+  </section>
+
+  <section class="cart-layout">
+
+    <div class="cart-list">
+
+      <div class="cart-top">
+        <label class="check-all">
+          <input type="checkbox" checked>
+          <span>전체 선택</span>
+        </label>
+
+        <button type="button" class="delete-selected-btn">
+          선택 삭제
+        </button>
+      </div>
+
+      <div class="cart-item">
+
+        <label class="item-check">
+          <input type="checkbox" checked>
+        </label>
+
+        <div class="item-thumb">
+          <img src="/img/test/test1.jpg" alt="강의 이미지">
+        </div>
+
+        <div class="item-info">
+          <span class="item-category">드로잉</span>
+          <h3>인체 드로잉 기초 마스터</h3>
+          <p>일러스트레이터 하루</p>
+
+          <div class="item-meta">
+            <span><i class="fa-solid fa-star"></i> 4.9</span>
+            <span>수강생 6,201명</span>
+          </div>
+        </div>
+
+        <div class="item-price-box">
+          <strong>89,000원</strong>
+          <button type="button">삭제</button>
+        </div>
+
+      </div>
+
+      <div class="cart-item">
+
+        <label class="item-check">
+          <input type="checkbox" checked>
+        </label>
+
+        <div class="item-thumb">
+          <img src="/img/test/test2.jpg" alt="강의 이미지">
+        </div>
+
+        <div class="item-info">
+          <span class="item-category">공예</span>
+          <h3>감성 수채화 일러스트 입문</h3>
+          <p>수채화 작가 로엔</p>
+
+          <div class="item-meta">
+            <span><i class="fa-solid fa-star"></i> 4.8</span>
+            <span>수강생 4,312명</span>
+          </div>
+        </div>
+
+        <div class="item-price-box">
+          <strong>79,000원</strong>
+          <button type="button">삭제</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <aside class="cart-summary">
+
+      <h2>결제 금액</h2>
+
+      <div class="summary-row">
+        <span>상품 금액</span>
+        <strong>168,000원</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>할인 금액</span>
+        <strong>-0원</strong>
+      </div>
+
+      <div class="summary-total">
+        <span>총 결제 금액</span>
+        <strong>168,000원</strong>
+      </div>
+
+      <a th:href="@{/payment}" class="pay-btn">
+        결제하기
+      </a>
+
+      <a th:href="@{/wishlist}" class="wishlist-link">
+        찜한 강의 보러가기
+      </a>
+
+    </aside>
+
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+</body>
+</html>
