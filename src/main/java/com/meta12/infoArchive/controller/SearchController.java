@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController {
 
     private final ProductService productService;
-    private final SearchService searchService;
+//    private final SearchService searchService;
 
     @GetMapping("/search")
     public String search(
@@ -26,7 +26,7 @@ public class SearchController {
             @RequestParam(value = "kw", required = false) String kw,
             Model model
     ) {
-        Page<Review> paging = searchService.getList(page,kw);
+        Page<Product> paging = productService.getList(page,kw);
 
         model.addAttribute("kw", kw);
         model.addAttribute("paging", paging);
