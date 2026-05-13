@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
-  <title>드로잉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>제2 외국어</title>
 
   <link rel="stylesheet" th:href="@{/css/header.css}">
   <link rel="stylesheet" th:href="@{/css/category.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
   <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
@@ -18,102 +25,351 @@
   <section class="category-hero">
     <div class="category-title">
       <img th:src="@{/img/main/cat01.png}" alt="">
+
       <div>
-        <h1>드로잉</h1>
-        <p>인물 스케치부터 디지털 일러스트까지, 드로잉의 모든 것을 배워보세요.</p>
+        <h1>제2 외국어</h1>
+        <p>
+          인물 스케치부터 디지털 일러스트까지,
+          드로잉의 모든 것을 배워보세요.
+        </p>
       </div>
     </div>
   </section>
 
   <section class="category-tabs">
-    <a th:href="@{/top10}" class="active">
+
+    <a th:href="@{/top10}">
       <img th:src="@{/img/top10/cat-all.png}" alt="">
       <span>전체</span>
     </a>
 
-    <a th:href="@{/category/drawing}" class="active">
+    <a th:href="@{/category/drawing}">
       <img th:src="@{/img/main/cat01.png}" alt="">
       <span>드로잉</span>
     </a>
 
     <a th:href="@{/category/craft}">
-      <img th:src="@{/img/main/cat02.png}" alt=""><span>공예</span>
+      <img th:src="@{/img/main/cat02.png}" alt="">
+      <span>공예</span>
     </a>
 
     <a th:href="@{/category/finance}">
-      <img th:src="@{/img/main/cat03.png}" alt=""><span>금융 · 재테크</span>
+      <img th:src="@{/img/main/cat03.png}" alt="">
+      <span>금융 · 재테크</span>
     </a>
 
     <a th:href="@{/category/design}">
-      <img th:src="@{/img/main/cat04.png}" alt=""><span>디자인</span>
+      <img th:src="@{/img/main/cat04.png}" alt="">
+      <span>디자인</span>
     </a>
 
     <a th:href="@{/category/photo-video}">
-      <img th:src="@{/img/main/cat05.png}" alt=""><span>사진 · 영상</span>
+      <img th:src="@{/img/main/cat05.png}" alt="">
+      <span>사진 · 영상</span>
     </a>
 
     <a th:href="@{/category/fitness}">
-      <img th:src="@{/img/main/cat06.png}" alt=""><span>운동</span>
+      <img th:src="@{/img/main/cat06.png}" alt="">
+      <span>운동</span>
     </a>
 
     <a th:href="@{/category/music}">
-      <img th:src="@{/img/main/cat07.png}" alt=""><span>음악</span>
+      <img th:src="@{/img/main/cat07.png}" alt="">
+      <span>음악</span>
     </a>
 
     <a th:href="@{/category/video-3d}">
-      <img th:src="@{/img/main/cat08.png}" alt=""><span>영상/3D</span>
+      <img th:src="@{/img/main/cat08.png}" alt="">
+      <span>영상/3D</span>
     </a>
 
     <a th:href="@{/category/cooking}">
-      <img th:src="@{/img/main/cat09.png}" alt=""><span>베이킹 · 요리</span>
+      <img th:src="@{/img/main/cat09.png}" alt="">
+      <span>베이킹 · 요리</span>
     </a>
 
-    <a th:href="@{/category/language}">
-      <img th:src="@{/img/main/cat10.png}" alt=""><span>제2 외국어</span>
+    <a th:href="@{/category/language}" class="active">
+      <img th:src="@{/img/main/cat10.png}" alt="">
+      <span>제2 외국어</span>
     </a>
 
     <a th:href="@{/category/programming}">
-      <img th:src="@{/img/main/cat11.png}" alt=""><span>프로그래밍</span>
+      <img th:src="@{/img/main/cat11.png}" alt="">
+      <span>프로그래밍</span>
     </a>
+
   </section>
 
   <section class="category-rank">
+
     <div class="section-head">
-      <h2>드로잉 TOP 10</h2>
+      <h2>제2 외국어 TOP 10</h2>
 
       <div class="arrow-box">
-        <button type="button">‹</button>
-        <button type="button">›</button>
+        <button type="button" class="arrow-btn">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button type="button" class="arrow-btn">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
     </div>
 
     <div class="drawing-grid">
-      <a class="drawing-card"
-         th:each="course, stat : ${drawingCourses}"
-         th:href="@{/course/view/{id}(id=${course.id})}">
 
-        <span class="rank-num"
-              th:classappend="${stat.index < 3} ? ' red' : ''"
-              th:text="${stat.index + 1}">1</span>
+      <a th:href="@{/product/101}" class="drawing-card">
+        <span class="rank-num red">1</span>
 
         <div class="thumb">
-          <img th:src="@{${course.thumbnailUrl}}" alt="">
+          <img src="/img/test/test1.jpg" alt="">
         </div>
 
         <div class="card-info">
-          <span class="tag" th:text="${course.subCategory}">스케치</span>
-          <h3 th:text="${course.title}">인체 드로잉 기초 마스터</h3>
-          <p th:text="${course.instructorName}">일러스트레이터 하루</p>
+          <span class="tag">스케치</span>
+          <h3>인체 드로잉 기초 마스터</h3>
+          <p class="teacher">일러스트레이터 하루</p>
 
           <div class="meta">
-            ⭐ <span th:text="${course.rating}">4.9</span>
-            <span th:text="'수강생 ' + ${course.studentCount} + '명'">수강생 6,201명</span>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.9</span>
+              <small>(201)</small>
+            </div>
+            <span class="student-count">수강생 6,201명</span>
           </div>
 
-          <strong th:text="${course.price} + '원'">89,000원</strong>
+          <strong class="price">89,000원</strong>
         </div>
       </a>
+
+      <a th:href="@{/product/102}" class="drawing-card">
+        <span class="rank-num red">2</span>
+
+        <div class="thumb">
+          <img src="/img/test/test2.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">수채화</span>
+          <h3>감성 수채화 일러스트 입문</h3>
+          <p class="teacher">수채화 작가 로엔</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.8</span>
+              <small>(132)</small>
+            </div>
+            <span class="student-count">수강생 4,312명</span>
+          </div>
+
+          <strong class="price">79,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/103}" class="drawing-card">
+        <span class="rank-num red">3</span>
+
+        <div class="thumb">
+          <img src="/img/test/test3.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">인물</span>
+          <h3>인물 드로잉 완성 클래스</h3>
+          <p class="teacher">만화가 김도연</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.9</span>
+              <small>(92)</small>
+            </div>
+            <span class="student-count">수강생 3,812명</span>
+          </div>
+
+          <strong class="price">99,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/104}" class="drawing-card">
+        <span class="rank-num">4</span>
+
+        <div class="thumb">
+          <img src="/img/test/test4.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">인물화</span>
+          <h3>사실적인 인물 일러화</h3>
+          <p class="teacher">인물화 작가 도아</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.8</span>
+              <small>(176)</small>
+            </div>
+            <span class="student-count">수강생 5,341명</span>
+          </div>
+
+          <strong class="price">89,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/105}" class="drawing-card">
+        <span class="rank-num">5</span>
+
+        <div class="thumb">
+          <img src="/img/test/test5.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">디지털</span>
+          <h3>아이패드 드로잉 올인원 클래스</h3>
+          <p class="teacher">디지털 아티스트 RIE</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.8</span>
+              <small>(143)</small>
+            </div>
+            <span class="student-count">수강생 4,085명</span>
+          </div>
+
+          <strong class="price">129,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/106}" class="drawing-card">
+        <span class="rank-num">6</span>
+
+        <div class="thumb">
+          <img src="/img/test/test6.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">스케치</span>
+          <h3>투시도 스케치 완전 정복</h3>
+          <p class="teacher">건축 스케치 아연</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.7</span>
+              <small>(88)</small>
+            </div>
+            <span class="student-count">수강생 2,921명</span>
+          </div>
+
+          <strong class="price">79,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/107}" class="drawing-card">
+        <span class="rank-num">7</span>
+
+        <div class="thumb">
+          <img src="/img/test/test7.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">일러스트</span>
+          <h3>캐릭터 일러스트 기초</h3>
+          <p class="teacher">일러스트레이터 로로</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.8</span>
+              <small>(112)</small>
+            </div>
+            <span class="student-count">수강생 3,201명</span>
+          </div>
+
+          <strong class="price">99,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/108}" class="drawing-card">
+        <span class="rank-num">8</span>
+
+        <div class="thumb">
+          <img src="/img/test/test8.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">수채화</span>
+          <h3>꽃 수채화 힐링 클래스</h3>
+          <p class="teacher">플라워 작가 유나</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.9</span>
+              <small>(164)</small>
+            </div>
+            <span class="student-count">수강생 3,654명</span>
+          </div>
+
+          <strong class="price">89,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/109}" class="drawing-card">
+        <span class="rank-num">9</span>
+
+        <div class="thumb">
+          <img src="/img/test/test9.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">펜 드로잉</span>
+          <h3>펜 하나로 완성하는 풍경 드로잉</h3>
+          <p class="teacher">드로잉 작가 한성</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.7</span>
+              <small>(97)</small>
+            </div>
+            <span class="student-count">수강생 2,314명</span>
+          </div>
+
+          <strong class="price">69,000원</strong>
+        </div>
+      </a>
+
+      <a th:href="@{/product/110}" class="drawing-card">
+        <span class="rank-num">10</span>
+
+        <div class="thumb">
+          <img src="/img/test/test10.jpg" alt="">
+        </div>
+
+        <div class="card-info">
+          <span class="tag">디지털</span>
+          <h3>디지털 일러스트 실전 테크닉</h3>
+          <p class="teacher">현업 아티스트 리온</p>
+
+          <div class="meta">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>4.8</span>
+              <small>(218)</small>
+            </div>
+            <span class="student-count">수강생 5,672명</span>
+          </div>
+
+          <strong class="price">139,000원</strong>
+        </div>
+      </a>
+
     </div>
+
   </section>
 
 </main>
@@ -121,7 +377,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-<script th:src="@{/js/subscribe.js}"></script>
+<script th:src="@{/js/category.js}"></script>
 
 </body>
 </html>
