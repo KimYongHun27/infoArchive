@@ -1,5 +1,6 @@
 package com.meta12.infoArchive.service;
 
+import com.meta12.infoArchive.dto.InstructorApplyRequestDto;
 import com.meta12.infoArchive.entity.ApplyStatus;
 import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.entity.InstructorApply;

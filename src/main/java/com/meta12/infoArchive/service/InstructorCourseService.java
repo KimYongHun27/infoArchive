@@ -1,5 +1,6 @@
 package com.meta12.infoArchive.service;
 
+import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.ProductStatus;
 import com.meta12.infoArchive.entity.ProductType;

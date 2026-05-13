@@ -1,6 +1,7 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.entity.SpecialLog;
+import com.meta12.infoArchive.repository.SpecialLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

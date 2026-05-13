@@ -4,6 +4,7 @@ import com.meta12.infoArchive.dto.CustomerInquiryRequestDto;
 import com.meta12.infoArchive.entity.CustomerInquiry;
 import com.meta12.infoArchive.entity.InquiryStatus;
 import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.repository.CustomerInquiryRepository;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
