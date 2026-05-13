@@ -1,14 +1,12 @@
 package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.service.ReviewService;
-import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.meta12.infoArchive.entity.User;
-import com.meta12.infoArchive.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 
 import java.util.ArrayList;

@@ -4,7 +4,6 @@ import com.meta12.infoArchive.dto.WishListDto;
 import com.meta12.infoArchive.entity.Lecture;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.entity.WishList;
-import com.meta12.infoArchive.service.UserService;
 import com.meta12.infoArchive.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
