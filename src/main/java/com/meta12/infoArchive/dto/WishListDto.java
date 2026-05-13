@@ -11,10 +11,10 @@ public class WishListDto {
     private Long id;
     
     //유저 번호
-    private int userId;
+    private Long userId;
 
     //강의 번호
-    private int lectureId;
+    private Long lectureId;
 
     //찜 추가일 (정렬용)
     private LocalDateTime createAt;

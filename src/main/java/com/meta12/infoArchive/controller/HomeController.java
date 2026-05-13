@@ -32,7 +32,7 @@ public class HomeController {
             "language",
             "music",
             "photo-video",
-            "programing",
+            "programming",
             "video-3d"
     );
 

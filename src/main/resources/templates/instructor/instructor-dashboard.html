@@ -2,36 +2,40 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>강사 센터</title>
+  <title>강사 센터 - InfoArchive</title>
 
   <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/instructor.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
   <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-  <link rel="stylesheet" th:href="@{/css/instructor-dashboard.css}">
 </head>
+
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-<main class="instructor-layout">
+<main class="instructor-page">
 
-  <!-- 왼쪽 강사 사이드바 -->
-  <aside class="instructor-sidebar">
-    <div class="instructor-sidebar-card">
+  <div class="instructor-layout">
 
-      <div class="instructor-sidebar-title">
+    <!-- 왼쪽 강사 사이드바 -->
+    <aside class="instructor-sidebar">
+
+      <div class="instructor-side-title">
         <span>🎓</span>
         <strong>강사 센터</strong>
       </div>
 
-      <nav class="instructor-side-menu">
+      <nav class="instructor-menu">
+
         <a th:href="@{/instructor}" class="active">
           <span>▦</span>
           강사 홈
         </a>
 
         <a th:href="@{/instructor/my-info}">
-          <span>👤</span> 내 정보
+          <span>👤</span>
+          내 정보
         </a>
 
         <a th:href="@{/instructor/courses}">
@@ -39,8 +43,8 @@
           내 강의 관리
         </a>
 
-        <a th:href="@{/instructor/courses/create}">
-          <span>➕</span>
+        <a th:href="@{/instructor/course-new}">
+          <span>＋</span>
           강의 등록
         </a>
 
@@ -49,95 +53,103 @@
           수강생 관리
         </a>
 
-        <a th:href="@{/instructor/reviews}">
-          <span>⭐</span>
-          리뷰 관리
-        </a>
-
-        <a th:href="@{/instructor/sales}">
+        <a th:href="@{/instructor/settlement}">
           <span>💰</span>
           정산 관리
         </a>
+
       </nav>
 
-    </div>
-  </aside>
+    </aside>
 
-  <!-- 오른쪽 강사 본문 -->
-  <section class="instructor-content">
+    <!-- 오른쪽 강사 본문 -->
+    <section class="instructor-content">
 
-    <section class="instructor-header">
-      <span class="page-badge">INSTRUCTOR CENTER</span>
-      <h1>강사 센터</h1>
-      <p>강의 등록, 수강생 현황, 리뷰와 정산 정보를 관리합니다.</p>
+      <section class="instructor-head">
+        <span class="instructor-label">INSTRUCTOR CENTER</span>
+        <h1>강사 센터</h1>
+        <p>강의 등록, 수강생 현황, 리뷰와 정산 정보를 관리합니다.</p>
+      </section>
+
+      <!-- 요약 카드 -->
+      <section class="stat-grid">
+
+        <div class="stat-card">
+          <p>등록 강의</p>
+          <h3>0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>전체 수강생</p>
+          <h3>0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>받은 리뷰</p>
+          <h3>0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>이번 달 정산</p>
+          <h3>0원</h3>
+        </div>
+
+      </section>
+
+      <!-- 기능 카드 -->
+      <section class="action-grid">
+
+        <a th:href="@{/instructor/my-info}" class="action-card">
+          <div class="action-icon">👤</div>
+          <h3>내 정보</h3>
+          <p>강사 계정 정보와 비밀번호를 관리합니다.</p>
+        </a>
+
+        <a th:href="@{/instructor/courses}" class="action-card">
+          <div class="action-icon">📚</div>
+          <h3>내 강의 관리</h3>
+          <p>등록한 강의 목록을 확인하고 수정할 수 있습니다.</p>
+        </a>
+
+        <a th:href="@{/instructor/course-new}" class="action-card">
+          <div class="action-icon">＋</div>
+          <h3>강의 등록</h3>
+          <p>새로운 강의를 등록하고 수강생에게 공개합니다.</p>
+        </a>
+
+        <a th:href="@{/instructor/students}" class="action-card">
+          <div class="action-icon">👥</div>
+          <h3>수강생 관리</h3>
+          <p>내 강의를 수강하는 회원 정보를 확인합니다.</p>
+        </a>
+
+        <a th:href="@{/instructor/settlement}" class="action-card">
+          <div class="action-icon">💰</div>
+          <h3>정산 관리</h3>
+          <p>강의 판매 수익과 정산 상태를 확인합니다.</p>
+        </a>
+
+      </section>
+
+      <!-- 최근 등록 강의 -->
+      <section class="panel recent-section">
+
+        <div class="panel-head">
+          <h2>최근 등록 강의</h2>
+          <a th:href="@{/instructor/courses}" class="primary-btn">
+            전체 보기
+          </a>
+        </div>
+
+        <div class="empty-table">
+          아직 등록된 강의가 없습니다.
+        </div>
+
+      </section>
+
     </section>
 
-    <section class="instructor-summary">
-      <div class="summary-card">
-        <p>등록 강의</p>
-        <strong>0</strong>
-      </div>
-
-      <div class="summary-card">
-        <p>전체 수강생</p>
-        <strong>0</strong>
-      </div>
-
-      <div class="summary-card">
-        <p>받은 리뷰</p>
-        <strong>0</strong>
-      </div>
-
-      <div class="summary-card">
-        <p>이번 달 정산</p>
-        <strong>0원</strong>
-      </div>
-    </section>
-
-    <section class="instructor-menu">
-      <a th:href="@{/instructor/products}" class="instructor-menu-card">
-        <div class="menu-icon">📚</div>
-        <h3>내 강의 관리</h3>
-        <p>등록한 강의 목록을 확인하고 수정할 수 있습니다.</p>
-      </a>
-
-      <a th:href="@{/instructor/products/create}" class="instructor-menu-card">
-        <div class="menu-icon">➕</div>
-        <h3>강의 등록</h3>
-        <p>새로운 강의를 등록하고 수강생에게 공개합니다.</p>
-      </a>
-
-      <a th:href="@{/instructor/students}" class="instructor-menu-card">
-        <div class="menu-icon">👥</div>
-        <h3>수강생 관리</h3>
-        <p>내 강의를 수강하는 회원 정보를 확인합니다.</p>
-      </a>
-
-      <a th:href="@{/instructor/reviews}" class="instructor-menu-card">
-        <div class="menu-icon">⭐</div>
-        <h3>리뷰 관리</h3>
-        <p>수강생이 남긴 리뷰와 평점을 확인합니다.</p>
-      </a>
-
-      <a th:href="@{/instructor/sales}" class="instructor-menu-card">
-        <div class="menu-icon">💰</div>
-        <h3>정산 관리</h3>
-        <p>강의 판매 수익과 정산 상태를 확인합니다.</p>
-      </a>
-    </section>
-
-    <section class="recent-section">
-      <div class="table-title">
-        <h2>최근 등록 강의</h2>
-        <a th:href="@{/instructor/products}">전체 보기</a>
-      </div>
-
-      <div class="empty-box">
-        아직 등록된 강의가 없습니다.
-      </div>
-    </section>
-
-  </section>
+  </div>
 
 </main>
 

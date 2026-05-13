@@ -17,7 +17,7 @@
     <section class="page-title">
         <div>
             <h1>강의 관리</h1>
-            <p>등록된 강의와 상품 정보를 확인할 수 있습니다.</p>
+            <p>등록된 강의와 상품 정보를 확인하고 승인 또는 반려할 수 있습니다.</p>
         </div>
 
         <a th:href="@{/admin}" class="back-btn">관리자 홈</a>
@@ -35,47 +35,109 @@
                 <th>번호</th>
                 <th>이미지</th>
                 <th>강의명</th>
-                <th>강사명</th>
-                <th>카테고리</th>
+                <th>종류</th>
                 <th>가격</th>
+                <th>상태</th>
+                <th>등록일</th>
+                <th>처리일</th>
                 <th>관리</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}">1</td>
+
+            <tr th:if="${#lists.isEmpty(products)}">
+                <td colspan="9" class="empty-table">
+                    등록된 강의가 없습니다.
+                </td>
+            </tr>
+
+            <tr th:each="product, stat : ${products}">
+                <td th:text="${stat.count}">1</td>
 
                 <td>
-                    <img class="product-thumb"
-                         th:src="${product.thumbnailUrl != null ? product.thumbnailUrl : '/img/sample.jpg'}"
-                         alt="강의 이미지">
+                    <div class="product-thumb-box">
+                        <span>IMG</span>
+                    </div>
                 </td>
 
-                <td th:text="${product.title}">강의명</td>
+                <td th:text="${product.productName}">강의명</td>
 
-                <td th:text="${product.instructorName}">강사명</td>
+                <td th:text="${product.productType}">상품종류</td>
 
-                <td th:text="${product.category}">카테고리</td>
+                <td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + '원'">
+                    0원
+                </td>
 
-                <td th:text="${product.price} + '원'">0원</td>
+                <td>
+                    <span th:if="${product.status.name() == 'WAITING'}" class="status wait">
+                        검토중
+                    </span>
+
+                    <span th:if="${product.status.name() == 'OPEN'}" class="status open">
+                        승인
+                    </span>
+
+                    <span th:if="${product.status.name() == 'REJECTED'}" class="status reject">
+                        반려
+                    </span>
+
+                    <span th:if="${product.status.name() == 'CLOSED'}" class="status close">
+                        비공개
+                    </span>
+                </td>
+
+                <td th:text="${product.createdAt != null ? #temporals.format(product.createdAt, 'yyyy.MM.dd HH:mm') : '-'}">
+                    -
+                </td>
+
+                <td th:text="${product.reviewedAt != null ? #temporals.format(product.reviewedAt, 'yyyy.MM.dd HH:mm') : '-'}">
+                    -
+                </td>
 
                 <td>
                     <div class="action-box">
-                        <a th:href="@{/admin/products/{id}(id=${product.id})}" class="detail-btn">상세</a>
 
-                        <form th:action="@{/admin/products/{id}/delete(id=${product.id})}"
-                              method="post"
-                              onsubmit="return confirm('이 강의를 삭제하시겠습니까?');">
-                            <button type="submit" class="delete-btn">삭제</button>
+                        <form th:if="${product.status.name() == 'WAITING'}"
+                              th:action="@{/admin/products/{id}/approve(id=${product.id})}"
+                              method="post">
+                            <button type="submit" class="approve-btn">
+                                승인
+                            </button>
                         </form>
+
+                        <form th:if="${product.status.name() == 'WAITING'}"
+                              th:action="@{/admin/products/{id}/reject(id=${product.id})}"
+                              method="post">
+                            <input type="hidden" name="rejectReason" value="관리자 검토 결과 반려되었습니다.">
+                            <button type="submit" class="reject-btn">
+                                반려
+                            </button>
+                        </form>
+
+                        <form th:if="${product.status.name() == 'OPEN'}"
+                              th:action="@{/admin/products/{id}/close(id=${product.id})}"
+                              method="post">
+                            <button type="submit" class="close-btn">
+                                비공개
+                            </button>
+                        </form>
+
+                        <span th:if="${product.status.name() == 'REJECTED'}"
+                              class="reason-text"
+                              th:text="${product.rejectReason}">
+                            반려됨
+                        </span>
+
+                        <span th:if="${product.status.name() == 'CLOSED'}"
+                              class="reason-text">
+                            비공개 처리됨
+                        </span>
+
                     </div>
                 </td>
             </tr>
 
-            <tr th:if="${#lists.isEmpty(products)}">
-                <td colspan="7" class="empty">등록된 강의가 없습니다.</td>
-            </tr>
             </tbody>
         </table>
     </section>
