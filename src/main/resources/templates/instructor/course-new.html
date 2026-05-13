@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>강의 등록 - InfoArchive</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/instructor.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="instructor-page">
+    <div class="instructor-layout">
+
+        <aside class="instructor-sidebar">
+            <div class="instructor-side-title">
+                <span>🎓</span>
+                <strong>강사 센터</strong>
+            </div>
+
+            <nav class="instructor-menu">
+                <a th:href="@{/instructor}">
+                    <span>▦</span> 강사 홈
+                </a>
+
+                <a th:href="@{/instructor/my-info}">
+                    <span>👤</span> 내 정보
+                </a>
+
+                <a th:href="@{/instructor/courses}">
+                    <span>📚</span> 내 강의 관리
+                </a>
+
+                <a th:href="@{/instructor/course-new}" class="active">
+                    <span>＋</span> 강의 등록
+                </a>
+
+                <a th:href="@{/instructor/students}">
+                    <span>👥</span> 수강생 관리
+                </a>
+
+                <a th:href="@{/instructor/settlement}">
+                    <span>💰</span> 정산 관리
+                </a>
+            </nav>
+        </aside>
+
+        <section class="instructor-content">
+
+            <div class="instructor-head">
+                <span class="instructor-label">NEW COURSE</span>
+                <h1>강의 등록</h1>
+                <p>새로운 강의를 등록하고 수강생에게 공개할 수 있습니다.</p>
+            </div>
+
+            <form class="form-box" method="post" th:action="@{/instructor/course-new}">
+
+                <div class="form-row">
+                    <label>강의명</label>
+                    <input type="text" name="title" placeholder="강의명을 입력하세요">
+                </div>
+
+                <div class="form-row">
+                    <label>카테고리</label>
+                    <select name="category">
+                        <option value="">카테고리를 선택하세요</option>
+                        <option value="drawing">드로잉</option>
+                        <option value="craft">공예</option>
+                        <option value="finance">금융 · 재테크</option>
+                        <option value="design">디자인</option>
+                        <option value="photo-video">사진 · 영상</option>
+                        <option value="fitness">운동</option>
+                        <option value="music">음악</option>
+                        <option value="video-3d">영상/3D</option>
+                        <option value="cooking">베이킹 · 요리</option>
+                        <option value="language">제2 외국어</option>
+                        <option value="programming">프로그래밍</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label>가격</label>
+                    <input type="number" name="price" placeholder="가격을 입력하세요">
+                </div>
+
+                <div class="form-row">
+                    <label>할인율</label>
+                    <input type="number" name="discountRate" placeholder="할인율을 입력하세요. 예: 20">
+                </div>
+
+                <div class="form-row">
+                    <label>강의 썸네일 이미지 URL</label>
+                    <input type="text" name="thumbnailUrl" placeholder="/img/main/course01.png">
+                </div>
+
+                <div class="form-row">
+                    <label>강의 소개</label>
+                    <textarea name="description" placeholder="강의 소개를 입력하세요"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>강의 상태</label>
+                    <select name="status">
+                        <option value="WAITING">검토중</option>
+                        <option value="OPEN">공개</option>
+                        <option value="CLOSED">비공개</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <a th:href="@{/instructor/courses}" class="cancel-btn">취소</a>
+                    <button type="submit" class="primary-btn">강의 등록</button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
+</body>
+</html>
