@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -17,6 +20,7 @@ public class HomeController {
 
     private final UserService userService;
     private final ReviewService reviewService;
+    private final UserRepository userRepository;
 
     private static final Set<String> ALLOWED_CATEGORIES = Set.of(
             "cooking",
@@ -63,7 +67,19 @@ public class HomeController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage() {
+    public String dashboardPage(Authentication authentication, Model model) {
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+
+        model.addAttribute("user", user);
+
+        model.addAttribute("takingCourseCount", 0);
+        model.addAttribute("completedCourseCount", 0);
+        model.addAttribute("wishlistCount", 0);
+
         return "mypage/dashboard";
     }
 }
