@@ -119,6 +119,7 @@ body {
 }
 
 .p1 {
+  padding: 20px 0px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
@@ -159,7 +160,6 @@ body {
   padding: 10px 20px;
   background-color: rgb(255, 255, 255);
   border-right: 1.5px solid rgb(212, 212, 212);
-
 }
 
 .course-name {
@@ -171,6 +171,7 @@ body {
 }
 
 .instructor {
+  padding-bottom: 20px;
   font-size: 14px;
   font-weight: bold;
   color: #525252;
@@ -178,6 +179,7 @@ body {
 }
 
 .percent {
+  padding-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
   color: #000000;
@@ -251,4 +253,5 @@ body {
 
 .explain{
   color: rgb(104, 104, 104);
+  font-weight: bolder;
 }
