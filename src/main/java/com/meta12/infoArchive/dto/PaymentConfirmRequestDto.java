@@ -3,6 +3,8 @@ package com.meta12.infoArchive.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.PipedReader;
+
 @Getter
 @Setter
 public class PaymentConfirmRequestDto {

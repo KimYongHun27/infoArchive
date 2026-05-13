@@ -2,6 +2,7 @@ package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
 import com.meta12.infoArchive.service.PaymentService;
+import com.meta12.infoArchive.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

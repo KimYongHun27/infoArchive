@@ -1,11 +1,16 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
+import com.meta12.infoArchive.entity.Purchase;
+import com.meta12.infoArchive.repository.PurchaseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class PaymentService {
 
+    private final PurchaseService purchaseService;
     public void confirmPayment(PaymentConfirmRequestDto dto) {
 
         if (dto.getOrderId() == null || dto.getOrderId().trim().isEmpty()) {
@@ -32,6 +37,10 @@ public class PaymentService {
         System.out.println("멤버십 타입 = " + dto.getMembershipType());
         System.out.println("카드번호 = " + maskCardNumber(dto.getCardNumber()));
         System.out.println("결제상태 = APPROVED");
+
+        Purchase purchase = new Purchase();
+
+        purchaseService.save(purchase);
     }
 
     private void validateMockCard(PaymentConfirmRequestDto dto) {
