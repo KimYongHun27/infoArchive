@@ -127,6 +127,8 @@ body {
 }
 
 .p1 {
+  padding: 20px 0px;
+  padding-bottom: 50px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
