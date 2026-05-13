@@ -22,27 +22,20 @@
 
 <main class="category-page">
 
-  <!-- 제목 -->
   <section class="category-hero">
-
     <div class="category-title">
-
       <img th:src="@{/img/main/cat01.png}" alt="">
 
       <div>
         <h1>금융 · 재테크</h1>
-
         <p>
           인물 스케치부터 디지털 일러스트까지,
           드로잉의 모든 것을 배워보세요.
         </p>
       </div>
-
     </div>
-
   </section>
 
-  <!-- 카테고리 -->
   <section class="category-tabs">
 
     <a th:href="@{/top10}">
@@ -107,15 +100,12 @@
 
   </section>
 
-  <!-- TOP10 -->
   <section class="category-rank">
 
     <div class="section-head">
-
       <h2>금융 · 재테크 TOP 10</h2>
 
       <div class="arrow-box">
-
         <button type="button" class="arrow-btn">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
@@ -123,17 +113,12 @@
         <button type="button" class="arrow-btn">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
-
       </div>
-
     </div>
 
-    <!-- 카드 -->
     <div class="drawing-grid">
 
-      <!-- 카드 1 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/101}" class="drawing-card">
         <span class="rank-num red">1</span>
 
         <div class="thumb">
@@ -141,34 +126,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">스케치</span>
-
           <h3>인체 드로잉 기초 마스터</h3>
-
           <p class="teacher">일러스트레이터 하루</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.9</span>
               <small>(201)</small>
             </div>
-
             <span class="student-count">수강생 6,201명</span>
-
           </div>
 
           <strong class="price">89,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 2 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/102}" class="drawing-card">
         <span class="rank-num red">2</span>
 
         <div class="thumb">
@@ -176,34 +151,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">수채화</span>
-
           <h3>감성 수채화 일러스트 입문</h3>
-
           <p class="teacher">수채화 작가 로엔</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.8</span>
               <small>(132)</small>
             </div>
-
             <span class="student-count">수강생 4,312명</span>
-
           </div>
 
           <strong class="price">79,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 3 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/103}" class="drawing-card">
         <span class="rank-num red">3</span>
 
         <div class="thumb">
@@ -211,34 +176,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">인물</span>
-
           <h3>인물 드로잉 완성 클래스</h3>
-
           <p class="teacher">만화가 김도연</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.9</span>
               <small>(92)</small>
             </div>
-
             <span class="student-count">수강생 3,812명</span>
-
           </div>
 
           <strong class="price">99,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 4 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/104}" class="drawing-card">
         <span class="rank-num">4</span>
 
         <div class="thumb">
@@ -246,34 +201,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">인물화</span>
-
           <h3>사실적인 인물 일러화</h3>
-
           <p class="teacher">인물화 작가 도아</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.8</span>
               <small>(176)</small>
             </div>
-
             <span class="student-count">수강생 5,341명</span>
-
           </div>
 
           <strong class="price">89,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 5 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/105}" class="drawing-card">
         <span class="rank-num">5</span>
 
         <div class="thumb">
@@ -281,34 +226,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">디지털</span>
-
           <h3>아이패드 드로잉 올인원 클래스</h3>
-
           <p class="teacher">디지털 아티스트 RIE</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.8</span>
               <small>(143)</small>
             </div>
-
             <span class="student-count">수강생 4,085명</span>
-
           </div>
 
           <strong class="price">129,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 6 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/106}" class="drawing-card">
         <span class="rank-num">6</span>
 
         <div class="thumb">
@@ -316,34 +251,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">스케치</span>
-
           <h3>투시도 스케치 완전 정복</h3>
-
           <p class="teacher">건축 스케치 아연</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.7</span>
               <small>(88)</small>
             </div>
-
             <span class="student-count">수강생 2,921명</span>
-
           </div>
 
           <strong class="price">79,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 7 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/107}" class="drawing-card">
         <span class="rank-num">7</span>
 
         <div class="thumb">
@@ -351,34 +276,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">일러스트</span>
-
           <h3>캐릭터 일러스트 기초</h3>
-
           <p class="teacher">일러스트레이터 로로</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.8</span>
               <small>(112)</small>
             </div>
-
             <span class="student-count">수강생 3,201명</span>
-
           </div>
 
           <strong class="price">99,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 8 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/108}" class="drawing-card">
         <span class="rank-num">8</span>
 
         <div class="thumb">
@@ -386,34 +301,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">수채화</span>
-
           <h3>꽃 수채화 힐링 클래스</h3>
-
           <p class="teacher">플라워 작가 유나</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.9</span>
               <small>(164)</small>
             </div>
-
             <span class="student-count">수강생 3,654명</span>
-
           </div>
 
           <strong class="price">89,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 9 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/109}" class="drawing-card">
         <span class="rank-num">9</span>
 
         <div class="thumb">
@@ -421,34 +326,24 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">펜 드로잉</span>
-
           <h3>펜 하나로 완성하는 풍경 드로잉</h3>
-
           <p class="teacher">드로잉 작가 한성</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.7</span>
               <small>(97)</small>
             </div>
-
             <span class="student-count">수강생 2,314명</span>
-
           </div>
 
           <strong class="price">69,000원</strong>
-
         </div>
-
       </a>
 
-      <!-- 카드 10 -->
-      <a class="drawing-card">
-
+      <a th:href="@{/product/110}" class="drawing-card">
         <span class="rank-num">10</span>
 
         <div class="thumb">
@@ -456,29 +351,21 @@
         </div>
 
         <div class="card-info">
-
           <span class="tag">디지털</span>
-
           <h3>디지털 일러스트 실전 테크닉</h3>
-
           <p class="teacher">현업 아티스트 리온</p>
 
           <div class="meta">
-
             <div class="rating">
               <i class="fa-solid fa-star"></i>
               <span>4.8</span>
               <small>(218)</small>
             </div>
-
             <span class="student-count">수강생 5,672명</span>
-
           </div>
 
           <strong class="price">139,000원</strong>
-
         </div>
-
       </a>
 
     </div>

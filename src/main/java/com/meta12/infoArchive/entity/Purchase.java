@@ -15,18 +15,11 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //주문 정보 fk
+    //유저 fk + 중복 비허용
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    //결제 정보 fk
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
-
-    //유저 fk (역정규화 필요시 사용)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    //시작일
+    //종료일
 }

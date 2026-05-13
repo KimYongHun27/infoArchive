@@ -1,0 +1,405 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: rgb(236, 236, 236);
+}
+
+/* 전체 */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 메인 */
+.main {
+  display: flex;
+  flex: 1;
+}
+
+/* 왼쪽 사이드바 */
+.coupon-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+}
+
+.sidebar-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 18px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 18px;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.side-menu a span {
+  width: 18px;
+  text-align: center;
+  color: #777;
+}
+
+.side-menu a:hover {
+  background: #fafafa;
+}
+
+.side-menu a.active {
+  color: #ff2448;
+  background: #fff;
+  border-left: 3px solid #ff2448;
+}
+
+.side-menu a.active span {
+  color: #ff2448;
+}
+
+.customer-box {
+  padding: 18px;
+  background: #fafafa;
+}
+
+.customer-box h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.customer-box p {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.customer-box strong {
+  display: block;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  padding: 35px 70px;
+}
+
+.p1 {
+  padding: 20px 0px;
+  padding-bottom: 50px;
+  color: rgb(134, 134, 134);
+  font-weight: bolder;
+}
+
+.banner-btn {
+  display: flex;
+  color: #777;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  font-size: 17px;
+  color: #777;
+  font-weight: bolder;
+  gap: 50px;
+}
+
+.possess {
+  color: rgb(226, 20, 65);
+  text-decoration: none;
+}
+
+.complete {
+  color: #777;
+  text-decoration: none;
+}
+
+.expiration {
+  color: #777;
+  text-decoration: none;
+}
+
+.right {
+  display: flex;
+}
+
+.register-coupon {
+  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
+
+.line {
+  height: 3px;
+  margin-top: 10px;
+  background-color: #b9b9b9;
+}
+
+.sort-btn{
+  display: flex;
+  padding-top: 30px;
+  justify-content: right;
+  gap: 20px;
+
+}
+
+.all-coupon {
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: rgb(255, 255, 255);
+  color: rgb(105, 105, 105);
+  border: 1.5px solid rgb(212, 212, 212);
+  padding: 10px 40px;
+  border-radius: 5px;
+}
+
+.the-latest {
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: rgb(255, 255, 255);
+  color: rgb(105, 105, 105);
+  border: 1.5px solid rgb(212, 212, 212);
+  padding: 10px 30px;
+  border-radius: 5px;
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 70px;
+}
+
+.notice-box {
+  background-color: #dfdfdf;
+  padding: 20px;
+  border: 2px solid #b9b9b9;
+  border-radius: 10px;
+}
+
+.guideline {
+  color: #777;
+  padding: 0px 20px;
+  margin-top: 10px;
+  font-weight: bolder;
+}
+
+.coupon-card {
+  padding: 30px 70px;
+}
+
+.coupon-container {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.coupon-box {
+  height: 300px;
+  border-right: 2px solid rgb(212, 212, 212);
+  background-color: #ffffff;
+}
+
+.box-img {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 300px;
+  justify-content: center;
+}
+
+.coupon-img1 {
+  width: 350px;
+  height: 300px;
+  background-color: #ffd8d8;
+  border-radius: 5px;
+  color: #d60000;
+  text-align: center;
+  align-content: center;
+}
+
+.coupon-img2 {
+  width: 350px;
+  height: 300px;
+  background-color: #ead7ff;
+  border-radius: 5px;
+  color: #5700a8;
+  text-align: center;
+  align-content: center;
+}
+
+.coupon-img3 {
+  width: 350px;
+  height: 300px;
+  background-color: #d6f8e3;
+  border-radius: 5px;
+  color: #1b8b60;
+  text-align: center;
+  align-content: center;
+}
+
+.img-title1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.img-title2 {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 0px;
+}
+
+.img-title3 {
+  font-size: 20px;
+}
+
+.coupon-content {
+  width: 800px;
+  padding: 0px 40px;
+  background-color: rgb(255, 255, 255);
+  border-right: 2px solid rgb(212, 212, 212);
+  align-content: center;
+}
+
+.coupon-category1 {
+  display: inline;
+  font-weight: bolder;
+  color: #d60000;
+  padding: 5px;
+  background-color: #ffd8d8;
+  border-radius: 5px;
+}
+
+.coupon-category2 {
+  display: inline;
+  font-weight: bolder;
+  color: #5700a8;
+  padding: 5px;
+  background-color: #ead7ff;
+  border-radius: 5px;
+}
+
+.coupon-category3 {
+  display: inline;
+  font-weight: bolder;
+  color: #1b8b60;
+  padding: 5px;
+  background-color: #d6f8e3;
+  border-radius: 5px;
+}
+
+.coupon-name {
+  padding: 20px 0px;
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.coupon-explain {
+  color: #777;
+  font-size: 17px;
+  font-weight: bolder;
+  padding-bottom: 20px;
+}
+
+.coupon-details {
+  display: flex;
+  padding: 20px 0px;
+  border-top: 2px solid rgb(212, 212, 212);
+}
+
+.expiration-date {
+  padding-right: 100px;
+  font-weight: bolder;
+  color: rgb(155, 155, 155);
+}
+
+.minimum-amount {
+  padding-right: 100px;
+  font-weight: bolder;
+  color: rgb(155, 155, 155);
+}
+
+.coverage {
+  font-weight: bolder;
+  color: rgb(155, 155, 155);
+}
+
+.coupon-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  background-color: #ffffff;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.download-btn {
+  width: 100px;
+  font-size: 30px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(73, 73, 73);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.use-btn {
+  width: 130px;
+  font-size: 20px;
+  background-color: rgb(255, 0, 34);
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
