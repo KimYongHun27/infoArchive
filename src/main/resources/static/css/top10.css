@@ -350,3 +350,24 @@ body {
   height: auto;
   display: block;
 }
+
+.rank-card,
+.mini-item {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.rank-card {
+    display: block;
+    transition: 0.2s;
+}
+
+.rank-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.mini-item {
+    display: flex;
+}
