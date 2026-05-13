@@ -39,11 +39,14 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers("/account/**").permitAll()
+
                         .requestMatchers("/special/**").hasRole("SPECIAL")
                         .requestMatchers("/api/special/**").hasRole("SPECIAL")
 
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/payment", "/payment/**").authenticated()
+                        .requestMatchers("/cart", "/cart/**").authenticated()
+                        .requestMatchers("/wishlist", "/wishlist/**").authenticated()
 
                         .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -73,10 +76,6 @@ public class SecurityConfig {
 
                             if (role.equals("ROLE_SPECIAL")) {
                                 response.sendRedirect("/special");
-                            } else if (role.equals("ROLE_ADMIN")) {
-                                response.sendRedirect("/admin");
-                            } else if (role.equals("ROLE_INSTRUCTOR")) {
-                                response.sendRedirect("/instructor");
                             } else {
                                 response.sendRedirect("/main");
                             }

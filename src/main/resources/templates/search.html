@@ -31,23 +31,23 @@
                       startPage=${(paging.number / blockSize) * blockSize},
                       endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}">
 
-            <div class="search-grid">
+<!--            <div class="search-grid">-->
 
-                <a class="search-card"
-                   th:each="product : ${paging}"
-                   th:href="@{/course/view/{id}(id=${product.id})}">
+<!--                <a class="search-card"-->
+<!--                   th:each="product : ${paging}"-->
+<!--                   th:href="@{/course/view/{id}(id=${product.id})}">-->
 
-                    <div class="search-card-body">
-                        <span class="product-type" th:text="${product.productType}">상품 종류</span>
+<!--                    <div class="search-card-body">-->
+<!--                        <span class="product-type" th:text="${product.productType}">상품 종류</span>-->
 
-                        <h3 th:text="${product.productName}">상품명</h3>
+<!--                        <h3 th:text="${product.productName}">상품명</h3>-->
 
-                        <strong th:text="${product.price} + '원'">0원</strong>
-                    </div>
+<!--                        <strong th:text="${product.price} + '원'">0원</strong>-->
+<!--                    </div>-->
 
-                </a>
+<!--                </a>-->
 
-            </div>
+<!--            </div>-->
 
             <ul class="pagination">
 

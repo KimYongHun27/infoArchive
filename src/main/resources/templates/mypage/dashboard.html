@@ -1,237 +1,283 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>dashboard</title>
+  <title>나의 강의장 - InfoArchive</title>
 
   <link rel="stylesheet" th:href="@{/css/header.css}">
-  <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}">
   <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-  <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 
 <body>
+
 <div th:replace="~{fragments/header :: header}"></div>
-  <div class="page">
 
-  <!-- 메인 -->
-  <div class="main">
+<main class="dash-page">
+
+  <div class="dash-layout">
+
     <!-- 사이드바 -->
-    <aside class="dashboard-sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-title">
-          <span>▦</span>
-          <strong>나의 강의장</strong>
-        </div>
+    <aside class="dash-sidebar">
 
-        <nav class="side-menu">
-          <a th:href="@{/dashboard}" class="active">
-            <span>▤</span>
-            대시보드
-          </a>
-
-          <a th:href="@{/taking-course}">
-            <span>▣</span>
-            수강중인 강의
-          </a>
-
-          <a th:href="@{/wishlist}">
-            <span>♡</span>
-            찜한 강의
-          </a>
-
-          <a th:href="@{/orders}">
-            <span>▥</span>
-            주문 내역
-          </a>
-
-          <a th:href="@{/coupon}">
-            <span>▨</span>
-            쿠폰함
-          </a>
-
-          <a th:href="@{/mypage}">
-            <span>♙</span>
-            회원 정보
-          </a>
-
-          <a th:href="@{/review}">
-            <span>★</span>
-            리뷰관리
-          </a>
-        </nav>
-
-        <div class="customer-box">
-          <h3>고객센터</h3>
-          <p>평일 10:00 ~ 18:00 [점심 13:00 ~ 14:00]</p>
-          <strong>010-0000-0000</strong>
-        </div>
+      <div class="dash-sidebar-title">
+        <span>▦</span>
+        <strong>나의 강의장</strong>
       </div>
+
+      <nav class="dash-menu">
+
+        <a th:href="@{/dashboard}" class="active">
+          <span>⌂</span>
+          대시보드
+        </a>
+
+        <a th:href="@{/taking-course}">
+          <span>▶</span>
+          수강중인 강의
+        </a>
+
+        <a th:href="@{/wishlist}">
+          <span>♡</span>
+          찜한 강의
+        </a>
+
+        <a th:href="@{/orders}">
+          <span>▤</span>
+          주문내역
+        </a>
+
+        <a th:href="@{/coupon}">
+          <span>%</span>
+          쿠폰함
+        </a>
+
+        <a th:href="@{/mypage/member-info}">
+          <span>◎</span>
+          회원 정보
+        </a>
+
+        <a th:href="@{/review}">
+          <span>★</span>
+          리뷰 관리
+        </a>
+
+      </nav>
+
+      <div class="dash-customer">
+        <h3>고객센터</h3>
+        <p>
+          평일 10:00 ~ 18:00<br>
+          점심 13:00 ~ 14:00
+        </p>
+        <strong>010-0000-0000</strong>
+      </div>
+
     </aside>
 
-    <section class="content">
-      <div class="banner">
-        <h1>나의 강의장</h1><br>
-        <p class="greeting">안녕하세요! 회원님의 학습여정을 응원합니다!</p>
-        <div class="banner-btn">
-          <a href="member-info.html" class="info-btn">회원 정보 관리 ></a>
+    <!-- 본문 -->
+    <section class="dash-content">
+
+      <!-- 상단 타이틀 -->
+      <section class="dash-head">
+        <div>
+          <h1>나의 강의장</h1>
+          <p>안녕하세요! 회원님의 학습 여정을 응원합니다!</p>
         </div>
-      </div>
-      <div class="profile">
-        <img src="https://jwiki.kr/wiki/images/6/6e/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.png" alt="프로필 이미지" class="profile-img" />
-        <div class="introduction">
-          <div class="name">회원님</div><br>
-          <div class="email">이메일</div>
-          <div class="last-login">최근접속일: 0000.00.00 00:00</div>
-        </div>
-        <div class="center-line"></div>
-        <div class="class-count">
-          <div>수강중인 강의: 0개</div><br>
-          <div>수강 완료 강의: 0개</div><br>
-          <div>찜한 강의: 0개</div><br>
-        </div>
-      </div>
-      <div class="ongoing">
-        <div class="ongoing-text">
-          <p class="ongoing-title">수강중인 강의</p>
-          <div class="ongoing-btn">
-            <a href="taking-course.html" class="taking-btn">전체 보기 ></a>
+      </section>
+
+      <!-- 프로필 카드 -->
+      <section class="dash-profile-card">
+
+        <div class="dash-profile-left">
+
+          <img
+                  src="https://jwiki.kr/wiki/images/6/6e/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.png"
+                  alt="프로필 이미지"
+                  class="dash-profile-img"
+          >
+
+          <div class="dash-profile-info">
+            <h2 th:text="${user.name} + '님'">회원님</h2>
+
+            <p th:text="${user.email}">이메일</p>
+
+            <span>
+              가입일:
+              <b th:text="${#temporals.format(user.createdAt, 'yyyy.MM.dd HH:mm')}">
+                0000.00.00 00:00
+              </b>
+            </span>
           </div>
+
         </div>
-        <div class="course-card">
-          <div class="course-container">
-            <div class="course-box">
-              <img src="https://picsum.photos/50" alt="수강 중 강의 이미지" class="course-img" />
-            </div>
-            <div class="course-content">
-              <div class="progress"></div>
-              <h2 class="course-name">강의명</h2>
-              <p class="instructor">강의자명</p><br>
-              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
-            </div>
+
+        <div class="dash-profile-line"></div>
+
+        <div class="dash-counts">
+
+          <div>
+            <span>수강중인 강의</span>
+            <strong th:text="${takingCourseCount} + '개'">0개</strong>
           </div>
-          <div class="course-container">
-            <div class="course-box">
-              <img src="https://picsum.photos/60" alt="수강 중 강의 이미지" class="course-img" />
-            </div>
-            <div class="course-content">
-              <div class="progress"></div>
-              <h2 class="course-name">강의명</h2>
-              <p class="instructor">강의자명</p><br>
-              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
-            </div>
+
+          <div>
+            <span>수강 완료 강의</span>
+            <strong th:text="${completedCourseCount} + '개'">0개</strong>
           </div>
-          <div class="course-container">
-            <div class="course-box">
-              <img src="https://picsum.photos/70" alt="수강 중 강의 이미지" class="course-img" />
-            </div>
-            <div class="course-content">
-              <div class="progress"></div>
-              <h2 class="course-name">강의명</h2>
-              <p class="instructor">강의자명</p><br>
-              <p class="period">전체 00강 | 수강 기간: 0000.00.00 ~ 0000.00.00</p><br>
-            </div>
+
+          <div>
+            <span>찜한 강의</span>
+            <strong th:text="${wishlistCount} + '개'">0개</strong>
           </div>
+
         </div>
-      </div>
-      <div class="get">
-        <div class="dibs-course">
-          <div class="dibs-header">
-            <div>찜한 강의</div>
+
+      </section>
+
+      <!-- 수강중인 강의 -->
+      <section class="dash-section">
+
+        <div class="dash-section-head">
+          <h2>수강중인 강의</h2>
+          <a th:href="@{/taking-course}">전체 보기 ></a>
+        </div>
+
+        <div class="dash-empty-large" th:if="${takingCourseCount == 0}">
+          <p>현재 수강중인 강의가 없습니다.</p>
+          <a th:href="@{/top10}">강의 둘러보기</a>
+        </div>
+
+        <!-- 나중에 실제 수강 강의 연결할 때 사용 -->
+        <!--
+        <div class="dash-course-list" th:if="${takingCourseCount > 0}">
+          <div class="dash-course-item" th:each="course : ${takingCourses}">
+            <img th:src="${course.imageUrl}" alt="강의 이미지">
+
             <div>
-              <a href="call-dibs.html" class="dibs-btn">전체 보기 ></a>
-            </div>
-          </div>
-          <div class="dibs-body">
-            <img src="https://picsum.photos/100" alt="찜한 강의 이미지" class="dibs-img"/>
-            <div class="dibs-data">
-              <p class="dibs-title">찜한 강의 제목</p>
-              <p class="dibs-instructor">강의자명</p>
-              <p class="dibs-price">가격</p>
-            </div>
-          </div>
-          <div class="dibs-body">
-            <img src="https://picsum.photos/100" alt="찜한 강의 이미지" class="dibs-img"/>
-            <div class="dibs-data">
-              <p class="dibs-title">찜한 강의 제목</p>
-              <p class="dibs-instructor">강의자명</p>
-              <p class="dibs-price">가격</p>
-            </div>
-          </div>
-          <div class="dibs-body">
-            <img src="https://picsum.photos/100" alt="찜한 강의 이미지" class="dibs-img"/>
-            <div class="dibs-data">
-              <p class="dibs-title">찜한 강의 제목</p>
-              <p class="dibs-instructor">강의자명</p>
-              <p class="dibs-price">가격</p>
+              <h3 th:text="${course.title}">강의명</h3>
+              <p th:text="${course.instructorName}">강사명</p>
+              <span th:text="${course.periodText}">수강 기간</span>
             </div>
           </div>
         </div>
-        <div class="order-course">
-          <div class="order-header">
-            <div>최근 주문 내역</div>
+        -->
+
+      </section>
+
+      <!-- 찜한 강의 / 최근 주문 내역 -->
+      <section class="dash-two-column">
+
+        <div class="dash-panel">
+
+          <div class="dash-panel-head">
+            <h3>찜한 강의</h3>
+            <a th:href="@{/wishlist}">전체 보기 ></a>
+          </div>
+
+          <div class="dash-empty-small" th:if="${wishlistCount == 0}">
+            찜한 강의가 없습니다.
+          </div>
+
+          <!-- 나중에 실제 찜한 강의 연결할 때 사용 -->
+          <!--
+          <div class="dash-mini-list" th:if="${wishlistCount > 0}">
+            <div class="dash-mini-item" th:each="wish : ${wishlist}">
+              <img th:src="${wish.imageUrl}" alt="찜한 강의 이미지">
+
+              <div>
+                <h4 th:text="${wish.title}">찜한 강의 제목</h4>
+                <p th:text="${wish.instructorName}">강사명</p>
+                <strong th:text="${wish.price}">가격</strong>
+              </div>
+            </div>
+          </div>
+          -->
+
+        </div>
+
+        <div class="dash-panel">
+
+          <div class="dash-panel-head">
+            <h3>최근 주문 내역</h3>
+            <a th:href="@{/orders}">전체 보기 ></a>
+          </div>
+
+          <div class="dash-empty-small">
+            최근 주문 내역이 없습니다.
+          </div>
+
+          <!-- 나중에 실제 주문 내역 연결할 때 사용 -->
+          <!--
+          <div class="dash-mini-list">
+            <div class="dash-mini-item" th:each="order : ${recentOrders}">
+              <img th:src="${order.imageUrl}" alt="주문 강의 이미지">
+
+              <div>
+                <h4 th:text="${order.title}">주문 강의 제목</h4>
+                <p th:text="${order.orderDate}">주문일</p>
+                <strong th:text="${order.price}">가격</strong>
+              </div>
+
+              <span th:text="${order.status}">결제완료</span>
+            </div>
+          </div>
+          -->
+
+        </div>
+
+      </section>
+
+      <!-- 혜택 / 공지 -->
+      <section class="dash-two-column">
+
+        <div class="dash-panel">
+
+          <div class="dash-panel-head">
+            <h3>나의 혜택</h3>
+            <a th:href="@{/coupon}">쿠폰함 바로가기 ></a>
+          </div>
+
+          <div class="dash-benefit-list">
             <div>
-              <a href="order-details.html" class="dibs-btn">전체 보기></a>
+              <span>보유 포인트</span>
+              <strong>0P</strong>
+            </div>
+
+            <div>
+              <span>보유 쿠폰</span>
+              <strong>0개</strong>
             </div>
           </div>
-          <div class="order-body">
-            <img src="https://picsum.photos/120" alt="주문 강의 이미지" class="order-img"/>
-            <div class="order-data">
-              <p class="order-title">주문 강의 제목</p>
-              <p class="order-instructor">주문일 0000.00.00</p>
-              <p class="order-price">000,000원</p>
-            </div>
-            <div class="payment">결제완료</div>
-          </div>
-          <div class="order-body">
-            <img src="https://picsum.photos/120" alt="주문 강의 이미지" class="order-img"/>
-            <div class="order-data">
-              <p class="order-title">주문 강의 제목</p>
-              <p class="order-instructor">주문일 0000.00.00</p>
-              <p class="order-price">000,000원</p>
-            </div>
-            <div class="payment">결제완료</div>
-          </div>
-          <div class="order-body">
-            <img src="https://picsum.photos/120" alt="주문 강의 이미지" class="order-img"/>
-            <div class="order-data">
-              <p class="order-title">주문 강의 제목</p>
-              <p class="order-instructor">주문일 0000.00.00</p>
-              <p class="order-price">000,000원</p>
-            </div>
-            <div class="payment">결제완료</div>
-          </div>
+
         </div>
-      </div>
-      <div class="etc">
-        <div class="benefit">
-          <div class="benefit-header">나의 혜택</div>
-          <div class="benefit-body">
-            <div class="point">보유포인트</div>
-            <div class="coupon">보유 쿠폰</div>
-            <div class="banner-btn">
-              <a href="coupon.html" class="coupon-btn">쿠폰함 바로가기</a>
-            </div>
+
+        <div class="dash-panel">
+
+          <div class="dash-panel-head">
+            <h3>공지사항</h3>
           </div>
-        </div>
-        <div class="notify">
-          <div class="notify-header">공지사항</div>
-          <div class="notify-body">
-            <div>[공지]</div>
-            <div>[안내]</div>
-            <div>[이벤트]</div>
+
+          <div class="dash-notice-list">
+            <div>[공지] InfoArchive 서비스 안내</div>
+            <div>[안내] 강의 이용 관련 안내</div>
+            <div>[이벤트] 신규 회원 혜택 안내</div>
           </div>
+
         </div>
-      </div>
+
+      </section>
+
     </section>
+
   </div>
 
-</div>
+</main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-<script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/subscribe.js}"></script>
 
 </body>
