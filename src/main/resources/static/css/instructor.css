@@ -16,20 +16,38 @@ a {
     color: inherit;
 }
 
+/* =========================
+   전체 레이아웃
+========================= */
+
 .instructor-page {
     width: 1220px;
     margin: 0 auto;
     padding: 48px 0 90px;
 }
 
-.instructor-layout {
+.instructor-page > .instructor-layout {
     display: grid;
     grid-template-columns: 240px 1fr;
     gap: 34px;
     align-items: flex-start;
 }
 
-/* 사이드바 */
+/* 예전 HTML에서 main에 instructor-layout을 바로 준 경우 대응 */
+main.instructor-layout {
+    width: 1220px;
+    margin: 0 auto;
+    padding: 48px 0 90px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 34px;
+    align-items: flex-start;
+}
+
+/* =========================
+   사이드바
+========================= */
+
 .instructor-sidebar {
     background: #fff;
     border-radius: 18px;
@@ -37,82 +55,342 @@ a {
     box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
 }
 
-.instructor-side-title {
+.instructor-sidebar-card {
+    background: #fff;
+}
+
+.instructor-side-title,
+.instructor-sidebar-title {
     height: 58px;
     padding: 0 22px;
     background: #111;
     color: #fff;
+
     display: flex;
     align-items: center;
     gap: 10px;
+
+    font-size: 16px;
     font-weight: 900;
 }
 
-.instructor-menu {
+.instructor-side-title span,
+.instructor-sidebar-title span {
+    font-size: 14px;
+}
+
+.instructor-menu,
+.instructor-side-menu {
     display: flex;
     flex-direction: column;
 }
 
-.instructor-menu a {
+.instructor-menu a,
+.instructor-side-menu a {
     height: 58px;
     padding: 0 22px;
     border-bottom: 1px solid #eee;
+
     display: flex;
     align-items: center;
     gap: 12px;
+
+    color: #222;
     font-size: 15px;
     font-weight: 800;
+
     transition: 0.2s;
 }
 
+.instructor-menu a span,
+.instructor-side-menu a span {
+    width: 22px;
+    display: inline-flex;
+    justify-content: center;
+    color: #333;
+}
+
 .instructor-menu a:hover,
-.instructor-menu a.active {
+.instructor-menu a.active,
+.instructor-side-menu a:hover,
+.instructor-side-menu a.active {
     background: #fff1f2;
     color: #ef233c;
     border-left: 4px solid #ef233c;
 }
 
-.instructor-menu span {
-    width: 22px;
+.instructor-menu a:hover span,
+.instructor-menu a.active span,
+.instructor-side-menu a:hover span,
+.instructor-side-menu a.active span {
+    color: #ef233c;
 }
 
-/* 본문 */
+/* =========================
+   본문
+========================= */
+
 .instructor-content {
     min-width: 0;
 }
 
-.instructor-head {
+.instructor-head,
+.instructor-header {
     margin-bottom: 28px;
 }
 
-.instructor-label {
+.instructor-label,
+.page-badge {
     display: inline-block;
     margin-bottom: 12px;
     padding: 7px 12px;
     border-radius: 999px;
     background: #fff1f2;
     color: #ef233c;
+
     font-size: 12px;
     font-weight: 900;
     letter-spacing: 0.8px;
 }
 
-.instructor-head h1 {
+.instructor-head h1,
+.instructor-header h1 {
     margin: 0;
     font-size: 38px;
     font-weight: 900;
     letter-spacing: -1px;
 }
 
-.instructor-head p {
+.instructor-head p,
+.instructor-header p {
     margin: 12px 0 0;
     color: #6b7280;
     font-size: 16px;
     font-weight: 600;
 }
 
-/* 공통 패널 */
-.panel,
+/* =========================
+   통계 카드
+========================= */
+
+.stat-grid,
+.instructor-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.stat-card,
+.summary-card {
+    padding: 26px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.stat-card p,
+.summary-card p {
+    margin: 0 0 18px;
+    color: #4b5563;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.stat-card h3,
+.stat-card strong,
+.summary-card h3,
+.summary-card strong {
+    margin: 0;
+    color: #ef233c;
+    font-size: 34px;
+    font-weight: 900;
+}
+
+/* =========================
+   기능 카드
+========================= */
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.action-card {
+    display: block;
+    min-height: 170px;
+    padding: 28px;
+    border-radius: 22px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+    transition: 0.2s;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.action-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 22px;
+    border-radius: 14px;
+    background: #2b2b2b;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.action-card h3 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.action-card p {
+    margin: 0;
+    color: #d1d5db;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* action-card가 action-grid 없이 단독으로 여러 개 있는 경우도 강제로 그리드처럼 보정 */
+.instructor-content > .action-card {
+    display: inline-block;
+    width: calc((100% - 44px) / 3);
+    vertical-align: top;
+    margin-right: 18px;
+    margin-bottom: 22px;
+}
+
+.instructor-content > .action-card:nth-of-type(3n) {
+    margin-right: 0;
+}
+
+/* =========================
+   패널 / 테이블
+========================= */
+
+.panel {
+    padding: 28px;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.recent-section {
+    margin-top: 30px;
+}
+
+.panel-head,
+.table-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.panel-head h2,
+.table-title h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #ef233c;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.primary-btn:hover {
+    background: #d90429;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 14px;
+}
+
+.table th {
+    color: #4b5563;
+    background: #f9fafb;
+}
+
+.empty-table,
+.empty-box {
+    text-align: center;
+    padding: 46px 20px;
+    color: #6b7280;
+    font-weight: 800;
+}
+
+/* =========================
+   상태 뱃지
+========================= */
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.status.open {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.wait {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status.close {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =========================
+   내 정보 페이지
+========================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+}
+
 .info-panel,
 .form-box {
     padding: 28px;
@@ -121,29 +399,10 @@ a {
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
 }
 
-.panel-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 22px;
-}
-
-.panel-head h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 900;
-}
-
-/* 내 정보 */
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 24px;
-}
-
 .info-row {
     padding: 18px 0;
     border-bottom: 1px solid #eee;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -178,7 +437,10 @@ a {
     font-weight: 800;
 }
 
-/* 폼 */
+/* =========================
+   폼
+========================= */
+
 .form-row {
     margin-bottom: 22px;
 }
@@ -212,170 +474,60 @@ a {
     gap: 10px;
 }
 
-.primary-btn {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 12px;
-    background: #ef233c;
-    color: #fff;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.primary-btn:hover {
-    background: #d90429;
-}
-
 .cancel-btn {
     padding: 12px 18px;
     border-radius: 12px;
     background: #f3f4f6;
     font-weight: 900;
+    text-decoration: none;
 }
 
-/* 통계 카드 */
-.stat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 30px;
-}
+/* =========================
+   반응형
+========================= */
 
-.stat-card {
-    padding: 26px;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-}
-
-.stat-card p {
-    margin: 0 0 18px;
-    color: #4b5563;
-    font-weight: 800;
-}
-
-.stat-card h3 {
-    margin: 0;
-    color: #ef233c;
-    font-size: 34px;
-    font-weight: 900;
-}
-
-/* 홈 액션 카드 */
-.action-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-}
-
-.action-card {
-    min-height: 170px;
-    padding: 28px;
-    border-radius: 22px;
-    background: #111;
-    color: #fff;
-    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
-    transition: 0.2s;
-}
-
-.action-card:hover {
-    transform: translateY(-5px);
-}
-
-.action-icon {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 22px;
-    border-radius: 14px;
-    background: #2b2b2b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-}
-
-.action-card h3 {
-    margin: 0 0 12px;
-    font-size: 23px;
-}
-
-.action-card p {
-    margin: 0;
-    color: #d1d5db;
-    line-height: 1.6;
-}
-
-/* 테이블 */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: 16px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    font-size: 14px;
-}
-
-.table th {
-    color: #4b5563;
-    background: #f9fafb;
-}
-
-.status {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.status.open {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.status.wait {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.status.close {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-/* 반응형 */
 @media (max-width: 1280px) {
-    .instructor-page {
+    .instructor-page,
+    main.instructor-layout {
         width: calc(100% - 40px);
     }
 }
 
 @media (max-width: 1000px) {
-    .instructor-layout {
+    .instructor-page > .instructor-layout,
+    main.instructor-layout {
         grid-template-columns: 1fr;
     }
 
-    .instructor-menu {
+    .instructor-menu,
+    .instructor-side-menu {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
     .stat-grid,
+    .instructor-summary,
     .action-grid,
     .info-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .instructor-content > .action-card {
+        width: calc((100% - 22px) / 2);
     }
 }
 
 @media (max-width: 700px) {
     .stat-grid,
+    .instructor-summary,
     .action-grid,
     .info-grid {
         grid-template-columns: 1fr;
+    }
+
+    .instructor-content > .action-card {
+        width: 100%;
+        margin-right: 0;
     }
 
     .panel {
@@ -387,16 +539,60 @@ a {
     }
 }
 
-.empty-table {
-    text-align: center !important;
-    padding: 46px 20px !important;
-    color: #6b7280;
-    font-weight: 800;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.primary-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #e11d48;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: #e5e7eb;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.readonly-box {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #334155;
+  box-sizing: border-box;
+  font-weight: 700;
 }

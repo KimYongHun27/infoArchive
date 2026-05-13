@@ -130,6 +130,30 @@ public class AdminPageController {
         return "admin-products";
     }
 
+    // 강의 승인
+    @PostMapping("/admin/products/{productId}/approve")
+    public String approveProduct(@PathVariable Long productId) {
+        adminService.approveProduct(productId);
+        return "redirect:/admin/products";
+    }
+
+    // 강의 반려
+    @PostMapping("/admin/products/{productId}/reject")
+    public String rejectProduct(
+            @PathVariable Long productId,
+            @RequestParam(required = false) String rejectReason
+    ) {
+        adminService.rejectProduct(productId, rejectReason);
+        return "redirect:/admin/products";
+    }
+
+    // 강의 비공개 처리
+    @PostMapping("/admin/products/{productId}/close")
+    public String closeProduct(@PathVariable Long productId) {
+        adminService.closeProduct(productId);
+        return "redirect:/admin/products";
+    }
+
     @PostMapping("/admin/password/change")
     public String changeAdminPassword(
             Authentication authentication,

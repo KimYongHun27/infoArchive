@@ -64,12 +64,12 @@
       <section class="stat-grid">
         <div class="stat-card">
           <p>전체 강의</p>
-          <h3>0</h3>
+          <h3 th:text="${totalCount}">0</h3>
         </div>
 
         <div class="stat-card">
           <p>공개 강의</p>
-          <h3>0</h3>
+          <h3 th:text="${openCount}">0</h3>
         </div>
 
         <div class="stat-card">
@@ -79,7 +79,7 @@
 
         <div class="stat-card">
           <p>비공개</p>
-          <h3>0</h3>
+          <h3 th:text="${closedCount}">0</h3>
         </div>
       </section>
 
@@ -106,11 +106,27 @@
           </thead>
 
           <tbody>
-          <tr>
+
+          <tr th:if="${#lists.isEmpty(courses)}">
             <td colspan="7" class="empty-table">
               아직 등록한 강의가 없습니다.
             </td>
           </tr>
+
+          <tr th:each="course, stat : ${courses}">
+            <td th:text="${stat.count}">1</td>
+            <td th:text="${course.productName}">강의명</td>
+            <td th:text="${course.category}">카테고리</td>
+            <td th:text="${#numbers.formatInteger(course.price, 3, 'COMMA') + '원'}">가격</td>
+            <td>0명</td>
+            <td th:text="${course.status}">상태</td>
+            <td>
+              <a th:href="@{/instructor/courses/{id}/edit(id=${course.id})}">수정</a>
+              |
+              <a th:href="@{/instructor/courses/{id}(id=${course.id})}">보기</a>
+            </td>
+          </tr>
+
           </tbody>
         </table>
       </div>

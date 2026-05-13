@@ -15,6 +15,7 @@ import com.meta12.infoArchive.dto.AdminCreateRequestDto;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.meta12.infoArchive.repository.ProductRepository;
 import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.entity.ProductStatus;
 
 import java.util.List;
 
@@ -161,5 +162,55 @@ public class AdminService {
     // 관리자 - 전체 강의/상품 조회
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+
+    // 관리자 - 상품 단건 조회
+    public Product getProduct(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+    }
+
+    // 관리자 - 강의/상품 승인
+    public void approveProduct(Long productId) {
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        product.setStatus(ProductStatus.OPEN);
+        product.setReviewedAt(LocalDateTime.now());
+        product.setRejectReason(null);
+
+        productRepository.save(product);
+    }
+
+    // 관리자 - 강의/상품 반려
+    public void rejectProduct(Long productId, String rejectReason) {
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        product.setStatus(ProductStatus.REJECTED);
+        product.setReviewedAt(LocalDateTime.now());
+
+        if (rejectReason == null || rejectReason.trim().isEmpty()) {
+            product.setRejectReason("관리자 검토 결과 반려되었습니다.");
+        } else {
+            product.setRejectReason(rejectReason);
+        }
+
+        productRepository.save(product);
+    }
+
+    // 관리자 - 강의/상품 비공개 처리
+    public void closeProduct(Long productId) {
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        product.setStatus(ProductStatus.CLOSED);
+        product.setReviewedAt(LocalDateTime.now());
+
+        productRepository.save(product);
     }
 }

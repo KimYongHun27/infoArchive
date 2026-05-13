@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>강의 수정 - InfoArchive</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/instructor.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="instructor-page">
+    <div class="instructor-layout">
+
+        <!-- 사이드바 -->
+        <aside class="instructor-sidebar">
+            <div class="instructor-side-title">
+                <span>🎓</span>
+                <strong>강사 센터</strong>
+            </div>
+
+            <nav class="instructor-menu">
+                <a th:href="@{/instructor}">
+                    <span>▦</span> 강사 홈
+                </a>
+
+                <a th:href="@{/instructor/my-info}">
+                    <span>👤</span> 내 정보
+                </a>
+
+                <a th:href="@{/instructor/courses}" class="active">
+                    <span>📚</span> 내 강의 관리
+                </a>
+
+                <a th:href="@{/instructor/course-new}">
+                    <span>＋</span> 강의 등록
+                </a>
+
+                <a th:href="@{/instructor/students}">
+                    <span>👥</span> 수강생 관리
+                </a>
+
+                <a th:href="@{/instructor/settlement}">
+                    <span>💰</span> 정산 관리
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 본문 -->
+        <section class="instructor-content">
+
+            <div class="instructor-head">
+                <span class="instructor-label">COURSE EDIT</span>
+                <h1>강의 수정</h1>
+                <p>등록한 강의 정보를 수정할 수 있습니다.</p>
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-head">
+                    <h2>강의 정보 수정</h2>
+
+                    <a th:href="@{/instructor/courses/{id}(id=${course.id})}" class="primary-btn">
+                        상세보기
+                    </a>
+                </div>
+
+                <form th:action="@{/instructor/courses/{id}/edit(id=${course.id})}" method="post">
+
+                    <!-- 강의명 -->
+                    <div class="form-group">
+                        <label for="title">강의명</label>
+                        <input type="text"
+                               id="title"
+                               name="title"
+                               th:value="${course.productName}"
+                               placeholder="강의명을 입력하세요"
+                               required>
+                    </div>
+
+                    <!-- 카테고리 -->
+                    <div class="form-group">
+                        <label for="category">카테고리</label>
+                        <input type="text"
+                               id="category"
+                               name="category"
+                               th:value="${course.category}"
+                               placeholder="예: drawing, java, security"
+                               required>
+                    </div>
+
+                    <!-- 가격 -->
+                    <div class="form-group">
+                        <label for="price">가격</label>
+                        <input type="number"
+                               id="price"
+                               name="price"
+                               th:value="${course.price}"
+                               min="0"
+                               placeholder="가격을 입력하세요"
+                               required>
+                    </div>
+
+                    <!-- 할인율 -->
+                    <div class="form-group">
+                        <label for="discountRate">할인율</label>
+                        <input type="number"
+                               id="discountRate"
+                               name="discountRate"
+                               th:value="${course.discountRate}"
+                               min="0"
+                               max="100"
+                               placeholder="예: 10">
+                    </div>
+
+                    <!-- 썸네일 -->
+                    <div class="form-group">
+                        <label for="thumbnailUrl">썸네일 URL</label>
+                        <input type="text"
+                               id="thumbnailUrl"
+                               name="thumbnailUrl"
+                               th:value="${course.thumbnailUrl}"
+                               placeholder="/images/sample.png 또는 이미지 URL">
+                    </div>
+
+                    <!-- 강의 설명 -->
+                    <div class="form-group">
+                        <label for="description">강의 설명</label>
+                        <textarea id="description"
+                                  name="description"
+                                  rows="7"
+                                  placeholder="강의 설명을 입력하세요"
+                                  th:text="${course.description}"></textarea>
+                    </div>
+
+                    <!-- 현재 상태 표시 -->
+                    <div class="form-group">
+                        <label>현재 상태</label>
+                        <div class="readonly-box" th:text="${course.status}">
+                            WAITING
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">
+                            수정 저장
+                        </button>
+
+                        <a th:href="@{/instructor/courses}" class="secondary-btn">
+                            목록으로
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
+</body>
+</html>
