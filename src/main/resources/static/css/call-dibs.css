@@ -127,7 +127,7 @@ body {
   color: rgb(0, 0, 0);
 }
 
-.banner-heart{
+.banner-heart {
   font-size: 30px;
   font-weight: bold;
   color: rgb(255, 17, 68);
@@ -135,6 +135,7 @@ body {
 }
 
 .banner-text {
+  padding: 20px 0px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
@@ -153,7 +154,6 @@ body {
   border: 1.5px solid rgb(212, 212, 212);
   padding: 10px 20px;
   border-radius: 5px;
-
 }
 
 .sort {
@@ -206,7 +206,7 @@ body {
   border-radius: 5px;
 
 }
-.box-heart{
+.box-heart {
   position: absolute;
   padding: 10px 350px;
   font-size: 50px;
@@ -237,6 +237,7 @@ body {
 
 .evaluation {
   display: flex;
+  padding-top: 20px;
   color: #7e7e7e;
   font-weight: bold;
   gap: 20px;
