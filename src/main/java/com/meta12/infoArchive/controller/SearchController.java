@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController {
 
     private final ProductService productService;
-//    private final SearchService searchService;
+    private final SearchService searchService;
 
     @GetMapping("/search")
     public String search(
@@ -29,7 +29,7 @@ public class SearchController {
     ) {
 
         Pageable pageable = PageRequest.of(page, 10);
-        Page<Product> paging = productService.searchProducts(kw, pageable);
+        Page<Product> paging = searchService.getList(page, kw);
         //Page<Product> paging = productService.getList(page,kw);
 
         model.addAttribute("kw", kw);

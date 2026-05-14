@@ -5,6 +5,7 @@ import com.meta12.infoArchive.entity.ProductStatus;
 import com.meta12.infoArchive.entity.ProductType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -41,4 +42,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             String instructorName,
             ProductType productType
     );
+    Page<Product> findAll(Specification<Product> spec, Pageable pageable);
 }
