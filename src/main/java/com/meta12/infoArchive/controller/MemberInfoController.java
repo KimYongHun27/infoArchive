@@ -4,8 +4,13 @@ import com.meta12.infoArchive.dto.MemberInfoUpdateDto;
 import com.meta12.infoArchive.dto.PasswordChangeDto;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +44,30 @@ public class MemberInfoController {
     @PostMapping("/password")
     public String changePassword(
             Authentication authentication,
-            PasswordChangeDto requestDto
+            PasswordChangeDto requestDto,
+            HttpServletRequest request,
+            HttpServletResponse response
     ) {
         try {
             userService.changeMyPassword(authentication, requestDto);
-            return "redirect:/mypage?password=true";
+
+            // Spring Security 인증 정보 제거
+            SecurityContextHolder.clearContext();
+
+            // 세션 제거
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+
+            // JSESSIONID 쿠키 제거
+            Cookie cookie = new Cookie("JSESSIONID", null);
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+
+            return "redirect:/login?passwordChanged=true";
+
         } catch (IllegalArgumentException e) {
             return "redirect:/mypage?passwordError=true";
         }
