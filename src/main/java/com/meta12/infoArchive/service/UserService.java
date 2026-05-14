@@ -293,4 +293,30 @@ public class UserService implements UserDetailsService {
 
         return password.toString();
     }
+
+    // 구독권 가입 처리
+    public void activateMembership(Authentication authentication) {
+
+        User user = getLoginUser(authentication);
+
+        user.setMembershipActive(true);
+        user.setMembershipStartedAt(LocalDateTime.now());
+        user.setMembershipExpiredAt(LocalDateTime.now().plusMonths(1));
+
+        userRepository.save(user);
+    }
+
+    // 구독권 유효 여부 확인
+    public boolean isMembershipActive(User user) {
+
+        if (user.getMembershipActive() == null || !user.getMembershipActive()) {
+            return false;
+        }
+
+        if (user.getMembershipExpiredAt() == null) {
+            return false;
+        }
+
+        return user.getMembershipExpiredAt().isAfter(LocalDateTime.now());
+    }
 }

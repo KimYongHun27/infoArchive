@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ - InfoArchive</title>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/faq.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="faq-page">
+
+  <section class="faq-hero">
+    <p class="eyebrow">INFO ARCHIVE HELP CENTER</p>
+    <h1>자주 묻는 질문</h1>
+    <p class="hero-desc">
+      서비스 이용 중 궁금한 내용을 빠르게 확인해보세요.
+    </p>
+  </section>
+
+  <section class="faq-search-section">
+    <div class="faq-search-box">
+      <input type="text"
+             id="faqSearchInput"
+             placeholder="궁금한 내용을 검색해보세요. 예) 결제, 환불, 강의, 멤버십">
+      <button type="button" id="faqSearchClear">초기화</button>
+    </div>
+  </section>
+
+  <section class="faq-wrap">
+
+    <aside class="faq-category">
+      <button type="button" class="category-btn active" data-category="all">전체</button>
+      <button type="button" class="category-btn" data-category="account">계정</button>
+      <button type="button" class="category-btn" data-category="lecture">강의</button>
+      <button type="button" class="category-btn" data-category="payment">결제/멤버십</button>
+      <button type="button" class="category-btn" data-category="refund">환불</button>
+      <button type="button" class="category-btn" data-category="instructor">강사</button>
+    </aside>
+
+    <section class="faq-list">
+
+      <div class="faq-item" data-category="account">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">계정</span>
+          <strong>회원가입은 어떻게 하나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            상단의 로그인 페이지에서 회원가입을 선택한 뒤 이름, 이메일, 전화번호,
+            비밀번호를 입력하면 가입할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="account">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">계정</span>
+          <strong>비밀번호를 잊어버렸어요.</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            로그인 화면의 계정 찾기에서 이름, 이메일, 전화번호를 입력하면
+            임시 비밀번호를 발급받을 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="lecture">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">강의</span>
+          <strong>수강 중인 강의는 어디서 확인하나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            로그인 후 마이페이지 또는 나의 강의장에서 수강 중인 강의를 확인할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="lecture">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">강의</span>
+          <strong>프리미엄 강의는 누구나 볼 수 있나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            프리미엄 전용 강의는 멤버십 구독권을 보유한 회원만 이용할 수 있습니다.
+            구독권이 없으면 멤버십 가입 페이지로 이동됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="payment">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">결제</span>
+          <strong>프리미엄 멤버십은 얼마인가요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            프리미엄 멤버십은 월 9,900원이며, 결제일 기준 30일 동안 이용할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="payment">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">결제</span>
+          <strong>멤버십 결제 후 바로 적용되나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            결제가 완료되면 해당 계정의 멤버십 상태가 활성화되며,
+            바로 프리미엄 강의를 이용할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="refund">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">환불</span>
+          <strong>환불은 어떻게 신청하나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            마이페이지의 주문 내역 또는 고객센터 문의를 통해 환불 신청을 할 수 있습니다.
+            환불 가능 여부는 이용 내역에 따라 달라질 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-category="instructor">
+        <button type="button" class="faq-question">
+          <span class="faq-badge">강사</span>
+          <strong>강사 신청은 어떻게 하나요?</strong>
+          <span class="faq-arrow">⌄</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            로그인 후 강사 신청 페이지에서 소개, 경력, 포트폴리오 정보를 입력하면
+            관리자 검토 후 승인 여부가 결정됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-empty" id="faqEmpty">
+        검색 결과가 없습니다.
+      </div>
+
+    </section>
+
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
+<script th:src="@{/js/faq.js}"></script>
+
+</body>
+</html>
