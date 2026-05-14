@@ -51,6 +51,11 @@ public class HomeController {
         return "top10";
     }
 
+    @GetMapping("/faq")
+    public String faq() {
+        return "faq";
+    }
+
     @GetMapping("/category/{categoryName}")
     public String categoryPage(
             @PathVariable String categoryName,
