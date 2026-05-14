@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TakingCourseDTO {
+    private Long id;
     private String title;
     private String instructor;
     private String category;
