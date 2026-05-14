@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
 import com.meta12.infoArchive.service.InstructorCourseService;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.meta12.infoArchive.entity.ProductStatus;
 
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -46,16 +47,21 @@ public class InstructorPageController {
         model.addAttribute("courses", courses);
         model.addAttribute("totalCount", courses.size());
 
-        long openCount = courses.stream()
-                .filter(course -> course.getStatus() != null && course.getStatus().name().equals("OPEN"))
+        long approvedCount = courses.stream()
+                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.APPROVED)
                 .count();
 
-        long closedCount = courses.stream()
-                .filter(course -> course.getStatus() != null && course.getStatus().name().equals("CLOSED"))
+        long waitingCount = courses.stream()
+                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.WAITING)
                 .count();
 
-        model.addAttribute("openCount", openCount);
-        model.addAttribute("closedCount", closedCount);
+        long rejectedCount = courses.stream()
+                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.REJECTED)
+                .count();
+
+        model.addAttribute("approvedCount", approvedCount);
+        model.addAttribute("waitingCount", waitingCount);
+        model.addAttribute("rejectedCount", rejectedCount);
 
         return "instructor/courses";
     }

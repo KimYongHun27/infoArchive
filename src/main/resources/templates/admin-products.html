@@ -70,20 +70,20 @@
                 </td>
 
                 <td>
-                    <span th:if="${product.status.name() == 'WAITING'}" class="status wait">
+                    <span th:if="${product.status != null and product.status.name() == 'WAITING'}" class="status wait">
                         검토중
                     </span>
 
-                    <span th:if="${product.status.name() == 'OPEN'}" class="status open">
+                    <span th:if="${product.status != null and product.status.name() == 'APPROVED'}" class="status open">
                         승인
                     </span>
 
-                    <span th:if="${product.status.name() == 'REJECTED'}" class="status reject">
+                    <span th:if="${product.status != null and product.status.name() == 'REJECTED'}" class="status reject">
                         반려
                     </span>
 
-                    <span th:if="${product.status.name() == 'CLOSED'}" class="status close">
-                        비공개
+                    <span th:if="${product.status == null}" class="status close">
+                        상태없음
                     </span>
                 </td>
 
@@ -98,41 +98,40 @@
                 <td>
                     <div class="action-box">
 
-                        <form th:if="${product.status.name() == 'WAITING'}"
-                              th:action="@{/admin/products/{id}/approve(id=${product.id})}"
-                              method="post">
-                            <button type="submit" class="approve-btn">
-                                승인
-                            </button>
-                        </form>
+                        <td>
+                            <div class="action-box">
 
-                        <form th:if="${product.status.name() == 'WAITING'}"
-                              th:action="@{/admin/products/{id}/reject(id=${product.id})}"
-                              method="post">
-                            <input type="hidden" name="rejectReason" value="관리자 검토 결과 반려되었습니다.">
-                            <button type="submit" class="reject-btn">
-                                반려
-                            </button>
-                        </form>
+                                <!-- 검토중일 때만 승인/반려 가능 -->
+                                <form th:if="${product.status != null and product.status.name() == 'WAITING'}"
+                                      th:action="@{/admin/products/{id}/approve(id=${product.id})}"
+                                      method="post">
+                                    <button type="submit" class="approve-btn">
+                                        승인
+                                    </button>
+                                </form>
 
-                        <form th:if="${product.status.name() == 'OPEN'}"
-                              th:action="@{/admin/products/{id}/close(id=${product.id})}"
-                              method="post">
-                            <button type="submit" class="close-btn">
-                                비공개
-                            </button>
-                        </form>
+                                <form th:if="${product.status != null and product.status.name() == 'WAITING'}"
+                                      th:action="@{/admin/products/{id}/reject(id=${product.id})}"
+                                      method="post">
+                                    <input type="hidden" name="rejectReason" value="관리자 검토 결과 반려되었습니다.">
+                                    <button type="submit" class="reject-btn">
+                                        반려
+                                    </button>
+                                </form>
 
-                        <span th:if="${product.status.name() == 'REJECTED'}"
-                              class="reason-text"
-                              th:text="${product.rejectReason}">
-                            반려됨
-                        </span>
+                                <!-- 승인 완료 -->
+                                <span th:if="${product.status != null and product.status.name() == 'APPROVED'}" class="reason-text">
+                                    승인 완료
+                                </span>
 
-                        <span th:if="${product.status.name() == 'CLOSED'}"
-                              class="reason-text">
-                            비공개 처리됨
-                        </span>
+                                <!-- 반려 완료 -->
+                                <span th:if="${product.status != null and product.status.name() == 'REJECTED'}" class="reason-text"
+                                      th:text="${product.rejectReason != null ? product.rejectReason : '반려됨'}">
+                                    반려됨
+                                </span>
+
+                            </div>
+                        </td>
 
                     </div>
                 </td>

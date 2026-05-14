@@ -22,7 +22,7 @@ public class Enrollment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture;
+    private Course course;
 
     // 학습 진도율 (0 ~ 100%)
     private Integer progressRate = 0;
@@ -36,10 +36,10 @@ public class Enrollment {
     private LocalDateTime createdAt;
 
     // 수강 등록 생성 메서드
-    public static Enrollment createEnrollment(User user, Lecture lecture, int periodDays) {
+    public static Enrollment createEnrollment(User user, Course course, int periodDays) {
         Enrollment enrollment = new Enrollment();
         enrollment.user = user;
-        enrollment.lecture = lecture;
+        enrollment.course = course;
         enrollment.enrolledAt = LocalDateTime.now();
         enrollment.expiredAt = LocalDateTime.now().plusDays(periodDays);
         return enrollment;

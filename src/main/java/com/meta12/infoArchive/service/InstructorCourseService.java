@@ -47,6 +47,13 @@ public class InstructorCourseService {
         product.setThumbnailUrl(dto.getThumbnailUrl());
         product.setDescription(dto.getDescription());
 
+        // 반려된 강의를 수정하면 다시 검토중으로 변경
+        if (product.getStatus() == ProductStatus.REJECTED) {
+            product.setStatus(ProductStatus.WAITING);
+            product.setRejectReason(null);
+            product.setReviewedAt(null);
+        }
+
         productRepository.save(product);
     }
 }

@@ -57,6 +57,22 @@
                 <p>등록한 강의의 상세 정보를 확인합니다.</p>
             </div>
 
+            <div class="success-message"
+                 th:if="${course.status != null and course.status.name() == 'REJECTED'}">
+                이 강의는 반려되었습니다. 내용을 수정하면 다시 검토중 상태로 변경됩니다.
+            </div>
+
+            <div class="success-message"
+                 th:if="${course.status != null and course.status.name() == 'REJECTED' and course.rejectReason != null}">
+                반려 사유:
+                <span th:text="${course.rejectReason}">반려 사유</span>
+            </div>
+
+            <div class="success-message"
+                 th:if="${param.updateSuccess}">
+                강의 수정이 완료되었습니다.
+            </div>
+
             <div class="panel">
                 <div class="panel-head">
                     <h2>강의 상세 정보</h2>
@@ -100,7 +116,28 @@
 
                     <tr>
                         <th>상태</th>
-                        <td th:text="${course.status}">상태</td>
+                        <td>
+
+                            <span class="status-badge status-waiting"
+                                  th:if="${course.status != null and course.status.name() == 'WAITING'}">
+                                검토중
+                            </span>
+
+                            <span class="status-badge status-approved"
+                                  th:if="${course.status != null and course.status.name() == 'APPROVED'}">
+                                승인됨
+                            </span>
+
+                            <span class="status-badge status-rejected"
+                                  th:if="${course.status != null and course.status.name() == 'REJECTED'}">
+                                반려됨
+                            </span>
+
+                            <span class="status-badge status-none"
+                                  th:if="${course.status == null}">
+                                상태없음
+                            </span>
+                        </td>
                     </tr>
 
                     <tr>

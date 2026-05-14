@@ -1,14 +1,16 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>검색 결과 - InfoArchive</title>
 
-    <link rel="stylesheet" th:href="@{/css/header.css}" />
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
-    <link rel="stylesheet" th:href="@{/css/footer.css}" />
-    <link rel="stylesheet" th:href="@{/css/subscribe.css}" />
-    <link rel="stylesheet" th:href="@{/css/search.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -17,80 +19,143 @@
 
 <main class="search-page">
 
-    <section class="search-header">
+    <section class="search-head">
         <h1>검색 결과</h1>
+
         <p>
-            "<strong th:text="${kw}">검색어</strong>" 에 대한 검색 결과입니다.
+            <span class="search-keyword" th:text="${kw}">검색어</span>
+            에 대한 검색 결과입니다.
         </p>
+
+        <form th:action="@{/search}" method="get" class="search-page-form">
+            <input type="text"
+                   name="kw"
+                   th:value="${kw}"
+                   placeholder="검색어를 입력하세요">
+
+            <button type="submit">검색</button>
+        </form>
     </section>
 
-    <section class="search-results">
+    <section class="search-result-section">
 
-        <div th:if="${!paging.isEmpty()}"
-             th:with="blockSize=10,
-                      startPage=${(paging.number / blockSize) * blockSize},
-                      endPage=${(startPage + blockSize - 1 < paging.totalPages) ? (startPage + blockSize - 1) : (paging.totalPages - 1)}">
+        <div class="section-head">
+            <h2>
+                검색된 강의
+                <span th:text="${paging.totalElements}">0</span>개
+            </h2>
+        </div>
 
-            <div class="search-grid">
+        <div class="search-card-grid">
 
-                <a class="search-card"
-                   th:each="product : ${paging}"
-                   th:href="@{/course/view/{id}(id=${product.id})}">
-
-                    <div class="search-card-body">
-                        <h3 th:text="${product.productName}">상품명</h3>
-                        <strong th:text="${product.price} + '원'">0원</strong>
-                        <span th:text="${product.instructorName}">강사명</span>
-
-                        <span th:text="${product.status}">승인상태</span>
-
-                    </div>
-
-                </a>
-
+            <div th:if="${paging == null or #lists.isEmpty(paging.content)}"
+                 class="empty-result">
+                검색 결과가 없습니다.
             </div>
 
-            <ul class="pagination">
+            <a th:each="product, stat : ${paging.content}"
+               th:href="@{/product/{id}(id=${product.id})}"
+               class="search-card">
 
-                <li class="page-item" th:classappend="${paging.first} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=0&kw=${kw}|}">처음</a>
-                </li>
+                <span class="rank-num"
+                      th:classappend="${stat.count <= 3} ? ' red'"
+                      th:text="${stat.count + (paging.number * paging.size)}">
+                    1
+                </span>
 
-                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=${paging.number - 1}&kw=${kw}|}">이전</a>
-                </li>
+                <div class="thumb">
+                    <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
+                         th:src="${product.thumbnailUrl}"
+                         alt="강의 썸네일">
 
-                <li th:each="page : ${#numbers.sequence(startPage, endPage)}"
-                    class="page-item"
-                    th:classappend="${page == paging.number} ? 'active'">
-                    <a class="page-link"
-                       th:text="${page + 1}"
-                       th:href="@{|?page=${page}&kw=${kw}|}">
-                        1
-                    </a>
-                </li>
+                    <img th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}"
+                         th:src="@{/img/test/test1.jpg}"
+                         alt="기본 썸네일">
+                </div>
 
-                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=${paging.number + 1}&kw=${kw}|}">다음</a>
-                </li>
+                <div class="card-info">
+                    <span class="tag" th:text="${product.category}">
+                        카테고리
+                    </span>
 
-                <li class="page-item" th:classappend="${paging.last} ? 'disabled'">
-                    <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}&kw=${kw}|}">끝</a>
-                </li>
+                    <h3 th:text="${product.productName}">
+                        강의명
+                    </h3>
 
-            </ul>
+                    <p class="teacher" th:text="${product.instructorName}">
+                        강사명
+                    </p>
+
+                    <div class="meta">
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <span>0.0</span>
+                            <small>(0)</small>
+                        </div>
+
+                        <span class="student-count">수강생 0명</span>
+                    </div>
+
+                    <strong class="price"
+                            th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}">
+                        0원
+                    </strong>
+                </div>
+            </a>
 
         </div>
 
-        <div class="empty-box" th:if="${paging.isEmpty()}">
-            <p>검색 결과가 없습니다.</p>
-        </div>
+        <ul class="pagination" th:if="${paging != null and paging.totalPages > 0}">
+
+            <li class="page-item" th:classappend="${paging.first} ? ' disabled'">
+                <a class="page-link"
+                   th:if="${!paging.first}"
+                   th:href="@{/search(page=0, kw=${kw})}">
+                    처음
+                </a>
+                <span class="page-link" th:if="${paging.first}">처음</span>
+            </li>
+
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? ' disabled'">
+                <a class="page-link"
+                   th:if="${paging.hasPrevious()}"
+                   th:href="@{/search(page=${paging.number - 1}, kw=${kw})}">
+                    이전
+                </a>
+                <span class="page-link" th:if="${!paging.hasPrevious()}">이전</span>
+            </li>
+
+            <li class="page-item active">
+                <span class="page-link" th:text="${paging.number + 1}">1</span>
+            </li>
+
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? ' disabled'">
+                <a class="page-link"
+                   th:if="${paging.hasNext()}"
+                   th:href="@{/search(page=${paging.number + 1}, kw=${kw})}">
+                    다음
+                </a>
+                <span class="page-link" th:if="${!paging.hasNext()}">다음</span>
+            </li>
+
+            <li class="page-item" th:classappend="${paging.last} ? ' disabled'">
+                <a class="page-link"
+                   th:if="${!paging.last}"
+                   th:href="@{/search(page=${paging.totalPages - 1}, kw=${kw})}">
+                    끝
+                </a>
+                <span class="page-link" th:if="${paging.last}">끝</span>
+            </li>
+
+        </ul>
 
     </section>
 
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
+<script th:src="@{/js/header.js}"></script>
 </body>
 </html>

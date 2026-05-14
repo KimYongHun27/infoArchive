@@ -68,18 +68,18 @@
         </div>
 
         <div class="stat-card">
-          <p>공개 강의</p>
-          <h3 th:text="${openCount}">0</h3>
+          <p>승인 강의</p>
+          <h3 th:text="${approvedCount}">0</h3>
         </div>
 
         <div class="stat-card">
           <p>검토중</p>
-          <h3>0</h3>
+          <h3 th:text="${waitingCount}">0</h3>
         </div>
 
         <div class="stat-card">
-          <p>비공개</p>
-          <h3 th:text="${closedCount}">0</h3>
+          <p>반려 강의</p>
+          <h3 th:text="${rejectedCount}">0</h3>
         </div>
       </section>
 
@@ -119,7 +119,24 @@
             <td th:text="${course.category}">카테고리</td>
             <td th:text="${#numbers.formatInteger(course.price, 3, 'COMMA') + '원'}">가격</td>
             <td>0명</td>
-            <td th:text="${course.status}">상태</td>
+            <td>
+                <span class="status-badge status-waiting"
+                th:if="${course.status != null and course.status.name() == 'WAITING'}">
+                검토중
+                </span>
+
+              <span class="status-badge status-approved"
+                    th:if="${course.status != null and course.status.name() == 'APPROVED'}">승인됨
+              </span>
+
+              <span class="status-badge status-rejected"
+                    th:if="${course.status != null and course.status.name() == 'REJECTED'}">반려됨
+              </span>
+
+              <span class="status-badge status-none"
+                    th:if="${course.status == null}">상태없음
+              </span>
+            </td>
             <td>
               <a th:href="@{/instructor/courses/{id}/edit(id=${course.id})}">수정</a>
               |
