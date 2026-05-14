@@ -38,11 +38,23 @@ public class ProductService {
     public Page<Product> searchProducts(String kw, Pageable pageable) {
 
         if (kw == null || kw.trim().isEmpty()) {
-            return productRepository.findAll(pageable);
+            return productRepository.findByStatus(ProductStatus.APPROVED, pageable);
         }
 
-        return productRepository.findByProductNameContaining(kw.trim(), pageable);
+        return productRepository.findByProductNameContainingAndStatus(
+                kw.trim(),
+                ProductStatus.APPROVED,
+                pageable
+        );
     }
+//    public Page<Product> searchProducts(String kw, Pageable pageable) {
+//
+//        if (kw == null || kw.trim().isEmpty()) {
+//            return productRepository.findAll(pageable);
+//        }
+//
+//        return productRepository.findByProductNameContaining(kw.trim(), pageable);
+//    }
 
     // 승인
     public void approveProduct(Long productId) {
