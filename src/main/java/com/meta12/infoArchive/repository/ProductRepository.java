@@ -14,8 +14,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 상품명 검색
     Page<Product> findByProductNameContaining(String kw, Pageable pageable);
 
-    // 관리자: 상태별 강의/상품 조회
+    // 상태별 조회 - List용
     List<Product> findByStatus(ProductStatus status);
+
+    // 상태별 조회 - Page용
+    Page<Product> findByStatus(ProductStatus status, Pageable pageable);
 
     // 사용자 화면: 승인된 상품만 검색
     Page<Product> findByProductNameContainingAndStatus(
