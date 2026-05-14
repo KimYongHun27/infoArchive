@@ -22,7 +22,7 @@ public class Cart {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lecture; // 강의 엔티티
+    private Course course; // 강의 엔티티
 
     // 장바구니에 담은 시점 (정렬용)
     @CreatedDate
@@ -30,10 +30,10 @@ public class Cart {
     private LocalDateTime createdAt;
 
     // 생성 메서드
-    public static Cart createCart(User user, Lecture lecture) {
+    public static Cart createCart(User user, Course course) {
         Cart cart = new Cart();
         cart.user = user;
-        cart.lecture = lecture;
+        cart.course = course;
         return cart;
     }
 }

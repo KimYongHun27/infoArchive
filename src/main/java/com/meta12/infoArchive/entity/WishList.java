@@ -27,17 +27,17 @@ public class WishList {
     //강의 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")
-    private Lecture lecture;
+    private Course course;
 
     //최근 담은 순서 정렬용
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    public static WishList createWishList(User user, Lecture lecture) {
+    public static WishList createWishList(User user, Course course) {
         WishList wishList = new WishList();
         wishList.user = user;
-        wishList.lecture = lecture;
+        wishList.course = course;
         return wishList;
     }
 }
