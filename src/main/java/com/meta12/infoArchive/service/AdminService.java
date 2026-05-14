@@ -178,7 +178,7 @@ public class AdminService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
 
-        product.setStatus(ProductStatus.OPEN);
+        product.setStatus(ProductStatus.APPROVED);
         product.setReviewedAt(LocalDateTime.now());
         product.setRejectReason(null);
 
@@ -199,18 +199,6 @@ public class AdminService {
         } else {
             product.setRejectReason(rejectReason);
         }
-
-        productRepository.save(product);
-    }
-
-    // 관리자 - 강의/상품 비공개 처리
-    public void closeProduct(Long productId) {
-
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
-
-        product.setStatus(ProductStatus.CLOSED);
-        product.setReviewedAt(LocalDateTime.now());
 
         productRepository.save(product);
     }

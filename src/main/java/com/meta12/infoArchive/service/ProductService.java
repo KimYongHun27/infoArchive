@@ -1,17 +1,15 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.entity.Product;
-import com.meta12.infoArchive.entity.Review;
-import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.ProductStatus;
 import com.meta12.infoArchive.repository.ProductRepository;
-import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,12 +18,23 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    // 상품 단건 조회
     public Product getProduct(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-
         return optionalProduct.orElse(null);
     }
 
+    // 전체 상품 조회
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    // 검토중 상품 조회
+    public List<Product> getWaitingProducts() {
+        return productRepository.findByStatus(ProductStatus.WAITING);
+    }
+
+    // 검색
     public Page<Product> searchProducts(String kw, Pageable pageable) {
 
         if (kw == null || kw.trim().isEmpty()) {
@@ -35,28 +44,32 @@ public class ProductService {
         return productRepository.findByProductNameContaining(kw.trim(), pageable);
     }
 
-    public Page<Product> getList(int page, String kw){
-        Pageable pageable = PageRequest.of(page,10);
-        Specification<Product> spec = search(kw);
-        return productRepository.findAll(spec,pageable);
+    // 승인
+    public void approveProduct(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        product.setStatus(ProductStatus.APPROVED);
+        product.setReviewedAt(LocalDateTime.now());
+        product.setRejectReason(null);
+
+        productRepository.save(product);
     }
 
-    private Specification<Product> search(String kw) {
-        return (Root<Product> p, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
-            query.distinct(true);
+    // 반려
+    public void rejectProduct(Long productId, String rejectReason) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
 
-//            // 리뷰 작성자(User) 조인
-//            Join<Review, User> u = r.join("user", JoinType.LEFT);
-//            // 상품 조인
-//            Join<Review, Product> p = r.join("product",JoinType.LEFT);
+        product.setStatus(ProductStatus.REJECTED);
+        product.setReviewedAt(LocalDateTime.now());
 
-            return cb.or(
-                    cb.like(p.get("productName"), "%" + kw + "%")
-//                    cb.like(r.get("title"), "%" + kw + "%"),      // 리뷰 제목
-//                    cb.like(r.get("content"), "%" + kw + "%"),    // 리뷰 내용
-//                    cb.like(u.get("name"), "%" + kw + "%"),      // 유저 이름
-//                    cb.like(p.get("productName"),"%" + kw + "%") // 상품명
-            );
-        };
+        if (rejectReason == null || rejectReason.trim().isEmpty()) {
+            product.setRejectReason("관리자 검토 결과 반려되었습니다.");
+        } else {
+            product.setRejectReason(rejectReason);
+        }
+
+        productRepository.save(product);
     }
 }
