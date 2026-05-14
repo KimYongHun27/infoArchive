@@ -25,9 +25,10 @@ public class TakingCourse {
     private User user;                 // 연결된 회원 정보
 
     //강의 fk
+    //lecture -> course로 테이블 변경 : 용훈
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id")
-    private Lecture lecture;
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     private Integer progressRate = 0; // 학습 진도율 (0 ~ 100%)
 
