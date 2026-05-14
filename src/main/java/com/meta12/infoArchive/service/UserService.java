@@ -208,8 +208,47 @@ public class UserService implements UserDetailsService {
         return user.getEmail();
     }
 
-    // 비밀번호 재설정
-    public void resetPassword(PasswordFindRequestDto dto) {
+//    // 비밀번호 재설정
+//    public void resetPassword(PasswordFindRequestDto dto) {
+//
+//        if (dto.getName() == null || dto.getName().trim().isEmpty()) {
+//            throw new IllegalArgumentException("이름을 입력해주세요.");
+//        }
+//
+//        if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+//            throw new IllegalArgumentException("이메일을 입력해주세요.");
+//        }
+//
+//        if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
+//            throw new IllegalArgumentException("전화번호를 입력해주세요.");
+//        }
+//
+//        if (dto.getNewPassword() == null || dto.getNewPassword().trim().isEmpty()) {
+//            throw new IllegalArgumentException("새 비밀번호를 입력해주세요.");
+//        }
+//
+//        if (!dto.getNewPassword().equals(dto.getNewPasswordConfirm())) {
+//            throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
+//        }
+//
+//        String inputEmail = dto.getEmail().trim();
+//        String inputName = dto.getName().trim();
+//        String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
+//
+//        User user = userRepository.findAll().stream()
+//                .filter(u -> u.getEmail() != null && u.getEmail().equals(inputEmail))
+//                .filter(u -> u.getName() != null && u.getName().equals(inputName))
+//                .filter(u -> u.getPhone() != null)
+//                .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
+//
+//        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+//        userRepository.save(user);
+//    }
+
+    // 임시 비밀번호 발급
+    public String issueTemporaryPassword(PasswordFindRequestDto dto) {
 
         if (dto.getName() == null || dto.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("이름을 입력해주세요.");
@@ -221,14 +260,6 @@ public class UserService implements UserDetailsService {
 
         if (dto.getPhone() == null || dto.getPhone().trim().isEmpty()) {
             throw new IllegalArgumentException("전화번호를 입력해주세요.");
-        }
-
-        if (dto.getNewPassword() == null || dto.getNewPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("새 비밀번호를 입력해주세요.");
-        }
-
-        if (!dto.getNewPassword().equals(dto.getNewPasswordConfirm())) {
-            throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
         }
 
         String inputEmail = dto.getEmail().trim();
@@ -243,7 +274,23 @@ public class UserService implements UserDetailsService {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 회원 정보를 찾을 수 없습니다."));
 
-        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        String temporaryPassword = createTemporaryPassword();
+
+        user.setPassword(passwordEncoder.encode(temporaryPassword));
         userRepository.save(user);
+
+        return temporaryPassword;
+    }
+
+    private String createTemporaryPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            int index = (int) (Math.random() * chars.length());
+            password.append(chars.charAt(index));
+        }
+
+        return password.toString();
     }
 }

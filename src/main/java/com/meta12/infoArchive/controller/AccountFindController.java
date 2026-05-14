@@ -47,10 +47,17 @@ public class AccountFindController {
     @PostMapping("/account/reset-password")
     public String resetPasswordProc(PasswordFindRequestDto dto, Model model) {
 
-        userService.resetPassword(dto);
-
-        model.addAttribute("passwordSuccess", true);
         model.addAttribute("activeTab", "password");
+
+        try {
+            String temporaryPassword = userService.issueTemporaryPassword(dto);
+
+            model.addAttribute("passwordSuccess", true);
+            model.addAttribute("temporaryPassword", temporaryPassword);
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+        }
 
         return "account-find";
     }
