@@ -25,8 +25,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserService userService;
 
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
+//    public List<Review> findAll() {
+//        return reviewRepository.findAll();
+//    }
+    public List<Review> findMyReviews(Authentication authentication) {
+        User user = userService.getLoginUser(authentication);
+        return reviewRepository.findByUser(user);
     }
 
     public void chugaProc(Authentication authentication, ReviewDto reviewDto) {

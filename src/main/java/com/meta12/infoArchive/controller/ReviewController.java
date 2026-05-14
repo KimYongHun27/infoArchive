@@ -25,8 +25,11 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public String review(Model model) {
-        List<Review> reviewList = reviewService.findAll();
+    public String review(
+            Model model,
+            Authentication authentication
+    ) {
+        List<Review> reviewList = reviewService.findMyReviews(authentication);
 
         double avgRating = reviewService.getAverageRating();
         long reviewCount = reviewService.getReviewCount();
