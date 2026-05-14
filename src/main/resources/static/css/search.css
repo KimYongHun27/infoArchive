@@ -1,57 +1,315 @@
-     /* 페이지네이션 컨테이너 */
-      .pagination {
-          display: flex;
-          justify-content: center;
-          list-style: none;
-          padding: 0;
-          margin: 40px 0;
-      }
+/* =========================
+   검색 결과 페이지
+========================= */
 
-      /* 각 페이지 아이템 */
-      .page-item {
-          margin: 0 5px;
-      }
+.search-page {
+  max-width: 1200px;
+  margin: 70px auto;
+  padding: 0 20px;
+}
 
-      /* 페이지 링크 버튼 공통 */
-      .page-link {
-          display: block;
-          padding: 8px 16px;
-          border: 1px solid #ddd;
-          color: #333;
-          text-decoration: none;
-          border-radius: 4px;
-          transition: background-color 0.3s, color 0.3s;
-      }
+.search-head {
+  text-align: center;
+  margin-bottom: 50px;
+}
 
-      /* 마우스 올렸을 때 */
-      .page-link:hover {
-          background-color: #f8f9fa;
-          border-color: #bbb;
-      }
+.search-head h1 {
+  font-size: 38px;
+  font-weight: 900;
+  margin: 0 0 16px;
+  color: #111;
+}
 
-      /* 현재 활성화된 페이지 */
-      .page-item.active .page-link {
-          background-color: #007bff;
-          color: white;
-          border-color: #007bff;
-          font-weight: bold;
-      }
+.search-head p {
+  font-size: 17px;
+  color: #555;
+  margin: 0;
+}
 
-      /* 비활성화된 버튼 (이전/다음 없을 때) */
-      .page-item.disabled .page-link {
-          color: #ccc;
-          pointer-events: none;
-      }
-      .search-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-      .empty-box{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 100px 0;
-      }
+.search-keyword {
+  color: #ef1235;
+  font-weight: 900;
+}
 
+/* 검색 결과 페이지 전용 검색창 */
+.search-page-form {
+  width: 100%;
+  max-width: 620px;
+  margin: 30px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-page-form input {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+  padding: 0 18px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-page-form input:focus {
+  border-color: #ef1235;
+}
+
+.search-page-form button {
+  width: 110px;
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: #ef1235;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.search-page-form button:hover {
+  background: #d80f2f;
+}
+
+/* =========================
+   결과 영역
+========================= */
+
+.search-result-section {
+  margin-top: 20px;
+}
+
+.section-head {
+  margin-bottom: 24px;
+}
+
+.section-head h2 {
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
+  margin: 0;
+}
+
+.section-head h2 span {
+  color: #ef1235;
+}
+
+/* =========================
+   카드 그리드
+========================= */
+
+.search-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.search-card {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.search-card .thumb {
+  width: 100%;
+  height: 170px;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+.search-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 16px;
+}
+
+.card-info .tag {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fff1f3;
+  color: #ef1235;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.card-info h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #111;
+}
+
+.card-info .teacher {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.card-info .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: #777;
+}
+
+.card-info .rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-info .rating i {
+  color: #ffb800;
+}
+
+.card-info .price {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  color: #111;
+}
+
+/* 순위 번호 */
+.rank-num {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-num.red {
+  background: #ef1235;
+}
+
+/* 검색 결과 없음 */
+.empty-result {
+  grid-column: 1 / -1;
+  padding: 100px 0;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  color: #777;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* =========================
+   페이지네이션
+========================= */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 50px 0 20px;
+}
+
+.page-item {
+  margin: 0;
+}
+
+.page-link {
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link:hover {
+  background-color: #f8f9fa;
+  border-color: #bbb;
+}
+
+.page-item.active .page-link {
+  background-color: #ef1235;
+  color: #fff;
+  border-color: #ef1235;
+  font-weight: 900;
+}
+
+.page-item.disabled .page-link {
+  color: #ccc;
+  background: #f8f8f8;
+  pointer-events: none;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 1100px) {
+  .search-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .search-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-page-form {
+    flex-direction: column;
+  }
+
+  .search-page-form button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .search-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-head h1 {
+    font-size: 30px;
+  }
+}

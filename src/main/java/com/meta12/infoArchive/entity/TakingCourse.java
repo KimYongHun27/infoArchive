@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
 public class TakingCourse {
 
     @Id
@@ -21,9 +19,15 @@ public class TakingCourse {
     private String instructor;       // 강사 이름
     private String category;         // 강의 분야
 
-    @OneToOne
+    //유저 fk
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;                 // 연결된 회원 정보
+
+    //강의 fk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id")
+    private Lecture lecture;
 
     private Integer progressRate = 0; // 학습 진도율 (0 ~ 100%)
 

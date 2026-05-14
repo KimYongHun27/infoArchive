@@ -18,10 +18,14 @@
                 <img th:src="@{/img/header/1.png}" alt="INFO ARCHIVE">
             </a>
 
-            <p>
+            <div class="membership-login-guide" th:if="${session.loginUser == null}">
                 이미 계정이 있으신가요?
                 <a th:href="@{/login}">로그인</a>
-            </p>
+            </div>
+
+            <div class="membership-login-guide" th:if="${session.loginUser != null}">
+                <span th:text="${session.loginUser}">회원</span>님, 프리미엄 혜택을 확인해보세요.
+            </div>
         </div>
 
         <h1>
