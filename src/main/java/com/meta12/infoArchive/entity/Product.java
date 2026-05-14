@@ -64,8 +64,15 @@ public class Product {
             this.status = ProductStatus.WAITING;
         }
 
+        if (this.premiumOnly == null) {
+            this.premiumOnly = false;
+        }
+
         if (this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
         }
     }
+
+    // 프리미엄 멤버십 전용 강의 여부
+    private Boolean premiumOnly;
 }

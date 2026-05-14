@@ -18,13 +18,13 @@
                 <img th:src="@{/img/header/1.png}" alt="INFO ARCHIVE">
             </a>
 
-            <div class="membership-login-guide" th:if="${session.loginUser == null}">
-                이미 계정이 있으신가요?
+            <div class="membership-login-guide" th:if="${login == false}">
+                구독권 가입은 로그인 후 이용할 수 있습니다.
                 <a th:href="@{/login}">로그인</a>
             </div>
 
-            <div class="membership-login-guide" th:if="${session.loginUser != null}">
-                <span th:text="${session.loginUser}">회원</span>님, 프리미엄 혜택을 확인해보세요.
+            <div class="membership-login-guide" th:if="${login == true}">
+                <span th:text="${user.name}">회원</span>님, 프리미엄 혜택을 확인해보세요.
             </div>
         </div>
 
@@ -45,16 +45,58 @@
             </div>
 
             <div class="premium-right">
-                <div class="price">
-                    <span>월</span>
-                    <strong>9,900원</strong>
-                </div>
-                <p>언제든지 해지 가능 / 결제일 기준 30일 주기</p>
 
-                <button type="button" class="premium-btn" id="openPaymentModal">
-                    프리미엄 가입하기
-                    <span>〉</span>
-                </button>
+                <!-- 로그인 안 한 사용자 -->
+                <div th:if="${login == false}">
+                    <div class="price">
+                        <span>월</span>
+                        <strong>9,900원</strong>
+                    </div>
+                    <p>로그인 후 프리미엄 멤버십에 가입할 수 있습니다.</p>
+
+                    <a th:href="@{/login}" class="premium-btn">
+                        로그인 후 가입하기
+                        <span>〉</span>
+                    </a>
+                </div>
+
+                <!-- 로그인했고 구독권 없는 사용자 -->
+                <div th:if="${login == true and membershipActive == false}">
+                    <div class="price">
+                        <span>월</span>
+                        <strong>9,900원</strong>
+                    </div>
+                    <p>언제든지 해지 가능 / 결제일 기준 30일 주기</p>
+
+                    <button type="button" class="premium-btn" id="openPaymentModal">
+                        프리미엄 가입하기
+                        <span>〉</span>
+                    </button>
+                </div>
+
+                <!-- 로그인했고 구독권 있는 사용자 -->
+                <div th:if="${login == true and membershipActive == true}">
+                    <div class="price">
+                        <strong>구독 중</strong>
+                    </div>
+
+                    <p>
+                        프리미엄 멤버십 이용 중입니다.
+                    </p>
+
+                    <p>
+                        만료일:
+                        <strong th:text="${#temporals.format(user.membershipExpiredAt, 'yyyy.MM.dd HH:mm')}">
+                            2026.06.14 15:00
+                        </strong>
+                    </p>
+
+                    <a th:href="@{/}" class="premium-btn">
+                        강의 보러가기
+                        <span>〉</span>
+                    </a>
+                </div>
+
             </div>
         </div>
 
@@ -76,7 +118,9 @@
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
 <!-- 결제 모달 -->
-<div class="modal-overlay" id="paymentModal">
+<div class="modal-overlay"
+     id="paymentModal"
+     th:if="${login == true and membershipActive == false}">
     <div class="payment-modal">
 
         <button type="button" class="modal-close" id="closePaymentModal">X</button>
