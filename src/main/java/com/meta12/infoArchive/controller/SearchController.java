@@ -7,6 +7,7 @@ import com.meta12.infoArchive.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,10 @@ public class SearchController {
             @RequestParam(value = "kw", required = false) String kw,
             Model model
     ) {
-        Page<Product> paging = productService.getList(page,kw);
+
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> paging = productService.searchProducts(kw, pageable);
+        //Page<Product> paging = productService.getList(page,kw);
 
         model.addAttribute("kw", kw);
         model.addAttribute("paging", paging);
