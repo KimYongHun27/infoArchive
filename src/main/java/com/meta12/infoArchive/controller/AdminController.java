@@ -43,11 +43,4 @@ public class AdminController {
     ) {
         return adminService.changeUserRole(userId, role);
     }
-
-    // 관리자 - 회원 삭제
-    @DeleteMapping("/users/{userId}")
-    public String deleteUserByAdmin(@PathVariable Long userId) {
-        adminService.deleteUserByAdmin(userId);
-        return "관리자가 회원을 삭제했습니다.";
-    }
 }

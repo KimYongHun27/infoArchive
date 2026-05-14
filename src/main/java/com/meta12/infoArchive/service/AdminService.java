@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.meta12.infoArchive.entity.ApplyStatus;
 import java.time.LocalDateTime;
+import org.springframework.security.core.Authentication;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -114,10 +115,14 @@ public class AdminService {
     }
 
     // 관리자 - 회원 삭제
-    public void deleteUserByAdmin(Long userId) {
+    public void deleteUserByAdmin(Long userId, Authentication authentication) {
 
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
+        if (authentication != null && authentication.getName().equals(foundUser.getEmail())) {
+            throw new IllegalArgumentException("현재 로그인한 관리자 계정은 삭제할 수 없습니다.");
+        }
 
         userRepository.delete(foundUser);
     }

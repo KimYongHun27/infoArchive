@@ -50,12 +50,27 @@
         <td th:text="${user.phone}">010-0000-0000</td>
 
         <td>
-                    <span class="role-badge"
-                          th:classappend="${user.role.name() == 'ADMIN'} ? ' admin' :
-                                          (${user.role.name() == 'INSTRUCTOR'} ? ' instructor' : ' user')"
-                          th:text="${user.role}">
-                        USER
-                    </span>
+        <td>
+        <span class="role-badge admin"
+              th:if="${user.role.name() == 'ADMIN'}">
+          관리자
+        </span>
+
+        <span class="role-badge instructor"
+              th:if="${user.role.name() == 'INSTRUCTOR'}">
+          강사
+        </span>
+
+        <span class="role-badge user"
+              th:if="${user.role.name() == 'USER'}">
+          일반회원
+        </span>
+
+          <span class="role-badge special"
+                th:if="${user.role.name() == 'SPECIAL'}">
+            특별회원
+          </span>
+        </td>
         </td>
 
         <td th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
