@@ -38,11 +38,12 @@
                    th:href="@{/course/view/{id}(id=${product.id})}">
 
                     <div class="search-card-body">
-                        <span class="product-type" th:text="${product.productType}">상품 종류</span>
-
                         <h3 th:text="${product.productName}">상품명</h3>
-
                         <strong th:text="${product.price} + '원'">0원</strong>
+                        <span th:text="${product.instructorName}">강사명</span>
+
+                        <span th:text="${product.status}">승인상태</span>
+
                     </div>
 
                 </a>

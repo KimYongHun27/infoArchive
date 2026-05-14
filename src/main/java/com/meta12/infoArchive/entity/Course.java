@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@DiscriminatorValue("SUBSCRIBE")
-public class Subcribe extends Product {
+@DiscriminatorValue("COURSE")
+public class Course extends Product {
 
 }
