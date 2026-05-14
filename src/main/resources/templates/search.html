@@ -5,125 +5,12 @@
     <title>검색 결과 - InfoArchive</title>
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/category.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        .search-page {
-            max-width: 1200px;
-            margin: 70px auto;
-            padding: 0 20px;
-        }
-
-        .search-head {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .search-head h1 {
-            font-size: 38px;
-            font-weight: 900;
-            margin-bottom: 16px;
-        }
-
-        .search-head p {
-            font-size: 17px;
-            color: #555;
-        }
-
-        .search-keyword {
-            color: #ef1235;
-            font-weight: 900;
-        }
-
-        .search-form {
-            max-width: 620px;
-            margin: 30px auto 0;
-            display: flex;
-            gap: 10px;
-        }
-
-        .search-form input {
-            flex: 1;
-            height: 52px;
-            padding: 0 18px;
-            border: 1px solid #ddd;
-            border-radius: 14px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .search-form input:focus {
-            border-color: #ef1235;
-        }
-
-        .search-form button {
-            width: 110px;
-            border: none;
-            border-radius: 14px;
-            background: #ef1235;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
-        .result-info {
-            margin-bottom: 24px;
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .empty-result {
-            padding: 70px 20px;
-            text-align: center;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 20px;
-            color: #777;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin: 50px 0 20px;
-            list-style: none;
-            padding: 0;
-        }
-
-        .page-item a,
-        .page-item span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 42px;
-            height: 42px;
-            padding: 0 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 700;
-            background: #fff;
-        }
-
-        .page-item.active span {
-            background: #0d6efd;
-            color: #fff;
-            border-color: #0d6efd;
-        }
-
-        .page-item.disabled span {
-            color: #bbb;
-            background: #f8f8f8;
-        }
-    </style>
 </head>
 
 <body>
@@ -140,7 +27,7 @@
             에 대한 검색 결과입니다.
         </p>
 
-        <form th:action="@{/search}" method="get" class="search-form">
+        <form th:action="@{/search}" method="get" class="search-page-form">
             <input type="text"
                    name="kw"
                    th:value="${kw}"
@@ -150,7 +37,7 @@
         </form>
     </section>
 
-    <section class="category-rank">
+    <section class="search-result-section">
 
         <div class="section-head">
             <h2>
@@ -159,17 +46,16 @@
             </h2>
         </div>
 
-        <div class="drawing-grid">
+        <div class="search-card-grid">
 
             <div th:if="${paging == null or #lists.isEmpty(paging.content)}"
-                 class="empty-result"
-                 style="grid-column: 1 / -1;">
+                 class="empty-result">
                 검색 결과가 없습니다.
             </div>
 
             <a th:each="product, stat : ${paging.content}"
                th:href="@{/product/{id}(id=${product.id})}"
-               class="drawing-card">
+               class="search-card">
 
                 <span class="rank-num"
                       th:classappend="${stat.count <= 3} ? ' red'"
@@ -180,11 +66,11 @@
                 <div class="thumb">
                     <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
                          th:src="${product.thumbnailUrl}"
-                         alt="">
+                         alt="강의 썸네일">
 
                     <img th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}"
                          th:src="@{/img/test/test1.jpg}"
-                         alt="">
+                         alt="기본 썸네일">
                 </div>
 
                 <div class="card-info">
@@ -222,39 +108,43 @@
         <ul class="pagination" th:if="${paging != null and paging.totalPages > 0}">
 
             <li class="page-item" th:classappend="${paging.first} ? ' disabled'">
-                <a th:if="${!paging.first}"
+                <a class="page-link"
+                   th:if="${!paging.first}"
                    th:href="@{/search(page=0, kw=${kw})}">
                     처음
                 </a>
-                <span th:if="${paging.first}">처음</span>
+                <span class="page-link" th:if="${paging.first}">처음</span>
             </li>
 
             <li class="page-item" th:classappend="${!paging.hasPrevious()} ? ' disabled'">
-                <a th:if="${paging.hasPrevious()}"
+                <a class="page-link"
+                   th:if="${paging.hasPrevious()}"
                    th:href="@{/search(page=${paging.number - 1}, kw=${kw})}">
                     이전
                 </a>
-                <span th:if="${!paging.hasPrevious()}">이전</span>
+                <span class="page-link" th:if="${!paging.hasPrevious()}">이전</span>
             </li>
 
             <li class="page-item active">
-                <span th:text="${paging.number + 1}">1</span>
+                <span class="page-link" th:text="${paging.number + 1}">1</span>
             </li>
 
             <li class="page-item" th:classappend="${!paging.hasNext()} ? ' disabled'">
-                <a th:if="${paging.hasNext()}"
+                <a class="page-link"
+                   th:if="${paging.hasNext()}"
                    th:href="@{/search(page=${paging.number + 1}, kw=${kw})}">
                     다음
                 </a>
-                <span th:if="${!paging.hasNext()}">다음</span>
+                <span class="page-link" th:if="${!paging.hasNext()}">다음</span>
             </li>
 
             <li class="page-item" th:classappend="${paging.last} ? ' disabled'">
-                <a th:if="${!paging.last}"
+                <a class="page-link"
+                   th:if="${!paging.last}"
                    th:href="@{/search(page=${paging.totalPages - 1}, kw=${kw})}">
                     끝
                 </a>
-                <span th:if="${paging.last}">끝</span>
+                <span class="page-link" th:if="${paging.last}">끝</span>
             </li>
 
         </ul>
@@ -266,7 +156,6 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-<script th:src="@{/js/category.js}"></script>
-
+<script th:src="@{/js/header.js}"></script>
 </body>
 </html>
