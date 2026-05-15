@@ -29,6 +29,7 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 120px;
+  padding: 40px 0px;
 }
 
 .sidebar-card {
@@ -115,11 +116,10 @@ body {
 }
 
 .banner {
-  padding: 0px 70px;
+  padding: 20px 70px;
 }
 
 .p1 {
-  padding: 20px 0px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
