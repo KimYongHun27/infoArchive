@@ -14,7 +14,7 @@ public class TakingCourseController {
     private final UserService userService;
 
     //전체보기
-    @GetMapping("/takingcourse")
+    @GetMapping("/taking-course")
     public String view() {
         return "mypage/taking-course";
     }
