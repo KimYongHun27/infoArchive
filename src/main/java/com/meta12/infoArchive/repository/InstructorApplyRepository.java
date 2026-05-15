@@ -12,4 +12,6 @@ public interface InstructorApplyRepository extends JpaRepository<InstructorApply
     boolean existsByUserAndStatus(User user, ApplyStatus status);
 
     Optional<InstructorApply> findTopByUserOrderByCreatedAtDesc(User user);
+
+    void deleteByUser(User user);
 }

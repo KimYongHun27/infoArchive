@@ -92,6 +92,7 @@ public class UserService implements UserDetailsService {
         userRepository.delete(foundUser);
     }
 
+
     // 현재 로그인 회원 조회
     public User getLoginUser(Authentication authentication) {
 
@@ -159,8 +160,11 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        // 이메일 중복 확인
+        String email = dto.getEmail().trim();
+
+        if (userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
 
         if (!Boolean.TRUE.equals(dto.getAgreeTerms())
@@ -170,8 +174,8 @@ public class UserService implements UserDetailsService {
         }
 
         User user = User.builder()
-                .username(dto.getEmail())
-                .email(dto.getEmail())
+                .username(email)
+                .email(email)
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .name(dto.getName())
                 .phone(dto.getPhone())

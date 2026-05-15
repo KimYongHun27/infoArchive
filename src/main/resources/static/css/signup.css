@@ -353,3 +353,13 @@ body {
     font-weight: 900;
     cursor: pointer;
 }
+
+.error-message {
+  margin-bottom: 16px;
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #ffe8e8;
+  color: #d60000;
+  font-size: 14px;
+  font-weight: 800;
+}

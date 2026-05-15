@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.meta12.infoArchive.entity.ApplyStatus;
 import java.time.LocalDateTime;
-import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
+import com.meta12.infoArchive.repository.ReviewRepository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -26,6 +27,7 @@ import java.util.List;
 public class AdminService {
 
     private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final InstructorRepository instructorRepository;
@@ -115,15 +117,22 @@ public class AdminService {
     }
 
     // 관리자 - 회원 삭제
-    public void deleteUserByAdmin(Long userId, Authentication authentication) {
+    @Transactional
+    public void deleteUserByAdmin(Long userId) {
 
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        if (authentication != null && authentication.getName().equals(foundUser.getEmail())) {
-            throw new IllegalArgumentException("현재 로그인한 관리자 계정은 삭제할 수 없습니다.");
-        }
+        // 1. 리뷰 먼저 삭제
+        reviewRepository.deleteByUser(foundUser);
 
+        // 2. 강사 신청 내역 삭제
+        instructorApplyRepository.deleteByUser(foundUser);
+
+        // 3. 강사 정보 삭제
+        instructorRepository.deleteByUser(foundUser);
+
+        // 4. 마지막에 회원 삭제
         userRepository.delete(foundUser);
     }
 
