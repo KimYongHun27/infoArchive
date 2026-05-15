@@ -18,7 +18,7 @@ public class TakingCourseController {
     @GetMapping("/takingcourse")
     public String view()
     {
-        return "cart/takingcourse";
+        return "mypage/taking-course";
     }
 
 }
