@@ -17,6 +17,12 @@ public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
 
+    @GetMapping("/orders")
+    public String orders()
+    {
+        return "mypage/order-details";
+    }
+
     @GetMapping("/membership")
     public String membershipList(Authentication authentication, Model model) {
 

@@ -27,7 +27,7 @@ public class MemberInfoController {
     public String memberInfoPage(Authentication authentication, Model model) {
         User user = userService.getLoginUser(authentication);
         model.addAttribute("user", user);
-        return "mypage/member-info";
+        return "mypage/dashboard";
     }
 
     // 회원 정보 수정

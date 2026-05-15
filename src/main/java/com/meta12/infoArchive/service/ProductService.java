@@ -9,6 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,20 +60,23 @@ public class ProductService {
 
         Product product = new Product();
 
-        product.setProductType(
-                dto.getProductType() != null ? dto.getProductType() : ProductType.COURSE
-        );
-
+        product.setProductType(ProductType.COURSE);
         product.setProductName(dto.getProductName());
         product.setCategory(dto.getCategory());
         product.setInstructorName(dto.getInstructorName());
-        product.setThumbnailUrl(dto.getThumbnailUrl());
+
+        // 썸네일 파일 저장
+        String thumbnailUrl = saveThumbnailFile(dto.getThumbnailFile());
+        product.setThumbnailUrl(thumbnailUrl);
+
+        // 영상은 URL로 저장
         product.setVideoUrl(dto.getVideoUrl());
+
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
         product.setDiscountRate(dto.getDiscountRate());
 
-        // 강사가 등록한 강의는 무조건 검토중
+        // 강사가 등록하면 검토중
         product.setStatus(ProductStatus.WAITING);
         product.setCreatedAt(LocalDateTime.now());
 
@@ -101,5 +110,38 @@ public class ProductService {
         }
 
         productRepository.save(product);
+    }
+
+    private String saveThumbnailFile(MultipartFile file) {
+
+        if (file == null || file.isEmpty()) {
+            return null;
+        }
+
+        try {
+            String uploadDir = "uploads/thumbnails/";
+
+            File dir = new File(uploadDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originalFilename = file.getOriginalFilename();
+            String extension = "";
+
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            String savedFileName = UUID.randomUUID() + extension;
+
+            File saveFile = new File(uploadDir + savedFileName);
+            file.transferTo(saveFile);
+
+            return "/uploads/thumbnails/" + savedFileName;
+
+        } catch (IOException e) {
+            throw new RuntimeException("썸네일 이미지 저장 중 오류가 발생했습니다.", e);
+        }
     }
 }

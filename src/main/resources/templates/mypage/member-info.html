@@ -46,7 +46,7 @@
 
                     <!-- 일반 회원만 보이는 메뉴 -->
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
-                       th:href="@{/dashboard}">
+                       th:href="@{/dashboard}" class="active">
                         <span>▤</span>
                         대시보드
                     </a>
@@ -76,7 +76,7 @@
                     </a>
 
                     <!-- 공통: 회원 정보만 표시 -->
-                    <a th:href="@{/mypage}" class="active">
+                    <a th:href="@{/mypage}">
                         <span>♙</span>
                         회원 정보
                     </a>
