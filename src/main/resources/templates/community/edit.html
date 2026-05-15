@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>community - InfoArchive</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<h2>- infoarchive 커뮤니티 -</h2>
+
+<form action="/community/editProc" method="post" name="form">
+    <input type="text" name="title" placeholder="제목을 입력하세요">
+
+    <textarea name="content"></textarea>
+
+    <button type="submit">전송</button>
+</form>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
+<script th:src="@{/js/community.js}"></script>
+</body>
+</html>
