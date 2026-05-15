@@ -97,19 +97,18 @@
                     <input type="text" name="thumbnailUrl" placeholder="/img/main/course01.png">
                 </div>
 
+                <div class="form-group">
+                    <label>강의 영상 URL 또는 파일 경로</label>
+                    <input type="text"
+                           name="videoUrl"
+                           placeholder="예: https://www.youtube.com/embed/영상ID 또는 /videos/sample.mp4">
+                </div>
+
                 <div class="form-row">
                     <label>강의 소개</label>
                     <textarea name="description" placeholder="강의 소개를 입력하세요"></textarea>
                 </div>
 
-                <div class="form-row">
-                    <label>강의 상태</label>
-                    <select name="status">
-                        <option value="WAITING">검토중</option>
-                        <option value="OPEN">공개</option>
-                        <option value="CLOSED">비공개</option>
-                    </select>
-                </div>
 
                 <div class="form-actions">
                     <a th:href="@{/instructor/courses}" class="cancel-btn">취소</a>

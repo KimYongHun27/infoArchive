@@ -33,6 +33,10 @@ public class Product {
     // 썸네일
     private String thumbnailUrl;
 
+    // 강의 영상 URL 또는 영상 파일 경로
+    @Column(length = 1000)
+    private String videoUrl;
+
     // 강의 설명
     @Column(length = 2000)
     private String description;
@@ -75,4 +79,5 @@ public class Product {
 
     // 프리미엄 멤버십 전용 강의 여부
     private Boolean premiumOnly;
+
 }
