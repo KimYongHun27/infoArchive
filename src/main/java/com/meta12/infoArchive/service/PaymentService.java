@@ -3,8 +3,10 @@ package com.meta12.infoArchive.service;
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
 import com.meta12.infoArchive.entity.Payment;
 import com.meta12.infoArchive.entity.PaymentStatus;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,8 +16,9 @@ import java.time.LocalDateTime;
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
+    private final UserService userService;
 
-    public void confirmPayment(PaymentConfirmRequestDto dto) {
+    public void confirmPayment(PaymentConfirmRequestDto dto, Authentication authentication) {
 
         if (dto.getOrderId() == null || dto.getOrderId().trim().isEmpty()) {
             throw new IllegalArgumentException("주문번호가 없습니다.");
@@ -33,6 +36,8 @@ public class PaymentService {
             validateMockCard(dto);
         }
 
+        User user = userService.getLoginUser(authentication);
+
         System.out.println("===== MOCK 멤버십 결제 승인 =====");
         System.out.println("주문번호 = " + dto.getOrderId());
         System.out.println("결제금액 = " + dto.getAmount());
@@ -40,12 +45,14 @@ public class PaymentService {
         System.out.println("멤버십 타입 = " + dto.getMembershipType());
         System.out.println("카드번호 = " + maskCardNumber(dto.getCardNumber()));
         System.out.println("결제상태 = COMPLETED");
+        System.out.println("결제회원 = " + user.getEmail());
 
         Payment payment = new Payment();
         payment.setOrderNumber(dto.getOrderId());
         payment.setDiscountAmount(dto.getAmount());
         payment.setOrderDate(LocalDateTime.now());
         payment.setPaymentStatus(PaymentStatus.COMPLETED);
+        payment.setUser(user);
 
         paymentRepository.save(payment);
     }

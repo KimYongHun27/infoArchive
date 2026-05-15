@@ -24,8 +24,10 @@ public class PaymentController {
 
     // 결제 처리
     @PostMapping("/payment/confirm")
-    public String confirmPayment(PaymentConfirmRequestDto dto,
-                                 Authentication authentication) {
+    public String confirmPayment(
+            PaymentConfirmRequestDto dto,
+            Authentication authentication
+    ) {
 
         System.out.println("===== 결제 요청 들어옴 =====");
         System.out.println("orderId = " + dto.getOrderId());
@@ -33,17 +35,14 @@ public class PaymentController {
         System.out.println("paymentMethod = " + dto.getPaymentMethod());
         System.out.println("membershipType = " + dto.getMembershipType());
 
-        // 로그인 안 한 상태면 결제 불가
         if (authentication == null
                 || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getPrincipal())) {
             return "redirect:/login";
         }
 
-        // 결제 처리
-        paymentService.confirmPayment(dto);
+        paymentService.confirmPayment(dto, authentication);
 
-        // 멤버십 결제라면 구독권 활성화
         if ("MONTHLY".equals(dto.getMembershipType())) {
             userService.activateMembership(authentication);
         }
