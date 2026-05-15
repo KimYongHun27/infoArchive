@@ -30,12 +30,12 @@ public class CartController {
     }
 
     //제품추가
-//    @PostMapping("/cart/add")
-//    public String cartToAdd(
-//            CartDto cartDto
-//    )
-//       {
-//           cartService.insert(cartDto.getUserId(), cartDto.getCourseId());
-//           return "redirect:/cart/add";
-//       }
+    @PostMapping("/cart/add")
+    public String cartToAdd(
+            CartDto cartDto
+    )
+       {
+           cartService.insert(cartDto.getUserId(), cartDto.getCourseId());
+           return "redirect:/cart/add";
+       }
 }

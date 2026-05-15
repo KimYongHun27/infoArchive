@@ -52,15 +52,14 @@
 
     <!-- 버튼 -->
     <div class="button-group">
-
-        <button class="black-btn">
+        <!-- data-id와 이동할 경로를 속성으로 넣어줍니다 -->
+        <button type="button" id="black-btn" class="move-btn black-btn" data-id="classroom" data-url="mypage/dashboard">
             나의 강의실로 이동
         </button>
 
-        <button class="white-btn">
+        <button type="button" id="white-btn" class="move-btn white-btn" data-id="orders" data-url="mypage/orders">
             주문 내역 확인
         </button>
-
     </div>
 
 
@@ -189,6 +188,6 @@
     <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
     <script th:src="@{/js/subscribe.js}"></script>
-
+    <script th:src="@{/js/moveToCart.js}"></script>
 </body>
 </html>
