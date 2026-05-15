@@ -72,4 +72,29 @@ public class MemberInfoController {
             return "redirect:/mypage?passwordError=true";
         }
     }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(
+            Authentication authentication,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+        System.out.println("===== 회원 탈퇴 요청 들어옴 =====");
+
+        userService.withdrawMyAccount(authentication);
+
+        SecurityContextHolder.clearContext();
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/?deleteAccount=true";
+    }
 }

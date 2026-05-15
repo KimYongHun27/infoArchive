@@ -4,6 +4,9 @@ import com.meta12.infoArchive.dto.*;
 import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.UserRepository;
+import com.meta12.infoArchive.repository.ReviewRepository;
+import com.meta12.infoArchive.repository.InstructorApplyRepository;
+import com.meta12.infoArchive.repository.InstructorRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,13 +24,22 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final ReviewRepository reviewRepository;
+    private final InstructorApplyRepository instructorApplyRepository;
+    private final InstructorRepository instructorRepository;
 
     public UserService(
             UserRepository userRepository,
-            @Lazy BCryptPasswordEncoder passwordEncoder
+            @Lazy BCryptPasswordEncoder passwordEncoder,
+            ReviewRepository reviewRepository,
+            InstructorApplyRepository instructorApplyRepository,
+            InstructorRepository instructorRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.reviewRepository = reviewRepository;
+        this.instructorApplyRepository = instructorApplyRepository;
+        this.instructorRepository = instructorRepository;
     }
 
     @Override
@@ -322,5 +335,17 @@ public class UserService implements UserDetailsService {
         }
 
         return user.getMembershipExpiredAt().isAfter(LocalDateTime.now());
+    }
+
+    @Transactional
+    public void withdrawMyAccount(Authentication authentication) {
+
+        User user = getLoginUser(authentication);
+
+        reviewRepository.deleteByUser(user);
+        instructorApplyRepository.deleteByUser(user);
+        instructorRepository.deleteByUser(user);
+
+        userRepository.delete(user);
     }
 }

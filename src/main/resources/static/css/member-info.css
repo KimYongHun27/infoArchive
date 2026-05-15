@@ -454,3 +454,20 @@ body {
   color: #fff;
   background: #ff2448;
 }
+
+.withdraw-card {
+  position: relative;
+  z-index: 20;
+}
+
+.withdraw-card form {
+  position: relative;
+  z-index: 30;
+}
+
+.withdraw-card button {
+  position: relative;
+  z-index: 40;
+  cursor: pointer;
+  pointer-events: auto;
+}
