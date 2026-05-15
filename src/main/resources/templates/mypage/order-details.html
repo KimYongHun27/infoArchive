@@ -62,8 +62,7 @@
                         찜한 강의
                     </a>
 
-                    <a th:if="${session.loginRole == 'ROLE_USER'}"
-                       th:href="@{/orders}">
+                    <a th:href="@{/orders}" class="active">
                         <span>▥</span>
                         주문 내역
                     </a>
@@ -75,7 +74,8 @@
                     </a>
 
                     <!-- 공통: 회원 정보만 표시 -->
-                    <a th:href="@{/mypage}" class="active">
+                    <a th:if="${session.loginRole == 'ROLE_USER'}"
+                       th:href="@{/mypage}" >
                         <span>♙</span>
                         회원 정보
                     </a>
