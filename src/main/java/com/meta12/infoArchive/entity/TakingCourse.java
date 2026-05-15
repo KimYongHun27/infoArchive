@@ -28,6 +28,7 @@ public class TakingCourse {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")
     private Course course;
+    private Integer progressRate = 0; // 학습 진도율 (0 ~ 100%)
 
     //최근 들은 강의 정렬용
     @CreatedDate
