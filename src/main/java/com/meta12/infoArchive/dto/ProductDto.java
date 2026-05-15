@@ -1,14 +1,12 @@
 package com.meta12.infoArchive.dto;
 
-import com.meta12.infoArchive.entity.ProductType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 public class ProductDto {
-
-    private ProductType productType;
 
     private String productName;
 
@@ -16,8 +14,10 @@ public class ProductDto {
 
     private String instructorName;
 
-    private String thumbnailUrl;
+    // 썸네일 파일 업로드
+    private MultipartFile thumbnailFile;
 
+    // 영상은 URL로 받기
     private String videoUrl;
 
     private String description;

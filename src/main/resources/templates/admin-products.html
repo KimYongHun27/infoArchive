@@ -57,8 +57,8 @@
 
                 <td>
                     <div class="product-thumb-box">
-                        <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
-                             th:src="${product.thumbnailUrl}"
+                        <img th:if="${product.thumbnailUrl != null}"
+                             th:src="@{${product.thumbnailUrl}}"
                              alt="강의 썸네일">
 
                         <span th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}">
