@@ -35,12 +35,24 @@
 
                 <div class="input-box">
                     <span>♡</span>
-                    <input type="text" name="name" id="name" placeholder="이름을 입력해주세요.">
+                    <input type="text"
+                           name="name"
+                           id="name"
+                           placeholder="이름을 입력해주세요."
+                           th:value="${signupData != null ? signupData.name : ''}">
                 </div>
 
                 <div class="input-box">
                     <span>✉</span>
-                    <input type="email" name="email" id="email" placeholder="이메일 주소를 입력해주세요.">
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           placeholder="이메일 주소를 입력해주세요."
+                           th:value="${signupData != null ? signupData.email : ''}">
+                </div>
+
+                <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}">
+                    이미 가입된 이메일입니다.
                 </div>
 
                 <div class="input-box">
@@ -48,7 +60,8 @@
                     <input type="text"
                            name="phone"
                            id="phone"
-                           placeholder="휴대폰 번호를 입력해주세요. 예: 010-1234-5678">
+                           placeholder="휴대폰 번호를 입력해주세요. 예: 010-1234-5678"
+                           th:value="${signupData != null ? signupData.phone : ''}">
                 </div>
 
                 <div class="input-box">
