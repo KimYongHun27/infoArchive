@@ -2,6 +2,7 @@ package com.meta12.infoArchive.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -9,12 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-public class TakingCourse {
+@Table(name = "takingcourse",
+        uniqueConstraints = {@UniqueConstraint(name = "uk_user_lecture",
+                columnNames = {"user_id", "lecture_id"})})
 
+public class TakingCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;                 // 강의 고유 번호
-
+    private Long id;                  // 강의 고유 번호
     private String title;             // 강의 이름
     private String instructor;       // 강사 이름
     private String category;         // 강의 분야
@@ -22,20 +25,23 @@ public class TakingCourse {
     //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;                 // 연결된 회원 정보
+    private User user;
 
     //강의 fk
-    //lecture -> course로 테이블 변경 : 용훈
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "lecture_id")
     private Course course;
-
     private Integer progressRate = 0; // 학습 진도율 (0 ~ 100%)
 
-    private LocalDateTime createdAt;  // 강의 등록일
+    //최근 들은 강의 순서 정렬용
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+    public static TakingCourse createTakingCourse(User user, Course course) {
+        TakingCourse takingCourse = new TakingCourse();
+        takingCourse.user = user;
+        takingCourse.course = course;
+        return takingCourse;
     }
 }

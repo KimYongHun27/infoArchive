@@ -10,4 +10,8 @@ import org.springframework.stereotype.Service;
 public class TakingCourseService {
     private final TakingCourseRepository takingCourseRepository;
 
+    public void insert(TakingCourse takingCourse)
+    {
+        takingCourseRepository.save(takingCourse);
+    }
 }
