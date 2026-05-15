@@ -1,16 +1,20 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
-import com.meta12.infoArchive.entity.Purchase;
-import com.meta12.infoArchive.repository.PurchaseRepository;
+import com.meta12.infoArchive.entity.Payment;
+import com.meta12.infoArchive.entity.PaymentStatus;
+import com.meta12.infoArchive.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
 public class PaymentService {
 
-    private final PurchaseService purchaseService;
+    private final PaymentRepository paymentRepository;
+
     public void confirmPayment(PaymentConfirmRequestDto dto) {
 
         if (dto.getOrderId() == null || dto.getOrderId().trim().isEmpty()) {
@@ -25,7 +29,6 @@ public class PaymentService {
             throw new IllegalArgumentException("결제 수단이 선택되지 않았습니다.");
         }
 
-        // 카드 결제일 경우 입력값이 비어있는지만 확인
         if ("CARD".equals(dto.getPaymentMethod())) {
             validateMockCard(dto);
         }
@@ -36,11 +39,15 @@ public class PaymentService {
         System.out.println("결제수단 = " + dto.getPaymentMethod());
         System.out.println("멤버십 타입 = " + dto.getMembershipType());
         System.out.println("카드번호 = " + maskCardNumber(dto.getCardNumber()));
-        System.out.println("결제상태 = APPROVED");
+        System.out.println("결제상태 = COMPLETED");
 
-        Purchase purchase = new Purchase();
+        Payment payment = new Payment();
+        payment.setOrderNumber(dto.getOrderId());
+        payment.setDiscountPrice(dto.getAmount());
+        payment.setOrderDate(LocalDateTime.now());
+        payment.setPaymentStatus(PaymentStatus.COMPLETED);
 
-        purchaseService.save(purchase);
+        paymentRepository.save(payment);
     }
 
     private void validateMockCard(PaymentConfirmRequestDto dto) {
@@ -60,9 +67,6 @@ public class PaymentService {
         if (dto.getCardPassword() == null || dto.getCardPassword().trim().isEmpty()) {
             throw new IllegalArgumentException("카드 비밀번호 앞 2자리를 입력해주세요.");
         }
-
-        // 여기서는 실제 카드번호 검증 안 함
-        // 아무 카드번호나 입력해도 승인
     }
 
     private String maskCardNumber(String cardNumber) {

@@ -72,18 +72,23 @@
 
                 <td>
                     <span class="status-badge waiting"
-                          th:if="${application.status.name() == 'PENDING'}">
+                          th:if="${application.status != null and application.status.name() == 'PENDING'}">
                         검토중
                     </span>
 
                     <span class="status-badge approved"
-                          th:if="${application.status.name() == 'APPROVED'}">
+                          th:if="${application.status != null and application.status.name() == 'APPROVED'}">
                         승인완료
                     </span>
 
                     <span class="status-badge rejected"
-                          th:if="${application.status.name() == 'REJECTED'}">
+                          th:if="${application.status != null and application.status.name() == 'REJECTED'}">
                         반려
+                    </span>
+
+                    <span class="status-badge none"
+                          th:if="${application.status == null}">
+                        상태없음
                     </span>
                 </td>
 
@@ -94,19 +99,15 @@
                 <td>
                     <div class="action-box" th:if="${apply.status.name() == 'PENDING'}">
 
-                        <form th:action="@{/admin/instructor-applications/{id}/approve(id=${apply.id})}"
-                              method="post"
-                              onsubmit="return confirm('이 강사 신청을 승인하시겠습니까?');">
+                        <form th:if="${application.status != null and application.status.name() == 'PENDING'}"
+                              th:action="@{/admin/instructor-applications/{id}/approve(id=${application.id})}"
+                              method="post">
                             <button type="submit" class="approve-btn">승인</button>
                         </form>
 
-                        <form th:action="@{/admin/instructor-applications/{id}/reject(id=${apply.id})}"
-                              method="post"
-                              onsubmit="return confirm('이 강사 신청을 반려하시겠습니까?');">
-                            <input type="text"
-                                   name="rejectReason"
-                                   placeholder="반려 사유"
-                                   class="reject-input">
+                        <form th:if="${application.status != null and application.status.name() == 'PENDING'}"
+                              th:action="@{/admin/instructor-applications/{id}/reject(id=${application.id})}"
+                              method="post">
                             <button type="submit" class="reject-btn">반려</button>
                         </form>
 
