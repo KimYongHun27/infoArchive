@@ -43,7 +43,7 @@ public class PaymentService {
 
         Payment payment = new Payment();
         payment.setOrderNumber(dto.getOrderId());
-        payment.setDiscountPrice(dto.getAmount());
+        payment.setDiscountAmount(dto.getAmount());
         payment.setOrderDate(LocalDateTime.now());
         payment.setPaymentStatus(PaymentStatus.COMPLETED);
 
