@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -17,8 +18,21 @@ public class CommunityController {
     @GetMapping("/community")
       public String community()
     {
-        return "community";
+        return "community/community";
     }
+
+    @GetMapping("/community/edit")
+    public String edit()
+    {
+        return "community/edit";
+    }
+
+    @PostMapping("/community/editProc")
+    public String editProc()
+    {
+        return "community/edit";
+    }
+
 }
 //    private final CommunityService communityService;
 //    @GetMapping("/community")

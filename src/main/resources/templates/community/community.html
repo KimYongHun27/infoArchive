@@ -12,23 +12,31 @@
 
 <body>
 
-<div th:replace="~{fragments/header :: header}"></div>
 <!-- 상단 카테고리-->
+<div th:replace="~{fragments/header :: header}"></div>
+
 <h2>- infoarchive 커뮤니티 -</h2>
+
 <div class="topbar">
     <section class="community-category">
-        <a>전체</a>|
-        <a>드로잉</a>|
-        <a>공예</a>|
-        <a>금융 · 재테크</a>|
-        <a>디자인</a>|
-        <a>사진 · 영상</a>|
-        <a>운동</a>|
-        <a>음악</a>|
-        <a>영상/3D</a>|
+        <a>전체</a>| <a>드로잉</a>| <a>공예</a>| <a>금융 · 재테크</a>| <a>디자인</a>|
+        <a>사진 · 영상</a>| <a>운동</a>| <a>음악</a>| <a>영상/3D</a>|
     </section>
-    <a href="#" class="write-btn">댓글 추가</a>
+
+    <div class="topbar-right">
+        <div class="search">
+            <button type="button" class="search-community-btn">
+                <img th:src="@{/img/header/1093183.png}" alt="검색">
+            </button>
+            <input type="text" placeholder="검색어를 입력하세요">
+        </div>
+    </div>
 </div>
+
+<div class="side-action-group">
+    <a href="/community/edit" class="write-btn">글쓰기</a>
+</div>
+
 <!---->
 
 <!-- 내용 -->
