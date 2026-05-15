@@ -67,16 +67,10 @@ public class AdminPageController {
 
     @PostMapping("/admin/users/{userId}/delete")
     public String deleteUserFromPage(
-            @PathVariable Long userId,
-            Authentication authentication
+            @PathVariable Long userId
     ) {
-        try {
-            adminService.deleteUserByAdmin(userId, authentication);
-            return "redirect:/admin/users?deleteSuccess=true";
-
-        } catch (IllegalArgumentException e) {
-            return "redirect:/admin/users?deleteError=true";
-        }
+        adminService.deleteUserByAdmin(userId);
+        return "redirect:/admin/users";
     }
 
     // 강사 신청 관리 페이지

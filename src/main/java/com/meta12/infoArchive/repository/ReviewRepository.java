@@ -21,4 +21,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findAll(Specification<Review> spec,Pageable pageable);
 
     List<Review> findByUser(User user);
+
+    void deleteByUser(User user);
 }
