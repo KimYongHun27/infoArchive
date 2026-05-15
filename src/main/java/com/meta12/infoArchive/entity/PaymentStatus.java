@@ -1,12 +1,15 @@
 package com.meta12.infoArchive.entity;
 
 public enum PaymentStatus {
-    //주문대기
+    // 주문대기
     WAIT,
-    //주문완료
+
+    // 주문완료
     COMPLETED,
-    //주문 취소
+
+    // 주문취소
     CANCEL,
-    //주문 실패
+
+    // 주문실패
     FAILED
 }

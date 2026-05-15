@@ -42,10 +42,12 @@ public class InstructorApply {
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-
         if (this.status == null) {
             this.status = ApplyStatus.PENDING;
+        }
+
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
         }
     }
 }

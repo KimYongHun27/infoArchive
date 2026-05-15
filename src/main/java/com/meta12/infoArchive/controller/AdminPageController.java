@@ -13,6 +13,7 @@ import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.dto.PasswordChangeDto;
 import org.springframework.security.core.Authentication;
 import com.meta12.infoArchive.service.UserService;
+import com.meta12.infoArchive.entity.Payment;
 
 
 import java.util.List;
@@ -154,5 +155,16 @@ public class AdminPageController {
     ) {
         userService.changeMyPassword(authentication, passwordChangeDto);
         return "redirect:/admin?passwordSuccess=true";
+    }
+
+    @GetMapping("/admin/payments")
+    public String adminPaymentsPage(Model model) {
+
+        List<Payment> payments = adminService.getAllPayments();
+
+        model.addAttribute("payments", payments);
+        model.addAttribute("paymentCount", payments.size());
+
+        return "admin-payments";
     }
 }

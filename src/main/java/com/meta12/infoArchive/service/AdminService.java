@@ -14,6 +14,8 @@ import com.meta12.infoArchive.entity.ApplyStatus;
 import java.time.LocalDateTime;
 import org.springframework.transaction.annotation.Transactional;
 import com.meta12.infoArchive.repository.ReviewRepository;
+import com.meta12.infoArchive.entity.Payment;
+import com.meta12.infoArchive.repository.PaymentRepository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -29,6 +31,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
+    private final PaymentRepository paymentRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final InstructorRepository instructorRepository;
     private final InstructorApplyRepository instructorApplyRepository;
@@ -215,5 +218,10 @@ public class AdminService {
         }
 
         productRepository.save(product);
+    }
+
+    // 관리자 - 전체 결제 조회
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
     }
 }
