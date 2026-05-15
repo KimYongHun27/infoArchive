@@ -14,13 +14,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunityController {
 
-    private final CommunityService communityService;
     @GetMapping("/community")
-    public String community(
-            Model model
-    ){
-        List<Review> community = communityService.findAll();
-        model.addAttribute("community",community);
+      public String community()
+    {
         return "community";
     }
 }
+//    private final CommunityService communityService;
+//    @GetMapping("/community")
+//    public String community(
+//            Model model
+//    ){
+//        List<Review> community = communityService.findAll();
+//        model.addAttribute("community",community);
+//        return "community";
+//    }
+

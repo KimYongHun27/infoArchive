@@ -12,8 +12,8 @@ import java.util.List;
 public class CommunityService {
 
     private final ReviewRepository reviewRepository;
-
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
-    }
+//
+//    public List<Review> findAll() {
+//        return reviewRepository.findAll();
+//    }
 }
