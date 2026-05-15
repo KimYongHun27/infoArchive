@@ -71,18 +71,20 @@
                 </td>
 
                 <td>
-                    <span class="status-badge"
-                          th:classappend="${apply.status.name() == 'PENDING'} ? ' pending' :
-                                          (${apply.status.name() == 'APPROVED'} ? ' approved' : ' rejected')"
-                          th:text="${apply.status}">
-                        PENDING
+                    <span class="status-badge waiting"
+                          th:if="${application.status.name() == 'PENDING'}">
+                        검토중
                     </span>
 
-                    <p class="reject-reason"
-                       th:if="${apply.rejectReason != null and !#strings.isEmpty(apply.rejectReason)}"
-                       th:text="'사유: ' + ${apply.rejectReason}">
-                        사유
-                    </p>
+                    <span class="status-badge approved"
+                          th:if="${application.status.name() == 'APPROVED'}">
+                        승인완료
+                    </span>
+
+                    <span class="status-badge rejected"
+                          th:if="${application.status.name() == 'REJECTED'}">
+                        반려
+                    </span>
                 </td>
 
                 <td th:text="${apply.createdAt != null ? #temporals.format(apply.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">

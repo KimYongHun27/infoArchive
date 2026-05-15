@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8" />
     <title>회원 정보</title>
@@ -282,13 +283,17 @@
             </section>
 
             <!-- 회원 탈퇴 : 일반 회원만 표시 -->
-            <section class="withdraw-card" th:if="${session.loginRole == 'ROLE_USER'}">
+            <section class="withdraw-card">
                 <div>
                     <h2>회원 탈퇴</h2>
                     <p>회원 탈퇴 시 모든 정보가 삭제되며, 복구할 수 없습니다.</p>
                 </div>
 
-                <button type="button">회원 탈퇴하기</button>
+                <form th:action="@{/mypage/delete-account}" method="post">
+                    <button type="submit" class="withdraw-btn">
+                        회원 탈퇴하기
+                    </button>
+                </form>
             </section>
 
         </section>
