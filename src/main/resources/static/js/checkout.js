@@ -1,6 +1,12 @@
 let originalPrice = 239000; // 서버에서 받은 price라고 보면 됨
 let discount = 0;
 
+const moveToOrderHistoryButton = document.getElementById('payment-btn');
+
+moveToMyPageButton.addEventListener('click', () => {
+    window.location.href = 'payment-complete';
+});
+
 /* =========================
    쿠폰 적용
 ========================= */
