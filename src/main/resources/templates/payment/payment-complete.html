@@ -53,11 +53,11 @@
     <!-- 버튼 -->
     <div class="button-group">
 
-        <button class="black-btn">
+        <button type="button" id="black-btn" class="black-btn">
             나의 강의실로 이동
         </button>
 
-        <button class="white-btn">
+        <button type="button" id="white-btn" class="white-btn">
             주문 내역 확인
         </button>
 
@@ -189,6 +189,6 @@
     <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
     <script th:src="@{/js/subscribe.js}"></script>
-
+    <script th:src="@{/js/moveToCart.js}"></script>
 </body>
 </html>
