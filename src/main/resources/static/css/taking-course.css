@@ -29,6 +29,7 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 120px;
+  padding: 30px 0px;
 }
 
 .sidebar-card {
