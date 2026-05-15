@@ -1,7 +1,9 @@
 package com.meta12.infoArchive.service;
 
+import com.meta12.infoArchive.dto.ProductDto;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.ProductStatus;
+import com.meta12.infoArchive.entity.ProductType;
 import com.meta12.infoArchive.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,14 +49,30 @@ public class ProductService {
                 pageable
         );
     }
-//    public Page<Product> searchProducts(String kw, Pageable pageable) {
-//
-//        if (kw == null || kw.trim().isEmpty()) {
-//            return productRepository.findAll(pageable);
-//        }
-//
-//        return productRepository.findByProductNameContaining(kw.trim(), pageable);
-//    }
+    // 강사 - 강의 등록
+    public void createProduct(ProductDto dto) {
+
+        Product product = new Product();
+
+        product.setProductType(
+                dto.getProductType() != null ? dto.getProductType() : ProductType.COURSE
+        );
+
+        product.setProductName(dto.getProductName());
+        product.setCategory(dto.getCategory());
+        product.setInstructorName(dto.getInstructorName());
+        product.setThumbnailUrl(dto.getThumbnailUrl());
+        product.setVideoUrl(dto.getVideoUrl());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+        product.setDiscountRate(dto.getDiscountRate());
+
+        // 강사가 등록한 강의는 무조건 검토중
+        product.setStatus(ProductStatus.WAITING);
+        product.setCreatedAt(LocalDateTime.now());
+
+        productRepository.save(product);
+    }
 
     // 승인
     public void approveProduct(Long productId) {
