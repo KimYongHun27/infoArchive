@@ -7,12 +7,35 @@
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/community.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/community.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
 
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
+<!-- 상단 카테고리-->
+<h2>- infoarchive 커뮤니티 -</h2>
+<div class="topbar">
+    <section class="community-category">
+        <a>전체</a>|
+        <a>드로잉</a>|
+        <a>공예</a>|
+        <a>금융 · 재테크</a>|
+        <a>디자인</a>|
+        <a>사진 · 영상</a>|
+        <a>운동</a>|
+        <a>음악</a>|
+        <a>영상/3D</a>|
+    </section>
+    <a href="#" class="write-btn">댓글 추가</a>
+</div>
+<!---->
+
+<!-- 내용 -->
+
+
+<!---->
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 

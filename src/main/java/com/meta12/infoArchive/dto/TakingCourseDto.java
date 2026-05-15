@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class TakingCourseDTO {
+public class TakingCourseDto {
     private Long id;
 
     //유저 번호

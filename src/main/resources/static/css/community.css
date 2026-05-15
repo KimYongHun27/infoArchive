@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+/* 제목 부분 */
+h2 {
+  padding: 20px 0 20px 300px; /* 왼쪽 여백은 유지하되 위아래 간격 추가 */
+  margin: 0;
+}
+
+/* 카테고리와 버튼을 감싸는 전체 바 */
+.topbar {
+    display: flex;
+    justify-content: space-between; /* 카테고리는 왼쪽, 버튼은 오른쪽 끝 */
+    align-items: center;           /* 세로 중앙 정렬 */
+    padding: 15px 300px 15px 300px; /* 왼쪽은 제목과 맞추고, 오른쪽은 적당한 여백 */
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
+/* 카테고리 내부 링크 스타일 */
+.community-category {
+    display: flex;
+    align-items: center;
+}
+
+.community-category a {
+    text-decoration: none;
+    color: #333;
+    padding: 0 15px; /* | 선과 글자 사이의 간격 (좌우 15px) */
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.community-category a:hover {
+    color: #ff385c;
+    font-weight: bold;
+}
+
+/* 댓글 추가 버튼 스타일 */
+.write-btn {
+    text-decoration: none;
+    color: #333;           /* 이미지처럼 텍스트 형태로 */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: opacity 0.2s;
+}
+
+.write-btn:hover {
+    color: #ff385c;
+    font-weight: bold;
+}
