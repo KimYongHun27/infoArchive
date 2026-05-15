@@ -56,11 +56,6 @@ public class HomeController {
         return "faq";
     }
 
-    @GetMapping("/community")
-    public String community(){
-        return "community";
-    }
-
     @GetMapping("/category/{categoryName}")
     public String categoryPage(
             @PathVariable String categoryName,
