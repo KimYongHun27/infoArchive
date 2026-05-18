@@ -15,22 +15,22 @@
 
 
 <div class="form-container">
-    <h2>- infoarchive 커뮤니티 -</h2>
-    <form name="community" method="post" th:action="@{/community/edit}">
+    <h2>- 글쓰기-</h2>
+    <form name="community" method="post" th:action="@{/community/editProc}">
 
         <select name="category" class="category-select" required>
             <option value="" disabled selected>카테고리 선택</option>
-            <option value="drawing">드로잉</option>
-            <option value="crafts">공예</option>
-            <option value="finance">금융 · 재테크</option>
-            <option value="design">디자인</option>
-            <option value="picture">사진 · 영상</option>
-            <option value="exercise">운동</option>
-            <option value="music">음악</option>
-            <option value="video">영상/3D</option>
-            <option value="cooking">베이킹 · 요리</option>
-            <option value="language">제2 외국어</option>
-            <option value="programming">프로그래밍</option>
+            <option value="드로잉">드로잉</option>
+            <option value="공예">공예</option>
+            <option value="금융 · 재테크">금융 · 재테크</option>
+            <option value="디자인">디자인</option>
+            <option value="사진 · 영상">사진 · 영상</option>
+            <option value="운동">운동</option>
+            <option value="음악">음악</option>
+            <option value="영상/3D">영상/3D</option>
+            <option value="베이킹 · 요리">베이킹 · 요리</option>
+            <option value="제2 외국어">제2 외국어</option>
+            <option value="프로그래밍">프로그래밍</option>
         </select>
 
         <input type="text" name="title" class="input-title" placeholder="제목을 입력하세요" required>

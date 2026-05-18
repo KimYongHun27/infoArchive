@@ -36,6 +36,10 @@ public class PaymentService {
             validateMockCard(dto);
         }
 
+        if (!Boolean.TRUE.equals(dto.getAgreeTerms())) {
+            throw new IllegalArgumentException("이용약관에 동의해야 결제할 수 있습니다.");
+        }
+
         User user = userService.getLoginUser(authentication);
 
         System.out.println("===== MOCK 멤버십 결제 승인 =====");

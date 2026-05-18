@@ -17,13 +17,18 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mypage")
 public class MemberInfoController {
 
     private final UserService userService;
 
-    // 마이페이지 화면: /mypage
-    @GetMapping
+    // 마이페이지 기본 진입: /mypage
+    @GetMapping("/mypage")
+    public String mypageHome() {
+        return "redirect:/dashboard";
+    }
+
+    // 회원 정보 화면: /member-info
+    @GetMapping("/member-info")
     public String memberInfoPage(Authentication authentication, Model model) {
         User user = userService.getLoginUser(authentication);
         model.addAttribute("user", user);
@@ -31,17 +36,17 @@ public class MemberInfoController {
     }
 
     // 회원 정보 수정
-    @PostMapping("/update")
+    @PostMapping("/member-info/update")
     public String updateMemberInfo(
             Authentication authentication,
             MemberInfoUpdateDto requestDto
     ) {
         userService.updateMyInfo(authentication, requestDto);
-        return "redirect:/mypage?update=true";
+        return "redirect:/member-info?update=true";
     }
 
     // 비밀번호 변경
-    @PostMapping("/password")
+    @PostMapping("/member-info/password")
     public String changePassword(
             Authentication authentication,
             PasswordChangeDto requestDto,
@@ -51,16 +56,13 @@ public class MemberInfoController {
         try {
             userService.changeMyPassword(authentication, requestDto);
 
-            // Spring Security 인증 정보 제거
             SecurityContextHolder.clearContext();
 
-            // 세션 제거
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();
             }
 
-            // JSESSIONID 쿠키 제거
             Cookie cookie = new Cookie("JSESSIONID", null);
             cookie.setPath("/");
             cookie.setMaxAge(0);
@@ -69,11 +71,12 @@ public class MemberInfoController {
             return "redirect:/login?passwordChanged=true";
 
         } catch (IllegalArgumentException e) {
-            return "redirect:/mypage?passwordError=true";
+            return "redirect:/member-info?passwordError=true";
         }
     }
 
-    @PostMapping("/delete-account")
+    // 회원 탈퇴
+    @PostMapping("/member-info/delete-account")
     public String deleteAccount(
             Authentication authentication,
             HttpServletRequest request,
