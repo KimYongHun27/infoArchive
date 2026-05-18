@@ -69,13 +69,13 @@
                     </a>
 
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
-                       th:href="@{/coupon}">
+                       th:href="@{/coupon}" class="active">
                         <span>▨</span>
                         쿠폰함
                     </a>
 
                     <!-- 공통: 회원 정보만 표시 -->
-                    <a th:href="@{/mypage}" class="active">
+                    <a th:href="@{/mypage}" >
                         <span>♙</span>
                         회원 정보
                     </a>

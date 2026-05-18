@@ -26,12 +26,14 @@ public class CommunityController {
       public String community(
               Model model,
               @RequestParam(value="page", defaultValue="0") int page,
-              @RequestParam(value="category", defaultValue="all") String category
+              @RequestParam(value="category", defaultValue="all") String category,
+              @RequestParam(value="kw", defaultValue="") String kw
     )
     {
-        Page<Community> paging = communityService.list(page,category);
+        Page<Community> paging = communityService.list(page,category,kw);
         model.addAttribute("paging",paging);
         model.addAttribute("category", category);
+        model.addAttribute("kw", kw);
         return "community/community";
     }
 
