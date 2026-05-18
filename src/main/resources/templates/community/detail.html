@@ -24,7 +24,15 @@
     </div>
 
     <div class="detail-footer">
-        <a th:href="@{/community}" class="list-btn">목록으로</a>
+        <div class="left-actions">
+            <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
+        </div>
+
+        <div class="right-actions">
+            <a th:href="@{|/community/modify/${community.id}|}" class="action-link modify-btn">수정하기</a>
+            <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${community.id}|}"
+               class="delete action-link delete-btn">삭제하기</a>
+        </div>
     </div>
 </div>
 
