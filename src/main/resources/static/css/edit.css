@@ -1,41 +1,75 @@
+/* 1. 레이아웃: 폼 전체 컨테이너 */
 .form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* 요소들 사이의 간격 */
-  max-width: 600px;
-  margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 간격을 살짝 넓혀 더 쾌적하게 조정 */
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
 }
 
-/* 카테고리, 제목, 내용 공통 스타일 */
-.category-select, .input-title, .input-content {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  outline: none;
-}
-
-.category-select:focus, .input-title:focus {
-  border-color: #000; /* 포커스 시 강조 */
-}
-
+/* 2. 입력 요소: 카테고리, 제목, 본문 공통 스타일 */
+.category-select,
+.input-title,
 .input-content {
-  height: 150px;
-  resize: vertical; /* 사용자가 높이 조절 가능 */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
+/* 포커스 효과 (검정색 포인트) */
+.category-select:focus,
+.input-title:focus,
+.input-content:focus {
+    border-color: #000;
+}
+
+/* 본문 영역 높이 조절 */
+.input-content {
+    height: 200px;
+    resize: vertical;
+}
+
+/* 3. 버튼 영역: 하단 버튼 배치 */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* 버튼 공통 기본 스타일 */
+.submit-btn,
+.back-btn {
+    flex: 1; /* 두 버튼의 크기를 동일하게 */
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 전송 버튼 (메인 - Black) */
 .submit-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
+    background-color: #000;
+    color: #fff;
 }
 
 .submit-btn:hover {
-  background-color: #333;
+    background-color: #333;
+}
+
+/* 이전 버튼 (서브 - Gray) */
+.back-btn {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.back-btn:hover {
+    background-color: #ccc;
 }
