@@ -3,51 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>community - InfoArchive</title>
-
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/community.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
 </head>
-
 <body>
-
-<!-- 상단 카테고리-->
 <div th:replace="~{fragments/header :: header}"></div>
 
-<h2>- infoarchive 커뮤니티 -</h2>
+<div class="community-container">
+    <h2>- infoarchive 커뮤니티 -</h2>
 
-<div class="topbar">
-    <section class="community-category">
-        <a>전체</a>| <a>드로잉</a>| <a>공예</a>| <a>금융 · 재테크</a>| <a>디자인</a>|
-        <a>사진 · 영상</a>| <a>운동</a>| <a>음악</a>| <a>영상/3D</a>|
-    </section>
+    <div class="topbar">
+        <section class="community-category">
+            <a>전체</a>| <a>드로잉</a>| <a>공예</a>| <a>금융 · 재테크</a>| <a>디자인</a>|
+            <a>사진 · 영상</a>| <a>운동</a>| <a>음악</a>| <a>영상/3D</a>|
+        </section>
 
-    <div class="topbar-right">
-        <div class="search">
-            <button type="button" class="search-community-btn">
-                <img th:src="@{/img/header/1093183.png}" alt="검색">
-            </button>
-            <input type="text" placeholder="검색어를 입력하세요">
+        <div class="topbar-right">
+            <div class="search">
+                <button type="button" class="search-community-btn">
+                    <img th:src="@{/img/header/1093183.png}" alt="검색">
+                </button>
+                <input type="text" placeholder="검색어를 입력하세요">
+            </div>
+        </div>
+    </div>
+
+    <table class="community-table">
+        <thead>
+        <tr>
+            <th class="col-no">NO</th>
+            <th class="col-cate">카테고리</th>
+            <th class="col-title">제목</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="community, loop : ${paging}">
+            <td th:text="${paging.totalElements - (paging.number * paging.size) - loop.index}"></td>
+            <td><span class="category-badge" th:text="${community.category}">카테고리</span></td>
+            <td class="title-cell">
+                <a th:href="@{|/community/detail/${community.id}|}" th:text="${community.title}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="bottom-group">
+        <div class="pagination-container" th:if="${!paging.isEmpty()}">
+            <ul>
+                <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                    th:if="${page >= paging.number-2 and page <= paging.number+2}"
+                    th:classappend="${page == paging.number} ? 'active'">
+                    <a th:text="${page + 1}" th:href="@{|?page=${page}|}"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="side-action-group">
+            <a th:href="@{/community/edit}" class="write-btn">글쓰기</a>
         </div>
     </div>
 </div>
 
-<div class="side-action-group">
-    <a href="/community/edit" class="write-btn">글쓰기</a>
-</div>
 
-<!---->
-
-<!-- 내용 -->
-
-
-<!---->
 <div th:replace="~{fragments/footer :: footer}"></div>
-<div th:replace="~{fragments/subscribe :: subscribe}"></div>
-
-<script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/subscribe.js}"></script>
-<script th:src="@{/js/community.js}"></script>
 </body>
 </html>
