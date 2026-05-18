@@ -43,9 +43,11 @@
         </button>
       </div>
 
-      <div th:each="cartList : ${cartList}" class="cart-card">
-        <h3 th:text="${cartList.lecture.name}">제품명</h3>
+      <div th:each="cartItem : ${cartList}" class="cart-card">
+        <h3 th:text="${cartItem.lecture.name}">제품명</h3>
       </div>
+
+    </div>
 
     <aside class="cart-summary">
 
@@ -66,10 +68,12 @@
         <strong>168,000원</strong>
       </div>
 
-      <button type="button" class="premium-btn" id="openPaymentModal">
-        결제하기
-        <span>〉</span>
-      </button>
+      <form th:action="@{/payment/checkout}" method="get">
+        <input type="hidden" name="amount" value="168000">
+        <button type="submit" class="pay-btn">
+          결제하기
+        </button>
+      </form>
 
       <a th:href="@{/wishlist}" class="wishlist-link">
         찜한 강의 보러가기
@@ -77,95 +81,12 @@
 
     </aside>
 
-      <form th:action="@{/payment/confirm}" method="post">
-
-        <input type="hidden" name="orderId" value="MEMBERSHIP-9900">
-        <input type="hidden" name="amount" value="9900">
-        <input type="hidden" name="membershipType" value="MONTHLY">
-        <input type="hidden" name="paymentMethod" id="paymentMethod" value="CARD">
-
-        <div class="payment-method">
-          <h3>결제 수단 선택</h3>
-
-          <div class="method-grid">
-            <button type="button" class="method active" onclick="selectPaymentMethod('CARD', this)">
-              <strong>▭</strong>
-              <span>신용/체크카드</span>
-            </button>
-
-            <button type="button" class="method" onclick="selectPaymentMethod('KAKAO_PAY', this)">
-              <strong>kakao pay</strong>
-              <span>카카오페이</span>
-            </button>
-
-            <button type="button" class="method" onclick="selectPaymentMethod('NAVER_PAY', this)">
-              <strong>N pay</strong>
-              <span>네이버페이</span>
-            </button>
-
-            <button type="button" class="method" onclick="selectPaymentMethod('TOSS_PAY', this)">
-              <strong>toss</strong>
-              <span>토스페이</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 카드 정보 입력 -->
-        <div class="mock-card-box" id="mockCardBox">
-          <h3>카드 정보 입력</h3>
-
-          <div class="card-input-group">
-            <label>카드번호</label>
-            <input type="text"
-                   name="cardNumber"
-                   placeholder="카드번호 19자리를 입력하세요."
-                   maxlength="19">
-          </div>
-
-          <div class="card-row">
-            <div class="card-input-group">
-              <label>유효기간</label>
-              <input type="text"
-                     name="cardExpire"
-                     placeholder="유효기간을 입력하세요."
-                     maxlength="5">
-            </div>
-
-            <div class="card-input-group">
-              <label>CVC</label>
-              <input type="password"
-                     name="cardCvc"
-                     placeholder="CVC를 입력하세요."
-                     maxlength="3">
-            </div>
-          </div>
-
-          <div class="card-input-group">
-            <label>카드 비밀번호 앞 2자리</label>
-            <input type="password"
-                   name="cardPassword"
-                   placeholder="카드비밀번호 앞 2자리 입력하세요."
-                   maxlength="2">
-          </div>
-
-
-        </div>
-
-        <button type="submit" class="pay-btn">9,900원 결제하기</button>
-
-        <label class="agree-check">
-          <input type="checkbox" name="agree" required checked>
-          <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
-        </label>
-
-      </form>
-
   </section>
 
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
 </body>
-<script th:src="@{/js/membership.js}"></script>
 </html>

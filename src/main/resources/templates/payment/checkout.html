@@ -71,115 +71,99 @@
 
             <div class="price-row">
                 <span>상품 금액</span>
-                <span>239,000원</span>
+                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">239,000원</span>
             </div>
 
             <div class="price-row total">
                 <span>총 결제 금액</span>
-                <span>239,000원</span>
+                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">239,000원</span>
             </div>
         </div>
+        <!-- 4, 5, 6. 결제 처리 form -->
+        <form id="paymentForm" th:action="@{/payment/confirm}" method="post">
 
-        <!-- 4. 결제 수단 -->
-        <div class="box">
-            <h2>결제 수단</h2>
-
-            <label class="pay">
-                <input type="radio" name="pay" checked>
-                신용카드
-            </label>
-
-            <label class="pay">
-                <input type="radio" name="pay">
-                무통장입금
-            </label>
-        </div>
-
-        <!-- 5. 약관 -->
-        <div class="box">
-            <label class="agree">
-                <input id="checked" type="checkbox">
-                이용약관 동의 (필수)
-            </label>
-        </div>
-
-        <!-- 6. 결제 버튼 -->
-        <button type="button" id="openModalBtn" class="pay-btn">결제하기</button>
-
-    </section>
-
-    <div id="paymentModal" class="modal-overlay">
-        <button type="button" id="closeModalBtn">X</button>
-
-        <form th:action="@{/payment/confirm}" method="post">
-
-            <input type="hidden" name="orderId" value="MEMBERSHIP-9900">
-            <input type="hidden" name="amount" value="9900">
+            <input type="hidden" name="orderId" th:value="${orderId}">
+            <input type="hidden" name="amount" th:value="${amount}">
             <input type="hidden" name="membershipType" value="MONTHLY">
-            <input type="hidden" name="paymentMethod" id="paymentMethod" value="CARD">
 
-            <div class="payment-method">
+            <!-- 결제 수단 -->
+            <div class="box">
+                <h2>결제 수단</h2>
 
-                <div class="method-grid">
-                    <button type="button" class="method active" onclick="selectPaymentMethod('CARD', this)">
-                        <strong>▭</strong>
-                        <span>신용/체크카드</span>
+                <label class="pay">
+                    <input type="radio" name="paymentMethod" value="CARD" checked>
+                    신용카드
+                </label>
+
+                <label class="pay">
+                    <input type="radio" name="paymentMethod" value="BANK">
+                    무통장입금
+                </label>
+            </div>
+
+            <!-- 약관 -->
+            <div class="box">
+                <label class="agree">
+                    <input type="checkbox" name="agreeTerms" value="true" required>
+                    이용약관 동의 (필수)
+                </label>
+            </div>
+
+            <!-- 결제 버튼 -->
+            <button type="button" id="payOpenBtn" class="checkout-pay-btn">
+                결제하기
+            </button>
+
+            <!-- 카드 정보 모달 -->
+            <div class="card-modal" id="cardModal">
+                <div class="card-modal-box">
+
+                    <button type="button" class="card-modal-close" id="cardModalClose">
+                        ×
                     </button>
-                </div>
-            </div>
 
-            <!-- 카드 정보 입력 -->
-            <div class="mock-card-box" id="mockCardBox">
-                <h3>카드 정보 입력</h3>
+                    <h2>카드 정보 입력</h2>
+                    <p>결제를 진행하기 위해 카드 정보를 입력해주세요.</p>
 
-                <div class="card-input-group">
-                    <label>카드번호</label>
-                    <input type="text"
-                           name="cardNumber"
-                           placeholder="카드번호 19자리를 입력하세요."
-                           maxlength="19">
-                </div>
-
-                <div class="card-row">
                     <div class="card-input-group">
-                        <label>유효기간</label>
+                        <label>카드번호</label>
                         <input type="text"
-                               name="cardExpire"
-                               placeholder="유효기간을 입력하세요."
-                               maxlength="5">
+                               name="cardNumber"
+                               placeholder="0000-0000-0000-0000">
+                    </div>
+
+                    <div class="card-input-row">
+                        <div class="card-input-group">
+                            <label>유효기간</label>
+                            <input type="text"
+                                   name="cardExpire"
+                                   placeholder="MM/YY">
+                        </div>
+
+                        <div class="card-input-group">
+                            <label>CVC</label>
+                            <input type="text"
+                                   name="cardCvc"
+                                   placeholder="CVC">
+                        </div>
                     </div>
 
                     <div class="card-input-group">
-                        <label>CVC</label>
+                        <label>카드 비밀번호 앞 2자리</label>
                         <input type="password"
-                               name="cardCvc"
-                               placeholder="CVC를 입력하세요."
-                               maxlength="3">
+                               name="cardPassword"
+                               placeholder="비밀번호 앞 2자리">
                     </div>
+
+                    <button type="submit" class="card-final-btn">
+                        최종 결제하기
+                    </button>
+
                 </div>
-
-                <div class="card-input-group">
-                    <label>카드 비밀번호 앞 2자리</label>
-                    <input type="password"
-                           name="cardPassword"
-                           placeholder="카드비밀번호 앞 2자리 입력하세요."
-                           maxlength="2">
-                </div>
-
-
             </div>
-
-            <button type="submit" class="pay-btn">결제하기</button>
-
-            <label class="agree-check">
-                <input type="checkbox" name="agree" required checked>
-                <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
-            </label>
 
         </form>
-
-
-    </div>
+    </section>
 
 </main>
 

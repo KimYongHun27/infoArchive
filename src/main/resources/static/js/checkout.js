@@ -1,117 +1,53 @@
-let originalPrice = 239000; // 서버에서 받은 price라고 보면 됨
-let discount = 0;
+document.addEventListener("DOMContentLoaded", function () {
+    const payOpenBtn = document.getElementById("payOpenBtn");
+    const cardModal = document.getElementById("cardModal");
+    const cardModalClose = document.getElementById("cardModalClose");
+    const paymentForm = document.getElementById("paymentForm");
 
-//modal 페이지 active 버튼
-const openModalBtn = document.getElementById('openModalBtn');
-//modal 페이지 remove 버튼
-const closeModalBtn = document.getElementById('closeModalBtn');
-//modal 페이지
-const paymentModal = document.getElementById('paymentModal');
-//이용약관 체크 확인
-const checked = document.getElementById('checked');
-
-openModalBtn.addEventListener("click", function (){
-    paymentModal.classList.add("active");
-    paymentModal.style.display = 'block';
-});
-
-closeModalBtn.addEventListener("click", function(){
-paymentModal.classList.remove("active");
-paymentModal.style.display = 'none';
-})
-
-function confirmChecked() {
-    if (!checked.checked) {
-         alert("이용 약관에 동의해주세요.");
-         return false;
-    }
-}
-
-/* =========================
-   쿠폰 적용
-========================= */
-function applyCoupon() {
-    const couponInput = document.getElementById("couponInput").value.trim();
-    const result = document.getElementById("couponResult");
-
-    // 쿠폰 예시 로직
-    if (couponInput === "DISCOUNT10") {
-        discount = 0.1; // 10%
-        result.innerText = "10% 할인 적용 완료!";
-    }
-    else if (couponInput === "DISCOUNT5000") {
-        discount = 5000; // 5000원
-        result.innerText = "5,000원 할인 적용 완료!";
-    }
-    else {
-        discount = 0;
-        result.innerText = "유효하지 않은 쿠폰입니다.";
-    }
-
-    updateTotalPrice();
-}
-
-/* =========================
-   총 결제 금액 계산
-========================= */
-function updateTotalPrice() {
-    let finalPrice;
-
-    if (discount < 1) {
-        finalPrice = originalPrice - (originalPrice * discount);
-    } else {
-        finalPrice = originalPrice - discount;
-    }
-
-    if (finalPrice < 0) finalPrice = 0;
-
-    document.getElementById("totalPrice").innerText =
-        Math.floor(finalPrice).toLocaleString() + "원";
-}
-
-/* =========================
-   결제 요청 (서버 전송)
-========================= */
-function pay() {
-
-    const agree = document.getElementById("agreeCheck").checked;
-
-    if (!agree) {
-        alert("이용약관에 동의해주세요.");
+    if (!payOpenBtn || !cardModal || !paymentForm) {
+        console.log("결제 JS 연결 실패");
+        console.log("payOpenBtn =", payOpenBtn);
+        console.log("cardModal =", cardModal);
+        console.log("paymentForm =", paymentForm);
         return;
     }
 
-    const payMethod = document.querySelector('input[name="pay"]:checked').value;
+    // 결제하기 버튼 클릭
+    payOpenBtn.addEventListener("click", function () {
+        const selectedPayment = document.querySelector("input[name='paymentMethod']:checked");
+        const agreeTerms = document.querySelector("input[name='agreeTerms']");
 
-    const totalPriceText = document.getElementById("totalPrice").innerText;
-    const totalPrice = Number(totalPriceText.replace(/[^0-9]/g, ""));
-
-    const productName = document.querySelector(".name").innerText;
-
-    const requestData = {
-        productName: productName,
-        payMethod: payMethod,
-        price: totalPrice
-    };
-
-    fetch("/payment/checkout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestData)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("결제 완료!");
-            window.location.href = "/payment/success";
-        } else {
-            alert("결제 실패: " + data.message);
+        if (!agreeTerms || !agreeTerms.checked) {
+            alert("이용약관에 동의해주세요.");
+            return;
         }
-    })
-    .catch(err => {
-        console.error(err);
-        alert("서버 오류 발생");
+
+        if (!selectedPayment) {
+            alert("결제수단을 선택해주세요.");
+            return;
+        }
+
+        // 신용카드면 카드정보 모달 열기
+        if (selectedPayment.value === "CARD") {
+            cardModal.classList.add("open");
+            return;
+        }
+
+        // 무통장입금이면 바로 결제 처리
+        paymentForm.submit();
     });
-}
+
+    // 모달 닫기 버튼
+    if (cardModalClose) {
+        cardModalClose.addEventListener("click", function () {
+            cardModal.classList.remove("open");
+        });
+    }
+
+    // 모달 바깥 클릭 시 닫기
+    cardModal.addEventListener("click", function (event) {
+        if (event.target === cardModal) {
+            cardModal.classList.remove("open");
+        }
+    });
+});
