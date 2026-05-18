@@ -15,10 +15,28 @@
     <h2>- infoarchive 커뮤니티 -</h2>
 
     <div class="topbar">
-        <section class="community-category">
-            <a>전체</a>| <a>드로잉</a>| <a>공예</a>| <a>금융 · 재테크</a>| <a>디자인</a>|
-            <a>사진 · 영상</a>| <a>운동</a>| <a>음악</a>| <a>영상/3D</a>|
-        </section>
+        <aside class="faq-category">
+            <button type="button" class="category-btn active" data-category="all">전체</button>
+            <button type="button" class="category-btn" data-category="드로잉">드로잉</button>
+            <button type="button" class="category-btn" data-category="공예">공예</button>
+            <button type="button" class="category-btn" data-category="금융 · 재테크">금융 · 재테크</button>
+            <button type="button" class="category-btn" data-category="디자인">디자인</button>
+            <button type="button" class="category-btn" data-category="사진 · 영상">사진 · 영상</button>
+            <button type="button" class="category-btn" data-category="운동">운동</button>
+            <button type="button" class="category-btn" data-category="음악">음악</button>
+            <button type="button" class="category-btn" data-category="영상/3D">영상/3D</button>
+        </aside>
+<!--        <section class="community-category">-->
+<!--            <a>전체</a>|-->
+<!--            <a>드로잉</a>|-->
+<!--            <a>공예</a>|-->
+<!--            <a>금융 · 재테크</a>|-->
+<!--            <a>디자인</a>|-->
+<!--            <a>사진 · 영상</a>|-->
+<!--            <a>운동</a>|-->
+<!--            <a>음악</a>|-->
+<!--            <a>영상/3D</a>|-->
+<!--        </section>-->
 
         <div class="topbar-right">
             <div class="search">
@@ -40,7 +58,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="community, loop : ${paging}">
+        <tr th:each="community, loop : ${paging}" th:data-category="${community.category}">
             <td th:text="${(paging.number * paging.size) + loop.count}"></td>
             <td><span class="category-badge" th:text="${community.category}">카테고리</span></td>
             <td class="title-cell">
@@ -70,5 +88,8 @@
 
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
+<script th:src="@{/js/community.js}"></script>
 </body>
 </html>

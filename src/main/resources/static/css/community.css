@@ -17,38 +17,45 @@ h2 {
     font-size: 24px;
 }
 
-/* --- [2] 상단바 (카테고리 & 검색창) --- */
+/* --- [2] 상단바 (카테고리 버튼 & 검색창) --- */
 .topbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 카테고리는 왼쪽, 검색창은 오른쪽 */
     align-items: center;
     padding: 15px 0;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
+}
+
+/* 카테고리 버튼 그룹 */
+.faq-category {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.category-btn {
+    padding: 6px 15px;
+    border: 1px solid #eee;
+    background-color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #777;
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
-.community-category {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    color: #ddd;
-}
-
-.community-category a {
-    text-decoration: none;
-    color: #333;
-    padding: 0 8px;
-    transition: 0.2s;
-}
-
-.community-category a:hover {
+.category-btn.active {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
     font-weight: bold;
-    color: #000;
 }
 
+/* 검색창 영역 수정 (아이콘 포함) */
 .topbar-right .search {
     display: flex;
     align-items: center;
@@ -58,25 +65,28 @@ h2 {
     background-color: #f9f9f9;
 }
 
-.search input {
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 13px;
-    padding-left: 10px;
-}
-
 .search-community-btn {
     border: none;
     background: none;
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 0;
+    margin-right: 5px; /* 돋보기와 입력창 사이 간격 */
 }
 
 .search-community-btn img {
     width: 16px;
     height: 16px;
+    display: block; /* 이미지 증발 방지 */
+}
+
+.search input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 13px;
+    width: 180px;
 }
 
 /* --- [3] 게시판 테이블 --- */
@@ -95,60 +105,48 @@ h2 {
     color: #333;
 }
 
-/* 컬럼 너비 및 정렬 조정 */
-.col-no { width: 80px; text-align: center; }
-.col-cate { width: 130px; text-align: center; }
-.col-title { width: auto; text-align: center; }
-/*   여기 col- 수정부분*/
-.col-id { width: 100px; text-align: right !important; padding-right: 30px !important; } /* 오른쪽으로 밀기 */
+.col-no { width: 80px; }
+.col-cate { width: 130px; }
+.col-title { width: auto; }
+.col-id { width: 120px; }
 
 .community-table td {
     padding: 15px 5px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     color: #666;
-    text-align: center; /* 기본은 중앙 */
-}
-
-/* 제목 셀: 일자로 정렬되도록 중앙 정렬 유지 */
-.title-cell {
-    text-align: center !important;
-    padding-left: 0 !important;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .title-cell a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    font-size: 15px;
-    display: inline-block;
-    max-width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-/* 작성자 셀만 오른쪽 정렬 적용 */
+/* 작성자(마지막 셀) 오른쪽 정렬 유지 */
 .community-table td:last-child {
     text-align: right !important;
-    padding-right: 35px !important; /* NO만큼의 여백을 주기 위해 조정 */
+    padding-right: 35px !important;
 }
 
 .category-badge {
     background-color: #e9ecef;
     padding: 4px 12px;
     border-radius: 15px;
-    font-size: 12px;
+    font-size: 11px;
     color: #495057;
 }
 
-/* --- [4] 하단 그룹 (번호 중앙, 버튼 우측) --- */
+/* --- [4] 하단 그룹 (페이징 & 글쓰기) --- */
 .bottom-group {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0 50px;
+    margin: 40px 0 60px;
+    min-height: 40px;
 }
 
 .pagination-container ul {
@@ -159,7 +157,7 @@ h2 {
 }
 
 .pagination-container li {
-    margin: 0 3px;
+    margin: 0 5px;
 }
 
 .pagination-container a {
@@ -170,9 +168,9 @@ h2 {
     height: 32px;
     border: 1px solid #ddd;
     text-decoration: none;
-    color: #888;
+    color: #666;
     font-size: 14px;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .pagination-container li.active a {
@@ -189,8 +187,8 @@ h2 {
 
 .write-btn {
     display: inline-block;
-    padding: 10px 22px;
-    background-color: #333;
+    padding: 10px 25px;
+    background-color: #222;
     color: #fff !important;
     text-decoration: none;
     border-radius: 4px;

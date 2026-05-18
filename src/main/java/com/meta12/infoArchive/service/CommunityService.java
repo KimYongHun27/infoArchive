@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +35,14 @@ public class CommunityService {
         community.setContent(communityDto.getContent());
         community.setCategory(communityDto.getCategory());
         communityRepository.save(community);
+        return community;
+    }
+    public Community detail(Long id){
+        Optional<Community> oc = communityRepository.findById(id);
+        Community community = null;
+        if (oc.isPresent()) {
+            community = oc.get();
+        }
         return community;
     }
 }

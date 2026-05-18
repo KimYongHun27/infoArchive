@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,6 +37,17 @@ public class CommunityController {
     public String edit()
     {
         return "community/edit";
+    }
+
+    @GetMapping("/community/detail/{id}")
+    public String detail(
+            Model model,
+            @PathVariable("id") Long id,
+            CommunityDto communityDto
+    ) {
+        Community community = communityService.detail(id);
+        model.addAttribute("community", community);
+        return "community/detail";
     }
 
     @PostMapping("/community/editProc")
