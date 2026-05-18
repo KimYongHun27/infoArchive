@@ -6,8 +6,12 @@ import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +22,17 @@ public class PaymentController {
 
     // 결제 페이지
     @GetMapping("/payment/checkout")
-    public String checkoutPage() {
+    public String checkoutPage(Model model) {
+
+        String orderId = "ORDER-" + LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+
+        int amount = 239000;
+
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("amount", amount);
+        model.addAttribute("productName", "엣지에서 태어나는 삽화스킬 AtoZ");
+
         return "payment/checkout";
     }
 
@@ -50,7 +64,6 @@ public class PaymentController {
         return "redirect:/payment/payment-complete";
     }
 
-    // 결제 완료 페이지
     @GetMapping("/payment/payment-complete")
     public String paymentCompletePage() {
         return "payment/payment-complete";
