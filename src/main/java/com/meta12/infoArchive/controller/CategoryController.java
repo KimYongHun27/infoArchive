@@ -16,6 +16,17 @@ public class CategoryController {
 
     private final ProductRepository productRepository;
 
+    @GetMapping("/top10")
+    public String top10(Model model) {
+
+        List<Product> products =
+                productRepository.findTop10ByStatusOrderByCreatedAtDesc(ProductStatus.APPROVED);
+
+        model.addAttribute("products", products);
+
+        return "top10";
+    }
+
     @GetMapping("/category/design")
     public String design(Model model) {
 

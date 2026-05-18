@@ -32,6 +32,11 @@ public class ProductService {
         return optionalProduct.orElse(null);
     }
 
+    // 승인된 강의 TOP 10 조회
+    public List<Product> getTop10Products() {
+        return productRepository.findTop10ByStatusOrderByCreatedAtDesc(ProductStatus.APPROVED);
+    }
+
     // 전체 상품 조회
     public List<Product> getAllProducts() {
         return productRepository.findAll();

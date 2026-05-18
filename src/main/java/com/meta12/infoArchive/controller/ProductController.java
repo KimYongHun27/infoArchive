@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.meta12.infoArchive.service.ReviewService;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final UserService userService;
+    private final ReviewService reviewService;
 
     @GetMapping("/product/{id}")
     public String productDetail(
@@ -46,6 +48,9 @@ public class ProductController {
         }
 
         model.addAttribute("product", product);
-        return "product/detail";
+        model.addAttribute("productId", id);
+        model.addAttribute("reviews", reviewService.findByProduct(product));
+
+        return "category/detail";
     }
 }

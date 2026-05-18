@@ -83,6 +83,10 @@ public class PaymentService {
         if (cardPassword.length() != 2) {
             throw new IllegalArgumentException("카드 비밀번호는 앞 2자리만 입력해주세요.");
         }
+
+        if (!Boolean.TRUE.equals(dto.getAgreeTerms())) {
+            throw new IllegalArgumentException("이용약관에 동의해야 결제할 수 있습니다.");
+        }
     }
 
     private String onlyNumber(String value) {
