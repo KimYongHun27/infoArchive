@@ -1,0 +1,41 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 요소들 사이의 간격 */
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* 카테고리, 제목, 내용 공통 스타일 */
+.category-select, .input-title, .input-content {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.category-select:focus, .input-title:focus {
+  border-color: #000; /* 포커스 시 강조 */
+}
+
+.input-content {
+  height: 150px;
+  resize: vertical; /* 사용자가 높이 조절 가능 */
+}
+
+.submit-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
