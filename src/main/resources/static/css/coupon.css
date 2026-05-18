@@ -1,13 +1,12 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: rgb(236, 236, 236);
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  background: #f4f4f4;
+  color: #111;
 }
 
 /* 전체 */
@@ -29,6 +28,8 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 120px;
+  padding: 60px 0px;
+  margin: 0 50px;
 }
 
 .sidebar-card {
@@ -127,13 +128,12 @@ body {
 }
 
 .p1 {
-  padding: 20px 0px;
   padding-bottom: 50px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
 
-.banner-btn {
+.higher-btn {
   display: flex;
   color: #777;
   justify-content: space-between;
@@ -218,16 +218,17 @@ body {
 
 .notice-box {
   background-color: #dfdfdf;
-  padding: 20px;
+  padding: 0 20px;
   border: 2px solid #b9b9b9;
   border-radius: 10px;
 }
 
 .guideline {
   color: #777;
-  padding: 0px 20px;
+  padding: 0 20px;
   margin-top: 10px;
   font-weight: bolder;
+  padding-bottom: 10px;
 }
 
 .coupon-card {
@@ -263,6 +264,7 @@ body {
   color: #d60000;
   text-align: center;
   align-content: center;
+  padding-bottom: 30px;
 }
 
 .coupon-img2 {
@@ -273,6 +275,7 @@ body {
   color: #5700a8;
   text-align: center;
   align-content: center;
+  padding-bottom: 30px;
 }
 
 .coupon-img3 {
@@ -283,6 +286,7 @@ body {
   color: #1b8b60;
   text-align: center;
   align-content: center;
+  padding-bottom: 30px;
 }
 
 .img-title1 {
@@ -293,7 +297,7 @@ body {
 .img-title2 {
   font-size: 22px;
   font-weight: bold;
-  padding: 10px 0px;
+  margin-top: -40px;
 }
 
 .img-title3 {
@@ -350,7 +354,6 @@ body {
 
 .coupon-details {
   display: flex;
-  padding: 20px 0px;
   border-top: 2px solid rgb(212, 212, 212);
 }
 
@@ -375,7 +378,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 300px;
+  width: 310px;
   background-color: #ffffff;
   text-align: center;
   align-items: center;

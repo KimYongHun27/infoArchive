@@ -63,18 +63,20 @@ public class ReviewController {
     @PostMapping("/review/sujungProc/{id}")
     public String sujungProc(
             @PathVariable("id") Long id,
-            ReviewDto reviewDto
+            ReviewDto reviewDto,
+            Authentication authentication
     ) {
         reviewDto.setId(id);
-        reviewService.sujungProc(reviewDto);
+        reviewService.sujungProc(reviewDto, authentication);
         return "redirect:/review";
     }
 
     @PostMapping("/review/sakjeProc/{id}")
-    public String sakjeProc(@PathVariable("id") Long id) {
-        ReviewDto reviewDto = new ReviewDto();
-        reviewDto.setId(id);
-        reviewService.sakjeProc(reviewDto);
+    public String sakjeProc(
+            @PathVariable("id") Long id,
+            Authentication authentication
+    ) {
+        reviewService.sakjeProc(id, authentication);
         return "redirect:/review";
     }
 

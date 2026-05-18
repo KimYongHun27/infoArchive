@@ -45,9 +45,16 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-    public void sujungProc(ReviewDto reviewDto) {
+    public void sujungProc(ReviewDto reviewDto, Authentication authentication) {
+
+        User loginUser = userService.getLoginUser(authentication);
+
         Review review = reviewRepository.findById(reviewDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("리뷰를 찾을 수 없습니다."));
+
+        if (review.getUser() == null || !review.getUser().getId().equals(loginUser.getId())) {
+            throw new IllegalArgumentException("본인이 작성한 리뷰만 수정할 수 있습니다.");
+        }
 
         review.setTitle(reviewDto.getTitle());
         review.setContent(reviewDto.getContent());
@@ -56,9 +63,16 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-    public void sakjeProc(ReviewDto reviewDto) {
-        Review review = reviewRepository.findById(reviewDto.getId())
+    public void sakjeProc(Long id, Authentication authentication) {
+
+        User loginUser = userService.getLoginUser(authentication);
+
+        Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("리뷰를 찾을 수 없습니다."));
+
+        if (review.getUser() == null || !review.getUser().getId().equals(loginUser.getId())) {
+            throw new IllegalArgumentException("본인이 작성한 리뷰만 삭제할 수 있습니다.");
+        }
 
         reviewRepository.delete(review);
     }
