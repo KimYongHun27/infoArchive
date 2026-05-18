@@ -1,19 +1,39 @@
 package com.meta12.infoArchive.service;
 
+import com.meta12.infoArchive.dto.CommunityDto;
+import com.meta12.infoArchive.entity.Community;
 import com.meta12.infoArchive.entity.Review;
+import com.meta12.infoArchive.repository.CommunityRepository;
 import com.meta12.infoArchive.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CommunityService {
 
-    private final ReviewRepository reviewRepository;
-//
-//    public List<Review> findAll() {
-//        return reviewRepository.findAll();
-//    }
+    private final CommunityRepository communityRepository;
+
+    public Page<Community> list(int page) {
+//        List<Sort.Order> sorts = new ArrayList<>();
+//        sorts.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 10);
+        return communityRepository.findAll(pageable);
+    }
+    public Community editProc(CommunityDto communityDto){
+        Community community = new Community();
+        community.setId(communityDto.getId());
+        community.setTitle(communityDto.getTitle());
+        community.setContent(communityDto.getContent());
+        community.setCategory(communityDto.getCategory());
+        communityRepository.save(community);
+        return community;
+    }
 }
