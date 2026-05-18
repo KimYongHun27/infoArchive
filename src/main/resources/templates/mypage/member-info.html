@@ -76,7 +76,7 @@
                     </a>
 
                     <!-- 공통: 회원 정보만 표시 -->
-                    <a th:href="@{/mypage}" class="active">
+                    <a th:href="@{/member-info}" class="active">
                         <span>♙</span>
                         회원 정보
                     </a>
@@ -154,7 +154,7 @@
             <section class="info-card">
                 <h2>계정 정보</h2>
 
-                <form th:action="@{/mypage/update}" method="post">
+                <form th:action="@{/member-info/update}" method="post">
 
                     <div class="form-line">
                         <label>이름</label>
@@ -258,7 +258,7 @@
             <section class="info-card" id="password-change">
                 <h2>비밀번호 변경</h2>
 
-                <form th:action="@{/mypage/password}" method="post">
+                <form th:action="@{/member-info/password}" method="post">
 
                     <div class="form-line">
                         <label>현재 비밀번호</label>
@@ -289,7 +289,7 @@
                     <p>회원 탈퇴 시 모든 정보가 삭제되며, 복구할 수 없습니다.</p>
                 </div>
 
-                <form th:action="@{/mypage/delete-account}" method="post">
+                <form th:action="@{/member-info/delete-account}" method="post">
                     <button type="submit" class="withdraw-btn">
                         회원 탈퇴하기
                     </button>
