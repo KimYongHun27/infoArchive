@@ -184,17 +184,17 @@
                         </strong>
 
                         <span th:text="${review.createDate != null ? #temporals.format(review.createDate, 'yyyy.MM.dd') : '-'}">
-                            2026.05.18
-                        </span>
+                2026.05.18
+            </span>
                     </div>
                 </div>
 
                 <div class="review-content">
                     <div class="review-stars"
                          th:text="${review.rating == 5 ? '★★★★★' :
-                              review.rating == 4 ? '★★★★☆' :
-                              review.rating == 3 ? '★★★☆☆' :
-                              review.rating == 2 ? '★★☆☆☆' : '★☆☆☆☆'}">
+                      review.rating == 4 ? '★★★★☆' :
+                      review.rating == 3 ? '★★★☆☆' :
+                      review.rating == 2 ? '★★☆☆☆' : '★☆☆☆☆'}">
                         ★★★★★
                     </div>
 

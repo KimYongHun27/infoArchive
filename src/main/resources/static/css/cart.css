@@ -417,3 +417,69 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================
+   찜한 강의 없음
+========================= */
+
+.empty-wishlist {
+  width: 100%;
+  min-height: 360px;
+  padding: 80px 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.empty-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: #f7f7f8;
+  color: #ff1744;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 32px;
+}
+
+.empty-wishlist h2 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
+}
+
+.empty-wishlist p {
+  margin: 0 0 28px;
+  color: #777;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.empty-wishlist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 140px;
+  height: 44px;
+
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.empty-wishlist-btn:hover {
+  background: #222;
+}

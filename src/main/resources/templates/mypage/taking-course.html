@@ -49,7 +49,7 @@
                         쿠폰함
                     </a>
 
-                    <a th:href="@{/mypage}">
+                    <a th:href="@{/member-info}">
                         <span>♙</span>
                         회원 정보
                     </a>
@@ -74,66 +74,17 @@
                 <p class="p1">현재 수강 중인 강의의 학습현황을 확인하고 이어서 학습할 수 있습니다.</p>
             </div>
             <div class="course-card">
-                <div class="course-container">
-                    <div class="course-box">
-                        <div class="box-icon">카테고리</div>
-                        <img src="https://picsum.photos/110" alt="수강 중 강의 이미지" class="course-img" />
-                    </div>
-                    <div class="course-content">
-                        <h2 class="course-name">강의명</h2>
-                        <p class="instructor">강의자명</p>
-                        <p class="percent">00% 학습 중</p>
-                        <div class="progress"></div>
-                    </div>
-                    <div class="course-move">
-                        <div class="learn">
-                            <a href="" class="learn-btn">이어서 학습하기</a>
-                        </div>
-                        <div class="admission">
-                            <a href="" class="admission-btn">강의실 입장</a>
-                        </div>
-                    </div>
+
+                <!-- 실제 수강중인 강의가 없을 때 -->
+                <div class="empty-taking-course">
+                    <h2>수강중인 강의가 없습니다.</h2>
+                    <p>결제한 강의가 생기면 이곳에서 학습을 이어갈 수 있습니다.</p>
+
+                    <a th:href="@{/top10}" class="empty-course-btn">
+                        강의 둘러보기
+                    </a>
                 </div>
-                <div class="course-container">
-                    <div class="course-box">
-                        <div class="box-icon">카테고리</div>
-                        <img src="https://picsum.photos/120" alt="수강 중 강의 이미지" class="course-img" />
-                    </div>
-                    <div class="course-content">
-                        <h2 class="course-name">강의명</h2>
-                        <p class="instructor">강의자명</p>
-                        <p class="percent">00% 학습 중</p>
-                        <div class="progress"></div>
-                    </div>
-                    <div class="course-move">
-                        <div class="learn">
-                            <a href="" class="learn-btn">이어서 학습하기</a>
-                        </div>
-                        <div class="admission">
-                            <a href="" class="admission-btn">강의실 입장</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-container">
-                    <div class="course-box">
-                        <div class="box-icon">카테고리</div>
-                        <img src="https://picsum.photos/130" alt="수강 중 강의 이미지" class="course-img" />
-                    </div>
-                    <div class="course-content">
-                        <h2 class="course-name">강의명</h2>
-                        <p class="instructor">강의자명</p>
-                        <p class="percent">00% 학습 중</p>
-                        <div class="progress"></div>
-                    </div>
-                    <div class="course-move">
-                        <div class="learn">
-                            <a href="" class="learn-btn">이어서 학습하기</a>
-                        </div>
-                        <div class="admission">
-                            <a href="" class="admission-btn">강의실 입장</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div class="widget">
                 <div class="pause">
