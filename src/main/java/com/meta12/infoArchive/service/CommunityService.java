@@ -11,7 +11,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunityService {
 
-    private final ReviewRepository reviewRepository;
 //
 //    public List<Review> findAll() {
 //        return reviewRepository.findAll();
