@@ -28,14 +28,41 @@
             <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
         </div>
 
-        <div class="right-actions">
-            <a th:href="@{|/community/modify/${community.id}|}" class="action-link modify-btn">수정하기</a>
-            <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${community.id}|}"
-               class="delete action-link delete-btn">삭제하기</a>
+<!--        <div class="right-actions">-->
+<!--            <a th:href="@{|/community/modify/${community.id}|}" class="action-link modify-btn">수정하기</a>-->
+<!--            <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${community.id}|}"-->
+<!--               class="delete action-link delete-btn">삭제하기</a>-->
+
+
+            <div class="right-actions">
+                <button type="button"
+                        class="action-link modify-btn"
+                        th:onclick="'openCommunityEdit(' + ${community.id} + ')'">
+                    수정
+                </button>
+                <form th:action="@{/community/sakjeProc/{id}(id=${community.id})}"
+                      method="post"
+                      onsubmit="return confirm('리뷰를 삭제하시겠습니까?');">
+                    <button type="submit" class="delete action-link delete-btn">삭제</button>
+
+                    <div class="form-actions">
+                        <button type="button"
+                                class="cancel-btn"
+                                th:onclick="'closeReviewEdit(' + ${review.id} + ')'">
+                            취소
+                        </button>
+                        <button type="submit" class="submit-btn">수정 완료</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/detail.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 </body>
 </html>
