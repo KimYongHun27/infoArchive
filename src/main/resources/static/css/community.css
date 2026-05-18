@@ -31,9 +31,11 @@ h2 {
 /* 카테고리 버튼 그룹 */
 .faq-category {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
-    flex-wrap: nowrap;
-    align-items: center;
+    flex: 1; /* 가용한 공간을 버튼들이 차지 */
+    min-width: 300px; /* 너무 좁아지지 않게 방지 */
+    padding-left:25px
 }
 
 .category-btn {
@@ -54,6 +56,13 @@ h2 {
     border-color: #333;
     font-weight: bold;
 }
+/* 검색창 영역 - 오른쪽으로 밀기 */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-left: 790px
+}
 
 /* 검색창 영역 수정 (아이콘 포함) */
 .topbar-right .search {
@@ -61,7 +70,7 @@ h2 {
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 5px 20px;
     background-color: #f9f9f9;
 }
 
