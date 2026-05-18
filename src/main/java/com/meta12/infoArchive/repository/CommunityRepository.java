@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     Page<Community> findAll(Pageable pageable);
+
+    Page<Community> findByCategory(String category, Pageable pageable);
 }

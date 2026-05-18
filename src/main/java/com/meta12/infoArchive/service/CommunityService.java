@@ -22,11 +22,15 @@ public class CommunityService {
 
     private final CommunityRepository communityRepository;
 
-    public Page<Community> list(int page) {
+    public Page<Community> list(int page,String category) {
 //        List<Sort.Order> sorts = new ArrayList<>();
 //        sorts.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 10);
-        return communityRepository.findAll(pageable);
+        if (category == null || category.isEmpty() || category.equals("all")) {
+            return communityRepository.findAll(pageable);
+        } else {
+            return communityRepository.findByCategory(category, pageable);
+        }
     }
     public Community editProc(CommunityDto communityDto){
         Community community = new Community();

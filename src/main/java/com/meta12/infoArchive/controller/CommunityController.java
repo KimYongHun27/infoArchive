@@ -25,11 +25,13 @@ public class CommunityController {
     @GetMapping("/community")
       public String community(
               Model model,
-              @RequestParam(value="page", defaultValue="0") int page
+              @RequestParam(value="page", defaultValue="0") int page,
+              @RequestParam(value="category", defaultValue="all") String category
     )
     {
-        Page<Community> paging = communityService.list(page);
+        Page<Community> paging = communityService.list(page,category);
         model.addAttribute("paging",paging);
+        model.addAttribute("category", category);
         return "community/community";
     }
 
