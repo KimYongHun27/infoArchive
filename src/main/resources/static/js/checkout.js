@@ -1,10 +1,32 @@
 let originalPrice = 239000; // 서버에서 받은 price라고 보면 됨
 let discount = 0;
 
-const paymentBtn = document.getElementById('payment-btn');
-paymentBtn.addEventListener('click', () => {
-    window.location.href = 'payment-complete';
+//modal 페이지 active 버튼
+const openModalBtn = document.getElementById('openModalBtn');
+//modal 페이지 remove 버튼
+const closeModalBtn = document.getElementById('closeModalBtn');
+//modal 페이지
+const paymentModal = document.getElementById('paymentModal');
+//이용약관 체크 확인
+const checked = document.getElementById('checked');
+
+openModalBtn.addEventListener("click", function (){
+    paymentModal.classList.add("active");
+    paymentModal.style.display = 'block';
 });
+
+closeModalBtn.addEventListener("click", function(){
+paymentModal.classList.remove("active");
+paymentModal.style.display = 'none';
+})
+
+function confirmChecked() {
+    if (!checked.checked) {
+         alert("이용 약관에 동의해주세요.");
+         return false;
+    }
+}
+
 /* =========================
    쿠폰 적용
 ========================= */
