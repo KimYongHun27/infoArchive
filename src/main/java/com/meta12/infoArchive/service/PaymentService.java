@@ -63,21 +63,34 @@ public class PaymentService {
 
     private void validateMockCard(PaymentConfirmRequestDto dto) {
 
-        if (dto.getCardNumber() == null || dto.getCardNumber().trim().isEmpty()) {
-            throw new IllegalArgumentException("카드번호를 입력해주세요.");
+        String cardNumber = onlyNumber(dto.getCardNumber());
+        String cardExpire = onlyNumber(dto.getCardExpire());
+        String cardCvc = onlyNumber(dto.getCardCvc());
+        String cardPassword = onlyNumber(dto.getCardPassword());
+
+        if (cardNumber.length() != 19) {
+            throw new IllegalArgumentException("카드번호는 숫자 19자리로 입력해주세요.");
         }
 
-        if (dto.getCardExpire() == null || dto.getCardExpire().trim().isEmpty()) {
-            throw new IllegalArgumentException("유효기간을 입력해주세요.");
+        if (cardExpire.length() != 4) {
+            throw new IllegalArgumentException("유효기간은 숫자 4자리로 입력해주세요.");
         }
 
-        if (dto.getCardCvc() == null || dto.getCardCvc().trim().isEmpty()) {
-            throw new IllegalArgumentException("CVC를 입력해주세요.");
+        if (cardCvc.length() != 3) {
+            throw new IllegalArgumentException("CVC는 숫자 3자리로 입력해주세요.");
         }
 
-        if (dto.getCardPassword() == null || dto.getCardPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("카드 비밀번호 앞 2자리를 입력해주세요.");
+        if (cardPassword.length() != 2) {
+            throw new IllegalArgumentException("카드 비밀번호는 앞 2자리만 입력해주세요.");
         }
+    }
+
+    private String onlyNumber(String value) {
+        if (value == null) {
+            return "";
+        }
+
+        return value.replaceAll("[^0-9]", "");
     }
 
     private String maskCardNumber(String cardNumber) {

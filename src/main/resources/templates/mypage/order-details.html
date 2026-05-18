@@ -75,7 +75,7 @@
 
                     <!-- 공통: 회원 정보만 표시 -->
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
-                       th:href="@{/mypage}" >
+                       th:href="@{/member-info}" >
                         <span>♙</span>
                         회원 정보
                     </a>
@@ -103,7 +103,7 @@
             <div class="banner">
                 <h1>주문 내역</h1>
                 <p class="p1">INFO ARCHIVE에서 구매하신 내역을 확인하실 수 있습니다.</p>
-                <div class="banner-btn">
+                <div class="higher-btn">
                     <div class="left">
                         <a href="" class="total">전체( )</a>
                         <a href="" class="course">강의( )</a>
@@ -111,8 +111,15 @@
                     </div>
                     <div class="right">
                         <a href="" class="recently">최근 주문 순 ∨</a>
-                        <form action="">
-                            <div class="find"><input type="search" placeholder="주문상품을 검색하세요" name="search" style="border: none"></div>
+                        <form class="order-search-section">
+                            <div class="order-search-box">
+                                <input type="text"
+                                       id="orderSearchInput"
+                                       placeholder="주문 상품을 검색하세요">
+                                <button type="button" id="order-button">
+                                    <img src="/img/header/1093183.png" alt="검색" class="find">
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

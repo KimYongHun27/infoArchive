@@ -1,13 +1,12 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: rgb(236, 236, 236);
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  background: #f4f4f4;
+  color: #111;
 }
 
 /* 전체 */
@@ -29,6 +28,8 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 120px;
+  padding: 60px 0px;
+  margin: 0 50px;
 }
 
 .sidebar-card {
@@ -118,6 +119,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .banner {
@@ -127,24 +129,23 @@ body {
 }
 
 .p1 {
-  padding: 20px 0px;
   padding-bottom: 50px;
   color: rgb(134, 134, 134);
   font-weight: bolder;
 }
 
-.banner-btn {
+.higher-btn {
   display: flex;
   color: #777;
   justify-content: space-between;
 }
 
 .left {
-  display: flex;
-  font-size: 17px;
-  color: #777;
-  font-weight: bolder;
-  gap: 50px;
+ display: flex;
+ font-size: 17px;
+ color: #777;
+ font-weight: bolder;
+ gap: 50px;
 }
 
 .total {
@@ -164,10 +165,12 @@ body {
 
 .right {
   display: flex;
+  align-items: center;
   gap: 20px;
 }
 
 .recently {
+  height: 50px;
   text-decoration: none;
   font-weight: bolder;
   background-color: rgb(255, 255, 255);
@@ -177,14 +180,47 @@ body {
   border-radius: 5px;
 }
 
-.find{
-  text-decoration: none;
-  font-weight: bolder;
-  background-color: rgb(255, 255, 255);
-  color: rgb(105, 105, 105);
-  border: 1.5px solid rgb(212, 212, 212);
-  padding: 15px 20px;
+.order-search-box {
+  max-width: 720px;
+  height: 50px;
+  margin: 0 auto;
+  padding: 0 8px 0 22px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
   border-radius: 5px;
+  margin-right: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #111;
+}
+
+.order-search-box input::placeholder {
+  color: rgb(105, 105, 105);
+  font-weight: bolder;
+}
+
+.order-button {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.find {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border: none;s
 }
 
 .line{
@@ -225,12 +261,10 @@ body {
 
 .order-date{
   color: #525252;
-  padding: 20px 0px;
   font-weight: bold;
 }
 
 .order-price{
-  padding: 10px 0px;
   font-size: 20px;
   font-weight: bold;
 }
