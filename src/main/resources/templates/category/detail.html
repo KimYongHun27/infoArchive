@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>강의 상세 - InfoArchive</title>
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+    <link rel="stylesheet" th:href="@{/css/product-detail.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="product-detail-page">
+
+    <section class="detail-hero">
+
+        <div class="detail-left">
+
+            <div class="category-label">
+                <span>강의</span>
+                <span th:text="${product.category != null ? product.category : '카테고리'}">카테고리</span>
+            </div>
+
+            <h1 th:text="${product.productName}">
+                강의명
+            </h1>
+
+            <p class="description"
+               th:text="${product.description != null ? product.description : '강의 소개가 없습니다.'}">
+                강의 소개가 없습니다.
+            </p>
+
+            <div class="instructor-box">
+                <span>강사</span>
+                <strong th:text="${product.instructorName != null ? product.instructorName : '강사명'}">
+                    강사명
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="detail-right">
+
+            <div class="thumbnail-box">
+                <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
+                     th:src="@{${product.thumbnailUrl}}"
+                     alt="강의 썸네일">
+
+                <div class="no-image"
+                     th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}">
+                    IMAGE
+                </div>
+            </div>
+
+            <div class="price-card">
+
+                <div class="price-row">
+                    <span>강의 가격</span>
+                    <strong th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + '원'">
+                        0원
+                    </strong>
+                </div>
+
+                <div class="discount-row"
+                     th:if="${product.discountRate != null and product.discountRate > 0}">
+                    <span>할인율</span>
+                    <strong th:text="${product.discountRate + '%'}">20%</strong>
+                </div>
+
+                <a th:href="@{/payment/checkout(productId=${product.id})}"
+                   class="buy-btn">
+                    결제하기
+                </a>
+
+                <button type="button" class="cart-btn">
+                    장바구니 담기
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="detail-section">
+        <h2>강의 소개</h2>
+
+        <p th:text="${product.description != null ? product.description : '강의 상세 설명이 없습니다.'}">
+            강의 상세 설명이 없습니다.
+        </p>
+    </section>
+
+    <section class="detail-section">
+        <h2>강의 영상</h2>
+
+        <div class="video-box"
+             th:if="${product.videoUrl != null and !product.videoUrl.isEmpty()}">
+
+            <iframe th:src="${product.videoUrl}"
+                    title="강의 영상"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+
+        </div>
+
+        <div class="empty-video"
+             th:if="${product.videoUrl == null or product.videoUrl.isEmpty()}">
+            등록된 강의 영상이 없습니다.
+        </div>
+    </section>
+
+    <section class="detail-section review-section">
+
+        <div class="review-head">
+            <div>
+                <h2>리뷰</h2>
+                <p>이 강의를 수강한 회원들의 후기를 확인해보세요.</p>
+            </div>
+        </div>
+
+        <!-- 리뷰 작성 -->
+        <form class="review-write-box"
+              th:action="@{/product/{id}/reviews(id=${product.id})}"
+              method="post">
+
+            <h3>리뷰 작성</h3>
+
+            <div class="review-form-row">
+                <label>평점</label>
+
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5" required>
+                    <label for="star5">★</label>
+
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">★</label>
+
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">★</label>
+
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">★</label>
+
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">★</label>
+                </div>
+
+                <p class="star-help">별점을 선택해주세요.</p>
+            </div>
+
+            <div class="review-form-row">
+                <label>리뷰 내용</label>
+                <textarea name="content"
+                          placeholder="강의에 대한 리뷰를 작성해주세요."
+                          required></textarea>
+            </div>
+
+            <div class="review-submit-area">
+                <button type="submit">리뷰 등록</button>
+            </div>
+
+        </form>
+
+        <!-- 리뷰 목록 -->
+        <div class="review-list">
+
+            <div class="review-item"
+                 th:if="${reviews != null}"
+                 th:each="review : ${reviews}">
+
+                <div class="review-user">
+                    <div class="review-avatar"
+                         th:text="${review.user != null ? #strings.substring(review.user.name, 0, 1) : '회'}">
+                        회
+                    </div>
+
+                    <div>
+                        <strong th:text="${review.user != null ? review.user.name : '회원'}">
+                            회원
+                        </strong>
+
+                        <span th:text="${review.createDate != null ? #temporals.format(review.createDate, 'yyyy.MM.dd') : '-'}">
+                            2026.05.18
+                        </span>
+                    </div>
+                </div>
+
+                <div class="review-content">
+                    <div class="review-stars"
+                         th:text="${review.rating == 5 ? '★★★★★' :
+                              review.rating == 4 ? '★★★★☆' :
+                              review.rating == 3 ? '★★★☆☆' :
+                              review.rating == 2 ? '★★☆☆☆' : '★☆☆☆☆'}">
+                        ★★★★★
+                    </div>
+
+                    <p th:text="${review.content}">
+                        리뷰 내용입니다.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="empty-review"
+                 th:if="${reviews == null or #lists.isEmpty(reviews)}">
+                아직 등록된 리뷰가 없습니다.
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
+
+</body>
+</html>

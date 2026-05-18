@@ -25,9 +25,6 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserService userService;
 
-//    public List<Review> findAll() {
-//        return reviewRepository.findAll();
-//    }
     public List<Review> findMyReviews(Authentication authentication) {
         User user = userService.getLoginUser(authentication);
         return reviewRepository.findByUser(user);
@@ -86,28 +83,38 @@ public class ReviewService {
         return (int) Math.round((avg / 5.0) * 100);
     }
 
+    // 상품 상세페이지 - 해당 상품 리뷰 조회
+    public List<Review> findByProduct(Product product) {
+        return reviewRepository.findByProductOrderByCreateDateDesc(product);
+    }
 
-//    public Page<Review> getList(int page,String kw){
-//        Pageable pageable = PageRequest.of(page,10);
-//        Specification<Review> spec = search(kw);
-//        return reviewRepository.findAll(spec,pageable);
-//    }
+    // 상품 상세페이지 - 리뷰 등록
+    public void createReview(Product product, User user, int rating, String content) {
 
-//    private Specification<Review> search(String kw) {
-//        return (Root<Review> r, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
-//            query.distinct(true);
-//
-//            // 리뷰 작성자(User) 조인
-//            Join<Review, User> u = r.join("user", JoinType.LEFT);
-//            // 상품 조인
-//            Join<Review, Product> p = r.join("product",JoinType.LEFT);
-//
-//            return cb.or(
-//                    cb.like(r.get("title"), "%" + kw + "%"),      // 리뷰 제목
-//                    cb.like(r.get("content"), "%" + kw + "%"),    // 리뷰 내용
-//                    cb.like(u.get("name"), "%" + kw + "%"),      // 유저 이름
-//                    cb.like(p.get("productName"),"%" + kw + "%") // 상품명
-//            );
-//        };
-//    }
+        if (product == null) {
+            throw new IllegalArgumentException("상품을 찾을 수 없습니다.");
+        }
+
+        if (user == null) {
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        }
+
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("평점은 1점부터 5점까지 입력할 수 있습니다.");
+        }
+
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("리뷰 내용을 입력해주세요.");
+        }
+
+        Review review = new Review();
+
+        review.setProduct(product);
+        review.setUser(user);
+        review.setRating(rating);
+        review.setContent(content.trim());
+        review.setCreateDate(LocalDateTime.now());
+
+        reviewRepository.save(review);
+    }
 }

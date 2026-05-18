@@ -46,11 +46,6 @@ public class HomeController {
         return "main";
     }
 
-    @GetMapping("/top10")
-    public String top10() {
-        return "top10";
-    }
-
     @GetMapping("/faq")
     public String faq() {
         return "faq";

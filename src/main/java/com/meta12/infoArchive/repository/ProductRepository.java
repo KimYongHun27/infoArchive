@@ -21,6 +21,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 상태별 조회 - Page용
     Page<Product> findByStatus(ProductStatus status, Pageable pageable);
 
+    List<Product> findTop10ByStatusOrderByCreatedAtDesc(ProductStatus status);
+
     // 사용자 화면: 승인된 상품만 검색
     Page<Product> findByProductNameContainingAndStatus(
             String kw,

@@ -1,0 +1,446 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7f8;
+    color: #111;
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.product-detail-page {
+    width: 1180px;
+    margin: 0 auto;
+    padding: 56px 0 100px;
+}
+
+.detail-hero {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 42px;
+    align-items: start;
+    margin-bottom: 38px;
+}
+
+.detail-left {
+    min-height: 420px;
+    padding: 42px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.category-label {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.category-label span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #f1f1f1;
+    color: #555;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.detail-left h1 {
+    margin: 0 0 18px;
+    font-size: 38px;
+    line-height: 1.3;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.description {
+    margin: 0 0 34px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+.instructor-box {
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: #f8f8f8;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.instructor-box span {
+    color: #777;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.instructor-box strong {
+    color: #111;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.detail-right {
+    position: sticky;
+    top: 30px;
+}
+
+.thumbnail-box {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 18px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #e9edf3;
+    border: 1px solid #eee;
+}
+
+.thumbnail-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.no-image {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #999;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.price-card {
+    padding: 26px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.price-row,
+.discount-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.price-row span,
+.discount-row span {
+    color: #777;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.price-row strong {
+    color: #111;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.discount-row strong {
+    color: #ff1744;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.buy-btn,
+.cart-btn {
+    width: 100%;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buy-btn {
+    margin-top: 12px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+}
+
+.buy-btn:hover {
+    background: #222;
+}
+
+.cart-btn {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #111;
+}
+
+.cart-btn:hover {
+    background: #f5f5f5;
+}
+
+.detail-section {
+    padding: 36px 42px;
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.detail-section h2 {
+    margin: 0 0 18px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.detail-section p {
+    margin: 0;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+.video-box {
+    width: 100%;
+    height: 480px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-box iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.empty-video {
+    height: 180px;
+    border-radius: 16px;
+    background: #f5f5f5;
+    color: #777;
+    font-size: 15px;
+    font-weight: 800;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   리뷰
+========================= */
+
+.review-section {
+    margin-top: 22px;
+}
+
+.review-head {
+    margin-bottom: 24px;
+}
+
+.review-head h2 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.review-head p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.review-write-box {
+    padding: 24px;
+    margin-bottom: 28px;
+    border-radius: 18px;
+    background: #f8f8f8;
+}
+
+.review-write-box h3 {
+    margin: 0 0 18px;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.review-form-row {
+    margin-bottom: 16px;
+}
+
+.review-form-row label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.review-form-row select,
+.review-form-row textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.review-form-row select {
+    height: 46px;
+    padding: 0 12px;
+}
+
+.review-form-row textarea {
+    height: 120px;
+    padding: 14px;
+    resize: none;
+    line-height: 1.6;
+}
+
+.review-submit-area {
+    text-align: right;
+}
+
+.review-submit-area button {
+    width: 120px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.review-submit-area button:hover {
+    background: #222;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.review-item {
+    padding: 22px 0;
+    border-top: 1px solid #eee;
+}
+
+.review-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.review-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.review-user strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.review-user span {
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.review-stars {
+    margin-bottom: 8px;
+    color: #ff1744;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.review-content p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 600;
+}
+
+.empty-review {
+    padding: 50px 0;
+    border-top: 1px solid #eee;
+    color: #777;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* =========================
+   별점 선택
+========================= */
+
+.star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ddd;
+    font-size: 34px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ff1744;
+}
+
+.star-rating input:checked ~ label {
+    color: #ff1744;
+}
+
+.star-help {
+    margin: 8px 0 0;
+    color: #888;
+    font-size: 13px;
+    font-weight: 700;
+}
