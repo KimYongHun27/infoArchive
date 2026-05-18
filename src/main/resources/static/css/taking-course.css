@@ -157,13 +157,12 @@ body {
 
 .course-content {
   width: 500px;
-  padding: 10px 20px;
+  padding: 0px 25px;
   background-color: rgb(255, 255, 255);
   border-right: 1.5px solid rgb(212, 212, 212);
 }
 
 .course-name {
-  padding-top: 10px;
   font-size: 24px;
   font-weight: bold;
   color: #000000;
@@ -171,7 +170,6 @@ body {
 }
 
 .instructor {
-  padding-bottom: 20px;
   font-size: 14px;
   font-weight: bold;
   color: #525252;
@@ -179,7 +177,6 @@ body {
 }
 
 .percent {
-  padding-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
   color: #000000;

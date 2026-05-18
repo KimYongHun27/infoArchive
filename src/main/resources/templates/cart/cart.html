@@ -44,7 +44,7 @@
       </div>
 
       <div th:each="cartItem : ${cartList}" class="cart-card">
-        <h3 th:text="${cartItem.lecture.name}">제품명</h3>
+        <h3 th:text="${cartItem.course.name}">제품명</h3>
       </div>
 
     </div>
@@ -68,7 +68,7 @@
         <strong>168,000원</strong>
       </div>
 
-      <form th:action="@{/payment/checkout}" method="get">
+      <form th:action="@{/payment/checkout}" method="post">
         <input type="hidden" name="amount" value="168000">
         <button type="submit" class="pay-btn">
           결제하기
