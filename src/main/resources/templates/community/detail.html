@@ -15,8 +15,7 @@
         <span class="detail-category" th:text="${community.category}">카테고리</span>
         <h2 class="detail-title" th:text="${community.title}">게시글 제목</h2>
         <div class="detail-info">
-<!--            작성자 변경-->
-            <span class="info-author" th:text="${community.id}">작성자</span>
+            <span class="info-author" th:text="${community.user?.name}">작성자</span>
         </div>
     </div>
 

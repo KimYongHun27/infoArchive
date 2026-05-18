@@ -56,7 +56,7 @@
             <td class="title-cell">
                 <a th:href="@{|/community/detail/${community.id}|}" th:text="${community.title}"></a>
             </td>
-            <td th:text="${community.id}">작성자명</td>
+            <td th:text="${community.user != null ? community.user.name : '작성자'}">작성자명</td>
         </tr>
         </tbody>
     </table>

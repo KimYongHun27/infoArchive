@@ -3,6 +3,7 @@ package com.meta12.infoArchive.service;
 import com.meta12.infoArchive.dto.CommunityDto;
 import com.meta12.infoArchive.entity.Community;
 import com.meta12.infoArchive.entity.Review;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.CommunityRepository;
 import com.meta12.infoArchive.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class CommunityService {
 
     private final CommunityRepository communityRepository;
+    private final UserService userService;
 
     public Page<Community> list(int page, String category, String kw) {
 //        List<Sort.Order> sorts = new ArrayList<>();
@@ -34,12 +37,16 @@ public class CommunityService {
             return communityRepository.findByCategoryAndTitleContaining(category, kw, pageable);
         }
     }
-    public Community editProc(CommunityDto communityDto){
+    public Community editProc(Authentication authentication, CommunityDto communityDto){
         Community community = new Community();
+
+        User user = userService.getLoginUser(authentication);
+
         community.setId(communityDto.getId());
         community.setTitle(communityDto.getTitle());
         community.setContent(communityDto.getContent());
         community.setCategory(communityDto.getCategory());
+        community.setUser(user);
         communityRepository.save(community);
         return community;
     }

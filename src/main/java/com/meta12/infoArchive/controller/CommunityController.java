@@ -3,10 +3,12 @@ package com.meta12.infoArchive.controller;
 import com.meta12.infoArchive.dto.CommunityDto;
 import com.meta12.infoArchive.entity.Community;
 import com.meta12.infoArchive.entity.Review;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.CommunityService;
 import com.meta12.infoArchive.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,10 +58,11 @@ public class CommunityController {
 
     @PostMapping("/community/editProc")
     public String editProc(
+            Authentication authentication,
             CommunityDto communityDto
     )
     {
-        communityService.editProc(communityDto);
+        communityService.editProc(authentication,communityDto);
         return "redirect:/community";
     }
 
