@@ -36,15 +36,17 @@
             <th class="col-no">NO</th>
             <th class="col-cate">카테고리</th>
             <th class="col-title">제목</th>
+            <th class="col-id">작성자</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="community, loop : ${paging}">
-            <td th:text="${paging.totalElements - (paging.number * paging.size) - loop.index}"></td>
+            <td th:text="${(paging.number * paging.size) + loop.count}"></td>
             <td><span class="category-badge" th:text="${community.category}">카테고리</span></td>
             <td class="title-cell">
                 <a th:href="@{|/community/detail/${community.id}|}" th:text="${community.title}"></a>
             </td>
+            <td th:text="${community.id}">작성자명</td>
         </tr>
         </tbody>
     </table>
