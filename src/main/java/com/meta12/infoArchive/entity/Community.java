@@ -12,8 +12,11 @@ public class Community {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 제목
     @Column(length = 200)
     private String title;
+
+    private String category; // 카테고리
 
     // 내용
     @Column(columnDefinition = "TEXT")

@@ -10,9 +10,9 @@ public class CommunityDto {
 
     private Long id;
 
-    private String title;
-
-    private String content;
+    private String title;    // 제목
+    private String category; // 카테고리
+    private String content;  // 내용
 
 //    // 작성자
 //    @ManyToOne
