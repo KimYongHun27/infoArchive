@@ -61,6 +61,7 @@ public class PaymentController {
             userService.activateMembership(authentication);
         }
 
+        
         return "redirect:/payment/payment-complete";
     }
 

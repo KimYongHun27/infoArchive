@@ -43,9 +43,23 @@
         </button>
       </div>
 
-      <div th:each="cartItem : ${cartList}" class="cart-card">
-        <h3 th:text="${cartItem.course.name}">제품명</h3>
-      </div>
+      <form id="checkoutForm" th:action="@{/payment/checkout}" method="post">
+
+        <div th:each="cartItem : ${cartList}" class="cart-card" style="display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #eee;">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <input type="checkbox" name="cartItemIds" th:value="${cartItem.id}" checked>
+
+            <h3 th:text="${cartItem.course.name}" style="margin: 0; font-size: 1.1rem;">강의명</h3>
+          </div>
+
+          <strong th:text="${#numbers.formatInteger(cartItem.course.price, 3, 'COMMA')} + '원'" style="color: #333;">0원</strong>
+        </div>
+
+        <div th:if="${#lists.isEmpty(cartList)}" style="text-align: center; padding: 40px 0; color: #888;">
+          장바구니가 비어 있습니다.
+        </div>
+
+      </form>
 
     </div>
 
@@ -74,6 +88,12 @@
           결제하기
         </button>
       </form>
+
+      <form id="checkout" th:action="@{/payment/checkout}" method="get">
+        <input type="checkbox" name="courseIds" th:value="${cartItem.course.id}" checked>
+      </form>
+
+      <button type="submit" form="checkoutForm">결제하기</button>
 
       <a th:href="@{/wishlist}" class="wishlist-link">
         찜한 강의 보러가기

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "cart", uniqueConstraints = {@UniqueConstraint(name = "uk_user_cart_lecture", columnNames = {"user_id", "lecture_id"})})
+@Table(name = "enrollment", uniqueConstraints = {@UniqueConstraint(name = "uk_user_cart_lecture", columnNames = {"user_id", "lecture_id"})})
 public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,14 @@ public class Enrollment {
         enrollment.course = course;
         enrollment.enrolledAt = LocalDateTime.now();
         enrollment.expiredAt = LocalDateTime.now().plusDays(periodDays);
+        return enrollment;
+    }
+
+    public static Enrollment createEnrollment(User user, Course course) {
+        Enrollment enrollment = new Enrollment();
+        enrollment.user = user;
+        enrollment.course = course;
+        enrollment.enrolledAt = LocalDateTime.now();
         return enrollment;
     }
 }
