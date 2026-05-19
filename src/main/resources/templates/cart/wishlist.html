@@ -94,7 +94,9 @@
       <section class="wishlist-grid">
 
         <!-- 찜한 강의가 없을 때 -->
-        <div class="empty-wishlist">
+        <div class="empty-wishlist"
+             th:if="${wishList == null or #lists.isEmpty(wishList)}">
+
           <div class="empty-icon">
             <i class="fa-regular fa-heart"></i>
           </div>
@@ -109,6 +111,65 @@
           <a th:href="@{/top10}" class="empty-wishlist-btn">
             강의 둘러보기
           </a>
+        </div>
+
+        <!-- 찜한 강의가 있을 때 -->
+        <div class="wishlist-card"
+             th:if="${wishList != null and !#lists.isEmpty(wishList)}"
+             th:each="wish : ${wishList}">
+
+          <form th:action="@{/wishlist/delete/{productId}(productId=${wish.product.id})}"
+                method="post">
+            <button type="submit" class="heart-btn active">
+              <i class="fa-solid fa-heart"></i>
+            </button>
+          </form>
+
+          <div class="wish-thumb">
+            <img th:if="${wish.product.thumbnailUrl != null and !wish.product.thumbnailUrl.isEmpty()}"
+                 th:src="@{${wish.product.thumbnailUrl}}"
+                 alt="강의 이미지">
+
+            <div class="no-wish-img"
+                 th:if="${wish.product.thumbnailUrl == null or wish.product.thumbnailUrl.isEmpty()}">
+              이미지 없음
+            </div>
+          </div>
+
+          <div class="wish-info">
+      <span class="item-category"
+            th:text="${wish.product.category != null ? wish.product.category : '강의'}">
+        카테고리
+      </span>
+
+            <h3 th:text="${wish.product.productName}">
+              강의명
+            </h3>
+
+            <p th:text="${wish.product.instructorName != null ? wish.product.instructorName : '강사명'}">
+              강사명
+            </p>
+
+            <strong class="wish-price"
+                    th:text="${#numbers.formatInteger(wish.product.price, 3, 'COMMA')} + '원'">
+              0원
+            </strong>
+
+            <div class="wish-buttons">
+              <a th:href="@{/product/{id}(id=${wish.product.id})}"
+                 class="cart-add-btn">
+                강의 보기
+              </a>
+
+              <form th:action="@{/wishlist/delete/{productId}(productId=${wish.product.id})}"
+                    method="post">
+                <button type="submit" class="wish-delete-btn">
+                  삭제
+                </button>
+              </form>
+            </div>
+          </div>
+
         </div>
 
       </section>

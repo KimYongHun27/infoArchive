@@ -24,13 +24,13 @@
 
   <section class="category-hero">
     <div class="category-title">
-      <img th:src="@{/img/main/cat01.png}" alt="">
+      <img th:src="@{/img/main/cat08.png}" alt="영상/3D">
 
       <div>
         <h1>영상/3D</h1>
         <p>
-          인물 스케치부터 디지털 일러스트까지,
-          드로잉의 모든 것을 배워보세요.
+          모션그래픽, 3D 모델링, 애니메이션, 렌더링까지
+          영상과 3D 제작 실력을 키워보세요.
         </p>
       </div>
     </div>
@@ -55,7 +55,7 @@
 
     <a th:href="@{/category/finance}">
       <img th:src="@{/img/main/cat03.png}" alt="">
-      <span>금융 · 재테크</span>
+      <span>금융·재테크</span>
     </a>
 
     <a th:href="@{/category/design}">
@@ -65,7 +65,7 @@
 
     <a th:href="@{/category/photo-video}">
       <img th:src="@{/img/main/cat05.png}" alt="">
-      <span>사진 · 영상</span>
+      <span>사진·영상</span>
     </a>
 
     <a th:href="@{/category/fitness}">
@@ -85,12 +85,12 @@
 
     <a th:href="@{/category/cooking}">
       <img th:src="@{/img/main/cat09.png}" alt="">
-      <span>베이킹 · 요리</span>
+      <span>베이킹·요리</span>
     </a>
 
     <a th:href="@{/category/language}">
       <img th:src="@{/img/main/cat10.png}" alt="">
-      <span>제2 외국어</span>
+      <span>제2외국어</span>
     </a>
 
     <a th:href="@{/category/programming}">
@@ -118,255 +118,375 @@
 
     <div class="drawing-grid">
 
-      <a th:href="@{/product/101}" class="drawing-card">
-        <span class="rank-num red">1</span>
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/801}" class="drawing-card">
+          <span class="rank-num red">1</span>
 
-        <div class="thumb">
-          <img src="/img/test/test1.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">스케치</span>
-          <h3>인체 드로잉 기초 마스터</h3>
-          <p class="teacher">일러스트레이터 하루</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.9</span>
-              <small>(201)</small>
-            </div>
-            <span class="student-count">수강생 6,201명</span>
+          <div class="thumb">
+            <img th:src="@{/img/test/test1.jpg}" alt="블렌더 3D 모델링 입문">
           </div>
 
-          <strong class="price">89,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">Blender</span>
+            <h3>블렌더 3D 모델링 입문</h3>
+            <p class="teacher">3D 아티스트 김도윤</p>
 
-      <a th:href="@{/product/102}" class="drawing-card">
-        <span class="rank-num red">2</span>
-
-        <div class="thumb">
-          <img src="/img/test/test2.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">수채화</span>
-          <h3>감성 수채화 일러스트 입문</h3>
-          <p class="teacher">수채화 작가 로엔</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.8</span>
-              <small>(132)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9</span>
+                <small>(201)</small>
+              </div>
+              <span class="student-count">수강생 6,201명</span>
             </div>
-            <span class="student-count">수강생 4,312명</span>
+
+            <strong class="price">89,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="801">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(801L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(801L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/802}" class="drawing-card">
+          <span class="rank-num red">2</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test2.jpg}" alt="시네마4D 기초">
           </div>
 
-          <strong class="price">79,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">Cinema4D</span>
+            <h3>시네마4D 기초 클래스</h3>
+            <p class="teacher">모션 디자이너 이서윤</p>
 
-      <a th:href="@{/product/103}" class="drawing-card">
-        <span class="rank-num red">3</span>
-
-        <div class="thumb">
-          <img src="/img/test/test3.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">인물</span>
-          <h3>인물 드로잉 완성 클래스</h3>
-          <p class="teacher">만화가 김도연</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.9</span>
-              <small>(92)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8</span>
+                <small>(132)</small>
+              </div>
+              <span class="student-count">수강생 4,312명</span>
             </div>
-            <span class="student-count">수강생 3,812명</span>
+
+            <strong class="price">99,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="802">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(802L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(802L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/803}" class="drawing-card">
+          <span class="rank-num red">3</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test3.jpg}" alt="애프터이펙트 모션그래픽">
           </div>
 
-          <strong class="price">99,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">모션그래픽</span>
+            <h3>애프터이펙트 모션그래픽</h3>
+            <p class="teacher">영상 디자이너 박도현</p>
 
-      <a th:href="@{/product/104}" class="drawing-card">
-        <span class="rank-num">4</span>
-
-        <div class="thumb">
-          <img src="/img/test/test4.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">인물화</span>
-          <h3>사실적인 인물 일러화</h3>
-          <p class="teacher">인물화 작가 도아</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.8</span>
-              <small>(176)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9</span>
+                <small>(92)</small>
+              </div>
+              <span class="student-count">수강생 3,812명</span>
             </div>
-            <span class="student-count">수강생 5,341명</span>
+
+            <strong class="price">79,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="803">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(803L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(803L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/804}" class="drawing-card">
+          <span class="rank-num">4</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test4.jpg}" alt="3D 캐릭터 모델링">
           </div>
 
-          <strong class="price">89,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">캐릭터</span>
+            <h3>3D 캐릭터 모델링 기초</h3>
+            <p class="teacher">캐릭터 모델러 최유진</p>
 
-      <a th:href="@{/product/105}" class="drawing-card">
-        <span class="rank-num">5</span>
-
-        <div class="thumb">
-          <img src="/img/test/test5.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">디지털</span>
-          <h3>아이패드 드로잉 올인원 클래스</h3>
-          <p class="teacher">디지털 아티스트 RIE</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.8</span>
-              <small>(143)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8</span>
+                <small>(176)</small>
+              </div>
+              <span class="student-count">수강생 5,341명</span>
             </div>
-            <span class="student-count">수강생 4,085명</span>
+
+            <strong class="price">109,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="804">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(804L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(804L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/805}" class="drawing-card">
+          <span class="rank-num">5</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test5.jpg}" alt="제품 3D 렌더링">
           </div>
 
-          <strong class="price">129,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">렌더링</span>
+            <h3>제품 3D 렌더링 실전</h3>
+            <p class="teacher">렌더링 아티스트 한지훈</p>
 
-      <a th:href="@{/product/106}" class="drawing-card">
-        <span class="rank-num">6</span>
-
-        <div class="thumb">
-          <img src="/img/test/test6.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">스케치</span>
-          <h3>투시도 스케치 완전 정복</h3>
-          <p class="teacher">건축 스케치 아연</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.7</span>
-              <small>(88)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8</span>
+                <small>(143)</small>
+              </div>
+              <span class="student-count">수강생 4,085명</span>
             </div>
-            <span class="student-count">수강생 2,921명</span>
+
+            <strong class="price">95,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="805">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(805L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(805L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/806}" class="drawing-card">
+          <span class="rank-num">6</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test6.jpg}" alt="3D 애니메이션">
           </div>
 
-          <strong class="price">79,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">애니메이션</span>
+            <h3>3D 애니메이션 입문</h3>
+            <p class="teacher">애니메이터 오세준</p>
 
-      <a th:href="@{/product/107}" class="drawing-card">
-        <span class="rank-num">7</span>
-
-        <div class="thumb">
-          <img src="/img/test/test7.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">일러스트</span>
-          <h3>캐릭터 일러스트 기초</h3>
-          <p class="teacher">일러스트레이터 로로</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.8</span>
-              <small>(112)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.7</span>
+                <small>(88)</small>
+              </div>
+              <span class="student-count">수강생 2,921명</span>
             </div>
-            <span class="student-count">수강생 3,201명</span>
+
+            <strong class="price">85,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="806">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(806L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(806L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/807}" class="drawing-card">
+          <span class="rank-num">7</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test7.jpg}" alt="브이FX 기초">
           </div>
 
-          <strong class="price">99,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">VFX</span>
+            <h3>영상 합성과 VFX 기초</h3>
+            <p class="teacher">VFX 아티스트 윤다은</p>
 
-      <a th:href="@{/product/108}" class="drawing-card">
-        <span class="rank-num">8</span>
-
-        <div class="thumb">
-          <img src="/img/test/test8.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">수채화</span>
-          <h3>꽃 수채화 힐링 클래스</h3>
-          <p class="teacher">플라워 작가 유나</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.9</span>
-              <small>(164)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8</span>
+                <small>(112)</small>
+              </div>
+              <span class="student-count">수강생 3,201명</span>
             </div>
-            <span class="student-count">수강생 3,654명</span>
+
+            <strong class="price">92,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="807">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(807L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(807L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/808}" class="drawing-card">
+          <span class="rank-num">8</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test8.jpg}" alt="로고 3D 모션">
           </div>
 
-          <strong class="price">89,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">로고모션</span>
+            <h3>3D 로고 모션 제작</h3>
+            <p class="teacher">모션그래퍼 강소라</p>
 
-      <a th:href="@{/product/109}" class="drawing-card">
-        <span class="rank-num">9</span>
-
-        <div class="thumb">
-          <img src="/img/test/test9.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">펜 드로잉</span>
-          <h3>펜 하나로 완성하는 풍경 드로잉</h3>
-          <p class="teacher">드로잉 작가 한성</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.7</span>
-              <small>(97)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9</span>
+                <small>(164)</small>
+              </div>
+              <span class="student-count">수강생 3,654명</span>
             </div>
-            <span class="student-count">수강생 2,314명</span>
+
+            <strong class="price">77,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="808">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(808L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(808L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/809}" class="drawing-card">
+          <span class="rank-num">9</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test9.jpg}" alt="3D 포트폴리오">
           </div>
 
-          <strong class="price">69,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">포트폴리오</span>
+            <h3>3D 포트폴리오 제작</h3>
+            <p class="teacher">3D 디렉터 문예린</p>
 
-      <a th:href="@{/product/110}" class="drawing-card">
-        <span class="rank-num">10</span>
-
-        <div class="thumb">
-          <img src="/img/test/test10.jpg" alt="">
-        </div>
-
-        <div class="card-info">
-          <span class="tag">디지털</span>
-          <h3>디지털 일러스트 실전 테크닉</h3>
-          <p class="teacher">현업 아티스트 리온</p>
-
-          <div class="meta">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <span>4.8</span>
-              <small>(218)</small>
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.7</span>
+                <small>(97)</small>
+              </div>
+              <span class="student-count">수강생 2,314명</span>
             </div>
-            <span class="student-count">수강생 5,672명</span>
+
+            <strong class="price">105,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="809">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(809L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(809L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
+
+      <div class="drawing-card-wrap">
+        <a th:href="@{/product/810}" class="drawing-card">
+          <span class="rank-num">10</span>
+
+          <div class="thumb">
+            <img th:src="@{/img/test/test10.jpg}" alt="언리얼 영상 제작">
           </div>
 
-          <strong class="price">139,000원</strong>
-        </div>
-      </a>
+          <div class="card-info">
+            <span class="tag">Unreal</span>
+            <h3>언리얼 엔진 영상 제작</h3>
+            <p class="teacher">테크 아티스트 최도현</p>
+
+            <div class="meta">
+              <div class="rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8</span>
+                <small>(218)</small>
+              </div>
+              <span class="student-count">수강생 5,672명</span>
+            </div>
+
+            <strong class="price">119,000원</strong>
+          </div>
+        </a>
+
+        <form th:action="@{/likes/toggle}" method="post" class="like-form">
+          <input type="hidden" name="productId" value="810">
+          <button type="submit"
+                  class="like-btn"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(810L)} ? ' active' : ''"
+                  th:text="${likedProductIds != null and likedProductIds.contains(810L)} ? '♥' : '♡'">
+            ♡
+          </button>
+        </form>
+      </div>
 
     </div>
 

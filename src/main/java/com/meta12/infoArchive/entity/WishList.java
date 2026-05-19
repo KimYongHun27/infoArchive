@@ -3,41 +3,50 @@ package com.meta12.infoArchive.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-
-@Table(name = "wishlist",
-        uniqueConstraints = {@UniqueConstraint(name = "uk_user_lecture",
-                columnNames = {"user_id", "lecture_id"})})
+@Table(
+        name = "wishlist",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_user_product",
+                        columnNames = {"user_id", "product_id"}
+                )
+        }
+)
 public class WishList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //유저 fk
+    // 유저 FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    //강의 fk
+    // 찜한 강의/상품 FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id")
-    private Course course;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    //최근 담은 순서 정렬용
-    @CreatedDate
+    // 최근 담은 순서 정렬용
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    public static WishList createWishList(User user, Course course) {
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public static WishList createWishList(User user, Product product) {
         WishList wishList = new WishList();
         wishList.user = user;
-        wishList.course = course;
+        wishList.product = product;
         return wishList;
     }
 }
