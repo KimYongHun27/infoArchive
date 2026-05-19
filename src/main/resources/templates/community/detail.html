@@ -20,7 +20,27 @@
     </div>
 
     <div class="detail-content">
-        <div class="content-body" th:utext="${community.content}">내용</div>
+        <div th:id="'CommunityView-' + ${community.id}" class="content-body" th:utext="${community.content}">
+            내용
+        </div>
+
+        <div th:id="'CommunityEdit-' + ${community.id}" style="display: none;">
+            <form th:action="@{/community/editProc}" method="post">
+                <input type="hidden" name="id" th:value="${community.id}">
+                <div style="margin-bottom: 10px;">
+                    <label>제목</label>
+                    <input type="text" name="title" th:value="${community.title}" style="width: 100%; padding: 8px;">
+                </div>
+                <div>
+                    <label>내용</label>
+                    <textarea name="content" style="width: 100%; min-height: 300px; padding: 8px;" th:text="${community.content}"></textarea>
+                </div>
+                <div style="text-align: right; margin-top: 10px;">
+                    <button type="submit" class="submit-btn">수정 완료</button>
+                    <button type="button" class="cancel-btn" th:onclick="'closeCommunityEdit(' + ${community.id} + ')'">취소</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="detail-footer">
@@ -28,37 +48,22 @@
             <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
         </div>
 
-<!--        <div class="right-actions">-->
-<!--            <a th:href="@{|/community/modify/${community.id}|}" class="action-link modify-btn">수정하기</a>-->
-<!--            <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${community.id}|}"-->
-<!--               class="delete action-link delete-btn">삭제하기</a>-->
-
-
-        <div class="right-actions" th:if="${community.user != null and #authentication.name == community.user.username}">
+<!--        th:if="${community.user != null and #authentication.name == community.user.username}"-->
+        <div class="right-actions">
             <button type="button"
                     class="action-link modify-btn"
-                    th:onclick="'openCommunityEdit(' + ${community.id} + ')'">
+                    th:onclick="tryEdit([[${community.id}]], [[${#authentication.name}]], [[${community.user?.username}]])">
                 수정
             </button>
 
             <form th:action="@{/community/deleteProc/{id}(id=${community.id})}"
                   method="post"
-                  onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                  th:onsubmit="return checkDeleteAuthority([[${#authentication.name}]], [[${community.user?.username}]]);"
+                  style="display: inline;">
                 <button type="submit" class="delete action-link delete-btn">삭제</button>
             </form>
         </div>
-
-<!--                    <div class="form-actions">-->
-<!--                        <button type="button"-->
-<!--                                class="cancel-btn"-->
-<!--                                th:onclick="'closeCommunityEdit(' + ${community.id} + ')'">-->
-<!--                            취소-->
-<!--                        </button>-->
-<!--                        <button type="submit" class="submit-btn">수정 완료</button>-->
-<!--                    </div>-->
-                </form>
-            </div>
-        </div>
+    </div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
