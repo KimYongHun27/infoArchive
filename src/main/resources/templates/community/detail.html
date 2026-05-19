@@ -49,7 +49,7 @@
         </div>
 
 <!--        th:if="${community.user != null and #authentication.name == community.user.username}"-->
-        <div class="right-actions">
+        <div class="right-actions" th:if="${community.user != null and #authentication.name == community.user.username}">
             <button type="button"
                     class="action-link modify-btn"
                     th:onclick="tryEdit([[${community.id}]], [[${#authentication.name}]], [[${community.user?.username}]])">
