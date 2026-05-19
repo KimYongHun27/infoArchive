@@ -42,13 +42,6 @@ public class PaymentController {
             PaymentConfirmRequestDto dto,
             Authentication authentication
     ) {
-
-        System.out.println("===== 결제 요청 들어옴 =====");
-        System.out.println("orderId = " + dto.getOrderId());
-        System.out.println("amount = " + dto.getAmount());
-        System.out.println("paymentMethod = " + dto.getPaymentMethod());
-        System.out.println("membershipType = " + dto.getMembershipType());
-
         if (authentication == null
                 || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getPrincipal())) {
