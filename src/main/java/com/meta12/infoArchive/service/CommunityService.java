@@ -28,7 +28,7 @@ public class CommunityService {
     public Page<Community> list(int page, String category, String kw) {
 //        List<Sort.Order> sorts = new ArrayList<>();
 //        sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 10,Sort.by(Sort.Order.desc("id")));
         if (category == null || category.isEmpty() || category.equals("all")) {
             if (kw == null || kw.isEmpty()) return communityRepository.findAll(pageable);
             return communityRepository.findByTitleContaining(kw, pageable);
