@@ -36,10 +36,6 @@
                     <label>내용</label>
                     <textarea name="content" style="width: 100%; min-height: 300px; padding: 8px;" th:text="${community.content}"></textarea>
                 </div>
-                <div style="text-align: right; margin-top: 10px;">
-                    <button type="submit" class="submit-btn">수정 완료</button>
-                    <button type="button" class="cancel-btn" th:onclick="'closeCommunityEdit(' + ${community.id} + ')'">취소</button>
-                </div>
             </form>
         </div>
     </div>
@@ -50,18 +46,23 @@
         </div>
 
         <div class="right-actions" th:if="${community.user != null and loginUserId == community.user.id}">
-
             <button type="button"
+                    id="editBtn"
                     class="action-link modify-btn"
                     th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user.id}]])">
                 수정
             </button>
 
-            <form th:action="@{/community/deleteProc/{id}(id=${community.id})}"
+            <form id="deleteForm"
+                  th:action="@{/community/deleteProc/{id}(id=${community.id})}"
                   method="post"
-                  th:onsubmit="return checkDeleteAuthority([[${loginUserId}]], [[${community.user.id}]]);"
                   style="display: inline;">
-                <button type="submit" class="delete action-link delete-btn">삭제</button>
+                <button type="button"
+                        id="deleteBtn"
+                        class="delete action-link delete-btn"
+                        th:onclick="tryDelete([[${loginUserId}]], [[${community.user.id}]])">
+                    삭제
+                </button>
             </form>
         </div>
     </div>
