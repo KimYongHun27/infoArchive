@@ -20,7 +20,24 @@
     </div>
 
     <div class="detail-content">
-        <div class="content-body" th:utext="${community.content}">내용</div>
+        <div th:id="'CommunityView-' + ${community.id}" class="content-body" th:utext="${community.content}">
+            내용
+        </div>
+
+        <div th:id="'CommunityEdit-' + ${community.id}" style="display: none;">
+            <form th:action="@{/community/editProc}" method="post">
+                <input type="hidden" name="id" th:value="${community.id}">
+                <input type="hidden" name="category" th:value="${community.category}">
+                <div style="margin-bottom: 10px;">
+                    <label>제목</label>
+                    <input type="text" name="title" th:value="${community.title}" style="width: 100%; padding: 8px;">
+                </div>
+                <div>
+                    <label>내용</label>
+                    <textarea name="content" style="width: 100%; min-height: 300px; padding: 8px;" th:text="${community.content}"></textarea>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="detail-footer">
@@ -28,37 +45,59 @@
             <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
         </div>
 
-<!--        <div class="right-actions">-->
-<!--            <a th:href="@{|/community/modify/${community.id}|}" class="action-link modify-btn">수정하기</a>-->
-<!--            <a href="javascript:void(0);" th:data-uri="@{|/community/delete/${community.id}|}"-->
-<!--               class="delete action-link delete-btn">삭제하기</a>-->
-
-
-        <div class="right-actions" th:if="${community.user != null and #authentication.name == community.user.username}">
+        <div class="right-actions" th:if="${community.user != null and loginUserId == community.user.id}">
             <button type="button"
+                    id="editBtn"
                     class="action-link modify-btn"
-                    th:onclick="'openCommunityEdit(' + ${community.id} + ')'">
+                    th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user.id}]])">
                 수정
             </button>
 
-            <form th:action="@{/community/deleteProc/{id}(id=${community.id})}"
+            <form id="deleteForm"
+                  th:action="@{/community/deleteProc/{id}(id=${community.id})}"
                   method="post"
-                  onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                <button type="submit" class="delete action-link delete-btn">삭제</button>
+                  style="display: inline;">
+                <button type="button"
+                        id="deleteBtn"
+                        class="delete action-link delete-btn"
+                        th:onclick="tryDelete([[${loginUserId}]], [[${community.user.id}]])">
+                    삭제
+                </button>
             </form>
         </div>
+    </div>
+</div>
+<div class="answer-section" style="max-width: 800px; margin: 50px auto; padding-top: 20px;">
+    <h3 style="margin-bottom: 20px;">댓글 <span th:text="${#lists.size(community.answers)}" style="color: #888; font-size: 0.8em;">0</span></h3>
 
-<!--                    <div class="form-actions">-->
-<!--                        <button type="button"-->
-<!--                                class="cancel-btn"-->
-<!--                                th:onclick="'closeCommunityEdit(' + ${community.id} + ')'">-->
-<!--                            취소-->
-<!--                        </button>-->
-<!--                        <button type="submit" class="submit-btn">수정 완료</button>-->
-<!--                    </div>-->
-                </form>
+    <div class="answer-list" style="margin-bottom: 30px;">
+        <div th:each="answer : ${community.answers}" style="border-bottom: 1px solid #eee; padding: 15px 0;">
+            <div style="display: flex; justify-content: space-between;">
+                <strong th:text="${answer.user?.name != null ? answer.user.name : '알 수 없음'}">작성자</strong>
             </div>
+            <p style="margin-top: 8px; white-space: pre-wrap;" th:text="${answer.content}">댓글 내용</p>
         </div>
+        <div th:if="${#lists.isEmpty(community.answers)}" style="text-align: center; color: #999; padding: 20px;">
+            첫 번째 댓글을 남겨보세요!
+        </div>
+    </div>
+
+    <div class="answer-form" th:if="${loginUserId != null}">
+        <form th:action="@{|/community/answer/create/${community.id}|}" method="post">
+            <textarea name="content" rows="3" required
+                      style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; resize: none;"
+                      placeholder="따뜻한 댓글을 남겨주세요."></textarea>
+            <div style="text-align: right; margin-top: 10px;">
+                <button type="submit" class="submit-btn"
+                        style="padding: 10px 25px; background-color: #333; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    댓글 등록
+                </button>
+            </div>
+        </form>
+    </div>
+    <div th:if="${loginUserId == null}" style="text-align: center; padding: 20px; background: #f9f9f9; border-radius: 5px;">
+        <p>댓글을 작성하려면 <a th:href="@{/user/login}" style="color: #007bff; text-decoration: underline;">로그인</a>이 필요합니다.</p>
+    </div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>

@@ -19,7 +19,7 @@
             <button type="button" class="search-community-btn" id="btn_search">
                 <img th:src="@{/img/header/1093183.png}" alt="검색">
             </button>
-            <input type="text" id="search_kw" th:value="${kw}" placeholder="검색어를 입력하세요">
+            <input type="text" id="search_kw" th:value="${kw}" placeholder="제목를 입력하세요">
         </div>
     </div>
 
@@ -51,7 +51,7 @@
         </thead>
         <tbody>
         <tr th:each="community, loop : ${paging}" th:data-category="${community.category}">
-            <td th:text="${(paging.number * paging.size) + loop.count}"></td>
+            <td th:text="${paging.totalElements - (paging.number * paging.size) - loop.index}"></td>
             <td><span class="category-badge" th:text="${community.category}">카테고리</span></td>
             <td class="title-cell">
                 <a th:href="@{|/community/detail/${community.id}|}" th:text="${community.title}"></a>

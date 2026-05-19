@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -26,7 +28,9 @@ public class Community {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    // 작성자
-//    @ManyToOne
-//    private User author;
+
+    // Community 엔티티 클래스 내부에 추가
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
+    @OrderBy("id DESC")
+    private List<Answer> answers;
 }

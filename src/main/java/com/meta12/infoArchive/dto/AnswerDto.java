@@ -1,5 +1,6 @@
 package com.meta12.infoArchive.dto;
 
+import com.meta12.infoArchive.entity.Community;
 import com.meta12.infoArchive.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,9 +12,10 @@ public class AnswerDto {
 
     private Long id;
 
-    // 내용
     private String content;
 
-    // 작성자
-    private User author;
+
+    private Community community;
+
+    private User user;
 }

@@ -4,6 +4,7 @@ import com.meta12.infoArchive.dto.CommunityDto;
 import com.meta12.infoArchive.entity.Community;
 import com.meta12.infoArchive.entity.Review;
 import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.service.AnswerService;
 import com.meta12.infoArchive.service.CommunityService;
 import com.meta12.infoArchive.service.ReviewService;
 import com.meta12.infoArchive.service.UserService;
@@ -28,6 +29,7 @@ public class CommunityController {
 
     private final CommunityService communityService;
     private final UserService userService;
+    private final AnswerService answerService;
 
     @GetMapping("/community")
       public String community(
@@ -54,10 +56,16 @@ public class CommunityController {
     public String detail(
             Model model,
             @PathVariable("id") Long id,
-            CommunityDto communityDto
+            Authentication authentication
     ) {
         Community community = communityService.detail(id);
         model.addAttribute("community", community);
+        if (authentication != null && authentication.isAuthenticated()) {
+            User loginUser = userService.getLoginUser(authentication);
+            if (loginUser != null) {
+                model.addAttribute("loginUserId", loginUser.getId());
+            }
+        }
         return "community/detail";
     }
 
@@ -70,12 +78,7 @@ public class CommunityController {
         communityService.editProc(authentication,communityDto);
         return "redirect:/community";
     }
-//    @PostMapping("/community/sujungProc")
-//    public String sujungProc(
-//    )
-//    {
-//        return "redirect:/community";
-//    }
+
     @PostMapping("/community/deleteProc/{id}")
     public String deleteProc(
             @PathVariable ("id") Long id,
@@ -93,15 +96,21 @@ public class CommunityController {
 
         return "redirect:/community";
     }
+    @PostMapping("/community/answer/create/{id}")
+    public String Answer(
+            @PathVariable("id") Long id,
+            @RequestParam("content") String content,
+            Authentication auth
+    ) {
+
+        Community community = communityService.detail(id);
+        User user = userService.getLoginUser(auth);
+
+        // commentService를 만들어 저장 로직을 구현하세요.
+        answerService.save(community, user, content);
+
+        return String.format("redirect:/community/detail/%s", id);
+    }
 
 }
-//    private final CommunityService communityService;
-//    @GetMapping("/community")
-//    public String community(
-//            Model model
-//    ){
-//        List<Review> community = communityService.findAll();
-//        model.addAttribute("community",community);
-//        return "community";
-//    }
 
