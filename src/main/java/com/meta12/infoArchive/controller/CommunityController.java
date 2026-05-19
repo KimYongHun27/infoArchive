@@ -6,8 +6,10 @@ import com.meta12.infoArchive.entity.Review;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.CommunityService;
 import com.meta12.infoArchive.service.ReviewService;
+import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,7 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final UserService userService;
 
     @GetMapping("/community")
       public String community(
@@ -63,6 +68,29 @@ public class CommunityController {
     )
     {
         communityService.editProc(authentication,communityDto);
+        return "redirect:/community";
+    }
+//    @PostMapping("/community/sujungProc")
+//    public String sujungProc(
+//    )
+//    {
+//        return "redirect:/community";
+//    }
+    @PostMapping("/community/deleteProc/{id}")
+    public String deleteProc(
+            @PathVariable ("id") Long id,
+            Authentication authentication
+    )
+    {
+        Community community = communityService.detail(id);
+
+        User loginUser = userService.getLoginUser(authentication);
+
+        if (community == null || !community.getUser().getId().equals(loginUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "삭제 권한이 없습니다.");
+        }
+        communityService.deleteById(id);
+
         return "redirect:/community";
     }
 
