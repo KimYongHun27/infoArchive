@@ -14,10 +14,10 @@ public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     //coupon code 쿠폰 코드
-    private String CouponCode;
+    private String couponCode;
 
     //discountAmount 할인 금액
     private int discountAmount;
