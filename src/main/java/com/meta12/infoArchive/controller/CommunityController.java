@@ -54,10 +54,16 @@ public class CommunityController {
     public String detail(
             Model model,
             @PathVariable("id") Long id,
-            CommunityDto communityDto
+            Authentication authentication
     ) {
         Community community = communityService.detail(id);
         model.addAttribute("community", community);
+        if (authentication != null && authentication.isAuthenticated()) {
+            User loginUser = userService.getLoginUser(authentication);
+            if (loginUser != null) {
+                model.addAttribute("loginUserId", loginUser.getId());
+            }
+        }
         return "community/detail";
     }
 

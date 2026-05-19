@@ -49,17 +49,17 @@
             <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
         </div>
 
-<!--        th:if="${community.user != null and #authentication.name == community.user.username}"-->
-        <div class="right-actions" th:if="${community.user != null and #authentication.name == community.user.username}">
+        <div class="right-actions" th:if="${community.user != null and loginUserId == community.user.id}">
+
             <button type="button"
                     class="action-link modify-btn"
-                    th:onclick="tryEdit([[${community.id}]], [[${#authentication.name}]], [[${community.user?.username}]])">
+                    th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user.id}]])">
                 수정
             </button>
 
             <form th:action="@{/community/deleteProc/{id}(id=${community.id})}"
                   method="post"
-                  th:onsubmit="return checkDeleteAuthority([[${#authentication.name}]], [[${community.user?.username}]]);"
+                  th:onsubmit="return checkDeleteAuthority([[${loginUserId}]], [[${community.user.id}]]);"
                   style="display: inline;">
                 <button type="submit" class="delete action-link delete-btn">삭제</button>
             </form>
