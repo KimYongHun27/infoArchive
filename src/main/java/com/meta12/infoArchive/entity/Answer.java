@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -12,11 +14,15 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 내용
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    // 작성자
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "community_id")
+    private Community community;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
