@@ -82,18 +82,9 @@
         <strong>168,000원</strong>
       </div>
 
-      <form th:action="@{/payment/checkout}" method="post">
-        <input type="hidden" name="amount" value="168000">
-        <button type="submit" class="pay-btn">
-          결제하기
-        </button>
-      </form>
+      <input type="hidden" name="amount" value="168000" form="checkoutForm">
 
-      <form id="checkout" th:action="@{/payment/checkout}" method="get">
-        <input type="checkbox" name="courseIds" th:value="${cartItem.course.id}" checked>
-      </form>
-
-      <button type="submit" form="checkoutForm">결제하기</button>
+      <button type="submit" form="checkoutForm" class="pay-btn">결제하기</button>
 
       <a th:href="@{/wishlist}" class="wishlist-link">
         찜한 강의 보러가기
