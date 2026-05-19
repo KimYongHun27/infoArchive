@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.PipedReader;
+import java.util.List;
 
 @Getter
 @Setter
 public class PaymentConfirmRequestDto {
+
+    private List<Long> cartItemIds;
 
     private String orderId;
     private Long productId;

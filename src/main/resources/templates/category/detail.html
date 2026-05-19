@@ -70,7 +70,16 @@
                     <strong th:text="${product.discountRate + '%'}">20%</strong>
                 </div>
 
-                <a th:href="@{/payment/checkout(productId=${product.id})}"
+                <!-- 멤버십 이용 중이면 결제 없이 강의 보기 -->
+                <a th:if="${membershipActive}"
+                   th:href="@{/product/{id}(id=${product.id})}"
+                   class="buy-btn">
+                    강의 보기
+                </a>
+
+                <!-- 멤버십이 없으면 결제하기 -->
+                <a th:if="${!membershipActive}"
+                   th:href="@{/payment/checkout(productId=${product.id})}"
                    class="buy-btn">
                     결제하기
                 </a>

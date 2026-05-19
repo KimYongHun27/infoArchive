@@ -84,7 +84,8 @@
 
             <input type="hidden" name="orderId" th:value="${orderId}">
             <input type="hidden" name="amount" th:value="${amount}">
-            <input type="hidden" name="membershipType" value="MONTHLY">
+            <input type="hidden" name="membershipType" th:value="${membershipType}">
+            <input type="hidden" name="productId" th:value="${productId}">
 
             <!-- 결제 수단 -->
             <div class="box">

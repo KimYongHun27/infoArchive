@@ -1,0 +1,448 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  background: #f4f4f4;
+  color: #111;
+}
+
+/* 전체 */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 메인 */
+.main {
+  display: flex;
+  flex: 1;
+}
+
+/* 왼쪽 사이드바 */
+.order-details-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+  padding: 60px 0px;
+  margin: 0 50px;
+}
+
+.sidebar-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 18px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 18px;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.side-menu a span {
+  width: 18px;
+  text-align: center;
+  color: #777;
+}
+
+.side-menu a:hover {
+  background: #fafafa;
+}
+
+.side-menu a.active {
+  color: #ff2448;
+  background: #fff;
+  border-left: 3px solid #ff2448;
+}
+
+.side-menu a.active span {
+  color: #ff2448;
+}
+
+.customer-box {
+  padding: 18px;
+  background: #fafafa;
+}
+
+.customer-box h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.customer-box p {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.customer-box strong {
+  display: block;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  padding: 35px 70px;
+}
+
+.p1 {
+  padding-bottom: 50px;
+  color: rgb(134, 134, 134);
+  font-weight: bolder;
+}
+
+.higher-btn {
+  display: flex;
+  color: #777;
+  justify-content: space-between;
+}
+
+.left {
+ display: flex;
+ font-size: 17px;
+ color: #777;
+ font-weight: bolder;
+ gap: 50px;
+}
+
+.total {
+  color: rgb(226, 20, 65);
+  text-decoration: none;
+}
+
+.course {
+  color: #777;
+  text-decoration: none;
+}
+
+.membership {
+  color: #777;
+  text-decoration: none;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.recently {
+  height: 50px;
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: rgb(255, 255, 255);
+  color: rgb(105, 105, 105);
+  border: 1.5px solid rgb(212, 212, 212);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.order-search-box {
+  max-width: 720px;
+  height: 50px;
+  margin: 0 auto;
+  padding: 0 8px 0 22px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  margin-right: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #111;
+}
+
+.order-search-box input::placeholder {
+  color: rgb(105, 105, 105);
+  font-weight: bolder;
+}
+
+.order-button {
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+.find {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border: none;s
+}
+
+.line{
+  width: 350px;
+  height: 3px;
+  background-color: #b9b9b9;
+}
+
+.order-card {
+  padding: 10px 70px;
+}
+
+.order-container {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.order-box {
+  display: flex;
+  height: 250px;
+  border-right: 2px solid rgb(212, 212, 212);
+}
+
+.receipt {
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  border-right: 2px solid rgb(212, 212, 212);
+  padding: 0px 30px;
+  align-content: center;
+}
+
+.order-number{
+  color: #525252;
+  font-weight: bold;
+}
+
+.order-date{
+  color: #525252;
+  font-weight: bold;
+}
+
+.order-price{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.order-img {
+  width: 250px;
+  height: 250px;
+  background-color: #ffffff;
+}
+
+.course-img {
+  width: 220px;
+  height: 220px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.course-content {
+  width: 600px;
+  padding: 40px;
+  background-color: rgb(255, 255, 255);
+  border-right: 2px solid rgb(212, 212, 212);
+}
+
+.category{
+  color: #525252;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+.course-name{
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.instructor{
+  color: #525252;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+.price{
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.right-btn {
+  width: 265px;
+  padding: 20px 20px;
+  background-color: rgb(255, 255, 255);
+  align-content: center;
+}
+
+.payment {
+  text-align: right;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(36, 119, 228);
+  padding-right: 15px;
+  padding-bottom: 10px;
+}
+
+.course-btn {
+  padding: 20px 0px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.course-move {
+  background-color: rgb(255, 0, 34);
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 20px 60px;
+  border-radius: 10px;
+}
+
+.order-btn {
+  margin-top: 10px;
+  padding: 20px 0px;
+  text-align: center;
+}
+
+.order-view {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(73, 73, 73);
+  text-decoration: none;
+  padding: 20px 50px;
+  border-radius: 10px;
+}
+
+.membership-name {
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.subscription {
+  color: #525252;
+  font-weight: bold;
+  padding-bottom: 20px;
+
+}
+
+.use {
+  text-align: right;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(0, 145, 24);
+  padding-right: 15px;
+  padding-bottom: 20px;
+}
+
+.membership-btn {
+  margin-top: 10px;
+  padding: 40px 0px;
+  text-align: center;
+}
+
+.membership-manage {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(73, 73, 73);
+  text-decoration: none;
+  padding: 20px 50px;
+  border-radius: 10px;
+}
+
+/* =========================
+   주문 내역 없음
+========================= */
+
+.empty-orders {
+    width: 100%;
+    padding: 90px 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.empty-orders h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #111;
+}
+
+.empty-orders p {
+    margin: 0 0 28px;
+    color: #777;
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 700;
+}
+
+.empty-orders-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 140px;
+    height: 44px;
+
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.empty-orders-btn:hover {
+    background: #222;
+}
