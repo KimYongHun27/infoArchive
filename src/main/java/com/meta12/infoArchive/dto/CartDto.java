@@ -8,8 +8,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CartDto {
+
     private Long id;
+
     private Long userId;
-    private Long courseId;
+
+    private Long productId;
+
+    private Integer quantity;
+
     private LocalDateTime createdAt;
 }

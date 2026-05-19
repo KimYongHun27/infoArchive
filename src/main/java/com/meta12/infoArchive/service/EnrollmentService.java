@@ -1,8 +1,12 @@
 package com.meta12.infoArchive.service;
 
-import com.meta12.infoArchive.entity.*;
+import com.meta12.infoArchive.entity.Cart;
+import com.meta12.infoArchive.entity.Enrollment;
+import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.CartRepository;
 import com.meta12.infoArchive.repository.EnrollmentRepository;
+import com.meta12.infoArchive.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,24 +19,54 @@ public class EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
     private final CartRepository cartRepository;
+    private final ProductRepository productRepository;
 
+    // 장바구니 결제 후 여러 상품 수강 등록
     @Transactional
-    public void enrollCourses(User user, List<Long> cartItemIds) {
-        // 1. 선택된 장바구니 아이템들 조회
-        List<Cart> cartItems = cartRepository.findAllById(cartItemIds);
+    public void enrollProducts(User user, List<Long> cartIds) {
 
-        for (Cart cart : cartItems) {
-            // 2. 장바구니 아이템에서 강의(Course) 정보 추출 후 Enrollment 생성
-            enrollmentRepository.save(Enrollment.createEnrollment(user, cart.getCourse()));
+        List<Cart> cartList = cartRepository.findAllById(cartIds);
+
+        for (Cart cart : cartList) {
+
+            // 다른 유저 장바구니 결제 방지
+            if (!cart.getUser().getId().equals(user.getId())) {
+                throw new IllegalStateException("본인의 장바구니만 결제할 수 있습니다.");
+            }
+
+            boolean alreadyEnrolled =
+                    enrollmentRepository.existsByUserIdAndProductId(
+                            user.getId(),
+                            cart.getProduct().getId()
+                    );
+
+            if (!alreadyEnrolled) {
+                enrollmentRepository.save(
+                        Enrollment.createEnrollment(user, cart.getProduct())
+                );
+            }
         }
 
-        // 3. 결제가 완료되었으므로 구매한 장바구니 아이템 삭제 (선택 사항)
-        cartRepository.deleteAll(cartItems);
+        // 결제 완료 후 장바구니 삭제
+        cartRepository.deleteAll(cartList);
     }
 
-//    public Enrollment insert()
-//    {
-//        //User user, Course course
-//        //return enrollmentRepository.save(Enrollment.createEnrollment());
-//    }
+    // 단일 상품 결제 후 수강 등록
+    @Transactional
+    public void enrollProduct(User user, Long productId) {
+
+        boolean alreadyEnrolled =
+                enrollmentRepository.existsByUserIdAndProductId(user.getId(), productId);
+
+        if (alreadyEnrolled) {
+            return;
+        }
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        enrollmentRepository.save(
+                Enrollment.createEnrollment(user, product)
+        );
+    }
 }

@@ -72,22 +72,22 @@
 
                 <td>
                     <span class="status-badge waiting"
-                          th:if="${application.status != null and application.status.name() == 'PENDING'}">
+                          th:if="${apply.status != null and apply.status.name() == 'PENDING'}">
                         검토중
                     </span>
 
                     <span class="status-badge approved"
-                          th:if="${application.status != null and application.status.name() == 'APPROVED'}">
+                          th:if="${apply.status != null and apply.status.name() == 'APPROVED'}">
                         승인완료
                     </span>
 
                     <span class="status-badge rejected"
-                          th:if="${application.status != null and application.status.name() == 'REJECTED'}">
+                          th:if="${apply.status != null and apply.status.name() == 'REJECTED'}">
                         반려
                     </span>
 
                     <span class="status-badge none"
-                          th:if="${application.status == null}">
+                          th:if="${apply.status == null}">
                         상태없음
                     </span>
                 </td>
@@ -97,23 +97,32 @@
                 </td>
 
                 <td>
-                    <div class="action-box" th:if="${apply.status.name() == 'PENDING'}">
+                    <!-- 검토중이면 승인/반려 버튼 표시 -->
+                    <div class="action-box"
+                         th:if="${apply.status != null and apply.status.name() == 'PENDING'}">
 
-                        <form th:if="${application.status != null and application.status.name() == 'PENDING'}"
-                              th:action="@{/admin/instructor-applications/{id}/approve(id=${application.id})}"
-                              method="post">
+                        <form th:action="@{/admin/instructor-applications/{id}/approve(id=${apply.id})}"
+                              method="post"
+                              style="display:inline;">
                             <button type="submit" class="approve-btn">승인</button>
                         </form>
 
-                        <form th:if="${application.status != null and application.status.name() == 'PENDING'}"
-                              th:action="@{/admin/instructor-applications/{id}/reject(id=${application.id})}"
-                              method="post">
+                        <form th:action="@{/admin/instructor-applications/{id}/reject(id=${apply.id})}"
+                              method="post"
+                              style="display:inline;">
                             <button type="submit" class="reject-btn">반려</button>
                         </form>
 
                     </div>
 
-                    <span th:if="${apply.status.name() != 'PENDING'}" class="done-text">
+                    <!-- 상태가 없으면 -->
+                    <span th:if="${apply.status == null}" class="done-text">
+                        상태없음
+                    </span>
+
+                    <!-- 이미 승인/반려된 경우 -->
+                    <span th:if="${apply.status != null and apply.status.name() != 'PENDING'}"
+                          class="done-text">
                         처리완료
                     </span>
                 </td>

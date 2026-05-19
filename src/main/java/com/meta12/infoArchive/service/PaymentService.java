@@ -9,7 +9,6 @@ import com.meta12.infoArchive.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -47,7 +46,6 @@ public class PaymentService {
 
         /*
          * 멤버십 결제
-         * - 이미 멤버십 활성화 상태면 payment에 또 저장하지 않음
          */
         if ("MONTHLY".equals(dto.getMembershipType())) {
 
@@ -57,7 +55,7 @@ public class PaymentService {
 
             Payment payment = new Payment();
             payment.setOrderNumber(dto.getOrderId());
-            payment.setDiscountAmount(0); // 멤버십은 주문내역 금액 노출 방지용
+            payment.setDiscountAmount(dto.getAmount());
             payment.setOrderDate(LocalDateTime.now());
             payment.setPaymentStatus(PaymentStatus.COMPLETED);
             payment.setUser(user);
@@ -69,8 +67,40 @@ public class PaymentService {
         }
 
         /*
-         * 강의 결제
+         * 장바구니 결제
+         * productId가 null이어도 정상이다.
+         * 실제 수강 등록은 PaymentController에서 enrollmentService.enrollProducts()가 처리한다.
          */
+        if ("CART".equals(dto.getMembershipType())) {
+
+            if (dto.getCartIds() == null || dto.getCartIds().isEmpty()) {
+                throw new IllegalArgumentException("결제할 장바구니 항목이 없습니다.");
+            }
+
+            Payment payment = new Payment();
+            payment.setOrderNumber(dto.getOrderId());
+            payment.setDiscountAmount(dto.getAmount());
+            payment.setOrderDate(LocalDateTime.now());
+            payment.setPaymentStatus(PaymentStatus.COMPLETED);
+            payment.setUser(user);
+            payment.setProduct(null);
+
+            paymentRepository.save(payment);
+
+            return;
+        }
+
+        /*
+         * 단일 강의 결제
+         */
+        if (!"COURSE".equals(dto.getMembershipType())) {
+            throw new IllegalArgumentException("결제 타입이 올바르지 않습니다.");
+        }
+
+        if (dto.getProductId() == null) {
+            throw new IllegalArgumentException("결제할 상품 ID가 없습니다.");
+        }
+
         Product product = productService.getProduct(dto.getProductId());
 
         if (product == null) {
@@ -110,10 +140,6 @@ public class PaymentService {
         if (cardPassword.length() != 2) {
             throw new IllegalArgumentException("카드 비밀번호는 앞 2자리만 입력해주세요.");
         }
-
-        if (!Boolean.TRUE.equals(dto.getAgreeTerms())) {
-            throw new IllegalArgumentException("이용약관에 동의해야 결제할 수 있습니다.");
-        }
     }
 
     private String onlyNumber(String value) {
@@ -122,19 +148,5 @@ public class PaymentService {
         }
 
         return value.replaceAll("[^0-9]", "");
-    }
-
-    private String maskCardNumber(String cardNumber) {
-        if (cardNumber == null || cardNumber.trim().isEmpty()) {
-            return "-";
-        }
-
-        String clean = cardNumber.replace("-", "").replace(" ", "");
-
-        if (clean.length() < 4) {
-            return "****";
-        }
-
-        return "****-****-****-" + clean.substring(clean.length() - 4);
     }
 }

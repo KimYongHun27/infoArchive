@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>관리자 내 정보</title>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="admin-layout">
+
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-card">
+
+      <div class="admin-sidebar-title">
+        <span><img th:src="@{/img/admin/admin.png}" alt=""></span>
+        <strong>관리자 센터</strong>
+      </div>
+
+      <nav class="admin-side-menu">
+        <a th:href="@{/admin}">
+          <span><img th:src="@{/img/admin/home.png}" alt=""></span>
+          관리자 홈
+        </a>
+
+        <a th:href="@{/admin/my-info}" class="active">
+          <span><img th:src="@{/img/admin/user.png}" alt=""></span>
+          내 정보
+        </a>
+
+        <a th:href="@{/admin/users}">
+          <span><img th:src="@{/img/admin/user.png}" alt=""></span>
+          회원 관리
+        </a>
+
+        <a th:href="@{/admin/create}">
+          <span><img th:src="@{/img/admin/admin.png}" alt=""></span>
+          관리자 계정 생성
+        </a>
+
+        <a th:href="@{/admin/instructor-applications}">
+          <span><img th:src="@{/img/admin/apply.png}" alt=""></span>
+          강사 신청 관리
+        </a>
+
+        <a th:href="@{/admin/products}">
+          <span><img th:src="@{/img/admin/study.png}" alt=""></span>
+          강의 관리
+        </a>
+
+        <a th:href="@{/admin/payments}">
+          <span><img th:src="@{/img/admin/card.png}" alt=""></span>
+          결제 관리
+        </a>
+      </nav>
+
+    </div>
+  </aside>
+
+  <section class="admin-content">
+
+    <section class="admin-header">
+      <h1>관리자 내 정보</h1>
+      <p>현재 로그인한 관리자 계정 정보를 확인합니다.</p>
+    </section>
+
+    <section class="admin-table-section">
+      <div class="table-title">
+        <h2>계정 정보</h2>
+      </div>
+
+      <table class="admin-table">
+        <tbody>
+        <tr>
+          <th>번호</th>
+          <td th:text="${user.id}">1</td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td th:text="${user.name}">관리자</td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td th:text="${user.email}">admin@test.com</td>
+        </tr>
+        <tr>
+          <th>전화번호</th>
+          <td th:text="${user.phone}">010-0000-0000</td>
+        </tr>
+        <tr>
+          <th>권한</th>
+          <td th:text="${user.role}">ADMIN</td>
+        </tr>
+        <tr>
+          <th>가입일</th>
+          <td th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm') : '-'}">
+            -
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </section>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

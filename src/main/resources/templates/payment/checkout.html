@@ -24,44 +24,117 @@
 
             <div class="tag">평생시청</div>
 
-            <div class="order-row">
-                <span class="author">일러스트레이터 예성</span>
-                <span class="price-text">239,000원</span>
+            <!-- 장바구니 결제일 때 -->
+            <div th:if="${membershipType == 'CART'}">
+
+                <div class="order-row">
+                    <span class="author">장바구니 강의</span>
+                    <span class="price-text"
+                          th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
+                        0원
+                    </span>
+                </div>
+
+                <div class="product-card"
+                     th:each="cart : ${cartList}">
+
+                    <div class="product">
+
+                        <img th:src="@{${cart.product.thumbnailUrl}}"
+                             th:alt="${cart.product.productName}">
+
+                        <div class="info">
+                            <p class="sub-title"
+                               th:text="${cart.product.category}">
+                                카테고리
+                            </p>
+
+                            <p class="name"
+                               th:text="${cart.product.productName}">
+                                상품명
+                            </p>
+
+                            <p class="desc"
+                               th:text="${cart.product.instructorName}">
+                                강사명
+                            </p>
+                        </div>
+
+                        <div class="price-text"
+                             th:text="${#numbers.formatInteger(cart.product.price, 3, 'COMMA')} + '원'">
+                            0원
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
-            <div class="product-card">
-                <div class="product">
+            <!-- 단일 상품 / 멤버십 결제일 때 -->
+            <div th:if="${membershipType != 'CART'}">
 
-                    <img th:src="@{/img/sample.jpg}" alt="상품 이미지">
+                <div class="order-row">
+                    <span class="author"
+                          th:text="${membershipType == 'MONTHLY'} ? 'InfoArchive' : '강의 상품'">
+                        일러스트레이터 예성
+                    </span>
 
-                    <div class="info">
-                        <p class="sub-title">엣지에서 태어나는 삽화스킬 AtoZ</p>
-                        <p class="name" th:text="${productName}">엔지에서 태어난 샤우실킬 AtoZ</p>
-                        <p class="desc">엔지에서 태어난 샤우실킬 AtoZ</p>
-                    </div>
-
+                    <span class="price-text"
+                          th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
+                        239,000원
+                    </span>
                 </div>
+
+                <div class="product-card">
+                    <div class="product">
+
+                        <img th:if="${product != null}"
+                             th:src="@{${product.thumbnailUrl}}"
+                             th:alt="${product.productName}">
+
+                        <img th:if="${product == null}"
+                             th:src="@{/img/sample.jpg}"
+                             alt="상품 이미지">
+
+                        <div class="info">
+                            <p class="sub-title"
+                               th:text="${membershipType == 'MONTHLY'} ? '프리미엄 멤버십' : '강의 결제'">
+                                상품 구분
+                            </p>
+
+                            <p class="name"
+                               th:text="${productName}">
+                                상품명
+                            </p>
+
+                            <p class="desc"
+                               th:text="${membershipType == 'MONTHLY'} ? 'INFO ARCHIVE 프리미엄 멤버십 이용권입니다.' : '선택한 강의 결제입니다.'">
+                                상품 설명
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- 2. 쿠폰 (🔥 이미지와 동일 구조) -->
+        <!-- 2. 쿠폰 -->
         <div class="box">
             <h2>쿠폰 선택</h2>
 
-            <!-- 첫 줄 -->
             <div class="coupon-top">
                 <span class="coupon-label">쿠폰 할인 금액</span>
 
                 <div class="coupon-right">
                     <span class="coupon-price">0원</span>
-                    <button class="coupon-select-btn">쿠폰선택</button>
+                    <button type="button" class="coupon-select-btn">쿠폰선택</button>
                 </div>
             </div>
 
-            <!-- 입력 줄 -->
             <div class="coupon-bottom">
                 <input type="text" placeholder="쿠폰 코드를 입력해주세요.">
-                <button class="coupon-issue-btn">쿠폰발급</button>
+                <button type="button" class="coupon-issue-btn">쿠폰발급</button>
             </div>
         </div>
 
@@ -71,14 +144,24 @@
 
             <div class="price-row">
                 <span>상품 금액</span>
-                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">239,000원</span>
+                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
+                    239,000원
+                </span>
+            </div>
+
+            <div class="price-row">
+                <span>할인 금액</span>
+                <span>0원</span>
             </div>
 
             <div class="price-row total">
                 <span>총 결제 금액</span>
-                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">239,000원</span>
+                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
+                    239,000원
+                </span>
             </div>
         </div>
+
         <!-- 4, 5, 6. 결제 처리 form -->
         <form id="paymentForm" th:action="@{/payment/confirm}" method="post">
 
@@ -86,6 +169,12 @@
             <input type="hidden" name="amount" th:value="${amount}">
             <input type="hidden" name="membershipType" th:value="${membershipType}">
             <input type="hidden" name="productId" th:value="${productId}">
+
+            <!-- 장바구니 결제용 cartIds -->
+            <input type="hidden"
+                   th:each="cartId : ${cartIds}"
+                   name="cartIds"
+                   th:value="${cartId}">
 
             <!-- 결제 수단 -->
             <div class="box">

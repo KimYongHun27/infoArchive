@@ -19,6 +19,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     // 강의 주문 개수: product_id가 있는 결제
     long countByUserAndProductIsNotNull(User user);
 
-    // 멤버십 주문 개수: product_id가 없는 결제
+    // product_id가 없는 결제: 멤버십 또는 장바구니 묶음 결제
     long countByUserAndProductIsNull(User user);
 }

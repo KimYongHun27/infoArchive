@@ -8,14 +8,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TakingCourseDto {
+
     private Long id;
 
-    //유저 번호
+    // 유저 번호
     private Long userId;
 
-    //강의 번호
-    private Long lectureId;
+    // 상품 번호 / 강의 상품 번호
+    private Long productId;
 
-    //강의 수강일 (정렬용)
-    private LocalDateTime createAt;
+    // 수강 시작일 또는 생성일
+    private LocalDateTime createdAt;
 }

@@ -10,35 +10,50 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-
-@Table(name = "takingcourse",
-        uniqueConstraints = {@UniqueConstraint(name = "uk_user_lecture",
-                columnNames = {"user_id", "lecture_id"})})
+@Table(
+        name = "taking_course",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_user_product",
+                        columnNames = {"user_id", "product_id"}
+                )
+        }
+)
 public class TakingCourse {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //유저 fk
+    // 수강 유저
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    //강의 fk
+    // 기존 lecture_id 제거하고 product_id로 변경
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_id")
-    private Course course;
-    private Integer progressRate = 0; // 학습 진도율 (0 ~ 100%)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    //최근 들은 강의 정렬용
+    // 학습 진도율
+    private Integer progressRate = 0;
+
+    // 수강 시작일
+    private LocalDateTime startedAt;
+
+    // 마지막 학습일
+    private LocalDateTime lastStudiedAt;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    public static TakingCourse createTakingCourse(User user, Course course) {
+    public static TakingCourse createTakingCourse(User user, Product product) {
         TakingCourse takingCourse = new TakingCourse();
         takingCourse.user = user;
-        takingCourse.course = course;
+        takingCourse.product = product;
+        takingCourse.progressRate = 0;
+        takingCourse.startedAt = LocalDateTime.now();
         return takingCourse;
     }
 }

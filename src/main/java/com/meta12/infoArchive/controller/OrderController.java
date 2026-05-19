@@ -3,22 +3,19 @@ package com.meta12.infoArchive.controller;
 import com.meta12.infoArchive.entity.Payment;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.PaymentRepository;
-import com.meta12.infoArchive.service.OrderService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
     private final UserService userService;
     private final PaymentRepository paymentRepository;
 
@@ -33,7 +30,8 @@ public class OrderController {
 
         User user = userService.getLoginUser(authentication);
 
-        List<Payment> payments = paymentRepository.findByUserOrderByOrderDateDesc(user);
+        List<Payment> payments =
+                paymentRepository.findByUserOrderByOrderDateDesc(user);
 
         long totalCount = paymentRepository.countByUser(user);
         long courseCount = paymentRepository.countByUserAndProductIsNotNull(user);
@@ -45,42 +43,5 @@ public class OrderController {
         model.addAttribute("membershipCount", membershipCount);
 
         return "mypage/order-details";
-    }
-
-    @GetMapping("/membership")
-    public String membershipList(Authentication authentication, Model model) {
-
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
-
-            model.addAttribute("login", false);
-            model.addAttribute("membershipActive", false);
-
-            return "membership";
-        }
-
-        User user = userService.getLoginUser(authentication);
-        boolean membershipActive = userService.isMembershipActive(user);
-
-        model.addAttribute("login", true);
-        model.addAttribute("user", user);
-        model.addAttribute("membershipActive", membershipActive);
-
-        return "membership";
-    }
-
-    @PostMapping("/membership/subscribe")
-    public String subscribeMembership(Authentication authentication) {
-
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
-            return "redirect:/login";
-        }
-
-        userService.activateMembership(authentication);
-
-        return "redirect:/membership?success=true";
     }
 }

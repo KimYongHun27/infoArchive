@@ -3,26 +3,37 @@ package com.meta12.infoArchive.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.PipedReader;
 import java.util.List;
 
 @Getter
 @Setter
 public class PaymentConfirmRequestDto {
 
-    private List<Long> cartItemIds;
-
     private String orderId;
-    private Long productId;
+
     private Integer amount;
-    private String paymentMethod;
+
     private String membershipType;
+
+    private Long productId;
+
+    private String productName;
+
+    // 장바구니 결제용
+    private List<Long> cartIds;
+
+    // 결제 수단
+    private String paymentMethod;
+
+    // 약관 동의
     private Boolean agreeTerms;
 
-    // MOCK 카드 정보
+    // 카드 정보
     private String cardNumber;
-    private String cardExpire;
-    private String cardCvc;
-    private String cardPassword;
 
+    private String cardExpire;
+
+    private String cardCvc;
+
+    private String cardPassword;
 }

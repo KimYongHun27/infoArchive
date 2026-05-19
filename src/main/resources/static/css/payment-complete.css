@@ -420,64 +420,73 @@ footer{
     background:#42c767;
 }
 
-/* ========================= */
-/* 하단 고정 */
-/* ========================= */
-
-/*.bottom-fixed{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    height:72px;
-    background:#ff4e1f;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:25px;
-    color:#fff;
+/* 결제완료 페이지 이동 버튼 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
 }
 
-.bottom-left{
-    display:flex;
-    flex-direction:column;
-    font-size:13px;
-
-    width:200px;
-    margin:0 auto;
+/* a 태그 기본 스타일 제거 */
+.button-group a,
+.complete-btn {
+    text-decoration: none !important;
 }
 
-.timer-wrap{
-    display:flex;
-    gap:10px;
+.complete-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 150px;
+    height: 44px;
+    padding: 0 22px;
+
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.timer-box{
-    width:48px;
-    height:48px;
-    background:#111;
-    border-radius:50%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+/* 검은 버튼: 나의 강의실로 이동 */
+.black-btn {
+    background-color: #111;
+    color: #fff !important;
+    border: 1px solid #111;
 }
 
-.timer-box span{
-    font-size:18px;
-    font-weight:700;
+/* 흰 버튼: 주문 내역 확인 */
+.white-btn {
+    background-color: #fff;
+    color: #111 !important;
+    border: 1px solid #ddd;
 }
 
-.timer-box small{
-    font-size:10px;
+.black-btn:hover {
+    background-color: #000;
+    color: #fff !important;
 }
 
-.subscribe-btn{
-    width:170px;
-    height:44px;
-    border:none;
-    background:#111;
-    color:#fff;
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-} */
+.white-btn:hover {
+    background-color: #f5f5f5;
+    color: #111 !important;
+}
+
+/* 방문한 링크 보라색 방지 */
+.black-btn:visited,
+.white-btn:visited {
+    color: inherit;
+}
+
+.black-btn:visited {
+    color: #fff !important;
+}
+
+.white-btn:visited {
+    color: #111 !important;
+}

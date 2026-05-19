@@ -21,15 +21,19 @@ function createMiniLineChart(canvasId, currentValue, labelName) {
 
     const ctx = canvas.getContext("2d");
 
-    const base = Math.max(currentValue, 1);
+    let sampleData;
 
-    const sampleData = [
-        Math.max(base - 3, 0),
-        Math.max(base - 2, 0),
-        Math.max(base - 1, 0),
-        base,
-        currentValue
-    ];
+    if (currentValue === 0) {
+        sampleData = [0, 0, 0, 0, 0];
+    } else {
+        sampleData = [
+            Math.max(currentValue - 3, 0),
+            Math.max(currentValue - 2, 0),
+            Math.max(currentValue - 1, 0),
+            currentValue,
+            currentValue
+        ];
+    }
 
     new Chart(ctx, {
         type: "line",
@@ -52,6 +56,10 @@ function createMiniLineChart(canvasId, currentValue, labelName) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                duration: 1200,
+                easing: "easeOutQuart"
+            },
             layout: {
                 padding: {
                     top: 24,
@@ -88,6 +96,7 @@ function createMiniLineChart(canvasId, currentValue, labelName) {
             scales: {
                 y: {
                     beginAtZero: true,
+                    suggestedMax: Math.max(currentValue + 1, 1),
                     grid: {
                         color: "#eeeeee"
                     },

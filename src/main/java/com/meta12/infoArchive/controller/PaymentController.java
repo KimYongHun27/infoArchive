@@ -1,7 +1,13 @@
 package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
+import com.meta12.infoArchive.entity.Cart;
+import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.repository.CartRepository;
+import com.meta12.infoArchive.service.EnrollmentService;
 import com.meta12.infoArchive.service.PaymentService;
+import com.meta12.infoArchive.service.ProductService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -9,14 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.meta12.infoArchive.entity.Product;
-import com.meta12.infoArchive.entity.User;
-import com.meta12.infoArchive.service.ProductService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +29,10 @@ public class PaymentController {
     private final UserService userService;
     private final ProductService productService;
 
-    // 결제 페이지
+    private final CartRepository cartRepository;
+    private final EnrollmentService enrollmentService;
+
+    // 단일 상품 / 멤버십 결제 페이지
     @GetMapping("/payment/checkout")
     public String checkoutPage(
             @RequestParam(required = false) Long productId,
@@ -42,15 +48,13 @@ public class PaymentController {
 
         User user = userService.getLoginUser(authentication);
 
-        // 멤버십 이용 중인 사람이 강의 결제 페이지로 접근하면 다시 강의 상세로 보냄
         if (productId != null && userService.isMembershipActive(user)) {
             return "redirect:/product/" + productId;
         }
 
-        String orderId = "ORDER-" + LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String orderId = createOrderId();
 
-        // 강의 결제
+        // 강의 단일 결제
         if (productId != null) {
             Product product = productService.getProduct(productId);
 
@@ -87,6 +91,54 @@ public class PaymentController {
         return "redirect:/top10";
     }
 
+    // 장바구니 결제 페이지
+    @PostMapping("/payment/checkout")
+    public String checkoutCartPage(
+            @RequestParam(value = "cartIds", required = false) List<Long> cartIds,
+            Authentication authentication,
+            Model model
+    ) {
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
+        }
+
+        if (cartIds == null || cartIds.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        User user = userService.getLoginUser(authentication);
+
+        List<Cart> cartList = cartRepository.findAllById(cartIds);
+
+        if (cartList.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        for (Cart cart : cartList) {
+            if (!cart.getUser().getId().equals(user.getId())) {
+                return "redirect:/cart";
+            }
+        }
+
+        int totalPrice = cartList.stream()
+                .mapToInt(cart -> cart.getProduct().getPrice() * cart.getQuantity())
+                .sum();
+
+        String orderId = createOrderId();
+
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("amount", totalPrice);
+        model.addAttribute("productId", null);
+        model.addAttribute("productName", "장바구니 강의 결제");
+        model.addAttribute("membershipType", "CART");
+        model.addAttribute("cartIds", cartIds);
+        model.addAttribute("cartList", cartList);
+
+        return "payment/checkout";
+    }
+
     // 결제 처리
     @PostMapping("/payment/confirm")
     public String confirmPayment(
@@ -102,11 +154,22 @@ public class PaymentController {
         try {
             paymentService.confirmPayment(dto, authentication);
 
+            User user = userService.getLoginUser(authentication);
+
             if ("MONTHLY".equals(dto.getMembershipType())) {
                 userService.activateMembership(authentication);
             }
 
+            if ("CART".equals(dto.getMembershipType())) {
+                enrollmentService.enrollProducts(user, dto.getCartIds());
+            }
+
+            if ("COURSE".equals(dto.getMembershipType())) {
+                enrollmentService.enrollProduct(user, dto.getProductId());
+            }
+
             return "redirect:/payment/payment-complete";
+
 
         } catch (IllegalArgumentException e) {
             return "redirect:/membership?already=true";
@@ -116,5 +179,10 @@ public class PaymentController {
     @GetMapping("/payment/payment-complete")
     public String paymentCompletePage() {
         return "payment/payment-complete";
+    }
+
+    private String createOrderId() {
+        return "ORDER-" + LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 }

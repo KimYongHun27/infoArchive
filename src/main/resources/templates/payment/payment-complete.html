@@ -9,19 +9,14 @@
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/payment-complete.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-
 </head>
 
 <body>
 
-
 <div th:replace="~{fragments/header :: header}"></div>
 
-
-<!-- 메인 -->
 <main>
 
-    <!-- 체크 -->
     <div class="check-wrap">
 
         <div class="confetti">
@@ -33,15 +28,11 @@
         </div>
 
         <svg class="check-icon" viewBox="0 0 120 120">
-
             <circle cx="60" cy="60" r="50"></circle>
-
             <polyline points="38,63 54,78 83,45"></polyline>
-
         </svg>
 
     </div>
-
 
     <h1>결제가 완료되었습니다!</h1>
 
@@ -49,22 +40,18 @@
         수강을 시작할 준비가 완료되었어요.
     </p>
 
-
-    <!-- 버튼 -->
     <div class="button-group">
 
-        <button type="button" id="black-btn" class="black-btn">
+        <a th:href="@{/taking-course}" id="black-btn" class="complete-btn black-btn">
             나의 강의실로 이동
-        </button>
+        </a>
 
-        <button type="button" id="white-btn" class="white-btn">
+        <a th:href="@{/orders}" id="white-btn" class="complete-btn white-btn">
             주문 내역 확인
-        </button>
+        </a>
 
     </div>
 
-
-    <!-- 주문 정보 -->
     <section class="order-box">
 
         <div class="order-left">
@@ -72,13 +59,8 @@
             <h3>주문 정보</h3>
 
             <div class="info-row">
-                <span>주문번호</span>
-                <p>2024053100001234</p>
-            </div>
-
-            <div class="info-row">
-                <span>주문일시</span>
-                <p>2024.05.31 14:30:25</p>
+                <span>주문상태</span>
+                <p>결제완료</p>
             </div>
 
             <div class="info-row">
@@ -87,40 +69,35 @@
             </div>
 
             <div class="info-row">
-                <span>결제금액</span>
-                <strong>239,000원</strong>
+                <span>안내</span>
+                <p>주문 내역에서 상세 결제 정보를 확인할 수 있습니다.</p>
             </div>
 
         </div>
 
-
         <div class="order-right">
 
-            <img src="https://picsum.photos/110/110" alt="강의 이미지">
+            <img th:src="@{/img/sample.jpg}" alt="강의 이미지">
 
             <div>
-
                 <div class="lecture-title">
-                    엔지에서 태어나는<br>
-                    상상소녀 AtoZ
+                    INFO ARCHIVE<br>
+                    결제 완료
                 </div>
 
                 <div class="lecture-sub">
-                    일러스트레이터 이성
+                    주문 내역에서 결제 정보를 확인하세요.
                 </div>
 
                 <div class="lecture-price">
-                    239,000원
+                    결제완료
                 </div>
-
             </div>
 
         </div>
 
     </section>
 
-
-    <!-- 더 즐기는 방법 -->
     <section class="enjoy-box">
 
         <h2>INFO ARCHIVE를 더 즐기는 방법</h2>
@@ -128,67 +105,51 @@
         <div class="enjoy-grid">
 
             <div class="enjoy-item">
-
                 <i data-lucide="play-circle"></i>
-
                 <h4>바로 수강하기</h4>
-
                 <p>
                     나의 강의실에서<br>
                     강의를 수강할 수 있어요
                 </p>
-
             </div>
 
             <div class="enjoy-item">
-
                 <i data-lucide="heart"></i>
-
                 <h4>찜한 강의 보기</h4>
-
                 <p>
                     관심 강의를 찜하고<br>
                     할인 소식을 받아보세요
                 </p>
-
             </div>
 
             <div class="enjoy-item">
-
                 <i data-lucide="ticket"></i>
-
                 <h4>다른 강의 할인받기</h4>
-
                 <p>
                     다양한 쿠폰과 이벤트로<br>
                     더 저렴하게 수강해보세요
                 </p>
-
             </div>
 
             <div class="enjoy-item">
-
                 <i data-lucide="users"></i>
-
                 <h4>커뮤니티 참여하기</h4>
-
                 <p>
                     수강생들과 함께<br>
                     이야기를 나눠보세요
                 </p>
-
             </div>
 
         </div>
 
     </section>
+
 </main>
 
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
-    <div th:replace="~{fragments/subscribe :: subscribe}"></div>
+<script th:src="@{/js/subscribe.js}"></script>
 
-    <script th:src="@{/js/subscribe.js}"></script>
-    <script th:src="@{/js/moveToCart.js}"></script>
 </body>
 </html>

@@ -296,3 +296,80 @@ body {
 .empty-course-btn:hover {
     background: #222;
 }
+
+.taking-course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.taking-course-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.taking-course-link {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+}
+
+.taking-course-thumb img {
+    width: 180px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.taking-course-info h2 {
+    margin: 8px 0;
+    font-size: 20px;
+}
+
+.taking-course-category {
+    display: inline-block;
+    font-size: 13px;
+    color: #6d28d9;
+    font-weight: 700;
+}
+
+.progress-box {
+    margin-top: 14px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #111;
+}
+
+.enrolled-date {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #777;
+}
+
+.taking-course-action {
+    display: flex;
+    align-items: center;
+}

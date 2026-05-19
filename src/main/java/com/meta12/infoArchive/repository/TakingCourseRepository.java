@@ -4,6 +4,12 @@ import com.meta12.infoArchive.entity.TakingCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TakingCourseRepository extends JpaRepository<TakingCourse, Long> {
+
+    List<TakingCourse> findByUserIdOrderByStartedAtDesc(Long userId);
+
+    boolean existsByUserIdAndProductId(Long userId, Long productId);
 }
