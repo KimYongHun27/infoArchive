@@ -118,6 +118,7 @@
 
     <div class="drawing-grid">
 
+      <!-- 1101 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1101}" class="drawing-card">
           <span class="rank-num red">1</span>
@@ -144,23 +145,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1101">
+        <form th:action="@{/wishlist/toggle/1101}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1101L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1101L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1101L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1101L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1102 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1102}" class="drawing-card">
           <span class="rank-num red">2</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test2.jpg}" alt="스프링 부트 입문">
+            <img th:src="@{/img/test/test2.jpg}" alt="스프링 부트 웹 개발 입문">
           </div>
 
           <div class="card-info">
@@ -181,23 +181,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1102">
+        <form th:action="@{/wishlist/toggle/1102}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1102L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1102L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1102L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1102L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1103 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1103}" class="drawing-card">
           <span class="rank-num red">3</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test3.jpg}" alt="HTML CSS JS 입문">
+            <img th:src="@{/img/test/test3.jpg}" alt="HTML CSS JavaScript 입문">
           </div>
 
           <div class="card-info">
@@ -218,23 +217,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1103">
+        <form th:action="@{/wishlist/toggle/1103}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1103L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1103L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1103L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1103L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1104 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1104}" class="drawing-card">
           <span class="rank-num">4</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test4.jpg}" alt="React 입문">
+            <img th:src="@{/img/test/test4.jpg}" alt="React로 만드는 웹 서비스">
           </div>
 
           <div class="card-info">
@@ -255,23 +253,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1104">
+        <form th:action="@{/wishlist/toggle/1104}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1104L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1104L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1104L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1104L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1105 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1105}" class="drawing-card">
           <span class="rank-num">5</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test5.jpg}" alt="Python 입문">
+            <img th:src="@{/img/test/test5.jpg}" alt="파이썬 프로그래밍 기초">
           </div>
 
           <div class="card-info">
@@ -292,23 +289,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1105">
+        <form th:action="@{/wishlist/toggle/1105}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1105L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1105L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1105L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1105L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1106 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1106}" class="drawing-card">
           <span class="rank-num">6</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test6.jpg}" alt="SQL 데이터베이스">
+            <img th:src="@{/img/test/test6.jpg}" alt="SQL과 데이터베이스 기초">
           </div>
 
           <div class="card-info">
@@ -329,23 +325,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1106">
+        <form th:action="@{/wishlist/toggle/1106}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1106L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1106L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1106L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1106L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1107 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1107}" class="drawing-card">
           <span class="rank-num">7</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test7.jpg}" alt="REST API 개발">
+            <img th:src="@{/img/test/test7.jpg}" alt="REST API 설계와 구현">
           </div>
 
           <div class="card-info">
@@ -366,23 +361,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1107">
+        <form th:action="@{/wishlist/toggle/1107}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1107L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1107L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1107L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1107L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1108 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1108}" class="drawing-card">
           <span class="rank-num">8</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test8.jpg}" alt="Flutter 앱 개발">
+            <img th:src="@{/img/test/test8.jpg}" alt="Flutter 앱 개발 입문">
           </div>
 
           <div class="card-info">
@@ -403,23 +397,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1108">
+        <form th:action="@{/wishlist/toggle/1108}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1108L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1108L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1108L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1108L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1109 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1109}" class="drawing-card">
           <span class="rank-num">9</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test9.jpg}" alt="Git Github">
+            <img th:src="@{/img/test/test9.jpg}" alt="Git과 GitHub 협업 기초">
           </div>
 
           <div class="card-info">
@@ -440,23 +433,22 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1109">
+        <form th:action="@{/wishlist/toggle/1109}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1109L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1109L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1109L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1109L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
 
+      <!-- 1110 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/1110}" class="drawing-card">
           <span class="rank-num">10</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test10.jpg}" alt="개발 포트폴리오">
+            <img th:src="@{/img/test/test10.jpg}" alt="개발자 포트폴리오 완성">
           </div>
 
           <div class="card-info">
@@ -477,13 +469,11 @@
           </div>
         </a>
 
-        <form th:action="@{/likes/toggle}" method="post" class="like-form">
-          <input type="hidden" name="productId" value="1110">
+        <form th:action="@{/wishlist/toggle/1110}" method="post" class="like-form">
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1110L)} ? ' active' : ''"
-                  th:text="${likedProductIds != null and likedProductIds.contains(1110L)} ? '♥' : '♡'">
-            ♡
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(1110L)} ? ' active'">
+            <span th:text="${likedProductIds != null and likedProductIds.contains(1110L)} ? '♥' : '♡'">♡</span>
           </button>
         </form>
       </div>
