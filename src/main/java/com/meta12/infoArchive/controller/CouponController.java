@@ -3,6 +3,7 @@ package com.meta12.infoArchive.controller;
 import com.meta12.infoArchive.dto.CouponCountDto;
 import com.meta12.infoArchive.dto.CouponDto;
 import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.UserCoupon;
 import com.meta12.infoArchive.service.CouponService;
 import com.meta12.infoArchive.service.UserCouponService;
 import com.meta12.infoArchive.service.UserService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class CouponController {
@@ -25,14 +28,14 @@ public class CouponController {
 
     @GetMapping("/coupon")
     public String orders(Authentication authentication, Model model) {
-        // 1. 세션에서 로그인한 유저 엔티티 가져오기
+
         User loginUser = userService.getLoginUser(authentication);
 
-        // 2. 서비스 호출하여 DTO 받아오기 (유저의 ID를 넘겨주네)
         CouponCountDto counts = userCouponService.getCouponCounts(loginUser.getId());
-
-        // 3. 타임리프 화면으로 DTO 통째로 배달하기!
         model.addAttribute("counts", counts);
+
+        List<UserCoupon> myCoupons = userCouponService.getSelectUser(loginUser.getId());
+        model.addAttribute("myCoupons", myCoupons);
 
         return "mypage/coupon";
     }

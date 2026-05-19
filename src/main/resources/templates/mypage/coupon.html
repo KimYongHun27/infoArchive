@@ -133,21 +133,30 @@
                 </div>
             </div>
             <div class="coupon-card">
-                <div class="coupon-container">
+
+                <div th:if="${#lists.isEmpty(myCoupons)}" style="text-align: center; padding: 60px 0; color: #888;">
+                    <p>현재 보유 중인 쿠폰이 없습니다.</p>
+                </div>
+
+                <div th:unless="${#lists.isEmpty(myCoupons)}"
+                     th:each="uc : ${myCoupons}" class="coupon-container">
+
                     <div class="coupon-box">
-                        <!-- <div class="box-img"><img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="coupon-img" /></div> -->
                         <div class="box-img">
                             <div class="coupon-img1">
-                                <p class="img-title1">20%</p>
+                                <p class="img-title1" th:text="${#numbers.formatInteger(uc.coupon.discountAmount, 0, 'COMMA')} + '원'">20%</p>
                                 <p class="img-title2">할인 쿠폰</p>
-                                <p class="img-title3">최대 50,000원 할인</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="coupon-content">
                         <div class="coupon-category1">강의 할인</div>
-                        <div class="coupon-name">전 강의 20% 할인 쿠폰</div>
-                        <div class="coupon-explain">모든 강의에 사용 가능한 할인 쿠폰입니다.</div>
+
+                        <div class="coupon-name" th:text="${uc.coupon.couponName}">전 강의 20% 할인 쿠폰</div>
+
+                        <div class="coupon-explain" th:text="'쿠폰 코드 : ' + ${uc.coupon.couponCode}">모든 강의에 사용 가능한 할인 쿠폰입니다.</div>
+
                         <div class="coupon-details">
                             <div class="expiration-date">
                                 <p>유효기간</p>
@@ -155,7 +164,7 @@
                             </div>
                             <div class="minimum-amount">
                                 <p>최소 주문금액</p>
-                                <p>0원</p>
+                                <p th:text="${#numbers.formatInteger(uc.coupon.minOrderAmount, 0, 'COMMA')} + '원'">0원</p>
                             </div>
                             <div class="coverage">
                                 <p>적용범위</p>
@@ -163,11 +172,18 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="coupon-btn">
                         <a href="" class="download-btn">⤓</a>
-                        <a href="" class="use-btn">사용하기</a>
+
+                        <a th:if="${uc.status.name() == 'AVAILABLE'}" href="" class="use-btn">사용하기</a>
+
+                        <a th:if="${uc.status.name() == 'USED'}" class="use-btn"
+                           style="background-color: #bbb; color: #fff; cursor: not-allowed;">사용 완료</a>
                     </div>
                 </div>
+
+            </div>
                 <div class="coupon-container">
                     <div class="coupon-box">
                         <!-- <div class="box-img"><img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="coupon-img" /></div> -->

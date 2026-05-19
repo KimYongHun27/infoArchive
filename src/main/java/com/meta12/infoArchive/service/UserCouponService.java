@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -26,7 +27,6 @@ public class UserCouponService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
         // 2. [핵심] 입력한 쿠폰 코드가 진짜 존재하는 쿠폰인지 확인!
-        // (이를 위해 CouponRepository에 findByCouponCode 메서드가 필요하네)
         Coupon coupon = couponRepository.findByCouponCode(typedCouponCode)
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 쿠폰 번호입니다."));
 
@@ -62,5 +62,13 @@ public class UserCouponService {
 // 3. 기간 만료 쿠폰 개수 (기한 만료 상태)
         Long expired = userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRATION);
         return new CouponCountDto(unused, used, expired);
+    }
+
+    public List<UserCoupon> getSelectUser(Long userId)
+    {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        return userCouponRepository.findByUser(user);
     }
 }
