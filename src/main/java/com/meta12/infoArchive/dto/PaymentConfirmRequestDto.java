@@ -10,6 +10,7 @@ import java.io.PipedReader;
 public class PaymentConfirmRequestDto {
 
     private String orderId;
+    private Long productId;
     private Integer amount;
     private String paymentMethod;
     private String membershipType;

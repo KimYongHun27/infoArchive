@@ -105,9 +105,17 @@
                 <p class="p1">INFO ARCHIVE에서 구매하신 내역을 확인하실 수 있습니다.</p>
                 <div class="higher-btn">
                     <div class="left">
-                        <a href="" class="total">전체( )</a>
-                        <a href="" class="course">강의( )</a>
-                        <a href="" class="membership">멤버십( )</a>
+                        <a th:href="@{/orders}" class="total">
+                            전체(<span th:text="${totalCount}">0</span>)
+                        </a>
+
+                        <a th:href="@{/orders}" class="course">
+                            강의(<span th:text="${courseCount}">0</span>)
+                        </a>
+
+                        <a th:href="@{/orders}" class="membership">
+                            멤버십(<span th:text="${membershipCount}">0</span>)
+                        </a>
                     </div>
                     <div class="right">
                         <a href="" class="recently">최근 주문 순 ∨</a>
@@ -127,102 +135,113 @@
             </div>
 
             <div class="order-card">
-                <div class="order-container">
-                    <div class="order-box">
-                        <div class="receipt">
-                            <div class="order-number">주문번호<p>00000000</p></div>
-                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
-                            <div class="order-price">000,000원</div>
-                        </div>
-                        <div class="order-img"><img src="https://picsum.photos/115" alt="수강 중 강의 이미지" class="course-img" /></div>
-                    </div>
-                    <div class="course-content">
-                        <div class="category">카테고리</div>
-                        <div class="course-name">강의명</div>
-                        <div class="instructor">강의자명</div>
-                        <div class="price">000,000원</div>
-                    </div>
-                    <div class="right-btn">
-                        <div class="payment">결제완료</div>
-                        <div class="course-btn">
-                            <a href="" class="course-move">강의로 이동</a>
-                        </div>
-                        <div class="order-btn">
-                            <a href="" class="order-view">주문 상세 보기</a>
-                        </div>
-                    </div>
+
+                <!-- 주문 내역이 없을 때 -->
+                <div class="empty-orders"
+                     th:if="${payments == null or #lists.isEmpty(payments)}">
+                    <h2>주문 내역이 없습니다.</h2>
+                    <p>
+                        결제한 강의가 생기면<br>
+                        이곳에서 주문 내역을 확인할 수 있습니다.
+                    </p>
+
+                    <a th:href="@{/top10}" class="empty-orders-btn">
+                        강의 둘러보기
+                    </a>
                 </div>
-                <div class="order-container">
+
+                <!-- 주문 내역이 있을 때 -->
+                <div class="order-container"
+                     th:if="${payments != null and !#lists.isEmpty(payments)}"
+                     th:each="payment : ${payments}">
+
                     <div class="order-box">
                         <div class="receipt">
-                            <div class="order-number">주문번호<p>00000000</p></div>
-                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
-                            <div class="order-price">000,000원</div>
+                            <div class="order-number">
+                                주문번호
+                                <p th:text="${payment.orderNumber}">ORDER-0000</p>
+                            </div>
+
+                            <div class="order-date">
+                                주문일시
+                                <p th:text="${payment.orderDate != null ? #temporals.format(payment.orderDate, 'yyyy.MM.dd - HH:mm:ss') : '-'}">
+                                    0000.00.00 - 00:00:00
+                                </p>
+                            </div>
+
+                            <div class="order-price"
+                                 th:if="${payment.product != null}"
+                                 th:text="${#numbers.formatInteger(payment.discountAmount, 3, 'COMMA')} + '원'">
+                                0원
+                            </div>
+
+                            <div class="order-price"
+                                 th:if="${payment.product == null}">
+                                멤버십 이용중
+                            </div>
+
+                        <div class="order-img">
+                            <img th:if="${payment.product != null and payment.product.thumbnailUrl != null and !payment.product.thumbnailUrl.isEmpty()}"
+                                 th:src="@{${payment.product.thumbnailUrl}}"
+                                 alt="강의 이미지"
+                                 class="course-img" />
+
+                            <div th:if="${payment.product == null or payment.product.thumbnailUrl == null or payment.product.thumbnailUrl.isEmpty()}"
+                                 class="course-img no-order-img">
+                                이미지 없음
+                            </div>
                         </div>
-                        <div class="order-img"><img src="https://picsum.photos/125" alt="수강 중 강의 이미지" class="course-img" /></div>
                     </div>
+
                     <div class="course-content">
-                        <div class="category">카테고리</div>
-                        <div class="course-name">강의명</div>
-                        <div class="instructor">강의자명</div>
-                        <div class="price">000,000원</div>
-                    </div>
-                    <div class="right-btn">
-                        <div class="payment">결제완료</div>
-                        <div class="course-btn">
-                            <a href="" class="course-move">강의로 이동</a>
+                        <div class="category"
+                             th:text="${payment.product != null ? payment.product.category : '멤버십'}">
+                            카테고리
                         </div>
+
+                        <div class="course-name"
+                             th:text="${payment.product != null ? payment.product.productName : 'INFO ARCHIVE 프리미엄 멤버십'}">
+                            강의명
+                        </div>
+
+                        <div class="instructor"
+                             th:text="${payment.product != null ? payment.product.instructorName : 'INFO ARCHIVE'}">
+                            강의자명
+                        </div>
+
+                        <div class="price"
+                             th:if="${payment.product != null}"
+                             th:text="${#numbers.formatInteger(payment.discountAmount, 3, 'COMMA')} + '원'">
+                            0원
+                        </div>
+
+                        <div class="price"
+                             th:if="${payment.product == null}">
+                            금액 표시 없음
+                        </div>
+                    </div>
+
+                    <div class="right-btn">
+                        <div class="payment"
+                             th:text="${payment.paymentStatus == T(com.meta12.infoArchive.entity.PaymentStatus).COMPLETED ? '결제완료' : payment.paymentStatus}">
+                            결제완료
+                        </div>
+
+                        <div class="course-btn"
+                             th:if="${payment.product != null}">
+                            <a th:href="@{/product/{id}(id=${payment.product.id})}"
+                               class="course-move">
+                                강의로 이동
+                            </a>
+                        </div>
+
                         <div class="order-btn">
-                            <a href="" class="order-view">주문 상세 보기</a>
+                            <a href="" class="order-view">
+                                주문 상세 보기
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="order-container">
-                    <div class="order-box">
-                        <div class="receipt">
-                            <div class="order-number">주문번호<p>00000000</p></div>
-                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
-                            <div class="order-price">000,000원</div>
-                        </div>
-                        <div class="order-img"><img src="https://picsum.photos/135" alt="수강 중 강의 이미지" class="course-img" /></div>
-                    </div>
-                    <div class="course-content">
-                        <div class="category">카테고리</div>
-                        <div class="course-name">강의명</div>
-                        <div class="instructor">강의자명</div>
-                        <div class="price">000,000원</div>
-                    </div>
-                    <div class="right-btn">
-                        <div class="payment">결제완료</div>
-                        <div class="course-btn">
-                            <a href="" class="course-move">강의로 이동</a>
-                        </div>
-                        <div class="order-btn">
-                            <a href="" class="order-view">주문 상세 보기</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="order-container">
-                    <div class="order-box">
-                        <div class="receipt">
-                            <div class="order-number">주문번호<p>00000000</p></div>
-                            <div class="order-date">주문일시<p>0000.00.00 - 00:00:00</p></div>
-                            <div class="order-price">월 0,000원</div>
-                        </div>
-                        <div class="order-img"><img src="https://picsum.photos/145" alt="수강 중 강의 이미지" class="course-img" /></div>
-                    </div>
-                    <div class="course-content">
-                        <div class="category">멤버십</div>
-                        <div class="membership-name">INFO ARCHIVE 프리미엄 멤버십</div>
-                        <div class="subscription">정기 결제 (매월 1일)</div>
-                        <div class="price">0,000원</div>
-                    </div>
-                    <div class="right-btn">
-                        <div class="use">이용중</div>
-                        <div class="membership-btn">
-                            <a href="" class="membership-manage">멤버십 관리</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>
