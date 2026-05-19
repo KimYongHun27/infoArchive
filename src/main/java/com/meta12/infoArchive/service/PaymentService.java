@@ -3,6 +3,7 @@ package com.meta12.infoArchive.service;
 import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
 import com.meta12.infoArchive.entity.Payment;
 import com.meta12.infoArchive.entity.PaymentStatus;
+import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,11 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final UserService userService;
+    private final ProductService productService;
 
     public void confirmPayment(PaymentConfirmRequestDto dto, Authentication authentication) {
+
+        User user = userService.getLoginUser(authentication);
 
         if (dto.getOrderId() == null || dto.getOrderId().trim().isEmpty()) {
             throw new IllegalArgumentException("주문번호가 없습니다.");
@@ -33,24 +37,45 @@ public class PaymentService {
             throw new IllegalArgumentException("결제 수단이 선택되지 않았습니다.");
         }
 
-        if ("CARD".equals(dto.getPaymentMethod())) {
-            validateMockCard(dto);
-        }
-
         if (!Boolean.TRUE.equals(dto.getAgreeTerms())) {
             throw new IllegalArgumentException("이용약관에 동의해야 결제할 수 있습니다.");
         }
 
-        User user = userService.getLoginUser(authentication);
+        if ("CARD".equals(dto.getPaymentMethod())) {
+            validateMockCard(dto);
+        }
 
-        System.out.println("===== MOCK 멤버십 결제 승인 =====");
-        System.out.println("주문번호 = " + dto.getOrderId());
-        System.out.println("결제금액 = " + dto.getAmount());
-        System.out.println("결제수단 = " + dto.getPaymentMethod());
-        System.out.println("멤버십 타입 = " + dto.getMembershipType());
-        System.out.println("카드번호 = " + maskCardNumber(dto.getCardNumber()));
-        System.out.println("결제상태 = COMPLETED");
-        System.out.println("결제회원 = " + user.getEmail());
+        /*
+         * 멤버십 결제
+         * - 이미 멤버십 활성화 상태면 payment에 또 저장하지 않음
+         */
+        if ("MONTHLY".equals(dto.getMembershipType())) {
+
+            if (userService.isMembershipActive(user)) {
+                throw new IllegalArgumentException("이미 멤버십을 이용 중입니다.");
+            }
+
+            Payment payment = new Payment();
+            payment.setOrderNumber(dto.getOrderId());
+            payment.setDiscountAmount(0); // 멤버십은 주문내역 금액 노출 방지용
+            payment.setOrderDate(LocalDateTime.now());
+            payment.setPaymentStatus(PaymentStatus.COMPLETED);
+            payment.setUser(user);
+            payment.setProduct(null);
+
+            paymentRepository.save(payment);
+
+            return;
+        }
+
+        /*
+         * 강의 결제
+         */
+        Product product = productService.getProduct(dto.getProductId());
+
+        if (product == null) {
+            throw new IllegalArgumentException("결제할 상품을 찾을 수 없습니다.");
+        }
 
         Payment payment = new Payment();
         payment.setOrderNumber(dto.getOrderId());
@@ -58,6 +83,7 @@ public class PaymentService {
         payment.setOrderDate(LocalDateTime.now());
         payment.setPaymentStatus(PaymentStatus.COMPLETED);
         payment.setUser(user);
+        payment.setProduct(product);
 
         paymentRepository.save(payment);
     }

@@ -13,6 +13,7 @@ public class PaymentConfirmRequestDto {
     private List<Long> cartItemIds;
 
     private String orderId;
+    private Long productId;
     private Integer amount;
     private String paymentMethod;
     private String membershipType;

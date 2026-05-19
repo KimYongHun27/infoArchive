@@ -42,7 +42,6 @@ public class Payment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // 상품 FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
