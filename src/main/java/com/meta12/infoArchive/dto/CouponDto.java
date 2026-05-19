@@ -8,6 +8,9 @@ import lombok.Setter;
 public class CouponDto {
     private Long Id;
 
+    //쿠폰명
+    private  String CouponName;
+
     //coupon code 쿠폰 코드
     private String CouponCode;
 

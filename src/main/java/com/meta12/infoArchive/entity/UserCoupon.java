@@ -11,8 +11,6 @@ public class UserCoupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    // 사용 여부
-    private CouponStatus couponStatus;
 
     //유저 fk
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,4 +21,8 @@ public class UserCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
+
+    //쿠폰 상태
+    @Enumerated(EnumType.STRING)
+    private CouponStatus status = CouponStatus.AVAILABLE;
 }

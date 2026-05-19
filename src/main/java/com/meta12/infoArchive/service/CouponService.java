@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -21,11 +22,13 @@ public class CouponService {
     {
         Coupon coupon = new Coupon();
         if (couponDto != null) {
-            coupon.setCouponCode(couponDto.getCouponCode());
             coupon.setDiscountAmount(couponDto.getDiscountAmount());
             coupon.setMinOrderAmount(couponDto.getMinOrderAmount());
+            String generatedCode = "CP-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            coupon.setCouponCode(generatedCode);
+            coupon.setCouponName(couponDto.getCouponName());
         }
-        coupon.setCouponCode("1234");
+
         couponRepository.save(coupon);
     }
 

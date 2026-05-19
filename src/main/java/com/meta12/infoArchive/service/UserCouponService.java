@@ -1,9 +1,7 @@
 package com.meta12.infoArchive.service;
 
-import com.meta12.infoArchive.entity.Coupon;
-import com.meta12.infoArchive.entity.Product;
-import com.meta12.infoArchive.entity.User;
-import com.meta12.infoArchive.entity.UserCoupon;
+import com.meta12.infoArchive.dto.CouponCountDto;
+import com.meta12.infoArchive.entity.*;
 import com.meta12.infoArchive.repository.CouponRepository;
 import com.meta12.infoArchive.repository.UserCouponRepository;
 import com.meta12.infoArchive.repository.UserRepository;
@@ -11,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -43,5 +42,25 @@ public class UserCouponService {
         userCoupon.setCoupon(coupon);
 
         userCouponRepository.save(userCoupon);
+    }
+
+
+    public CouponCountDto getCouponCounts(Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+
+        LocalDateTime now = LocalDateTime.now();
+
+        // 1. 보유 쿠폰 개수 (사용 가능 상태)
+        Long unused = userCouponRepository.countByUserAndStatus(user, CouponStatus.AVAILABLE);
+
+// 2. 사용 완료 쿠폰 개수 (사용된 상태)
+        Long used = userCouponRepository.countByUserAndStatus(user, CouponStatus.USED);
+
+// 3. 기간 만료 쿠폰 개수 (기한 만료 상태)
+        Long expired = userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRATION);
+        return new CouponCountDto(unused, used, expired);
     }
 }

@@ -16,6 +16,9 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //쿠폰명
+    private String couponName;
+
     //coupon code 쿠폰 코드
     private String couponCode;
 
