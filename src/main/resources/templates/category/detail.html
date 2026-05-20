@@ -70,8 +70,27 @@
                     <strong th:text="${product.discountRate + '%'}">20%</strong>
                 </div>
 
-                <!-- 구매했거나 멤버십 이용 중인 사용자 -->
-                <div th:if="${membershipActive or enrolled}" class="learning-progress-box">
+                <!-- 관리자 -->
+                <div th:if="${userRole == 'ADMIN'}" class="role-guide-box">
+                    <p>관리자는 강의를 수강하지 않습니다.</p>
+
+                    <a th:href="@{/admin/products}" class="buy-btn">
+                        강의 관리로 이동
+                    </a>
+                </div>
+
+                <!-- 강사 -->
+                <div th:if="${userRole == 'INSTRUCTOR'}" class="role-guide-box">
+                    <p>강사는 강의를 수강하지 않습니다.</p>
+
+                    <a th:href="@{/instructor/courses}" class="buy-btn">
+                        강사센터로 이동
+                    </a>
+                </div>
+
+                <!-- 일반 회원: 구매했거나 멤버십 이용 중 -->
+                <div th:if="${userRole == 'USER' and (membershipActive or enrolled)}"
+                     class="learning-progress-box">
 
                     <div class="progress-title-row">
                         <span>학습 진도율</span>
@@ -93,8 +112,8 @@
 
                 </div>
 
-                <!-- 미구매 + 멤버십 없음 -->
-                <div th:if="${!membershipActive and !enrolled}">
+                <!-- 일반 회원: 미구매 + 멤버십 없음 -->
+                <div th:if="${userRole == 'USER' and !membershipActive and !enrolled}">
 
                     <a th:href="@{/payment/checkout(productId=${product.id})}"
                        class="buy-btn">
@@ -108,6 +127,15 @@
                             장바구니 담기
                         </button>
                     </form>
+
+                </div>
+
+                <!-- 비로그인 -->
+                <div th:if="${userRole == 'GUEST'}">
+
+                    <a th:href="@{/login}" class="buy-btn">
+                        로그인 후 결제하기
+                    </a>
 
                 </div>
 

@@ -34,8 +34,14 @@ public class AdminService {
     private final InstructorApplyRepository instructorApplyRepository;
 
     // 관리자 - 전체 회원 조회
+    // deleted = false 인 회원만 보여줌
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findByDeletedFalse();
+    }
+
+    // 관리자 - 삭제된 회원 조회
+    public List<User> getDeletedUsers() {
+        return userRepository.findByDeletedTrue();
     }
 
     // 관리자 - 전체 강사 조회
@@ -121,8 +127,8 @@ public class AdminService {
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        // 실제 삭제 X
-        // 연결된 answer, review, payment, enrollment 때문에 FK 오류가 나므로 비활성화 처리
+        // 실제 삭제하지 않음
+        // FK 오류 방지용 비활성화 처리
         foundUser.setDeleted(true);
         foundUser.setEnabled(false);
 

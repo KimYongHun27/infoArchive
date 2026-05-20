@@ -3,6 +3,7 @@ package com.meta12.infoArchive.repository;
 import com.meta12.infoArchive.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 // 회원 테이블에 접근하는 Repository
@@ -20,4 +21,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByNameAndPhone(String name, String phone);
 
     Optional<User> findByEmailAndNameAndPhone(String email, String name, String phone);
+
+    // 삭제되지 않은 회원만 조회
+    List<User> findByDeletedFalse();
+
+    // 삭제된 회원만 조회
+    List<User> findByDeletedTrue();
 }
