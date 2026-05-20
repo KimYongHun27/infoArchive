@@ -62,12 +62,30 @@ public class AdminPageController {
         return "admin-user-detail";
     }
 
+    // 회원 삭제 대신 비활성화
     @PostMapping("/admin/users/{userId}/delete")
     public String deleteUserFromPage(@PathVariable Long userId) {
 
-        adminService.deleteUserByAdmin(userId);
+        try {
+            adminService.deleteUserByAdmin(userId);
+            return "redirect:/admin/users?deleteSuccess=true";
 
-        return "redirect:/admin/users";
+        } catch (Exception e) {
+            return "redirect:/admin/users?deleteError=true";
+        }
+    }
+
+    // 회원 복구
+    @PostMapping("/admin/users/{userId}/restore")
+    public String restoreUserFromPage(@PathVariable Long userId) {
+
+        try {
+            adminService.restoreUserByAdmin(userId);
+            return "redirect:/admin/users?restoreSuccess=true";
+
+        } catch (Exception e) {
+            return "redirect:/admin/users?restoreError=true";
+        }
     }
 
     @GetMapping("/admin/instructor-applications")
@@ -90,8 +108,10 @@ public class AdminPageController {
     }
 
     @PostMapping("/admin/instructor-applications/{applyId}/reject")
-    public String rejectInstructorApplication(@PathVariable Long applyId,
-                                              @RequestParam(required = false) String rejectReason) {
+    public String rejectInstructorApplication(
+            @PathVariable Long applyId,
+            @RequestParam(required = false) String rejectReason
+    ) {
 
         adminService.rejectInstructorApplication(applyId, rejectReason);
 
@@ -106,9 +126,13 @@ public class AdminPageController {
     @PostMapping("/admin/create")
     public String createAdmin(AdminCreateRequestDto dto) {
 
-        adminService.createAdmin(dto);
+        try {
+            adminService.createAdmin(dto);
+            return "redirect:/admin/users?createSuccess=true";
 
-        return "redirect:/admin/users";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/admin/create?error=true";
+        }
     }
 
     @GetMapping("/admin/products")
@@ -127,25 +151,33 @@ public class AdminPageController {
 
         adminService.approveProduct(productId);
 
-        return "redirect:/admin/products";
+        return "redirect:/admin/products?approveSuccess=true";
     }
 
     @PostMapping("/admin/products/{productId}/reject")
-    public String rejectProduct(@PathVariable Long productId,
-                                @RequestParam(required = false) String rejectReason) {
+    public String rejectProduct(
+            @PathVariable Long productId,
+            @RequestParam(required = false) String rejectReason
+    ) {
 
         adminService.rejectProduct(productId, rejectReason);
 
-        return "redirect:/admin/products";
+        return "redirect:/admin/products?rejectSuccess=true";
     }
 
     @PostMapping("/admin/password/change")
-    public String changeAdminPassword(Authentication authentication,
-                                      PasswordChangeDto passwordChangeDto) {
+    public String changeAdminPassword(
+            Authentication authentication,
+            PasswordChangeDto passwordChangeDto
+    ) {
 
-        userService.changeMyPassword(authentication, passwordChangeDto);
+        try {
+            userService.changeMyPassword(authentication, passwordChangeDto);
+            return "redirect:/admin/my-info?passwordSuccess=true";
 
-        return "redirect:/admin?passwordSuccess=true";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/admin/my-info?passwordError=true";
+        }
     }
 
     @GetMapping("/admin/payments")

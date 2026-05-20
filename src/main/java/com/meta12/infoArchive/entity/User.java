@@ -14,10 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 public class User {
 
-    private Boolean membershipActive; // 멤버십 활성 여부
-    private LocalDateTime membershipStartedAt; // 멤버십 시작일
-    private LocalDateTime membershipExpiredAt; // 멤버십 만료일
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                 // 회원 고유 번호
@@ -45,9 +41,27 @@ public class User {
 
     private LocalDateTime createdAt; // 가입일
 
+    // 계정 활성화 여부
+    private Boolean enabled = true;
+
+    // 관리자 삭제/탈퇴 처리 여부
+    private Boolean deleted = false;
+
+    // 멤버십 활성 여부
+    private Boolean membershipActive;
+
+    // 멤버십 시작일
+    private LocalDateTime membershipStartedAt;
+
+    // 멤버십 만료일
+    private LocalDateTime membershipExpiredAt;
+
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
 
         if (this.role == null) {
             this.role = Role.USER;
@@ -67,6 +81,14 @@ public class User {
 
         if (this.membershipActive == null) {
             this.membershipActive = false;
+        }
+
+        if (this.enabled == null) {
+            this.enabled = true;
+        }
+
+        if (this.deleted == null) {
+            this.deleted = false;
         }
     }
 }

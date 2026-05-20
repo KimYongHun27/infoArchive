@@ -135,19 +135,21 @@ public class UserService implements UserDetailsService {
     }
 
     // 비밀번호 변경
-    public void changeMyPassword(Authentication authentication, PasswordChangeDto requestDto) {
+    @Transactional
+    public void changeMyPassword(Authentication authentication, PasswordChangeDto dto) {
 
         User user = getLoginUser(authentication);
 
-        if (!passwordEncoder.matches(requestDto.getCurrentPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
         }
 
-        if (!requestDto.getNewPassword().equals(requestDto.getNewPasswordCheck())) {
+        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
             throw new IllegalArgumentException("새 비밀번호가 일치하지 않습니다.");
         }
 
-        user.setPassword(passwordEncoder.encode(requestDto.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+
         userRepository.save(user);
     }
 

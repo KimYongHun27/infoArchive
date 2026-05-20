@@ -1,27 +1,25 @@
 package com.meta12.infoArchive.service;
 
 import com.meta12.infoArchive.dto.AdminCreateRequestDto;
+import com.meta12.infoArchive.entity.ApplyStatus;
 import com.meta12.infoArchive.entity.Instructor;
 import com.meta12.infoArchive.entity.InstructorApply;
+import com.meta12.infoArchive.entity.Payment;
+import com.meta12.infoArchive.entity.Product;
+import com.meta12.infoArchive.entity.ProductStatus;
 import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.InstructorApplyRepository;
 import com.meta12.infoArchive.repository.InstructorRepository;
+import com.meta12.infoArchive.repository.PaymentRepository;
+import com.meta12.infoArchive.repository.ProductRepository;
 import com.meta12.infoArchive.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import com.meta12.infoArchive.entity.ApplyStatus;
-import java.time.LocalDateTime;
-import org.springframework.transaction.annotation.Transactional;
-import com.meta12.infoArchive.repository.ReviewRepository;
-import com.meta12.infoArchive.entity.Payment;
-import com.meta12.infoArchive.repository.PaymentRepository;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.meta12.infoArchive.repository.ProductRepository;
-import com.meta12.infoArchive.entity.Product;
-import com.meta12.infoArchive.entity.ProductStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,7 +27,6 @@ import java.util.List;
 public class AdminService {
 
     private final UserRepository userRepository;
-    private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
     private final PaymentRepository paymentRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -64,6 +61,7 @@ public class AdminService {
     }
 
     // 관리자 - 강사 신청 승인
+    @Transactional
     public void approveInstructorApplication(Long applyId) {
 
         InstructorApply apply = instructorApplyRepository.findById(applyId)
@@ -75,11 +73,8 @@ public class AdminService {
 
         User user = apply.getUser();
 
-        // 회원 권한을 강사로 변경
         user.setRole(Role.INSTRUCTOR);
 
-        // Instructor 테이블에 강사 정보 생성
-        // 이미 강사로 등록되어 있으면 중복 생성 방지
         if (!instructorRepository.existsByUser(user)) {
             Instructor instructor = Instructor.builder()
                     .nickname(user.getName())
@@ -93,7 +88,6 @@ public class AdminService {
             instructorRepository.save(instructor);
         }
 
-        // 신청 상태 승인 처리
         apply.setStatus(ApplyStatus.APPROVED);
         apply.setReviewedAt(LocalDateTime.now());
         apply.setRejectReason(null);
@@ -103,6 +97,7 @@ public class AdminService {
     }
 
     // 관리자 - 강사 신청 반려
+    @Transactional
     public void rejectInstructorApplication(Long applyId, String rejectReason) {
 
         InstructorApply apply = instructorApplyRepository.findById(applyId)
@@ -119,27 +114,36 @@ public class AdminService {
         instructorApplyRepository.save(apply);
     }
 
-    // 관리자 - 회원 삭제
+    // 관리자 - 회원 삭제 대신 비활성화 처리
     @Transactional
     public void deleteUserByAdmin(Long userId) {
 
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        // 1. 리뷰 먼저 삭제
-        reviewRepository.deleteByUser(foundUser);
+        // 실제 삭제 X
+        // 연결된 answer, review, payment, enrollment 때문에 FK 오류가 나므로 비활성화 처리
+        foundUser.setDeleted(true);
+        foundUser.setEnabled(false);
 
-        // 2. 강사 신청 내역 삭제
-        instructorApplyRepository.deleteByUser(foundUser);
-
-        // 3. 강사 정보 삭제
-        instructorRepository.deleteByUser(foundUser);
-
-        // 4. 마지막에 회원 삭제
-        userRepository.delete(foundUser);
+        userRepository.save(foundUser);
     }
 
-    // 기존 권한 변경 기능은 일단 남겨둬도 됨
+    // 관리자 - 회원 복구
+    @Transactional
+    public void restoreUserByAdmin(Long userId) {
+
+        User foundUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
+        foundUser.setDeleted(false);
+        foundUser.setEnabled(true);
+
+        userRepository.save(foundUser);
+    }
+
+    // 관리자 - 권한 변경
+    @Transactional
     public User changeUserRole(Long userId, Role role) {
 
         User foundUser = userRepository.findById(userId)
@@ -151,6 +155,7 @@ public class AdminService {
     }
 
     // 관리자 - 관리자 계정 생성
+    @Transactional
     public void createAdmin(AdminCreateRequestDto dto) {
 
         if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
@@ -172,6 +177,9 @@ public class AdminService {
                 .name(dto.getName())
                 .phone(dto.getPhone())
                 .role(Role.ADMIN)
+                .enabled(true)
+                .deleted(false)
+                .membershipActive(false)
                 .build();
 
         userRepository.save(admin);
@@ -182,7 +190,6 @@ public class AdminService {
         return productRepository.findAll();
     }
 
-
     // 관리자 - 상품 단건 조회
     public Product getProduct(Long productId) {
         return productRepository.findById(productId)
@@ -190,6 +197,7 @@ public class AdminService {
     }
 
     // 관리자 - 강의/상품 승인
+    @Transactional
     public void approveProduct(Long productId) {
 
         Product product = productRepository.findById(productId)
@@ -203,6 +211,7 @@ public class AdminService {
     }
 
     // 관리자 - 강의/상품 반려
+    @Transactional
     public void rejectProduct(Long productId, String rejectReason) {
 
         Product product = productRepository.findById(productId)
