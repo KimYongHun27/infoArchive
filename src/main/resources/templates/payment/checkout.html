@@ -144,23 +144,24 @@
 
             <div class="price-row">
                 <span>상품 금액</span>
-                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
-                    239,000원
+                <span id="originalAmountText"
+                      th:text="${#numbers.formatInteger(originalAmount, 3, 'COMMA')} + '원'">
+                    0원
                 </span>
             </div>
 
             <div class="price-row">
                 <span>할인 금액</span>
-                <span>0원</span>
+                <span id="discountAmountText">0원</span>
             </div>
 
             <div class="price-row total">
                 <span>총 결제 금액</span>
-                <span th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
-                    239,000원
+                <span id="finalAmountText"
+                      th:text="${#numbers.formatInteger(amount, 3, 'COMMA')} + '원'">
+                    0원
                 </span>
             </div>
-        </div>
 
         <!-- 4, 5, 6. 결제 처리 form -->
         <form id="paymentForm" th:action="@{/payment/confirm}" method="post">

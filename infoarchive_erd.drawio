@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" modified="2026-05-20T00:00:00.000Z" agent="ChatGPT" version="24.7.17" type="device">
+  <diagram id="infoarchive-erd" name="InfoArchive ERD">
+    <mxGraphModel dx="2200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="InfoArchive ERD 구조&#xa;users 안에 ADMIN role 포함 + admins 확장 테이블 포함" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;fontStyle=1;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="520" y="20" width="760" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- USERS -->
+        <mxCell id="users" value="users&#xa;────────────&#xa;PK id BIGINT&#xa;username VARCHAR UQ&#xa;password VARCHAR&#xa;name VARCHAR&#xa;email VARCHAR UQ&#xa;phone VARCHAR&#xa;role VARCHAR&#xa;  USER / INSTRUCTOR / ADMIN&#xa;membership_active BOOLEAN&#xa;membership_started_at DATETIME&#xa;membership_expired_at DATETIME&#xa;created_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f1ff;strokeColor=#2563eb;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="260" height="310" as="geometry" />
+        </mxCell>
+
+        <!-- ADMINS -->
+        <mxCell id="admins" value="admins&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT UQ&#xa;admin_level VARCHAR&#xa;created_at DATETIME&#xa;&#xa;관리자 추가 정보" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7ef;strokeColor=#059669;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="400" y="150" width="240" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- PRODUCT -->
+        <mxCell id="product" value="product&#xa;────────────&#xa;PK id BIGINT&#xa;dtype VARCHAR&#xa;product_type VARCHAR&#xa;product_name VARCHAR&#xa;category VARCHAR&#xa;instructor_name VARCHAR&#xa;thumbnail_url VARCHAR&#xa;description TEXT&#xa;price INT&#xa;discount_rate INT&#xa;status VARCHAR&#xa;created_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7f7e7;strokeColor=#16a34a;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="720" y="140" width="260" height="310" as="geometry" />
+        </mxCell>
+
+        <!-- CART -->
+        <mxCell id="cart" value="cart&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK product_id BIGINT&#xa;quantity INT&#xa;created_at DATETIME&#xa;&#xa;UQ(user_id, product_id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f97316;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="120" width="260" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- WISHLIST -->
+        <mxCell id="wish_list" value="wish_list&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK product_id BIGINT&#xa;created_at DATETIME&#xa;&#xa;UQ(user_id, product_id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe8ef;strokeColor=#e11d48;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="350" width="260" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- ENROLLMENT -->
+        <mxCell id="enrollment" value="enrollment&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK product_id BIGINT&#xa;progress_rate INT&#xa;enrolled_at DATETIME&#xa;expired_at DATETIME&#xa;created_at DATETIME&#xa;&#xa;UQ(user_id, product_id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f97316;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="560" width="260" height="230" as="geometry" />
+        </mxCell>
+
+        <!-- PAYMENT -->
+        <mxCell id="payment" value="payment&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK product_id BIGINT NULL&#xa;FK user_coupon_id BIGINT NULL&#xa;order_number VARCHAR UQ&#xa;payment_status VARCHAR&#xa;payment_method VARCHAR&#xa;original_amount INT&#xa;discount_amount INT&#xa;final_amount INT&#xa;order_date DATETIME&#xa;&#xa;※ product_id는 멤버십 결제 시 NULL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7db;strokeColor=#d97706;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="140" width="300" height="330" as="geometry" />
+        </mxCell>
+
+        <!-- COUPON -->
+        <mxCell id="coupon" value="coupon&#xa;────────────&#xa;PK id BIGINT&#xa;coupon_name VARCHAR&#xa;coupon_code VARCHAR UQ&#xa;discount_amount INT&#xa;min_order_amount INT&#xa;active BOOLEAN&#xa;created_at DATETIME&#xa;expired_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#9333ea;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="530" width="300" height="220" as="geometry" />
+        </mxCell>
+
+        <!-- USER_COUPON -->
+        <mxCell id="user_coupon" value="user_coupon&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK coupon_id BIGINT&#xa;status VARCHAR&#xa;  AVAILABLE / USED / EXPIRED&#xa;issued_at DATETIME&#xa;used_at DATETIME&#xa;&#xa;UQ(user_id, coupon_id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#9333ea;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="810" width="300" height="230" as="geometry" />
+        </mxCell>
+
+        <!-- REVIEW -->
+        <mxCell id="review" value="review&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;FK product_id BIGINT&#xa;rating INT&#xa;content TEXT&#xa;created_at DATETIME&#xa;&#xa;UQ(user_id, product_id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#0891b2;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="260" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- INSTRUCTOR APPLY -->
+        <mxCell id="instructor_apply" value="instructor_apply&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;title VARCHAR&#xa;intro TEXT&#xa;career TEXT&#xa;portfolio_url VARCHAR&#xa;status VARCHAR&#xa;  PENDING / APPROVED / REJECTED&#xa;reject_reason TEXT&#xa;created_at DATETIME&#xa;reviewed_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#0891b2;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="380" y="520" width="280" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- CUSTOMER INQUIRY -->
+        <mxCell id="customer_inquiry" value="customer_inquiry&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;category VARCHAR&#xa;title VARCHAR&#xa;content TEXT&#xa;answer TEXT&#xa;status VARCHAR&#xa;  WAITING / ANSWERED&#xa;created_at DATETIME&#xa;answered_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#0891b2;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="790" width="260" height="260" as="geometry" />
+        </mxCell>
+
+        <!-- COMMUNITY -->
+        <mxCell id="community_posts" value="community_posts&#xa;────────────&#xa;PK id BIGINT&#xa;FK user_id BIGINT&#xa;title VARCHAR&#xa;content TEXT&#xa;created_at DATETIME&#xa;updated_at DATETIME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#0891b2;fontSize=13;fontStyle=1;align=left;spacingLeft=12;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="380" y="850" width="280" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- SUMMARY -->
+        <mxCell id="summary" value="핵심 정리&#xa;────────────&#xa;• 회원/관리자는 users.role로 구분&#xa;• admins는 관리자 추가 정보용 확장 테이블&#xa;• 상품/강의는 product 기준으로 통일&#xa;• cart, wish_list, enrollment 모두 product_id 사용&#xa;• coupon은 원본, user_coupon은 회원 보유 쿠폰&#xa;• payment는 쿠폰 적용 금액까지 저장" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#64748b;fontSize=14;fontStyle=1;align=left;spacingLeft=14;verticalAlign=top;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="720" y="850" width="520" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="e_users_admins" value="1 : 0..1" style="endArrow=ERone;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="admins"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_cart" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="cart"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_product_cart" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="product" target="cart"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_wish" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="wish_list"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_product_wish" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="product" target="wish_list"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_enroll" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="enrollment"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_product_enroll" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="product" target="enrollment"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_payment" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="payment"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_product_payment" value="1 : N / NULL 가능" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="product" target="payment"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_coupon_usercoupon" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="coupon" target="user_coupon"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_usercoupon" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="user_coupon"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_usercoupon_payment" value="0..1 : N" style="endArrow=ERmany;startArrow=ERzeroToOne;html=1;rounded=0;strokeWidth=2;dashed=1;" edge="1" parent="1" source="user_coupon" target="payment"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_review" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="review"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_product_review" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="product" target="review"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_instructor_apply" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="instructor_apply"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_customer" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="customer_inquiry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_users_community" value="1 : N" style="endArrow=ERmany;startArrow=ERone;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="users" target="community_posts"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,80 +1,72 @@
 package com.meta12.infoArchive.controller;
 
-import com.meta12.infoArchive.dto.CouponCountDto;
-import com.meta12.infoArchive.dto.CouponDto;
-import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.entity.UserCoupon;
 import com.meta12.infoArchive.service.CouponService;
-import com.meta12.infoArchive.service.UserCouponService;
-import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
 public class CouponController {
 
     private final CouponService couponService;
-    private final UserCouponService userCouponService;
-    private final UserService userService;
 
     @GetMapping("/coupon")
-    public String orders(Authentication authentication, Model model) {
+    public String couponPage(Authentication authentication, Model model) {
 
-        User loginUser = userService.getLoginUser(authentication);
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
+        }
 
-        CouponCountDto counts = userCouponService.getCouponCounts(loginUser.getId());
-        model.addAttribute("counts", counts);
+        List<UserCoupon> myCoupons = couponService.getMyCoupons(authentication);
+        Map<String, Long> counts = couponService.getMyCouponCounts(authentication);
 
-        List<UserCoupon> myCoupons = userCouponService.getSelectUser(loginUser.getId());
         model.addAttribute("myCoupons", myCoupons);
+        model.addAttribute("counts", counts);
 
         return "mypage/coupon";
     }
 
-    @GetMapping("/createCoupon")
-    public String createCoupon()
-    {
-        return "createCoupon";
-    }
-
     @GetMapping("/couponRegistration")
-    public String prevRegistrationCoupon()
-    {
+    public String couponRegistrationPage(Authentication authentication) {
+
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
+        }
+
         return "couponRegistration";
     }
 
-    @PostMapping("/coupons/generate")
-    public String generateCoupon(
-            CouponDto couponDto
-    ) {
-        couponService.insert(couponDto);
-        return "redirect:/createCoupon";
-    }
-
     @PostMapping("/coupons/couponRegistration")
-    public String registrationCoupon(
-            @RequestParam("typedCouponCode") String typedCouponCode,
-            Authentication authentication,
-            RedirectAttributes redirectAttributes
-    ) {
-        try {
-             User loginUser = userService.getLoginUser(authentication);
+    public String registerCoupon(@RequestParam String typedCouponCode,
+                                 Authentication authentication,
+                                 RedirectAttributes redirectAttributes) {
 
-            userCouponService.register(loginUser.getId(), typedCouponCode);
-
-            redirectAttributes.addFlashAttribute("message", "쿠폰이 성공적으로 등록되었습니다!");
-        } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
         }
-        return "redirect:/coupon";
+
+        try {
+            couponService.registerCoupon(authentication, typedCouponCode.trim());
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 등록되었습니다.");
+            return "redirect:/coupon";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/couponRegistration";
+        }
     }
 }

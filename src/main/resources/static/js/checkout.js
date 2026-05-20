@@ -97,3 +97,59 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const couponSelect = document.getElementById("couponSelect");
+    const couponApplyBtn = document.getElementById("couponApplyBtn");
+
+    const originalAmountInput = document.getElementById("originalAmountInput");
+    const discountAmountInput = document.getElementById("discountAmountInput");
+    const amountInput = document.getElementById("amountInput");
+
+    const couponDiscountText = document.getElementById("couponDiscountText");
+    const discountAmountText = document.getElementById("discountAmountText");
+    const finalAmountText = document.getElementById("finalAmountText");
+    const couponMessage = document.getElementById("couponMessage");
+
+    if (!couponSelect || !couponApplyBtn) {
+        return;
+    }
+
+    function formatWon(value) {
+        return Number(value).toLocaleString("ko-KR") + "원";
+    }
+
+    couponApplyBtn.addEventListener("click", function () {
+        const selectedOption = couponSelect.options[couponSelect.selectedIndex];
+
+        const originalAmount = Number(originalAmountInput.value || 0);
+        const discount = Number(selectedOption.dataset.discount || 0);
+        const minAmount = Number(selectedOption.dataset.min || 0);
+
+        couponMessage.textContent = "";
+
+        if (originalAmount < minAmount) {
+            couponMessage.textContent = "쿠폰 최소 주문금액을 충족하지 못했습니다.";
+
+            discountAmountInput.value = 0;
+            amountInput.value = originalAmount;
+
+            couponDiscountText.textContent = "0원";
+            discountAmountText.textContent = "0원";
+            finalAmountText.textContent = formatWon(originalAmount);
+
+            couponSelect.value = "";
+            return;
+        }
+
+        const finalDiscount = Math.min(discount, originalAmount);
+        const finalAmount = originalAmount - finalDiscount;
+
+        discountAmountInput.value = finalDiscount;
+        amountInput.value = finalAmount;
+
+        couponDiscountText.textContent = "-" + formatWon(finalDiscount);
+        discountAmountText.textContent = "-" + formatWon(finalDiscount);
+        finalAmountText.textContent = formatWon(finalAmount);
+    });
+});
