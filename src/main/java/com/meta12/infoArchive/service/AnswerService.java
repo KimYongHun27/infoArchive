@@ -10,6 +10,7 @@ import com.meta12.infoArchive.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -44,6 +45,20 @@ public class AnswerService {
         } else {
             throw new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + id);
         }
+    }
+    @Transactional
+    public void saveReply(Community community, User user, String content, Long parentId) {
+        Answer answer = new Answer();
+        answer.setContent(content);
+        answer.setCommunity(community);
+        answer.setUser(user);
+
+        // 부모 댓글이 있는지 확인하고 찾아와서 연결합니다.
+        Answer parent = answerRepository.findById(parentId)
+                .orElseThrow(() -> new IllegalArgumentException("부모 댓글이 존재하지 않습니다. id=" + parentId));
+
+        answer.setParent(parent); // 부모 댓글 지정!
+        answerRepository.save(answer);
     }
 }
 

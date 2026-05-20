@@ -70,24 +70,69 @@
 
 
     <div class="answer-list" style="margin-bottom: 30px;">
-        <div th:each="answer : ${community.answers}" style="border-bottom: 1px solid #eee; padding: 15px 0;">
-            <div style="display: flex; justify-content: space-between;">
-                <strong th:text="${answer.user?.name != null ? answer.user.name : '알 수 없음'}">작성자</strong>
+        <div th:each="answer : ${community.answers}" th:if="${answer.parent == null}" style="border-bottom: 1px solid #eee; padding: 15px 0;">
 
-                <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                    <form th:action="@{|/community/answer/delete/${answer.id}|}" method="post" onsubmit="return confirm('이 댓글을 관리자 권한으로 삭제하시겠습니까?');" style="margin: 0;">
-                        <input type="hidden" name="communityId" th:value="${community.id}">
-                        <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 13px; font-weight: bold;">
-                            삭제
-                        </button>
-                    </form>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong th:text="${answer.user?.name != null ? answer.user.name : '알 수 없음'}">작성자</strong>
+                    <span th:if="${answer.user != null and answer.user.username == 'admin'}" style="background: #e6f7ff; color: #1890ff; font-size: 11px; padding: 2px 6px; border-radius: 3px; margin-left: 5px; font-weight: bold;">관리자</span>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button th:if="${loginUserId != null}" type="button" th:onclick="'toggleReplyForm(' + ${answer.id} + ')'"
+                            style="background: none; border: none; color: #007bff; cursor: pointer; font-size: 13px; font-weight: bold;">
+                        답글
+                    </button>
+
+                    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <form th:action="@{|/community/answer/delete/${answer.id}|}" method="post" onsubmit="return confirm('이 댓글을 관리자 권한으로 삭제하시겠습니까?');" style="margin: 0;">
+                            <input type="hidden" name="communityId" th:value="${community.id}">
+                            <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 13px; font-weight: bold;">
+                                삭제
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <p style="margin-top: 8px; white-space: pre-wrap;" th:text="${answer.content}">댓글 내용</p>
-    </div>
-    <div th:if="${#lists.isEmpty(community.answers)}" style="text-align: center; color: #999; padding: 20px;">
-        첫 번째 댓글을 남겨보세요!
-    </div>
+
+            <div th:id="'replyForm-' + ${answer.id}" style="display: none; margin-top: 15px; padding: 15px; background: #fafafa; border-radius: 5px; border: 1px solid #e8e8e8;">
+                <form th:action="@{|/community/answer/reply/${community.id}/${answer.id}|}" method="post">
+                <textarea name="content" rows="2" required
+                          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: none;"
+                          placeholder="답글 내용을 입력하세요..."></textarea>
+                    <div style="text-align: right; margin-top: 10px;">
+                        <button type="button" th:onclick="'toggleReplyForm(' + ${answer.id} + ')'" style="padding: 6px 15px; background-color: #999; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; font-size: 12px;">취소</button>
+                        <button type="submit" style="padding: 6px 15px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">답글 등록</button>
+                    </div>
+                </form>
+            </div>
+
+            <div th:each="child : ${answer.children}" style="margin-left: 40px; margin-top: 15px; padding: 12px; background-color: #fcfcfc; border-left: 3px solid #ddd; border-radius: 0 4px 4px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="color: #555; margin-right: 5px;">↳</span>
+                        <strong th:text="${child.user?.name != null ? child.user.name : '알 수 없음'}">대댓글 작성자</strong>
+                        <span th:if="${child.user != null and child.user.username == 'admin'}" style="background: #e6f7ff; color: #1890ff; font-size: 11px; padding: 2px 6px; border-radius: 3px; margin-left: 5px; font-weight: bold;">관리자</span>
+                    </div>
+
+                    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <form th:action="@{|/community/answer/delete/${child.id}|}" method="post" onsubmit="return confirm('이 답글을 삭제하시겠습니까?');" style="margin: 0;">
+                            <input type="hidden" name="communityId" th:value="${community.id}">
+                            <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 12px;">
+                                삭제
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <p style="margin-top: 6px; white-space: pre-wrap; color: #444;" th:text="${child.content}">대댓글 내용</p>
+            </div>
+
+        </div>
+
+        <div th:if="${#lists.isEmpty(community.answers)}" style="text-align: center; color: #999; padding: 20px;">
+            첫 번째 댓글을 남겨보세요!
+        </div>
     </div>
 
     <div class="answer-form" th:if="${loginUserId != null}">

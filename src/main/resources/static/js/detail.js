@@ -69,3 +69,14 @@ function tryDelete(loginUserId, authorId, isAdmin) {
         document.getElementById("deleteForm").submit();
     }
 }
+//    대댓글 입력창 열고 닫기
+function toggleReplyForm(answerId) {
+     const replyForm = document.getElementById('replyForm-' + answerId);
+     if (replyForm) {
+         if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+             replyForm.style.display = 'block';
+         } else {
+             replyForm.style.display = 'none';
+         }
+     }
+ }
