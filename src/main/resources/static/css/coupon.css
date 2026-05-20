@@ -406,3 +406,143 @@ body {
   padding: 15px 20px;
   border-radius: 10px;
 }
+
+.coupon-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 18px;
+}
+
+.coupon-box {
+    flex: 0 0 160px;
+}
+
+.coupon-img1,
+.coupon-img2,
+.coupon-img3 {
+    width: 150px;
+    height: 110px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+}
+
+.coupon-img1 {
+    background: linear-gradient(135deg, #111, #444);
+}
+
+.coupon-img2 {
+    background: linear-gradient(135deg, #7c3aed, #a78bfa);
+}
+
+.coupon-img3 {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+}
+
+.img-title1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.img-title2 {
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.coupon-content {
+    flex: 1;
+}
+
+.coupon-category1,
+.coupon-category2,
+.coupon-category3 {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.coupon-category1 {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.coupon-category2 {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.coupon-category3 {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.coupon-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+}
+
+.coupon-explain {
+    color: #666;
+    margin-bottom: 14px;
+}
+
+.coupon-details {
+    display: flex;
+    gap: 30px;
+    color: #555;
+    font-size: 14px;
+}
+
+.coupon-details p {
+    margin: 4px 0;
+}
+
+.coupon-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.use-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 90px;
+    height: 38px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    background: #111;
+    color: #fff;
+}
+
+.use-btn:hover {
+    background: #000;
+}
+
+.use-btn.disabled {
+    background: #bbb;
+    color: #fff;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.empty-coupon-box {
+    text-align: center;
+    padding: 60px 0;
+    color: #888;
+}

@@ -69,4 +69,9 @@ public class EnrollmentService {
                 Enrollment.createEnrollment(user, product)
         );
     }
+
+    @Transactional(readOnly = true)
+    public boolean isEnrolled(User user, Long productId) {
+        return enrollmentRepository.existsByUserIdAndProductId(user.getId(), productId);
+    }
 }

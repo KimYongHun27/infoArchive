@@ -60,7 +60,7 @@ public class UserCouponService {
         Long used = userCouponRepository.countByUserAndStatus(user, CouponStatus.USED);
 
 // 3. 기간 만료 쿠폰 개수 (기한 만료 상태)
-        Long expired = userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRATION);
+        Long expired = userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRED);
         return new CouponCountDto(unused, used, expired);
     }
 

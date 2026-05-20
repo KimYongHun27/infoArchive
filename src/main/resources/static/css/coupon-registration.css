@@ -1,0 +1,56 @@
+.coupon-register-page {
+    max-width: 720px;
+    margin: 80px auto;
+    padding: 50px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.coupon-register-page h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.coupon-register-page p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.coupon-register-form {
+    display: flex;
+    gap: 10px;
+}
+
+.coupon-register-form input {
+    flex: 1;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.coupon-register-form button {
+    height: 48px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.coupon-register-form button:hover {
+    background: #000;
+}
+
+.coupon-back-link {
+    display: inline-block;
+    margin-top: 24px;
+    color: #111;
+    font-weight: 700;
+    text-decoration: none;
+}

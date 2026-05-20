@@ -8,33 +8,32 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
-    <link rel="stylesheet" th:href="@{/css/coupon.css}"/>
+    <link rel="stylesheet" th:href="@{/css/coupon.css}">
 </head>
 
 <body>
+
 <div th:replace="~{fragments/header :: header}"></div>
+
 <div class="page">
-    <!-- 메인 -->
+
     <div class="main">
-        <!-- 왼쪽 사이드바 -->
+
         <aside class="coupon-sidebar">
             <div class="sidebar-card">
 
-                <!-- 일반 회원용 제목 -->
                 <div class="sidebar-title"
                      th:if="${session.loginRole == 'ROLE_USER'}">
                     <span>▦</span>
                     <strong>나의 강의장</strong>
                 </div>
 
-                <!-- 관리자용 제목 -->
                 <div class="sidebar-title"
                      th:if="${session.loginRole == 'ROLE_ADMIN'}">
                     <span>🛡️</span>
                     <strong>관리자 정보</strong>
                 </div>
 
-                <!-- 강사용 제목 -->
                 <div class="sidebar-title"
                      th:if="${session.loginRole == 'ROLE_INSTRUCTOR'}">
                     <span>🎓</span>
@@ -43,7 +42,6 @@
 
                 <nav class="side-menu">
 
-                    <!-- 일반 회원만 보이는 메뉴 -->
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
                        th:href="@{/dashboard}">
                         <span>▤</span>
@@ -69,26 +67,25 @@
                     </a>
 
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
-                       th:href="@{/coupon}" class="active">
+                       th:href="@{/coupon}"
+                       class="active">
                         <span>▨</span>
                         쿠폰함
                     </a>
 
-                    <!-- 공통: 회원 정보만 표시 -->
                     <a th:href="@{/member-info}">
                         <span>♙</span>
                         회원 정보
                     </a>
 
-                    <!-- 일반 회원만 리뷰관리 표시 -->
                     <a th:if="${session.loginRole == 'ROLE_USER'}"
                        th:href="@{/review}">
                         <span>★</span>
                         리뷰관리
                     </a>
+
                 </nav>
 
-                <!-- 고객센터도 일반 회원만 표시 -->
                 <div class="customer-box"
                      th:if="${session.loginRole == 'ROLE_USER'}">
                     <h3>고객센터</h3>
@@ -100,31 +97,41 @@
         </aside>
 
         <section class="content">
+
             <div class="banner">
                 <h1>쿠폰함</h1>
                 <p class="p1">보유하신 쿠폰 내역을 확인하고 사용할 수 있습니다.</p>
+
                 <div class="higher-btn">
                     <div class="left">
-                        <a href="" class="possess">
+                        <a th:href="@{/coupon}" class="possess">
                             사용 가능 쿠폰(<span th:text="${counts.unused}">0</span>)
                         </a>
-                        <a href="" class="complete">
+
+                        <a th:href="@{/coupon}" class="complete">
                             사용 완료 쿠폰(<span th:text="${counts.used}">0</span>)
                         </a>
-                        <a href="" class="expiration">
+
+                        <a th:href="@{/coupon}" class="expiration">
                             기간 만료 쿠폰(<span th:text="${counts.expired}">0</span>)
                         </a>
                     </div>
+
                     <div class="right">
-                        <a href="couponRegistration" class="register-coupon">쿠폰 등록 +</a>
+                        <a th:href="@{/couponRegistration}" class="register-coupon">
+                            쿠폰 등록 +
+                        </a>
                     </div>
                 </div>
+
                 <div class="line"></div>
+
                 <div class="sort-btn">
-                    <a href="" class="all-coupon">전체 쿠폰 ∨</a>
-                    <a href="" class="the-latest">최신 순 ∨</a>
+                    <a th:href="@{/coupon}" class="all-coupon">전체 쿠폰 ∨</a>
+                    <a th:href="@{/coupon}" class="the-latest">최신 순 ∨</a>
                 </div>
             </div>
+
             <div class="notice">
                 <div class="notice-box">
                     <h3>﹗⃝ 쿠폰 사용 시 유의사항</h3>
@@ -132,19 +139,25 @@
                     <p class="guideline">• 쿠폰 유효기간이 지난 경우 자동으로 만료 처리됩니다.</p>
                 </div>
             </div>
+
             <div class="coupon-card">
 
-                <div th:if="${#lists.isEmpty(myCoupons)}" style="text-align: center; padding: 60px 0; color: #888;">
+                <div th:if="${#lists.isEmpty(myCoupons)}"
+                     class="empty-coupon-box">
                     <p>현재 보유 중인 쿠폰이 없습니다.</p>
                 </div>
 
                 <div th:unless="${#lists.isEmpty(myCoupons)}"
-                     th:each="uc : ${myCoupons}" class="coupon-container">
+                     th:each="uc : ${myCoupons}"
+                     class="coupon-container">
 
                     <div class="coupon-box">
                         <div class="box-img">
                             <div class="coupon-img1">
-                                <p class="img-title1" th:text="${#numbers.formatInteger(uc.coupon.discountAmount, 0, 'COMMA')} + '원'">20%</p>
+                                <p class="img-title1"
+                                   th:text="${#numbers.formatInteger(uc.coupon.discountAmount, 0, 'COMMA')} + '원'">
+                                    10,000원
+                                </p>
                                 <p class="img-title2">할인 쿠폰</p>
                             </div>
                         </div>
@@ -153,19 +166,31 @@
                     <div class="coupon-content">
                         <div class="coupon-category1">강의 할인</div>
 
-                        <div class="coupon-name" th:text="${uc.coupon.couponName}">전 강의 20% 할인 쿠폰</div>
+                        <div class="coupon-name"
+                             th:text="${uc.coupon.couponName}">
+                            쿠폰명
+                        </div>
 
-                        <div class="coupon-explain" th:text="'쿠폰 코드 : ' + ${uc.coupon.couponCode}">모든 강의에 사용 가능한 할인 쿠폰입니다.</div>
+                        <div class="coupon-explain"
+                             th:text="'쿠폰 코드 : ' + ${uc.coupon.couponCode}">
+                            쿠폰 코드
+                        </div>
 
                         <div class="coupon-details">
                             <div class="expiration-date">
                                 <p>유효기간</p>
-                                <p>0000.00.00 ~ 0000.00.00</p>
+                                <p th:text="${uc.coupon.expiredAt != null ? #temporals.format(uc.coupon.expiredAt, 'yyyy.MM.dd') : '-'}">
+                                    -
+                                </p>
                             </div>
+
                             <div class="minimum-amount">
                                 <p>최소 주문금액</p>
-                                <p th:text="${#numbers.formatInteger(uc.coupon.minOrderAmount, 0, 'COMMA')} + '원'">0원</p>
+                                <p th:text="${#numbers.formatInteger(uc.coupon.minOrderAmount, 0, 'COMMA')} + '원'">
+                                    0원
+                                </p>
                             </div>
+
                             <div class="coverage">
                                 <p>적용범위</p>
                                 <p>전체강의</p>
@@ -174,81 +199,29 @@
                     </div>
 
                     <div class="coupon-btn">
-                        <a href="" class="download-btn">⤓</a>
 
-                        <a th:if="${uc.status.name() == 'AVAILABLE'}" href="" class="use-btn">사용하기</a>
+                        <a th:if="${uc.status.name() == 'AVAILABLE'}"
+                           th:href="@{/top10}"
+                           class="use-btn">
+                            사용하기
+                        </a>
 
-                        <a th:if="${uc.status.name() == 'USED'}" class="use-btn"
-                           style="background-color: #bbb; color: #fff; cursor: not-allowed;">사용 완료</a>
+                        <a th:if="${uc.status.name() == 'USED'}"
+                           class="use-btn disabled">
+                            사용 완료
+                        </a>
+
+                        <a th:if="${uc.status.name() == 'EXPIRED'}"
+                           class="use-btn disabled">
+                            기간 만료
+                        </a>
+
                     </div>
+
                 </div>
 
             </div>
-                <div class="coupon-container">
-                    <div class="coupon-box">
-                        <!-- <div class="box-img"><img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="coupon-img" /></div> -->
-                        <div class="box-img">
-                            <div class="coupon-img2">
-                                <p class="img-title1">10,000원</p>
-                                <p class="img-title2">할인 쿠폰</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="coupon-content">
-                        <div class="coupon-category2">강의 할인</div>
-                        <div class="coupon-name">10,000원 할인 쿠폰</div>
-                        <div class="coupon-explain">50,000원 이상 결제 시 사용가능합니다.</div>
-                        <div class="coupon-details">
-                            <div class="expiration-date">
-                                <p>유효기간</p>
-                                <p>0000.00.00 ~ 0000.00.00</p>
-                            </div>
-                            <div class="minimum-amount">
-                                <p>최소 주문금액</p>
-                                <p>50,000원</p>
-                            </div>
-                            <div class="coverage">
-                                <p>적용범위</p>
-                                <p>전체강의</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="coupon-btn">
-                        <a href="" class="download-btn">⤓</a>
-                        <a href="" class="use-btn">사용하기</a>
-                    </div>
-                </div>
-                <div class="coupon-container">
-                    <div class="coupon-box">
-                        <!-- <div class="box-img"><img src="https://picsum.photos/150" alt="수강 중 강의 이미지" class="coupon-img" /></div> -->
-                        <div class="box-img">
-                            <div class="coupon-img3">
-                                <p class="img-title1">무료 수강권</p>
-                                <p class="img-title2">7일</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="coupon-content">
-                        <div class="coupon-category3">특별 쿠폰</div>
-                        <div class="coupon-name">7일 무료 수강권</div>
-                        <div class="coupon-explain">모든 강의를 7일 동안 무료로 수강할 수 있습니다.</div>
-                        <div class="coupon-details">
-                            <div class="expiration-date">
-                                <p>유효기간</p>
-                                <p>0000.00.00 ~ 0000.00.00</p>
-                            </div>
-                            <div class="coverage">
-                                <p>적용범위</p>
-                                <p>전체강의</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="coupon-btn">
-                        <a href="" class="download-btn">⤓</a>
-                        <a href="" class="use-btn">사용하기</a>
-                    </div>
-                </div>
-            </div>
+
         </section>
     </div>
 </div>

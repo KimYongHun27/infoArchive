@@ -1,0 +1,54 @@
+.admin-coupon-form {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-coupon-form input {
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.admin-coupon-form button {
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.admin-coupon-form button:hover {
+    background: #000;
+}
+
+.coupon-code-text {
+    font-weight: 800;
+    color: #111;
+}
+
+.coupon-active {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #e9f8ef;
+    color: #0a8f3c;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.coupon-disabled {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eee;
+    color: #777;
+    font-size: 13px;
+    font-weight: 700;
+}
