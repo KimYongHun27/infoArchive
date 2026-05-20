@@ -2,11 +2,9 @@ package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.dto.CommunityDto;
 import com.meta12.infoArchive.entity.Community;
-import com.meta12.infoArchive.entity.Review;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.service.AnswerService;
 import com.meta12.infoArchive.service.CommunityService;
-import com.meta12.infoArchive.service.ReviewService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -130,7 +128,8 @@ public class CommunityController {
 
         return String.format("redirect:/community/detail/%s", id);
     }
-    // CommunityController.java 하단에 추가
+
+
 
     @PostMapping("/community/answer/delete/{id}")
     public String deleteAnswer(
@@ -172,12 +171,34 @@ public class CommunityController {
 
         Community community = communityService.detail(communityId);
         User user = userService.getLoginUser(auth);
-
         // 💡 위에서 만든 대댓글 전용 서비스 메서드를 호출합니다.
         answerService.saveReply(community, user, content, parentId);
 
         // 처리가 끝나면 다시 보던 게시글 상세 페이지로 리다이렉트합니다.
         return String.format("redirect:/community/detail/%s", communityId);
     }
+    @PostMapping("/community/answer/update/{id}")
+    public String updateAnswer(
+            @PathVariable("id") Long id,
+            @RequestParam("communityId") Long communityId,
+            @RequestParam("content") String content,
+            Authentication authentication
+    ) {
+        // 1. 로그인 여부 확인
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
+        // 2. 서비스에서 댓글을 가져와 본인 확인 (또는 서비스 내부에서 검증)
+        // 여기서는 간단히 수정 로직을 호출합니다. (AnswerService에 update 메서드 추가 필요)
+        User loginUser = userService.getLoginUser(authentication);
+
+        // 💡 아래에서 만들 서비스 메서드를 호출합니다.
+        answerService.update(id, content, loginUser);
+
+        // 3. 원래 있던 게시글 상세 페이지로 돌아갑니다
+        return String.format("redirect:/community/detail/%s", communityId);
+    }
+
 }
 

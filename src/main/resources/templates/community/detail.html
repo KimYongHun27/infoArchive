@@ -49,7 +49,7 @@
             <button type="button"
                     id="editBtn"
                     class="action-link modify-btn"
-                    th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user?.id}]], [[${#authorization.expression('hasRole(''ADMIN'')')}]])">
+                    th:onclick="|tryEdit('${community.id}', '${loginUserId}', '${community.user?.id}', ${#authorization.expression('hasRole(''ADMIN'')')})|">
                 수정
             </button>
 
@@ -60,14 +60,12 @@
                 <button type="button"
                         id="deleteBtn"
                         class="delete action-link delete-btn"
-                        th:onclick="tryDelete([[${loginUserId}]], [[${community.user?.id}]], [[${#authorization.expression('hasRole(''ADMIN'')')}]])">
+                        th:onclick="|tryDelete('${loginUserId}', '${community.user?.id}', ${#authorization.expression('hasRole(''ADMIN'')')})|">
                     삭제
                 </button>
             </form>
         </div>
     </div>
-
-
 
     <div class="answer-list" style="margin-bottom: 30px;">
         <div th:each="answer : ${community.answers}" th:if="${answer.parent == null}" style="border-bottom: 1px solid #eee; padding: 15px 0;">
@@ -79,9 +77,16 @@
                 </div>
 
                 <div style="display: flex; gap: 10px; align-items: center;">
-                    <button th:if="${loginUserId != null}" type="button" th:onclick="'toggleReplyForm(' + ${answer.id} + ')'"
+                    <button th:if="${loginUserId != null}" type="button"
+                            th:onclick="|toggleReplyForm('${answer.id}')|"
                             style="background: none; border: none; color: #007bff; cursor: pointer; font-size: 13px; font-weight: bold;">
                         답글
+                    </button>
+                    <button th:if="${loginUserId != null and answer.user != null and loginUserId == answer.user.id}"
+                            type="button"
+                            th:onclick="|toggleEditAnswerForm('${answer.id}')|"
+                            style="background: none; border: none; color: #28a745; cursor: pointer; font-size: 13px; font-weight: bold;">
+                        수정
                     </button>
 
                     <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
@@ -94,15 +99,29 @@
                     </div>
                 </div>
             </div>
-            <p style="margin-top: 8px; white-space: pre-wrap;" th:text="${answer.content}">댓글 내용</p>
+
+            <div th:id="'answerView-' + ${answer.id}">
+                <p style="margin-top: 8px; white-space: pre-wrap;" th:text="${answer.content}">댓글 내용</p>
+            </div>
+
+            <div th:id="'answerEditForm-' + ${answer.id}" style="display: none; margin-top: 8px;">
+                <form th:action="@{|/community/answer/update/${answer.id}|}" method="post">
+                    <input type="hidden" name="communityId" th:value="${community.id}">
+                    <textarea name="content" rows="2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: none;" th:text="${answer.content}"></textarea>
+                    <div style="text-align: right; margin-top: 5px;">
+                        <button type="button" th:onclick="|toggleEditAnswerForm('${answer.id}')|" style="font-size:12px; padding:3px 8px;">취소</button>
+                        <button type="submit" style="font-size:12px; padding:3px 8px; background:#28a745; color:white; border:none; border-radius:3px;">수정완료</button>
+                    </div>
+                </form>
+            </div>
 
             <div th:id="'replyForm-' + ${answer.id}" style="display: none; margin-top: 15px; padding: 15px; background: #fafafa; border-radius: 5px; border: 1px solid #e8e8e8;">
                 <form th:action="@{|/community/answer/reply/${community.id}/${answer.id}|}" method="post">
-                <textarea name="content" rows="2" required
-                          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: none;"
-                          placeholder="답글 내용을 입력하세요..."></textarea>
+                    <textarea name="content" rows="2" required
+                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: none;"
+                              placeholder="답글 내용을 입력하세요..."></textarea>
                     <div style="text-align: right; margin-top: 10px;">
-                        <button type="button" th:onclick="'toggleReplyForm(' + ${answer.id} + ')'" style="padding: 6px 15px; background-color: #999; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; font-size: 12px;">취소</button>
+                        <button type="button" th:onclick="|toggleReplyForm('${answer.id}')|" style="padding: 6px 15px; background-color: #999; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; font-size: 12px;">취소</button>
                         <button type="submit" style="padding: 6px 15px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">답글 등록</button>
                     </div>
                 </form>
@@ -115,17 +134,37 @@
                         <strong th:text="${child.user?.name != null ? child.user.name : '알 수 없음'}">대댓글 작성자</strong>
                         <span th:if="${child.user != null and child.user.username == 'admin'}" style="background: #e6f7ff; color: #1890ff; font-size: 11px; padding: 2px 6px; border-radius: 3px; margin-left: 5px; font-weight: bold;">관리자</span>
                     </div>
-
-                    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                        <form th:action="@{|/community/answer/delete/${child.id}|}" method="post" onsubmit="return confirm('이 답글을 삭제하시겠습니까?');" style="margin: 0;">
-                            <input type="hidden" name="communityId" th:value="${community.id}">
-                            <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 12px;">
-                                삭제
-                            </button>
-                        </form>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button th:if="${loginUserId != null and child.user != null and loginUserId == child.user.id}"
+                                type="button" th:onclick="|toggleEditAnswerForm('${child.id}')|"
+                                style="background: none; border: none; color: #28a745; cursor: pointer; font-size: 12px; font-weight: bold;">
+                            수정
+                        </button>
+                        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <form th:action="@{|/community/answer/delete/${child.id}|}" method="post" onsubmit="return confirm('이 답글을 삭제하시겠습니까?');" style="margin: 0;">
+                                <input type="hidden" name="communityId" th:value="${community.id}">
+                                <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 12px;">
+                                    삭제
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <p style="margin-top: 6px; white-space: pre-wrap; color: #444;" th:text="${child.content}">대댓글 내용</p>
+
+                <div th:id="'answerView-' + ${child.id}">
+                    <p style="margin-top: 6px; white-space: pre-wrap; color: #444;" th:text="${child.content}">대댓글 내용</p>
+                </div>
+
+                <div th:id="'answerEditForm-' + ${child.id}" style="display: none; margin-top: 6px;">
+                    <form th:action="@{|/community/answer/update/${child.id}|}" method="post">
+                        <input type="hidden" name="communityId" th:value="${community.id}">
+                        <textarea name="content" rows="2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: none;" th:text="${child.content}"></textarea>
+                        <div style="text-align: right; margin-top: 5px;">
+                            <button type="button" th:onclick="|toggleEditAnswerForm('${child.id}')|" style="font-size:11px; padding:3px 6px;">취소</button>
+                            <button type="submit" style="font-size:11px; padding:3px 6px; background:#28a745; color:white; border:none; border-radius:3px;">수정완료</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         </div>
@@ -134,6 +173,8 @@
             첫 번째 댓글을 남겨보세요!
         </div>
     </div>
+
+
 
     <div class="answer-form" th:if="${loginUserId != null}">
         <form th:action="@{|/community/answer/create/${community.id}|}" method="post">
@@ -148,16 +189,18 @@
             </div>
         </form>
     </div>
+
     <div th:if="${loginUserId == null}" style="text-align: center; padding: 20px; background: #f9f9f9; border-radius: 5px;">
         <p>댓글을 작성하려면 <a th:href="@{/user/login}" style="color: #007bff; text-decoration: underline;">로그인</a>이 필요합니다.</p>
     </div>
+
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-<script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/detail.js}"></script>
-<script th:src="@{/js/subscribe.js}"></script>
+<script th:src="@{/js/detail.js}" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/subscribe.js}" defer></script>
 </body>
 </html>
