@@ -30,22 +30,6 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public Community detail(Long id){
-        Optional<Community> oc = communityRepository.findById(id);
-        Community community = null;
-        if (oc.isPresent()) {
-            community = oc.get();
-        }
-        return community;
-    }
-
-    public void deleteById(Long id){
-        if (answerRepository.existsById(id)) {
-            answerRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + id);
-        }
-    }
     @Transactional
     public void saveReply(Community community, User user, String content, Long parentId) {
         Answer answer = new Answer();
@@ -59,6 +43,33 @@ public class AnswerService {
 
         answer.setParent(parent); // 부모 댓글 지정!
         answerRepository.save(answer);
+    }
+
+    @Transactional
+    public void update(Long id, String content, User loginUser) {
+        Answer answer = answerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + id));
+
+        // 작성자 본인인지 확인 (보안 체크)
+        if (!answer.getUser().getId().equals(loginUser.getId())) {
+            throw new IllegalArgumentException("댓글 수정 권한이 없습니다.");
+        }
+
+        answer.setContent(content); // dirty checking(변경 감지)에 의해 자동 저장됩니다.
+    }
+
+    public Community detail(Long id){
+        Optional<Community> oc = communityRepository.findById(id);
+        return oc.orElse(null);
+    }
+
+
+    public void deleteById(Long id){
+        if (answerRepository.existsById(id)) {
+            answerRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + id);
+        }
     }
 }
 
