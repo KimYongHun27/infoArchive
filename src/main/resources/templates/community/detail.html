@@ -66,22 +66,28 @@
             </form>
         </div>
     </div>
-</div>
 
 
-<div class="answer-section" style="max-width: 800px; margin: 50px auto; padding-top: 20px;">
-    <h3 style="margin-bottom: 20px;">댓글 <span th:text="${#lists.size(community.answers)}" style="color: #888; font-size: 0.8em;">0</span></h3>
 
     <div class="answer-list" style="margin-bottom: 30px;">
         <div th:each="answer : ${community.answers}" style="border-bottom: 1px solid #eee; padding: 15px 0;">
             <div style="display: flex; justify-content: space-between;">
                 <strong th:text="${answer.user?.name != null ? answer.user.name : '알 수 없음'}">작성자</strong>
+
+                <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <form th:action="@{|/community/answer/delete/${answer.id}|}" method="post" onsubmit="return confirm('이 댓글을 관리자 권한으로 삭제하시겠습니까?');" style="margin: 0;">
+                        <input type="hidden" name="communityId" th:value="${community.id}">
+                        <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 13px; font-weight: bold;">
+                            삭제
+                        </button>
+                    </form>
+                </div>
             </div>
             <p style="margin-top: 8px; white-space: pre-wrap;" th:text="${answer.content}">댓글 내용</p>
-        </div>
-        <div th:if="${#lists.isEmpty(community.answers)}" style="text-align: center; color: #999; padding: 20px;">
-            첫 번째 댓글을 남겨보세요!
-        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(community.answers)}" style="text-align: center; color: #999; padding: 20px;">
+        첫 번째 댓글을 남겨보세요!
+    </div>
     </div>
 
     <div class="answer-form" th:if="${loginUserId != null}">

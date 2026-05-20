@@ -37,5 +37,13 @@ public class AnswerService {
         }
         return community;
     }
+
+    public void deleteById(Long id){
+        if (answerRepository.existsById(id)) {
+            answerRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id=" + id);
+        }
+    }
 }
 

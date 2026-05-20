@@ -130,6 +130,33 @@ public class CommunityController {
 
         return String.format("redirect:/community/detail/%s", id);
     }
+    // CommunityController.java 하단에 추가
+
+    @PostMapping("/community/answer/delete/{id}")
+    public String deleteAnswer(
+            @PathVariable("id") Long id,
+            @RequestParam("communityId") Long communityId,
+            Authentication authentication
+    ) {
+        // 1. 로그인 여부 확인
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
+        // 2. 관리자(ADMIN) 권한 확인
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().contains("ADMIN"));
+
+        if (!isAdmin) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "댓글 삭제 권한이 없습니다.");
+        }
+
+        // 3. 댓글 삭제 진행 (AnswerService에 아래 메서드가 있어야 합니다)
+        answerService.deleteById(id);
+
+        // 4. 삭제 완료 후 원래 있던 게시글 상세 페이지로 돌아갑니다
+        return String.format("redirect:/community/detail/%s", communityId);
+    }
 
 }
 
