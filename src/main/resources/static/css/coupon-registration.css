@@ -54,3 +54,23 @@
     font-weight: 700;
     text-decoration: none;
 }
+
+.coupon-message {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.coupon-message.error {
+    background: #fff1f1;
+    color: #d62828;
+    border: 1px solid #ffd2d2;
+}
+
+.coupon-message.success {
+    background: #effaf3;
+    color: #15803d;
+    border: 1px solid #c9f2d7;
+}

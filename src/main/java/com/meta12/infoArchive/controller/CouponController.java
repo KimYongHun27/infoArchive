@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ public class CouponController {
 
     private final CouponService couponService;
 
-    // 내 쿠폰함
     @GetMapping("/coupon")
     public String couponPage(Authentication authentication, Model model) {
 
@@ -36,7 +36,6 @@ public class CouponController {
         return "mypage/coupon";
     }
 
-    // 쿠폰 등록 화면
     @GetMapping("/couponRegistration")
     public String couponRegistrationPage(Authentication authentication) {
 
@@ -49,10 +48,10 @@ public class CouponController {
         return "couponRegistration";
     }
 
-    // 쿠폰 등록 처리
     @PostMapping("/coupons/couponRegistration")
     public String registerCoupon(@RequestParam String typedCouponCode,
-                                 Authentication authentication) {
+                                 Authentication authentication,
+                                 RedirectAttributes redirectAttributes) {
 
         if (authentication == null
                 || !authentication.isAuthenticated()
@@ -60,8 +59,14 @@ public class CouponController {
             return "redirect:/login";
         }
 
-        couponService.registerCoupon(authentication, typedCouponCode.trim());
+        try {
+            couponService.registerCoupon(authentication, typedCouponCode.trim());
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 등록되었습니다.");
+            return "redirect:/coupon";
 
-        return "redirect:/coupon";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/couponRegistration";
+        }
     }
 }

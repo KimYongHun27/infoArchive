@@ -73,8 +73,22 @@ public class CouponService {
             throw new IllegalArgumentException("만료된 쿠폰입니다.");
         }
 
-        if (userCouponRepository.existsByUserAndCoupon(user, coupon)) {
-            throw new IllegalArgumentException("이미 등록한 쿠폰입니다.");
+        UserCoupon existingUserCoupon =
+                userCouponRepository.findByUserAndCoupon(user, coupon).orElse(null);
+
+        if (existingUserCoupon != null) {
+
+            if (existingUserCoupon.getStatus() == CouponStatus.USED) {
+                throw new IllegalArgumentException("이미 사용한 쿠폰입니다.");
+            }
+
+            if (existingUserCoupon.getStatus() == CouponStatus.EXPIRED) {
+                throw new IllegalArgumentException("이미 만료된 쿠폰입니다.");
+            }
+
+            if (existingUserCoupon.getStatus() == CouponStatus.AVAILABLE) {
+                throw new IllegalArgumentException("이미 등록한 쿠폰입니다.");
+            }
         }
 
         UserCoupon userCoupon = new UserCoupon();
