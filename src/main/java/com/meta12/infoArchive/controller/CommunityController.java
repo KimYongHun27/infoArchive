@@ -158,5 +158,26 @@ public class CommunityController {
         return String.format("redirect:/community/detail/%s", communityId);
     }
 
+    //대댓글
+    @PostMapping("/community/answer/reply/{communityId}/{parentId}")
+    public String createReply(
+            @PathVariable("communityId") Long communityId,
+            @PathVariable("parentId") Long parentId,
+            @RequestParam("content") String content,
+            Authentication auth
+    ) {
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
+        Community community = communityService.detail(communityId);
+        User user = userService.getLoginUser(auth);
+
+        // 💡 위에서 만든 대댓글 전용 서비스 메서드를 호출합니다.
+        answerService.saveReply(community, user, content, parentId);
+
+        // 처리가 끝나면 다시 보던 게시글 상세 페이지로 리다이렉트합니다.
+        return String.format("redirect:/community/detail/%s", communityId);
+    }
 }
 
