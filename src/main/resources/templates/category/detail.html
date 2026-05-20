@@ -70,26 +70,46 @@
                     <strong th:text="${product.discountRate + '%'}">20%</strong>
                 </div>
 
-                <!-- 멤버십 이용 중이면 결제 없이 강의 보기 -->
-                <a th:if="${membershipActive or enrolled}"
-                   th:href="@{/course/start/{id}(id=${product.id})}"
-                   class="buy-btn">
-                    강의보기
-                </a>
+                <!-- 구매했거나 멤버십 이용 중인 사용자 -->
+                <div th:if="${membershipActive or enrolled}" class="learning-progress-box">
 
-                <a th:if="${!membershipActive and !enrolled}"
-                   th:href="@{/payment/checkout(productId=${product.id})}"
-                   class="buy-btn">
-                    결제하기
-                </a>
+                    <div class="progress-title-row">
+                        <span>학습 진도율</span>
+                        <strong th:text="${progressRate != null ? progressRate : 0} + '%'">
+                            0%
+                        </strong>
+                    </div>
 
-                <form th:action="@{/cart/insert/{id}(id=${product.id})}"
-                      method="post"
-                      class="cart-form">
-                    <button type="submit" class="cart-btn">
-                        장바구니 담기
-                    </button>
-                </form>
+                    <div class="progress-bar">
+                        <div class="progress-fill"
+                             th:style="'width:' + (${progressRate != null ? progressRate : 0}) + '%'">
+                        </div>
+                    </div>
+
+                    <a th:href="@{/course/start/{id}(id=${product.id})}"
+                       class="buy-btn">
+                        강의보기
+                    </a>
+
+                </div>
+
+                <!-- 미구매 + 멤버십 없음 -->
+                <div th:if="${!membershipActive and !enrolled}">
+
+                    <a th:href="@{/payment/checkout(productId=${product.id})}"
+                       class="buy-btn">
+                        결제하기
+                    </a>
+
+                    <form th:action="@{/cart/insert/{id}(id=${product.id})}"
+                          method="post"
+                          class="cart-form">
+                        <button type="submit" class="cart-btn">
+                            장바구니 담기
+                        </button>
+                    </form>
+
+                </div>
 
             </div>
 

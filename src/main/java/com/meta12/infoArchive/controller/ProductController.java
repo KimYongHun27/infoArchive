@@ -46,16 +46,23 @@ public class ProductController {
         boolean login = false;
         boolean membershipActive = false;
         boolean enrolled = false;
+        int progressRate = 0;
 
-        if (authentication != null
-                && authentication.isAuthenticated()
+        if (authentication != null && authentication.isAuthenticated()
                 && !"anonymousUser".equals(authentication.getPrincipal())) {
 
             login = true;
 
             User user = userService.getLoginUser(authentication);
+
             membershipActive = userService.isMembershipActive(user);
+
             enrolled = enrollmentService.isEnrolled(user, id);
+
+            progressRate = enrollmentRepository
+                    .findByUserIdAndProductId(user.getId(), id)
+                    .map(enrollment -> enrollment.getProgressRate() != null ? enrollment.getProgressRate() : 0)
+                    .orElse(0);
         }
 
         model.addAttribute("product", product);
@@ -65,6 +72,7 @@ public class ProductController {
         model.addAttribute("login", login);
         model.addAttribute("membershipActive", membershipActive);
         model.addAttribute("enrolled", enrolled);
+        model.addAttribute("progressRate", progressRate);
 
         return "category/detail";
     }

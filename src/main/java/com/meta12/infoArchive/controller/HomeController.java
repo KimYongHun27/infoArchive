@@ -1,17 +1,24 @@
 package com.meta12.infoArchive.controller;
 
+import com.meta12.infoArchive.entity.Enrollment;
+import com.meta12.infoArchive.entity.Payment;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.WishList;
+import com.meta12.infoArchive.repository.EnrollmentRepository;
+import com.meta12.infoArchive.repository.PaymentRepository;
+import com.meta12.infoArchive.repository.UserRepository;
+import com.meta12.infoArchive.repository.WishListRepository;
 import com.meta12.infoArchive.service.ReviewService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.meta12.infoArchive.entity.User;
-import com.meta12.infoArchive.repository.UserRepository;
-import org.springframework.security.core.Authentication;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -21,6 +28,10 @@ public class HomeController {
     private final UserService userService;
     private final ReviewService reviewService;
     private final UserRepository userRepository;
+
+    private final EnrollmentRepository enrollmentRepository;
+    private final WishListRepository wishListRepository;
+    private final PaymentRepository paymentRepository;
 
     private static final Set<String> ALLOWED_CATEGORIES = Set.of(
             "cooking",
@@ -51,7 +62,6 @@ public class HomeController {
         return "faq";
     }
 
-
     @GetMapping("/category/{categoryName}")
     public String categoryPage(
             @PathVariable String categoryName,
@@ -70,16 +80,40 @@ public class HomeController {
     @GetMapping("/dashboard")
     public String dashboardPage(Authentication authentication, Model model) {
 
-        String email = authentication.getName();
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
+        }
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+        User user = userService.getLoginUser(authentication);
+
+        List<Enrollment> enrollmentList =
+                enrollmentRepository.findByUserIdOrderByEnrolledAtDesc(user.getId());
+
+        List<WishList> wishList =
+                wishListRepository.findByUserIdOrderByIdDesc(user.getId());
+
+        List<Payment> recentPayments =
+                paymentRepository.findTop5ByUserOrderByOrderDateDesc(user);
+
+        long takingCourseCount = enrollmentList.size();
+
+        long completedCourseCount = enrollmentList.stream()
+                .filter(enrollment -> Boolean.TRUE.equals(enrollment.getCompleted()))
+                .count();
+
+        long wishlistCount = wishList.size();
 
         model.addAttribute("user", user);
 
-        model.addAttribute("takingCourseCount", 0);
-        model.addAttribute("completedCourseCount", 0);
-        model.addAttribute("wishlistCount", 0);
+        model.addAttribute("takingCourseCount", takingCourseCount);
+        model.addAttribute("completedCourseCount", completedCourseCount);
+        model.addAttribute("wishlistCount", wishlistCount);
+
+        model.addAttribute("enrollmentList", enrollmentList);
+        model.addAttribute("wishList", wishList);
+        model.addAttribute("recentPayments", recentPayments);
 
         return "mypage/dashboard";
     }

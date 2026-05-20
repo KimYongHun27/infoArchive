@@ -22,6 +22,7 @@ public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
+    private final UserService userService;
 
     // 장바구니 결제 후 여러 상품 수강 등록
     @Transactional
