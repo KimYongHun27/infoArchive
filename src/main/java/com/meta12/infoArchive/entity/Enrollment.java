@@ -38,6 +38,17 @@ public class Enrollment {
     // 학습 진도율
     private Integer progressRate = 0;
 
+    // 시청한 최대 시간, 초 단위
+    private Integer watchedSeconds = 0;
+
+    // 영상 전체 길이, 초 단위
+    private Integer totalSeconds = 0;
+
+    // 수강 완료 여부
+    private Boolean completed = false;
+
+    private LocalDateTime completedAt;
+
     // 수강 시작일 및 만료일
     private LocalDateTime enrolledAt;
 

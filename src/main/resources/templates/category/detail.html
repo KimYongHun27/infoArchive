@@ -111,9 +111,12 @@
         <div class="video-box"
              th:if="${product.videoUrl != null and !product.videoUrl.isEmpty()}">
 
-            <iframe th:src="${product.videoUrl}"
+            <iframe id="productPlayer"
+                    th:data-product-id="${product.id}"
+                    th:src="${product.videoUrl.contains('?') ? product.videoUrl + '&enablejsapi=1' : product.videoUrl + '?enablejsapi=1'}"
                     title="강의 영상"
                     frameborder="0"
+                    allow="autoplay; encrypted-media"
                     allowfullscreen>
             </iframe>
 
@@ -232,6 +235,9 @@
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
 <script th:src="@{/js/subscribe.js}"></script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script th:src="@{/js/product-progress.js}"></script>
 
 </body>
 </html>

@@ -28,6 +28,7 @@ public class InstructorCourseService {
 
         product.setProductName(dto.getTitle());
         product.setCategory(dto.getCategory());
+        product.setVideoUrl(convertYoutubeUrlToEmbed(dto.getVideoUrl()));
         product.setPrice(dto.getPrice());
         product.setDiscountRate(dto.getDiscountRate());
         product.setThumbnailUrl(dto.getThumbnailUrl());
@@ -49,6 +50,7 @@ public class InstructorCourseService {
 
         product.setProductName(dto.getTitle());
         product.setCategory(dto.getCategory());
+        product.setVideoUrl(convertYoutubeUrlToEmbed(dto.getVideoUrl()));
         product.setPrice(dto.getPrice());
         product.setDiscountRate(dto.getDiscountRate());
         product.setDescription(dto.getDescription());
@@ -100,5 +102,47 @@ public class InstructorCourseService {
         } catch (IOException e) {
             throw new RuntimeException("썸네일 이미지 저장 중 오류가 발생했습니다.", e);
         }
+    }
+
+    private String convertYoutubeUrlToEmbed(String url) {
+
+        if (url == null || url.trim().isEmpty()) {
+            return null;
+        }
+
+        String trimmedUrl = url.trim();
+
+        // 이미 embed 주소면 그대로 저장
+        if (trimmedUrl.contains("youtube.com/embed/")) {
+            return trimmedUrl;
+        }
+
+        // 일반 유튜브 주소: https://www.youtube.com/watch?v=영상ID
+        if (trimmedUrl.contains("youtube.com/watch?v=")) {
+            String videoId = trimmedUrl.substring(trimmedUrl.indexOf("v=") + 2);
+
+            // 뒤에 &list= 같은 파라미터 제거
+            int ampIndex = videoId.indexOf("&");
+            if (ampIndex != -1) {
+                videoId = videoId.substring(0, ampIndex);
+            }
+
+            return "https://www.youtube.com/embed/" + videoId;
+        }
+
+        // 짧은 주소: https://youtu.be/영상ID
+        if (trimmedUrl.contains("youtu.be/")) {
+            String videoId = trimmedUrl.substring(trimmedUrl.lastIndexOf("/") + 1);
+
+            int questionIndex = videoId.indexOf("?");
+            if (questionIndex != -1) {
+                videoId = videoId.substring(0, questionIndex);
+            }
+
+            return "https://www.youtube.com/embed/" + videoId;
+        }
+
+        // 유튜브가 아닌 주소는 일단 그대로 저장
+        return trimmedUrl;
     }
 }

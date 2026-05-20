@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -115,5 +118,18 @@ public class ProductController {
 
         // 이미 구매한 유저 또는 멤버십 유저는 수강중인 강의로 이동
         return "redirect:/taking-course";
+    }
+
+    @PostMapping("/product/{productId}/progress")
+    @ResponseBody
+    public String updateProductProgress(
+            @PathVariable Long productId,
+            @RequestParam Integer watchedSeconds,
+            @RequestParam Integer totalSeconds,
+            Authentication authentication
+    ) {
+        enrollmentService.updateProgress(authentication, productId, watchedSeconds, totalSeconds);
+
+        return "ok";
     }
 }

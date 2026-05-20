@@ -12,5 +12,6 @@ public class InstructorCourseCreateDto {
     private int price;
     private Integer discountRate;
     private String thumbnailUrl;
+    private String videoUrl;
     private String description;
 }
