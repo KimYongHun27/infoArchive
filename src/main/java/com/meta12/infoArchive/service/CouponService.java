@@ -99,43 +99,92 @@ public class CouponService {
         userCouponRepository.save(userCoupon);
     }
 
+    // 결제 페이지에서 사용 가능한 쿠폰 목록
     @Transactional
-    public List<UserCoupon> getMyCoupons(Authentication authentication) {
+    public List<UserCoupon> getAvailableCoupons(Authentication authentication) {
 
         User user = userService.getLoginUser(authentication);
 
-        List<UserCoupon> myCoupons = userCouponRepository.findByUserOrderByIssuedAtDesc(user);
+        List<UserCoupon> coupons =
+                userCouponRepository.findByUserAndStatusOrderByIssuedAtDesc(user, CouponStatus.AVAILABLE);
 
         LocalDateTime now = LocalDateTime.now();
 
-        for (UserCoupon userCoupon : myCoupons) {
+        for (UserCoupon userCoupon : coupons) {
             Coupon coupon = userCoupon.getCoupon();
 
-            if (userCoupon.getStatus() == CouponStatus.AVAILABLE
-                    && coupon.getExpiredAt() != null
-                    && coupon.getExpiredAt().isBefore(now)) {
+            if (coupon.getExpiredAt() != null && coupon.getExpiredAt().isBefore(now)) {
                 userCoupon.setStatus(CouponStatus.EXPIRED);
             }
         }
 
-        return myCoupons;
+        return coupons.stream()
+                .filter(uc -> uc.getStatus() == CouponStatus.AVAILABLE)
+                .toList();
     }
 
+
+    // 쿠폰 할인금액 계산
     @Transactional(readOnly = true)
-    public Map<String, Long> getMyCouponCounts(Authentication authentication) {
+    public int calculateDiscount(User user, Long userCouponId, int originalAmount) {
 
-        User user = userService.getLoginUser(authentication);
+        if (userCouponId == null) {
+            return 0;
+        }
 
-        Map<String, Long> counts = new HashMap<>();
-        counts.put("unused", userCouponRepository.countByUserAndStatus(user, CouponStatus.AVAILABLE));
-        counts.put("used", userCouponRepository.countByUserAndStatus(user, CouponStatus.USED));
-        counts.put("expired", userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRED));
+        UserCoupon userCoupon = userCouponRepository.findById(userCouponId)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰을 찾을 수 없습니다."));
 
-        return counts;
+        if (!userCoupon.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("본인의 쿠폰만 사용할 수 있습니다.");
+        }
+
+        if (userCoupon.getStatus() == CouponStatus.USED) {
+            throw new IllegalArgumentException("이미 사용한 쿠폰입니다.");
+        }
+
+        if (userCoupon.getStatus() == CouponStatus.EXPIRED) {
+            throw new IllegalArgumentException("만료된 쿠폰입니다.");
+        }
+
+        Coupon coupon = userCoupon.getCoupon();
+
+        if (!coupon.isActive()) {
+            throw new IllegalArgumentException("사용할 수 없는 쿠폰입니다.");
+        }
+
+        if (coupon.getExpiredAt() != null && coupon.getExpiredAt().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("만료된 쿠폰입니다.");
+        }
+
+        if (originalAmount < coupon.getMinOrderAmount()) {
+            throw new IllegalArgumentException("쿠폰 최소 주문금액을 충족하지 못했습니다.");
+        }
+
+        return Math.min(coupon.getDiscountAmount(), originalAmount);
     }
 
-    @Transactional(readOnly = true)
-    public List<Coupon> getAllCoupons() {
-        return couponRepository.findAll();
+
+    // 결제 완료 후 쿠폰 사용 처리
+    @Transactional
+    public void useCoupon(User user, Long userCouponId) {
+
+        if (userCouponId == null) {
+            return;
+        }
+
+        UserCoupon userCoupon = userCouponRepository.findById(userCouponId)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰을 찾을 수 없습니다."));
+
+        if (!userCoupon.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("본인의 쿠폰만 사용할 수 있습니다.");
+        }
+
+        if (userCoupon.getStatus() != CouponStatus.AVAILABLE) {
+            throw new IllegalArgumentException("사용 가능한 쿠폰이 아닙니다.");
+        }
+
+        userCoupon.setStatus(CouponStatus.USED);
+        userCoupon.setUsedAt(LocalDateTime.now());
     }
 }

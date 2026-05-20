@@ -19,6 +19,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final UserService userService;
     private final ProductService productService;
+    private final CouponService couponService;
 
     public void confirmPayment(PaymentConfirmRequestDto dto, Authentication authentication) {
 
@@ -44,6 +45,30 @@ public class PaymentService {
             validateMockCard(dto);
         }
 
+        int originalAmount = dto.getOriginalAmount() != null
+                ? dto.getOriginalAmount()
+                : dto.getAmount();
+
+        int discountAmount = 0;
+
+        int finalAmount = originalAmount;
+
+        User user = userService.getLoginUser(authentication);
+
+        // 멤버십 결제는 쿠폰 적용 제외
+        if (!"MONTHLY".equals(dto.getMembershipType()) && dto.getUserCouponId() != null) {
+            discountAmount = couponService.calculateDiscount(user, dto.getUserCouponId(), originalAmount);
+            finalAmount = originalAmount - discountAmount;
+        }
+
+        if (finalAmount < 0) {
+            finalAmount = 0;
+        }
+
+        if (dto.getAmount() == null || !dto.getAmount().equals(finalAmount)) {
+            throw new IllegalArgumentException("결제 금액이 올바르지 않습니다.");
+        }
+
         /*
          * 멤버십 결제
          */
@@ -55,7 +80,7 @@ public class PaymentService {
 
             Payment payment = new Payment();
             payment.setOrderNumber(dto.getOrderId());
-            payment.setDiscountAmount(dto.getAmount());
+            payment.setDiscountAmount(finalAmount);
             payment.setOrderDate(LocalDateTime.now());
             payment.setPaymentStatus(PaymentStatus.COMPLETED);
             payment.setUser(user);

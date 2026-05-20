@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.meta12.infoArchive.service.CouponService;
+import com.meta12.infoArchive.entity.UserCoupon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +30,7 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final UserService userService;
     private final ProductService productService;
+    private final CouponService couponService;
 
     private final CartRepository cartRepository;
     private final EnrollmentService enrollmentService;
@@ -62,6 +65,11 @@ public class PaymentController {
                 return "redirect:/top10";
             }
 
+            List<UserCoupon> availableCoupons = couponService.getAvailableCoupons(authentication);
+
+            model.addAttribute("availableCoupons", availableCoupons);
+            model.addAttribute("originalAmount", product.getPrice());
+            model.addAttribute("discountAmount", 0);
             model.addAttribute("orderId", orderId);
             model.addAttribute("amount", product.getPrice());
             model.addAttribute("product", product);
@@ -84,6 +92,9 @@ public class PaymentController {
             model.addAttribute("productId", null);
             model.addAttribute("productName", "INFO ARCHIVE 프리미엄 멤버십");
             model.addAttribute("membershipType", "MONTHLY");
+            model.addAttribute("availableCoupons", List.of());
+            model.addAttribute("originalAmount", 239000);
+            model.addAttribute("discountAmount", 0);
 
             return "payment/checkout";
         }
@@ -128,6 +139,11 @@ public class PaymentController {
 
         String orderId = createOrderId();
 
+        List<UserCoupon> availableCoupons = couponService.getAvailableCoupons(authentication);
+
+        model.addAttribute("availableCoupons", availableCoupons);
+        model.addAttribute("originalAmount", totalPrice);
+        model.addAttribute("discountAmount", 0);
         model.addAttribute("orderId", orderId);
         model.addAttribute("amount", totalPrice);
         model.addAttribute("productId", null);

@@ -13,22 +13,24 @@ public class PaymentConfirmRequestDto {
 
     private Integer amount;
 
+    private Integer originalAmount;
+
+    private Integer discountAmount;
+
     private String membershipType;
 
     private Long productId;
 
     private String productName;
 
-    // 장바구니 결제용
     private List<Long> cartIds;
 
-    // 결제 수단
+    private Long userCouponId;
+
     private String paymentMethod;
 
-    // 약관 동의
     private Boolean agreeTerms;
 
-    // 카드 정보
     private String cardNumber;
 
     private String cardExpire;
