@@ -35,6 +35,30 @@ public class PaymentController {
     private final CartRepository cartRepository;
     private final EnrollmentService enrollmentService;
 
+
+    // 멤버십 페이지
+    @GetMapping("/membership")
+    public String membershipPage(Authentication authentication, Model model) {
+
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+
+            model.addAttribute("login", false);
+            model.addAttribute("membershipActive", false);
+
+            return "membership";
+        }
+
+        User user = userService.getLoginUser(authentication);
+
+        model.addAttribute("login", true);
+        model.addAttribute("user", user);
+        model.addAttribute("membershipActive", userService.isMembershipActive(user));
+
+        return "membership";
+    }
+
     // 단일 상품 / 멤버십 결제 페이지
     @GetMapping("/payment/checkout")
     public String checkoutPage(
