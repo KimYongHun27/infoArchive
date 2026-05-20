@@ -50,19 +50,19 @@ public class CommunityService {
         communityRepository.save(community);
         return community;
     }
-//    public Community sujungProc(Authentication authentication, CommunityDto communityDto){
-//        Community community = new Community();
-//
-//        User user = userService.getLoginUser(authentication);
-//
-//        community.setId(communityDto.getId());
-//        community.setTitle(communityDto.getTitle());
-//        community.setContent(communityDto.getContent());
-//        community.setCategory(communityDto.getCategory());
-//        community.setUser(user);
-//        communityRepository.save(community);
-//        return community;
-//    }
+
+    public Community SujungProc(Authentication authentication, CommunityDto communityDto){
+        Community community = communityRepository.findById(communityDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + communityDto.getId()));
+
+        community.setTitle(communityDto.getTitle());
+        community.setContent(communityDto.getContent());
+        community.setCategory(communityDto.getCategory());
+
+        communityRepository.save(community);
+        return community;
+    }
+
     public void deleteById(Long id){
         if (communityRepository.existsById(id)) {
             communityRepository.deleteById(id);

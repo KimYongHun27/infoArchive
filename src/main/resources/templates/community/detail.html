@@ -45,11 +45,11 @@
             <a th:href="@{/community(page=${page}, category=${category}, kw=${kw})}" class="btn-list">목록으로</a>
         </div>
 
-        <div class="right-actions" th:if="${community.user != null and loginUserId == community.user.id}">
+        <div class="right-actions" th:if="${(community.user != null and loginUserId == community.user.id) or #authorization.expression('hasRole(''ADMIN'')')}">
             <button type="button"
                     id="editBtn"
                     class="action-link modify-btn"
-                    th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user.id}]])">
+                    th:onclick="tryEdit([[${community.id}]], [[${loginUserId}]], [[${community.user?.id}]], [[${#authorization.expression('hasRole(''ADMIN'')')}]])">
                 수정
             </button>
 
@@ -60,13 +60,15 @@
                 <button type="button"
                         id="deleteBtn"
                         class="delete action-link delete-btn"
-                        th:onclick="tryDelete([[${loginUserId}]], [[${community.user.id}]])">
+                        th:onclick="tryDelete([[${loginUserId}]], [[${community.user?.id}]], [[${#authorization.expression('hasRole(''ADMIN'')')}]])">
                     삭제
                 </button>
             </form>
         </div>
     </div>
 </div>
+
+
 <div class="answer-section" style="max-width: 800px; margin: 50px auto; padding-top: 20px;">
     <h3 style="margin-bottom: 20px;">댓글 <span th:text="${#lists.size(community.answers)}" style="color: #888; font-size: 0.8em;">0</span></h3>
 

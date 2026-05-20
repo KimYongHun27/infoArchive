@@ -79,6 +79,17 @@ public class CommunityController {
         return "redirect:/community";
     }
 
+    @PostMapping("/community/SujungProc")
+    public String SujungProc(
+            Authentication authentication,
+            CommunityDto communityDto
+    )
+    {
+        communityService.SujungProc(authentication,communityDto);
+        return "redirect:/community";
+    }
+
+
     @PostMapping("/community/deleteProc/{id}")
     public String deleteProc(
             @PathVariable ("id") Long id,
@@ -86,16 +97,24 @@ public class CommunityController {
     )
     {
         Community community = communityService.detail(id);
-
         User loginUser = userService.getLoginUser(authentication);
 
-        if (community == null || !community.getUser().getId().equals(loginUser.getId())) {
+        // 💡 1. Spring Security의 Authentication 객체에서 관리자(ADMIN) 권한이 있는지 확인합니다.
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().contains("ADMIN"));
+
+        // 💡 2. 게시글 작성자 본인이 "아니면서" 동시에 관리자도 "아니면" 403 에러를 발생시킵니다.
+        // (즉, 둘 중 하나라도 만족하면 if문을 무사히 통과하여 삭제가 진행됩니다.)
+        if (community == null || (!community.getUser().getId().equals(loginUser.getId()) && !isAdmin)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "삭제 권한이 없습니다.");
         }
+
         communityService.deleteById(id);
 
         return "redirect:/community";
     }
+
+
     @PostMapping("/community/answer/create/{id}")
     public String Answer(
             @PathVariable("id") Long id,
