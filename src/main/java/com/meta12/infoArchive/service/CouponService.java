@@ -8,6 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meta12.infoArchive.entity.Coupon;
+import com.meta12.infoArchive.entity.CouponStatus;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.UserCoupon;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -186,5 +191,58 @@ public class CouponService {
 
         userCoupon.setStatus(CouponStatus.USED);
         userCoupon.setUsedAt(LocalDateTime.now());
+    }
+
+    // 관리자 쿠폰 전체 목록
+    @Transactional(readOnly = true)
+    public List<Coupon> getAllCoupons() {
+        return couponRepository.findAll();
+    }
+
+
+    // 내 쿠폰 목록
+    @Transactional
+    public List<UserCoupon> getMyCoupons(Authentication authentication) {
+
+        User user = userService.getLoginUser(authentication);
+
+        List<UserCoupon> myCoupons =
+                userCouponRepository.findByUserOrderByIssuedAtDesc(user);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (UserCoupon userCoupon : myCoupons) {
+            Coupon coupon = userCoupon.getCoupon();
+
+            if (userCoupon.getStatus() == CouponStatus.AVAILABLE
+                    && coupon.getExpiredAt() != null
+                    && coupon.getExpiredAt().isBefore(now)) {
+
+                userCoupon.setStatus(CouponStatus.EXPIRED);
+            }
+        }
+
+        return myCoupons;
+    }
+
+
+    // 내 쿠폰 개수
+    @Transactional(readOnly = true)
+    public Map<String, Long> getMyCouponCounts(Authentication authentication) {
+
+        User user = userService.getLoginUser(authentication);
+
+        Map<String, Long> counts = new HashMap<>();
+
+        counts.put("unused",
+                userCouponRepository.countByUserAndStatus(user, CouponStatus.AVAILABLE));
+
+        counts.put("used",
+                userCouponRepository.countByUserAndStatus(user, CouponStatus.USED));
+
+        counts.put("expired",
+                userCouponRepository.countByUserAndStatus(user, CouponStatus.EXPIRED));
+
+        return counts;
     }
 }

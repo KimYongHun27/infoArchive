@@ -120,22 +120,40 @@
         </div>
 
         <!-- 2. 쿠폰 -->
-        <div class="box">
+        <div class="box" th:if="${membershipType != 'MONTHLY'}">
             <h2>쿠폰 선택</h2>
 
             <div class="coupon-top">
                 <span class="coupon-label">쿠폰 할인 금액</span>
 
                 <div class="coupon-right">
-                    <span class="coupon-price">0원</span>
-                    <button type="button" class="coupon-select-btn">쿠폰선택</button>
+                    <span class="coupon-price" id="couponDiscountText">0원</span>
                 </div>
             </div>
 
             <div class="coupon-bottom">
-                <input type="text" placeholder="쿠폰 코드를 입력해주세요.">
-                <button type="button" class="coupon-issue-btn">쿠폰발급</button>
+                <select id="couponSelect" name="userCouponId" form="paymentForm">
+                    <option value=""
+                            data-discount="0"
+                            data-min="0">
+                        쿠폰을 선택하지 않음
+                    </option>
+
+                    <option th:each="uc : ${availableCoupons}"
+                            th:value="${uc.id}"
+                            th:data-discount="${uc.coupon.discountAmount}"
+                            th:data-min="${uc.coupon.minOrderAmount}"
+                            th:text="${uc.coupon.couponName + ' / ' + #numbers.formatInteger(uc.coupon.discountAmount, 0, 'COMMA') + '원 할인'}">
+                        쿠폰명
+                    </option>
+                </select>
+
+                <button type="button" id="couponApplyBtn" class="coupon-select-btn">
+                    쿠폰 적용
+                </button>
             </div>
+
+            <p id="couponMessage" style="margin-top:10px; color:#d62828; font-size:14px;"></p>
         </div>
 
         <!-- 3. 결제 금액 -->
@@ -167,9 +185,12 @@
         <form id="paymentForm" th:action="@{/payment/confirm}" method="post">
 
             <input type="hidden" name="orderId" th:value="${orderId}">
-            <input type="hidden" name="amount" th:value="${amount}">
             <input type="hidden" name="membershipType" th:value="${membershipType}">
             <input type="hidden" name="productId" th:value="${productId}">
+
+            <input type="hidden" id="originalAmountInput" name="originalAmount" th:value="${originalAmount}">
+            <input type="hidden" id="discountAmountInput" name="discountAmount" value="0">
+            <input type="hidden" id="amountInput" name="amount" th:value="${amount}">
 
             <!-- 장바구니 결제용 cartIds -->
             <input type="hidden"

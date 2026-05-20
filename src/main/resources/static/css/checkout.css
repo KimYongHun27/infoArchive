@@ -274,3 +274,28 @@ h2 {
 .card-final-btn:hover {
   opacity: 0.9;
 }
+
+.coupon-bottom select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.coupon-select-btn {
+    height: 44px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.coupon-select-btn:hover {
+    background: #000;
+}

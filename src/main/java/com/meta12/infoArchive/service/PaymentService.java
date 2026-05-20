@@ -29,7 +29,7 @@ public class PaymentService {
             throw new IllegalArgumentException("주문번호가 없습니다.");
         }
 
-        if (dto.getAmount() == null || dto.getAmount() <= 0) {
+        if (dto.getAmount() == null || dto.getAmount() < 0) {
             throw new IllegalArgumentException("결제 금액이 올바르지 않습니다.");
         }
 
@@ -50,12 +50,8 @@ public class PaymentService {
                 : dto.getAmount();
 
         int discountAmount = 0;
-
         int finalAmount = originalAmount;
 
-        User user = userService.getLoginUser(authentication);
-
-        // 멤버십 결제는 쿠폰 적용 제외
         if (!"MONTHLY".equals(dto.getMembershipType()) && dto.getUserCouponId() != null) {
             discountAmount = couponService.calculateDiscount(user, dto.getUserCouponId(), originalAmount);
             finalAmount = originalAmount - discountAmount;
@@ -65,7 +61,7 @@ public class PaymentService {
             finalAmount = 0;
         }
 
-        if (dto.getAmount() == null || !dto.getAmount().equals(finalAmount)) {
+        if (!dto.getAmount().equals(finalAmount)) {
             throw new IllegalArgumentException("결제 금액이 올바르지 않습니다.");
         }
 
@@ -93,8 +89,6 @@ public class PaymentService {
 
         /*
          * 장바구니 결제
-         * productId가 null이어도 정상이다.
-         * 실제 수강 등록은 PaymentController에서 enrollmentService.enrollProducts()가 처리한다.
          */
         if ("CART".equals(dto.getMembershipType())) {
 
@@ -104,13 +98,15 @@ public class PaymentService {
 
             Payment payment = new Payment();
             payment.setOrderNumber(dto.getOrderId());
-            payment.setDiscountAmount(dto.getAmount());
+            payment.setDiscountAmount(finalAmount);
             payment.setOrderDate(LocalDateTime.now());
             payment.setPaymentStatus(PaymentStatus.COMPLETED);
             payment.setUser(user);
             payment.setProduct(null);
 
             paymentRepository.save(payment);
+
+            couponService.useCoupon(user, dto.getUserCouponId());
 
             return;
         }
@@ -134,13 +130,15 @@ public class PaymentService {
 
         Payment payment = new Payment();
         payment.setOrderNumber(dto.getOrderId());
-        payment.setDiscountAmount(dto.getAmount());
+        payment.setDiscountAmount(finalAmount);
         payment.setOrderDate(LocalDateTime.now());
         payment.setPaymentStatus(PaymentStatus.COMPLETED);
         payment.setUser(user);
         payment.setProduct(product);
 
         paymentRepository.save(payment);
+
+        couponService.useCoupon(user, dto.getUserCouponId());
     }
 
     private void validateMockCard(PaymentConfirmRequestDto dto) {
