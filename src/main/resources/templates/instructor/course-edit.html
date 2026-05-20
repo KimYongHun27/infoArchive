@@ -69,7 +69,8 @@
                     </a>
                 </div>
 
-                <form th:action="@{/instructor/courses/{id}/edit(id=${course.id})}" method="post">
+                <form th:action="@{/instructor/courses/{id}/edit(id=${course.id})}"
+                      method="post">
 
                     <!-- 강의명 -->
                     <div class="form-group">
@@ -117,23 +118,38 @@
                                placeholder="예: 10">
                     </div>
 
-                    <!-- 썸네일 -->
+                    <!-- 썸네일 파일 -->
                     <div class="form-group">
-                        <label>강의 썸네일 이미지</label>
+                        <label for="thumbnailFile">강의 썸네일 이미지</label>
+
                         <input type="file"
+                               id="thumbnailFile"
                                name="thumbnailFile"
-                               accept="파일을 올려주세요">
+                               accept="image/*">
+
+                        <div class="current-thumb-box" th:if="${course.thumbnailUrl != null and !course.thumbnailUrl.isEmpty()}">
+                            <p>현재 썸네일</p>
+                            <img th:src="@{${course.thumbnailUrl}}"
+                                 alt="현재 썸네일">
+                        </div>
                     </div>
-
-                    <form th:action="@{/instructor/courses/create}"
-                          method="post"
-                          enctype="multipart/form-data">
-
                     <!-- 강의 설명 -->
                     <div class="form-group">
-                        <label>강의 영상 URL</label>
+                        <label for="description">강의 설명</label>
+                        <textarea id="description"
+                                  name="description"
+                                  rows="6"
+                                  placeholder="강의 설명을 입력하세요"
+                                  th:text="${course.description}"></textarea>
+                    </div>
+
+                    <!-- 강의 영상 URL -->
+                    <div class="form-group">
+                        <label for="videoUrl">강의 영상 URL</label>
                         <input type="text"
+                               id="videoUrl"
                                name="videoUrl"
+                               th:value="${course.videoUrl}"
                                placeholder="예: https://www.youtube.com/embed/영상ID">
                     </div>
 

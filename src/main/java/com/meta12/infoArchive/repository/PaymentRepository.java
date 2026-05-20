@@ -21,4 +21,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     // product_id가 없는 결제: 멤버십 또는 장바구니 묶음 결제
     long countByUserAndProductIsNull(User user);
+
+    List<Payment> findTop5ByUserOrderByOrderDateDesc(User user);
 }

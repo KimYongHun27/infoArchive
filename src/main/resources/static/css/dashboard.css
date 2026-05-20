@@ -560,3 +560,157 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.dash-course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash-course-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  padding: 18px;
+  border-top: 1px solid #eee;
+  align-items: center;
+}
+
+.dash-course-item img,
+.dash-course-no-img {
+  width: 150px;
+  height: 92px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #f1f1f1;
+}
+
+.dash-course-no-img,
+.dash-mini-no-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.dash-course-info h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.dash-course-info p {
+  margin: 0 0 12px;
+  color: #777;
+  font-size: 13px;
+}
+
+.dash-progress-box {
+  margin: 8px 0 12px;
+}
+
+.dash-progress-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dash-progress-top strong {
+  color: #ff1744;
+}
+
+.dash-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #eee;
+  overflow: hidden;
+}
+
+.dash-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #ff1744;
+}
+
+.dash-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 34px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.dash-mini-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-mini-item {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 18px;
+  border-top: 1px solid #eee;
+}
+
+.dash-mini-item img,
+.dash-mini-no-img {
+  width: 74px;
+  height: 54px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #f1f1f1;
+}
+
+.dash-mini-info h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.dash-mini-info p {
+  margin: 0 0 5px;
+  color: #777;
+  font-size: 12px;
+}
+
+.dash-mini-info strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.dash-mini-view {
+  width: 46px;
+  height: 32px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.dash-order-status {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: #f4efff;
+  color: #7c4dff;
+  font-size: 12px;
+  font-weight: 900;
+}

@@ -144,25 +144,60 @@
           <a th:href="@{/taking-course}">전체 보기 ></a>
         </div>
 
-        <div class="dash-empty-large" th:if="${takingCourseCount == 0}">
+        <div class="dash-empty-large"
+             th:if="${enrollmentList == null or #lists.isEmpty(enrollmentList)}">
           <p>현재 수강중인 강의가 없습니다.</p>
           <a th:href="@{/top10}">강의 둘러보기</a>
         </div>
 
-        <!-- 나중에 실제 수강 강의 연결할 때 사용 -->
-        <!--
-        <div class="dash-course-list" th:if="${takingCourseCount > 0}">
-          <div class="dash-course-item" th:each="course : ${takingCourses}">
-            <img th:src="${course.imageUrl}" alt="강의 이미지">
+        <div class="dash-course-list"
+             th:if="${enrollmentList != null and !#lists.isEmpty(enrollmentList)}">
 
-            <div>
-              <h3 th:text="${course.title}">강의명</h3>
-              <p th:text="${course.instructorName}">강사명</p>
-              <span th:text="${course.periodText}">수강 기간</span>
+          <div class="dash-course-item"
+               th:each="enrollment : ${enrollmentList}">
+
+            <img th:if="${enrollment.product.thumbnailUrl != null and !enrollment.product.thumbnailUrl.isEmpty()}"
+                 th:src="@{${enrollment.product.thumbnailUrl}}"
+                 alt="강의 이미지">
+
+            <div class="dash-course-no-img"
+                 th:if="${enrollment.product.thumbnailUrl == null or enrollment.product.thumbnailUrl.isEmpty()}">
+              IMAGE
             </div>
+
+            <div class="dash-course-info">
+              <h3 th:text="${enrollment.product.productName}">
+                강의명
+              </h3>
+
+              <p th:text="${enrollment.product.instructorName}">
+                강사명
+              </p>
+
+              <div class="dash-progress-box">
+                <div class="dash-progress-top">
+                  <span>학습 진도율</span>
+                  <strong th:text="${enrollment.progressRate != null ? enrollment.progressRate : 0} + '%'">
+                    0%
+                  </strong>
+                </div>
+
+                <div class="dash-progress-bar">
+                  <div class="dash-progress-fill"
+                       th:style="'width:' + (${enrollment.progressRate != null ? enrollment.progressRate : 0}) + '%'">
+                  </div>
+                </div>
+              </div>
+
+              <a th:href="@{/product/{id}(id=${enrollment.product.id})}"
+                 class="dash-mini-btn">
+                이어서 보기
+              </a>
+            </div>
+
           </div>
+
         </div>
-        -->
 
       </section>
 
@@ -176,24 +211,48 @@
             <a th:href="@{/wishlist}">전체 보기 ></a>
           </div>
 
-          <div class="dash-empty-small" th:if="${wishlistCount == 0}">
+          <div class="dash-empty-small"
+               th:if="${wishList == null or #lists.isEmpty(wishList)}">
             찜한 강의가 없습니다.
           </div>
 
-          <!-- 나중에 실제 찜한 강의 연결할 때 사용 -->
-          <!--
-          <div class="dash-mini-list" th:if="${wishlistCount > 0}">
-            <div class="dash-mini-item" th:each="wish : ${wishlist}">
-              <img th:src="${wish.imageUrl}" alt="찜한 강의 이미지">
+          <div class="dash-mini-list"
+               th:if="${wishList != null and !#lists.isEmpty(wishList)}">
 
-              <div>
-                <h4 th:text="${wish.title}">찜한 강의 제목</h4>
-                <p th:text="${wish.instructorName}">강사명</p>
-                <strong th:text="${wish.price}">가격</strong>
+            <div class="dash-mini-item"
+                 th:each="wish : ${wishList}">
+
+              <img th:if="${wish.product.thumbnailUrl != null and !wish.product.thumbnailUrl.isEmpty()}"
+                   th:src="@{${wish.product.thumbnailUrl}}"
+                   alt="찜한 강의 이미지">
+
+              <div class="dash-mini-no-img"
+                   th:if="${wish.product.thumbnailUrl == null or wish.product.thumbnailUrl.isEmpty()}">
+                IMAGE
               </div>
+
+              <div class="dash-mini-info">
+                <h4 th:text="${wish.product.productName}">
+                  찜한 강의 제목
+                </h4>
+
+                <p th:text="${wish.product.instructorName}">
+                  강사명
+                </p>
+
+                <strong th:text="${#numbers.formatInteger(wish.product.price, 3, 'COMMA')} + '원'">
+                  가격
+                </strong>
+              </div>
+
+              <a th:href="@{/product/{id}(id=${wish.product.id})}"
+                 class="dash-mini-view">
+                보기
+              </a>
+
             </div>
+
           </div>
-          -->
 
         </div>
 
@@ -204,26 +263,45 @@
             <a th:href="@{/orders}">전체 보기 ></a>
           </div>
 
-          <div class="dash-empty-small">
+          <div class="dash-empty-small"
+               th:if="${recentPayments == null or #lists.isEmpty(recentPayments)}">
             최근 주문 내역이 없습니다.
           </div>
 
-          <!-- 나중에 실제 주문 내역 연결할 때 사용 -->
-          <!--
-          <div class="dash-mini-list">
-            <div class="dash-mini-item" th:each="order : ${recentOrders}">
-              <img th:src="${order.imageUrl}" alt="주문 강의 이미지">
+          <div class="dash-mini-list"
+               th:if="${recentPayments != null and !#lists.isEmpty(recentPayments)}">
 
-              <div>
-                <h4 th:text="${order.title}">주문 강의 제목</h4>
-                <p th:text="${order.orderDate}">주문일</p>
-                <strong th:text="${order.price}">가격</strong>
+            <div class="dash-mini-item"
+                 th:each="payment : ${recentPayments}">
+
+              <img th:if="${payment.product != null and payment.product.thumbnailUrl != null and !payment.product.thumbnailUrl.isEmpty()}"
+                   th:src="@{${payment.product.thumbnailUrl}}"
+                   alt="주문 강의 이미지">
+
+              <div class="dash-mini-no-img"
+                   th:if="${payment.product == null or payment.product.thumbnailUrl == null or payment.product.thumbnailUrl.isEmpty()}">
+                ORDER
               </div>
 
-              <span th:text="${order.status}">결제완료</span>
+              <div class="dash-mini-info">
+                <h4 th:text="${payment.product != null ? payment.product.productName : '프리미엄 멤버십'}">
+                  주문명
+                </h4>
+
+                <p th:text="${payment.orderDate != null ? #temporals.format(payment.orderDate, 'yyyy.MM.dd') : '-'}">
+                  주문일
+                </p>
+
+                <strong th:text="${#numbers.formatInteger(payment.discountAmount, 3, 'COMMA')} + '원'">
+                  결제금액
+                </strong>
+              </div>
+
+              <span class="dash-order-status">결제완료</span>
+
             </div>
+
           </div>
-          -->
 
         </div>
 

@@ -10,7 +10,9 @@ import com.meta12.infoArchive.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
+    private final UserService userService;
 
     // 장바구니 결제 후 여러 상품 수강 등록
     @Transactional
@@ -73,5 +76,42 @@ public class EnrollmentService {
     @Transactional(readOnly = true)
     public boolean isEnrolled(User user, Long productId) {
         return enrollmentRepository.existsByUserIdAndProductId(user.getId(), productId);
+    }
+
+    @Transactional
+    public void updateProgress(Authentication authentication,
+                               Long productId,
+                               Integer watchedSeconds,
+                               Integer totalSeconds) {
+
+        User user = userService.getLoginUser(authentication);
+
+        Enrollment enrollment = enrollmentRepository
+                .findByUserIdAndProductId(user.getId(), productId)
+                .orElseThrow(() -> new IllegalArgumentException("수강 중인 강의가 아닙니다."));
+
+        if (totalSeconds == null || totalSeconds <= 0) {
+            return;
+        }
+
+        int oldWatched = enrollment.getWatchedSeconds() == null ? 0 : enrollment.getWatchedSeconds();
+        int currentWatched = watchedSeconds == null ? 0 : watchedSeconds;
+
+        int maxWatched = Math.max(oldWatched, currentWatched);
+
+        int progressRate = (int) Math.floor((maxWatched * 100.0) / totalSeconds);
+
+        if (progressRate > 100) {
+            progressRate = 100;
+        }
+
+        enrollment.setWatchedSeconds(maxWatched);
+        enrollment.setTotalSeconds(totalSeconds);
+        enrollment.setProgressRate(progressRate);
+
+        if (progressRate >= 90 && !Boolean.TRUE.equals(enrollment.getCompleted())) {
+            enrollment.setCompleted(true);
+            enrollment.setCompletedAt(LocalDateTime.now());
+        }
     }
 }

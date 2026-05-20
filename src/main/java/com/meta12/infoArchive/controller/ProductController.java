@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -43,16 +46,23 @@ public class ProductController {
         boolean login = false;
         boolean membershipActive = false;
         boolean enrolled = false;
+        int progressRate = 0;
 
-        if (authentication != null
-                && authentication.isAuthenticated()
+        if (authentication != null && authentication.isAuthenticated()
                 && !"anonymousUser".equals(authentication.getPrincipal())) {
 
             login = true;
 
             User user = userService.getLoginUser(authentication);
+
             membershipActive = userService.isMembershipActive(user);
+
             enrolled = enrollmentService.isEnrolled(user, id);
+
+            progressRate = enrollmentRepository
+                    .findByUserIdAndProductId(user.getId(), id)
+                    .map(enrollment -> enrollment.getProgressRate() != null ? enrollment.getProgressRate() : 0)
+                    .orElse(0);
         }
 
         model.addAttribute("product", product);
@@ -62,6 +72,7 @@ public class ProductController {
         model.addAttribute("login", login);
         model.addAttribute("membershipActive", membershipActive);
         model.addAttribute("enrolled", enrolled);
+        model.addAttribute("progressRate", progressRate);
 
         return "category/detail";
     }
@@ -115,5 +126,18 @@ public class ProductController {
 
         // 이미 구매한 유저 또는 멤버십 유저는 수강중인 강의로 이동
         return "redirect:/taking-course";
+    }
+
+    @PostMapping("/product/{productId}/progress")
+    @ResponseBody
+    public String updateProductProgress(
+            @PathVariable Long productId,
+            @RequestParam Integer watchedSeconds,
+            @RequestParam Integer totalSeconds,
+            Authentication authentication
+    ) {
+        enrollmentService.updateProgress(authentication, productId, watchedSeconds, totalSeconds);
+
+        return "ok";
     }
 }

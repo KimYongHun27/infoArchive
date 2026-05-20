@@ -225,4 +225,22 @@ public class PaymentController {
         return "ORDER-" + LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
+
+    @PostMapping("/membership/cancel")
+    public String cancelMembership(Authentication authentication) {
+
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/login";
+        }
+
+        try {
+            userService.cancelMembership(authentication);
+            return "redirect:/membership?cancel=true";
+
+        } catch (IllegalArgumentException e) {
+            return "redirect:/membership?error=true";
+        }
+    }
 }
