@@ -9,15 +9,15 @@ body {
   background: #fff;
 }
 
-/* 상단 히어로 */
+/* =========================
+   상단 히어로
+========================= */
 .membership-hero {
   height: 340px;
   background: #000;
-    /*linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
-    url("/img/membership/membership-bg.png") center / cover no-repeat;
-  color: #fff;*/
   position: relative;
   padding: 24px 44px;
+  color: #fff;
 }
 
 .hero-top {
@@ -42,6 +42,28 @@ body {
   margin-left: 8px;
 }
 
+/* 상단 로그인 안내 */
+.membership-login-guide {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.membership-login-guide span {
+  color: #ff1733;
+  font-weight: 900;
+}
+
+.membership-login-guide a {
+  color: #ff1733;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.membership-login-guide a:hover {
+  text-decoration: underline;
+}
+
 .membership-hero h1 {
   margin: 60px 0 0;
   text-align: center;
@@ -54,7 +76,9 @@ body {
   color: #ff1733;
 }
 
-/* 본문 */
+/* =========================
+   본문
+========================= */
 .premium-section {
   width: 900px;
   margin: 38px auto 34px;
@@ -75,11 +99,11 @@ body {
 }
 
 .premium-card {
-  height: 270px;
+  min-height: 270px;
   border-radius: 16px;
   display: flex;
   overflow: hidden;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   background: #fff;
 }
 
@@ -112,11 +136,17 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  padding: 28px 34px;
 }
 
+/* =========================
+   가격 / 가입 버튼
+========================= */
 .price {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 14px;
 }
@@ -140,28 +170,148 @@ body {
 
 .premium-btn {
   width: 360px;
-  height: 70px;
+  height: 64px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #ff1119;
   color: #fff;
-  font-size: 26px;
+  font-size: 23px;
   font-weight: 900;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium-btn:hover {
+  background: #e60024;
+  color: #fff;
 }
 
 .premium-btn span {
-  margin-left: 24px;
+  margin-left: 20px;
 }
 
+/* =========================
+   구독 중 카드
+========================= */
+.membership-active-box {
+  width: 100%;
+  padding: 28px 30px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.active-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 14px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.active-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111;
+  line-height: 1.35;
+}
+
+.active-desc {
+  margin: 0 0 20px;
+  font-size: 15px;
+  color: #666;
+}
+
+.active-date-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 0 24px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #f8f8f8;
+}
+
+.active-date-box span {
+  font-size: 14px;
+  color: #777;
+  font-weight: 700;
+}
+
+.active-date-box strong {
+  font-size: 15px;
+  color: #111;
+  font-weight: 900;
+}
+
+.membership-action-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.membership-action-row form {
+  margin: 0;
+}
+
+.membership-study-btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 12px;
+  background: #ff1f3d;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.membership-study-btn:hover {
+  background: #e60024;
+  color: #fff;
+}
+
+.membership-cancel-btn {
+  width: 150px;
+  height: 48px;
+  border: 1px solid #ffcccc;
+  border-radius: 12px;
+  background: #fff;
+  color: #d62828;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.membership-cancel-btn:hover {
+  background: #fff1f1;
+}
+
+/* =========================
+   안내사항
+========================= */
 .notice-box {
   margin-top: 40px;
-  height: 90px;
+  min-height: 90px;
   border-radius: 12px;
   background: #ffe3e3;
   display: flex;
   align-items: center;
-  padding: 0 40px;
+  padding: 22px 40px;
   text-align: left;
 }
 
@@ -193,11 +343,27 @@ body {
   line-height: 1.5;
 }
 
-/* 모달 */
+/* =========================
+   필수 안내
+========================= */
+.notice-required {
+  max-width: 900px;
+  margin: 0 auto 24px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #fff1f3;
+  color: #ef1235;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* =========================
+   결제 모달
+========================= */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.78);
+  background: rgba(0, 0, 0, 0.78);
   z-index: 20000;
   display: none;
   align-items: center;
@@ -211,6 +377,8 @@ body {
 .payment-modal {
   position: relative;
   width: 660px;
+  max-height: 92vh;
+  overflow-y: auto;
   background: #fff;
   border-radius: 18px;
   padding: 58px 58px 50px;
@@ -248,7 +416,7 @@ body {
 }
 
 .modal-product {
-  height: 150px;
+  min-height: 150px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -315,6 +483,65 @@ body {
   font-size: 14px;
 }
 
+/* =========================
+   모달 카드 입력
+========================= */
+.mock-card-box {
+  margin-top: 22px;
+  padding: 18px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fafafa;
+}
+
+.mock-card-box h3 {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.card-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.card-input-group label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #333;
+}
+
+.card-input-group input {
+  height: 42px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.card-input-group input:focus {
+  border-color: #ff1515;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mock-card-guide {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ff1515;
+  line-height: 1.5;
+}
+
+/* =========================
+   결제 버튼 / 약관
+========================= */
 .pay-btn {
   width: 100%;
   height: 64px;
@@ -326,6 +553,10 @@ body {
   font-size: 25px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #e60024;
 }
 
 .agree-check {
@@ -347,66 +578,56 @@ body {
   color: #ff1733;
 }
 
-.mock-card-box {
-    margin-top: 22px;
-    padding: 18px;
-    border: 1px solid #eee;
-    border-radius: 14px;
-    background: #fafafa;
-}
+/* =========================
+   반응형
+========================= */
+@media (max-width: 960px) {
+  .premium-section {
+    width: calc(100% - 32px);
+  }
 
-.mock-card-box h3 {
-    margin-bottom: 14px;
-    font-size: 16px;
-    font-weight: 900;
-}
-
-.card-input-group {
-    display: flex;
+  .premium-card {
     flex-direction: column;
-    gap: 7px;
-    margin-bottom: 12px;
-}
+  }
 
-.card-input-group label {
-    font-size: 13px;
-    font-weight: 800;
-    color: #333;
-}
+  .premium-left,
+  .premium-right {
+    width: 100%;
+  }
 
-.card-input-group input {
-    height: 42px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 0 12px;
-    font-size: 14px;
-    outline: none;
-}
+  .premium-left {
+    padding: 44px 20px;
+  }
 
-.card-input-group input:focus {
-    border-color: #ff1515;
-}
+  .premium-right {
+    padding: 34px 22px;
+  }
 
-.card-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
+  .premium-btn {
+    width: 100%;
+  }
 
-.mock-card-guide {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #ff1515;
-    line-height: 1.5;
-}
+  .membership-action-row {
+    flex-direction: column;
+  }
 
-.notice-required {
-    max-width: 900px;
-    margin: 0 auto 24px;
-    padding: 16px 20px;
-    border-radius: 14px;
-    background: #fff1f3;
-    color: #ef1235;
-    font-weight: 800;
-    text-align: center;
+  .membership-study-btn,
+  .membership-cancel-btn {
+    width: 100%;
+  }
+
+  .payment-modal {
+    width: calc(100% - 32px);
+    padding: 42px 24px 36px;
+  }
+
+  .method-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .notice-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
 }

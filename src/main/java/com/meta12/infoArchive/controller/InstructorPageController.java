@@ -11,6 +11,8 @@ import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
 import com.meta12.infoArchive.service.InstructorCourseService;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.meta12.infoArchive.entity.ProductStatus;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -135,9 +137,10 @@ public class InstructorPageController {
     @PostMapping("/instructor/courses/{id}/edit")
     public String instructorCourseUpdate(
             @PathVariable Long id,
-            InstructorCourseCreateDto dto
+            InstructorCourseCreateDto dto,
+            @RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile
     ) {
-        instructorCourseService.updateCourse(id, dto);
+        instructorCourseService.updateCourse(id, dto, thumbnailFile);
 
         return "redirect:/instructor/courses/" + id + "?updateSuccess=true";
     }

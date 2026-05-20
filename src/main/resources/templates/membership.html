@@ -75,30 +75,45 @@
                 </div>
 
                 <!-- 로그인했고 구독권 있는 사용자 -->
-                <div th:if="${login == true and membershipActive == true}">
-                    <div class="price">
-                        <strong>구독 중</strong>
+                <div th:if="${login == true and membershipActive == true}"
+                     class="membership-active-box">
+
+                    <div class="active-badge">
+                        프리미엄 구독 중
                     </div>
 
-                    <p>
-                        프리미엄 멤버십 이용 중입니다.
+                    <h3 class="active-title">
+                        현재 프리미엄 멤버십을 이용 중입니다.
+                    </h3>
+
+                    <p class="active-desc">
+                        모든 강의를 자유롭게 수강할 수 있습니다.
                     </p>
 
-                    <p>
-                        만료일:
-                        <strong th:text="${#temporals.format(user.membershipExpiredAt, 'yyyy.MM.dd HH:mm')}">
-                            2026.06.14 15:00
+                    <div class="active-date-box">
+                        <span>만료일</span>
+                        <strong th:text="${user.membershipExpiredAt != null ? #temporals.format(user.membershipExpiredAt, 'yyyy.MM.dd HH:mm') : '만료일 정보 없음'}">
+                            2026.06.18 17:29
                         </strong>
-                    </p>
+                    </div>
 
-                    <a th:href="@{/}" class="premium-btn">
-                        강의 보러가기
-                        <span>〉</span>
-                    </a>
+                    <div class="membership-action-row">
+                        <a th:href="@{/top10}" class="membership-study-btn">
+                            강의 보러가기
+                        </a>
+
+                        <form th:action="@{/membership/cancel}"
+                              method="post"
+                              onsubmit="return confirm('정말 멤버십을 해지하시겠습니까?');">
+
+                            <button type="submit" class="membership-cancel-btn">
+                                멤버십 해지하기
+                            </button>
+
+                        </form>
+                    </div>
+
                 </div>
-
-            </div>
-        </div>
 
         <div class="notice-box">
             <div class="notice-title">
@@ -216,7 +231,7 @@
             <button type="submit" class="pay-btn">9,900원 결제하기</button>
 
             <label class="agree-check">
-                <input type="checkbox" name="agree" required checked>
+                <input type="checkbox" name="agreeTerms" value="true" required checked>
                 <span><b>구매조건</b> 확인 및 결제에 동의합니다.</span>
             </label>
 

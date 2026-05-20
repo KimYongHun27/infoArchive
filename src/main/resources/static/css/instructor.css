@@ -625,3 +625,26 @@ main.instructor-layout {
   background: #e5e7eb;
   color: #374151;
 }
+
+.current-thumb-box {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #f7f7f8;
+    border: 1px solid #eee;
+}
+
+.current-thumb-box p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #555;
+}
+
+.current-thumb-box img {
+    width: 220px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
