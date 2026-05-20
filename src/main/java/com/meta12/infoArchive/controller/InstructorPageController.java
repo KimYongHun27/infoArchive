@@ -102,8 +102,13 @@ public class InstructorPageController {
             Authentication authentication,
             PasswordChangeDto passwordChangeDto
     ) {
-        userService.changeMyPassword(authentication, passwordChangeDto);
-        return "redirect:/instructor/my-info?passwordSuccess=true";
+        try {
+            userService.changeMyPassword(authentication, passwordChangeDto);
+            return "redirect:/instructor/my-info?passwordSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            return "redirect:/instructor/my-info?passwordError=true";
+        }
     }
 
     @GetMapping("/instructor/courses/{id}")

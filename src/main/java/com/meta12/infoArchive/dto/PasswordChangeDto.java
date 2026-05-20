@@ -9,5 +9,5 @@ public class PasswordChangeDto {
 
     private String currentPassword;
     private String newPassword;
-    private String newPasswordCheck;
+    private String confirmPassword;
 }
