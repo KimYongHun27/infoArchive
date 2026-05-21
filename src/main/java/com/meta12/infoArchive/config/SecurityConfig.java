@@ -25,13 +25,19 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
+
+                        // 누구나 접근 가능
                         .requestMatchers(
                                 "/",
                                 "/main",
                                 "/login",
                                 "/signup",
                                 "/top10",
+                                "/membership",
+                                "/faq",
                                 "/category/**",
+                                "/product/**",
+                                "/account/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
@@ -39,22 +45,28 @@ public class SecurityConfig {
                                 "/uploads/**"
                         ).permitAll()
 
-                        .requestMatchers("/account/**").permitAll()
-
+                        // 보안관리자 전용
                         .requestMatchers("/special/**").hasRole("SPECIAL")
                         .requestMatchers("/api/special/**").hasRole("SPECIAL")
 
+                        // 일반 관리자 전용
+                        .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        // 강사 신청
+                        .requestMatchers("/instructor/apply", "/instructor/apply/**").authenticated()
+
+                        // 강사 전용
+                        .requestMatchers("/instructor", "/instructor/**").hasRole("INSTRUCTOR")
+
+                        // 로그인 사용자 전용
                         .requestMatchers("/mypage", "/mypage/**").authenticated()
                         .requestMatchers("/payment", "/payment/**").authenticated()
                         .requestMatchers("/cart", "/cart/**").authenticated()
                         .requestMatchers("/wishlist", "/wishlist/**").authenticated()
-                        .requestMatchers("/", "/main", "/login", "/signup", "/top10", "/membership", "/faq").permitAll()
-
-                        .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                        .requestMatchers("/instructor/apply", "/instructor/apply/**").authenticated()
-                        .requestMatchers("/instructor", "/instructor/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/taking-course").authenticated()
+                        .requestMatchers("/course/start/**").authenticated()
+                        .requestMatchers("/review", "/review/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -78,6 +90,10 @@ public class SecurityConfig {
 
                             if (role.equals("ROLE_SPECIAL")) {
                                 response.sendRedirect("/special");
+                            } else if (role.equals("ROLE_ADMIN")) {
+                                response.sendRedirect("/admin");
+                            } else if (role.equals("ROLE_INSTRUCTOR")) {
+                                response.sendRedirect("/instructor");
                             } else {
                                 response.sendRedirect("/main");
                             }

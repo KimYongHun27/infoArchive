@@ -17,7 +17,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... args) {
@@ -52,9 +52,9 @@ public class DataInitializer implements CommandLineRunner {
         );
 
         createOrUpdateUser(
-                "admin2",
+                "securityAdmin",
                 "1234",
-                "특별계정",
+                "보안관리자",
                 "admin2@test.com",
                 "010-4444-4444",
                 Role.SPECIAL
@@ -89,6 +89,9 @@ public class DataInitializer implements CommandLineRunner {
                         .smsAgree(false)
                         .pushAgree(true)
                         .createdAt(LocalDateTime.now())
+                        .membershipActive(false)
+                        .enabled(true)
+                        .deleted(false)
                         .build()
                 );
 
@@ -96,13 +99,43 @@ public class DataInitializer implements CommandLineRunner {
             user.setPassword(passwordEncoder.encode(rawPassword));
         }
 
+        user.setUsername(username);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhone(phone);
         user.setRole(role);
+
+        if (user.getEmailAgree() == null) {
+            user.setEmailAgree(true);
+        }
+
+        if (user.getSmsAgree() == null) {
+            user.setSmsAgree(false);
+        }
+
+        if (user.getPushAgree() == null) {
+            user.setPushAgree(true);
+        }
+
+        if (user.getMembershipActive() == null) {
+            user.setMembershipActive(false);
+        }
+
+        if (user.getEnabled() == null) {
+            user.setEnabled(true);
+        }
+
+        if (user.getDeleted() == null) {
+            user.setDeleted(false);
+        }
+
         userRepository.save(user);
     }
 
     private boolean isBCrypt(String password) {
-        return password.startsWith("$2a$")
-                || password.startsWith("$2b$")
-                || password.startsWith("$2y$");
+        return password != null &&
+                (password.startsWith("$2a$")
+                        || password.startsWith("$2b$")
+                        || password.startsWith("$2y$"));
     }
 }
