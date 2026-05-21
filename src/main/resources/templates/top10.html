@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>TOP 10</title>
+    <title>TOP 10 - InfoArchive</title>
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/top10.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/subscribe.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
@@ -16,11 +21,12 @@
 <main class="top10-page">
 
     <section class="top10-hero">
-        <h1>TOP 10</h1>
-        <p>지금 가장 인기있는 강의들을 확인해보세요!</p>
+        <h1>오늘의 TOP 10</h1>
+        <p>지금 가장 인기 있는 강의를 확인해보세요.</p>
     </section>
 
-    <section class="top10-category">
+    <section class="top10-category-tabs">
+
         <a th:href="@{/top10}" class="active">
             <img th:src="@{/img/top10/cat-all.png}" alt="">
             <span>전체</span>
@@ -38,7 +44,7 @@
 
         <a th:href="@{/category/finance}">
             <img th:src="@{/img/main/cat03.png}" alt="">
-            <span>금융 · 재테크</span>
+            <span>금융·재테크</span>
         </a>
 
         <a th:href="@{/category/design}">
@@ -48,7 +54,7 @@
 
         <a th:href="@{/category/photo-video}">
             <img th:src="@{/img/main/cat05.png}" alt="">
-            <span>사진 · 영상</span>
+            <span>사진·영상</span>
         </a>
 
         <a th:href="@{/category/fitness}">
@@ -68,325 +74,128 @@
 
         <a th:href="@{/category/cooking}">
             <img th:src="@{/img/main/cat09.png}" alt="">
-            <span>베이킹 · 요리</span>
+            <span>베이킹·요리</span>
         </a>
 
         <a th:href="@{/category/language}">
             <img th:src="@{/img/main/cat10.png}" alt="">
-            <span>제2 외국어</span>
+            <span>제2외국어</span>
         </a>
 
         <a th:href="@{/category/programming}">
             <img th:src="@{/img/main/cat11.png}" alt="">
             <span>프로그래밍</span>
         </a>
+
     </section>
 
-    <section class="ranking-section">
+    <section class="top10-ranking">
 
         <div class="section-head">
             <h2>전체 TOP 10</h2>
-            <a th:href="@{/top10}">전체 보기 〉</a>
+
+            <div class="arrow-box">
+                <button type="button" class="arrow-btn">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <button type="button" class="arrow-btn">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="rank-top-grid">
-
-            <!-- 1 -->
-            <div class="rank-card big">
-                <form th:action="@{/wishlist/toggle/1}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(1L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(1L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/1}" class="rank-card-link">
-                    <span class="rank-badge red">1</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[1L] != null and !thumbnailMap[1L].isEmpty()} ? @{${thumbnailMap[1L]}} : @{/img/main/course03.png}"
-                             alt="엣지에서 태어나는 삽화소설 AtoZ">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag purple">드로잉</span>
-                        <h3>엣지에서 태어나는 삽화소설 AtoZ</h3>
-                        <p>일러스트레이터 예성</p>
-
-                        <div class="price">
-                            <del>230,000원</del>
-                            <b>20%</b>
-                            <strong>189,000원~</strong>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 2 -->
-            <div class="rank-card big">
-                <form th:action="@{/wishlist/toggle/2}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(2L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(2L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/2}" class="rank-card-link">
-                    <span class="rank-badge red">2</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[2L] != null and !thumbnailMap[2L].isEmpty()} ? @{${thumbnailMap[2L]}} : @{/img/main/course04.png}"
-                             alt="제대로 혁신한 핵심 AI 활용법">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag violet">AI · 프로그래밍</span>
-                        <h3>제대로 혁신한 핵심 AI 활용법</h3>
-                        <p>알파미러리 최선생</p>
-
-                        <div class="price">
-                            <del>199,000원</del>
-                            <b>20%</b>
-                            <strong>159,000원~</strong>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 3 -->
-            <div class="rank-card big">
-                <form th:action="@{/wishlist/toggle/3}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(3L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(3L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/3}" class="rank-card-link">
-                    <span class="rank-badge red">3</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[3L] != null and !thumbnailMap[3L].isEmpty()} ? @{${thumbnailMap[3L]}} : @{/img/main/course05.png}"
-                             alt="쉽게 익히는 블렌더 3D 기초 트레이닝">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag blue">영상/3D</span>
-                        <h3>쉽게 익히는 블렌더 3D 기초 트레이닝</h3>
-                        <p>3DCG크리에이터 주이</p>
-
-                        <div class="price">
-                            <del>159,000원</del>
-                            <b>20%</b>
-                            <strong>129,000원~</strong>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
+        <div th:if="${products == null or #lists.isEmpty(products)}"
+             class="empty-top10">
+            등록된 강의가 없습니다.
         </div>
 
-        <div class="rank-sub-grid">
+        <div class="rank-grid"
+             th:if="${products != null and !#lists.isEmpty(products)}">
 
-            <!-- 4 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/4}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(4L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(4L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
+            <div class="rank-card-wrap"
+                 th:each="product, stat : ${products}">
 
-                <a th:href="@{/product/4}" class="rank-card-link">
-                    <span class="rank-badge gray">4</span>
+                <a th:href="@{/product/{id}(id=${product.id})}"
+                   class="rank-card"
+                   th:classappend="${stat.index == 0} ? ' big' : ' small'">
+
+          <span class="rank-num"
+                th:classappend="${stat.index < 3} ? ' red' : ''"
+                th:text="${stat.index + 1}">
+            1
+          </span>
 
                     <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[4L] != null and !thumbnailMap[4L].isEmpty()} ? @{${thumbnailMap[4L]}} : @{/img/main/course01.png}"
-                             alt="혁신을 디자인하는 디자인 실전">
+
+                        <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
+                             th:src="@{${product.thumbnailUrl}}"
+                             th:alt="${product.productName}">
+
+                        <div th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}"
+                             class="rank-thumb-empty">
+                            IMAGE
+                        </div>
+
                     </div>
 
                     <div class="rank-info">
-                        <span class="tag purple">디자인</span>
-                        <h3>혁신을 디자인하는 ‘디자인 실전’</h3>
-                        <p>TED강사 김선생</p>
-                        <strong class="only-price">129,000원</strong>
-                    </div>
-                </a>
-            </div>
 
-            <!-- 5 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/5}" method="post" class="rank-wishlist-form">
+            <span class="tag"
+                  th:text="${product.category != null ? product.category : '강의'}">
+              강의
+            </span>
+
+                        <h3 th:text="${product.productName}">
+                            강의명
+                        </h3>
+
+                        <p class="teacher"
+                           th:text="${product.instructorName != null ? product.instructorName : '강사명'}">
+                            강사명
+                        </p>
+
+                        <div class="meta">
+                            <div class="rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.8</span>
+                                <small>(0)</small>
+                            </div>
+
+                            <span class="student-count">
+                수강생 0명
+              </span>
+                        </div>
+
+                        <strong class="price"
+                                th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + '원'">
+                            0원
+                        </strong>
+
+                    </div>
+
+                </a>
+
+                <form th:action="@{/wishlist/toggle/{id}(id=${product.id})}"
+                      method="post"
+                      class="like-form">
+
                     <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(5L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(5L)} ? '♥' : '♡'">♡</span>
+                            class="like-btn"
+                            th:classappend="${likedProductIds != null and likedProductIds.contains(product.id)} ? ' active'">
+
+            <span th:text="${likedProductIds != null and likedProductIds.contains(product.id)} ? '♥' : '♡'">
+              ♡
+            </span>
+
                     </button>
+
                 </form>
 
-                <a th:href="@{/product/5}" class="rank-card-link">
-                    <span class="rank-badge gray">5</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[5L] != null and !thumbnailMap[5L].isEmpty()} ? @{${thumbnailMap[5L]}} : @{/img/main/course02.png}"
-                             alt="얼굴으로 끝내는 메이크업 완전정복">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag blue">사진 · 영상</span>
-                        <h3>얼굴으로 끝내는 메이크업 완전정복</h3>
-                        <p>지니뷰티아카데미</p>
-                        <strong class="only-price">89,000원</strong>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 6 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/6}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(6L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(6L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/6}" class="rank-card-link">
-                    <span class="rank-badge gray">6</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[6L] != null and !thumbnailMap[6L].isEmpty()} ? @{${thumbnailMap[6L]}} : @{/img/main/course06.png}"
-                             alt="11만이 사랑하는 집에서 배우는 클래식">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag orange">베이킹 · 요리</span>
-                        <h3>11만이 사랑하는 집에서 배우는 클래식</h3>
-                        <p>디마르즈</p>
-                        <strong class="only-price">79,000원</strong>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 7 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/7}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(7L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(7L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/7}" class="rank-card-link">
-                    <span class="rank-badge gray">7</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[7L] != null and !thumbnailMap[7L].isEmpty()} ? @{${thumbnailMap[7L]}} : @{/img/top10/course07.png}"
-                             alt="처음 시작하는 유쾌 인물화">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag green">주식 · 재테크</span>
-                        <h3>처음 시작하는 유쾌 인물화</h3>
-                        <p>화가쌤</p>
-                        <strong class="only-price">119,000원</strong>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 8 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/8}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(8L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(8L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/8}" class="rank-card-link">
-                    <span class="rank-badge gray">8</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[8L] != null and !thumbnailMap[8L].isEmpty()} ? @{${thumbnailMap[8L]}} : @{/img/main/course04.png}"
-                             alt="제대로 혁신한 핵심 동력 AI">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag violet">AI · 프로그래밍</span>
-                        <h3>제대로 혁신한 핵심 동력 ‘AI’</h3>
-                        <p>엠지니아I 최선생</p>
-                        <strong class="only-price">129,000원</strong>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 9 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/9}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(9L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(9L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/9}" class="rank-card-link">
-                    <span class="rank-badge gray">9</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[9L] != null and !thumbnailMap[9L].isEmpty()} ? @{${thumbnailMap[9L]}} : @{/img/main/course05.png}"
-                             alt="쉽게 익히는 여행 영어 회화">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag blue">제2 외국어</span>
-                        <h3>쉽게 익히는 여행 영어 회화</h3>
-                        <p>JAY쌤</p>
-                        <strong class="only-price">69,000원</strong>
-                    </div>
-                </a>
-            </div>
-
-            <!-- 10 -->
-            <div class="rank-card small">
-                <form th:action="@{/wishlist/toggle/10}" method="post" class="rank-wishlist-form">
-                    <button type="submit"
-                            class="rank-heart-btn"
-                            th:classappend="${likedProductIds != null and likedProductIds.contains(10L)} ? ' active'">
-                        <span th:text="${likedProductIds != null and likedProductIds.contains(10L)} ? '♥' : '♡'">♡</span>
-                    </button>
-                </form>
-
-                <a th:href="@{/product/10}" class="rank-card-link">
-                    <span class="rank-badge gray">10</span>
-
-                    <div class="rank-thumb">
-                        <img th:src="${thumbnailMap != null and thumbnailMap[10L] != null and !thumbnailMap[10L].isEmpty()} ? @{${thumbnailMap[10L]}} : @{/img/top10/course10.png}"
-                             alt="스마트스토어로 월 매출 300만원 만들기">
-                    </div>
-
-                    <div class="rank-info">
-                        <span class="tag blue">드로잉</span>
-                        <h3>스마트스토어로 월 매출 300만원 만들기</h3>
-                        <p>커머스홈</p>
-                        <strong class="only-price">79,000원</strong>
-                    </div>
-                </a>
             </div>
 
         </div>
-    </section>
 
-    <section class="membership-banner">
-        <a th:href="@{/membership}">
-            <img th:src="@{/img/top10/gift.png}" alt="멤버십 배너">
-        </a>
     </section>
 
 </main>
@@ -394,6 +203,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
+<script th:src="@{/js/top10.js}"></script>
 <script th:src="@{/js/subscribe.js}"></script>
 
 </body>
