@@ -450,52 +450,22 @@ body {
 }
 
 .rank-thumb {
-  width: 100%;
-  overflow: hidden;
-  background: #f1f3f5;
+    width: 100%;
+    overflow: hidden;
+    background: #f1f3f5;
 }
 
 .rank-card.big .rank-thumb {
-  height: 260px;
+    height: 260px;
 }
 
 .rank-card.small .rank-thumb {
-  height: 170px;
+    height: 170px;
 }
 
 .rank-thumb img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.rank-thumb-empty {
-  width: 100%;
-  height: 100%;
-  background: #f1f3f5;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.empty-top10 {
-  padding: 80px 20px;
-  text-align: center;
-  background: #fff;
-  border-radius: 18px;
-  color: #777;
-  font-weight: 800;
-}
-
-.rank-card-wrap {
-  position: relative;
-}
-
-.rank-card {
-  display: block;
-  overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
