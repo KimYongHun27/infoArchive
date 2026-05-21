@@ -9,18 +9,22 @@ body {
   color: #111;
 }
 
-/* 전체 */
+/* 전체 페이지 */
 .page {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
-/* 메인 */
+/* 메인 레이아웃 */
 .main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
   display: flex;
-  flex: 1;
-  justify-content: center;
+  gap: 40px;
+  align-items: flex-start;
 }
 
 /* 왼쪽 사이드바 */
@@ -29,14 +33,13 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 120px;
-  padding: 40px 0px;
 }
 
 .sidebar-card {
   overflow: hidden;
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
@@ -115,411 +118,533 @@ body {
   font-weight: 900;
 }
 
+/* 오른쪽 콘텐츠 영역 */
 .banner {
-  padding: 20px 70px;
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+}
+
+/* 상단 제목 영역 */
+.banner h1,
+.banner h2 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 900;
+  color: #000;
 }
 
 .p1 {
-  color: rgb(134, 134, 134);
-  font-weight: bolder;
+  margin-top: 10px;
+  color: #868686;
+  font-weight: 700;
 }
 
-.course-card {
-  padding: 10px 70px;
-  position: relative;
-}
-
-.box-icon {
-  margin: 20px;
-  position: absolute;
-  padding: 5px 15px;
-  background-color: rgb(255, 255, 255);
-  color: #9962e0;
-  border: 3px solid #9962e0;
-  border-radius: 5px;
-}
-
-.course-container {
+/* 수강중인 강의 상단 */
+.taking-course-header {
   display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 40px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
-.course-box {
-  height: 250px;
+.taking-course-header h1,
+.taking-course-header h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+  color: #000;
 }
 
-.course-img {
-  width: 400px;
-  height: 250px;
-}
-
-.course-content {
-  width: 500px;
-  padding: 0px 25px;
-  background-color: rgb(255, 255, 255);
-  border-right: 1.5px solid rgb(212, 212, 212);
-}
-
-.course-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 8px;
-}
-
-.instructor {
-  font-size: 14px;
-  font-weight: bold;
-  color: #525252;
-  margin-bottom: 10px;
-}
-
-.percent {
-  font-size: 20px;
-  font-weight: bold;
-  color: #000000;
-  line-height: 1.6;
-}
-
-.progress {
-  width: 450px;
-  height: 7px;
-  background-color: #d3d3d3;
-  justify-content: center;
-  border-radius: 5px;
-}
-
-.course-move {
-  width: 300px;
-  padding: 10px 20px;
-  background-color: rgb(255, 255, 255);
-  text-align: center;
-}
-
-.learn {
-  padding: 50px 0px;
-}
-
-.learn-btn {
-  background-color: rgb(255, 17, 68);
-  color: rgb(255, 255, 255);
+.taking-course-header a {
+  color: #111;
   text-decoration: none;
-  padding: 20px 70px;
-  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 900;
 }
 
-.admission {
-  padding: 10px 0px;
+.taking-course-header a:hover {
+  color: #ff1744;
 }
 
-.admission-btn {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  border: 2px solid rgb(73, 73, 73);
-  text-decoration: none;
-  padding: 20px 80px;
-  border-radius: 10px;
-}
-
-.widget {
+/* 수강중인 강의 리스트 */
+.taking-course-list {
+  width: 100%;
   display: flex;
-  padding: 0 70px;
-  padding-bottom: 50px;
+  flex-direction: column;
+  gap: 0;
 }
 
-.pause {
-  width: 1200px;
-  padding: 20px;
-  background-color: rgb(218, 198, 255);
-  border-radius: 10px;
-}
-
-.guide {
-  padding-left: 900px;
-}
-
-.guide-btn {
-  background-color: rgb(96, 42, 196);
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
-.explain{
-  color: rgb(104, 104, 104);
-  font-weight: bolder;
-}
-
-.empty-taking-course {
-    width: 100%;
-    padding: 80px 20px;
-    background: #fff;
-    border-radius: 16px;
-    text-align: center;
-    border: 1px solid #eee;
-}
-
-.empty-taking-course h2 {
-    margin: 0 0 10px;
-    font-size: 24px;
-    font-weight: 900;
-    color: #111;
-}
-
-.empty-taking-course p {
-    margin: 0 0 24px;
-    color: #777;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.empty-course-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 140px;
-    height: 42px;
-
-    border-radius: 8px;
-    background: #111;
-    color: #fff;
-
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 900;
-}
-
-.empty-course-btn:hover {
-    background: #222;
-}
-
-.taking-course-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* 수강중인 강의 카드 */
 .taking-course-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 24px;
-    border: 1px solid #eee;
-    border-radius: 14px;
-    background: #fff;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 28px;
+  padding: 28px 18px 36px;
+  border-bottom: 1px solid #e8e8e8;
+  background: transparent;
 }
 
-.taking-course-link {
-    display: flex;
-    gap: 20px;
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-}
-
-.taking-course-thumb img {
-    width: 180px;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.taking-course-info h2 {
-    margin: 8px 0;
-    font-size: 20px;
-}
-
-.taking-course-category {
-    display: inline-block;
-    font-size: 13px;
-    color: #6d28d9;
-    font-weight: 700;
-}
-
-.progress-box {
-    margin-top: 14px;
-}
-
-.progress-text {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.progress-bar {
-    height: 8px;
-    background: #eee;
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #111;
-}
-
-.enrolled-date {
-    margin-top: 10px;
-    font-size: 13px;
-    color: #777;
-}
-
-.taking-course-action {
-    display: flex;
-    align-items: center;
-}
-
-.taking-course-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.taking-course-item {
-    display: flex;
-    gap: 22px;
-    padding: 22px;
-    border: 1px solid #eee;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-}
-
+/* 썸네일 링크 */
 .taking-course-thumb {
-    width: 220px;
-    height: 140px;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #f1f3f5;
-    flex-shrink: 0;
-    display: block;
-    text-decoration: none;
+  width: 170px;
+  height: 140px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f1f3f5;
+  flex-shrink: 0;
+  display: block;
+  text-decoration: none;
 }
 
+/* 썸네일 이미지 */
 .taking-course-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
+/* 이미지 없을 때 */
 .taking-course-no-img {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 13px;
-    font-weight: 900;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 13px;
+  font-weight: 900;
 }
 
+/* 강의 정보 */
 .taking-course-info {
-    flex: 1;
-    min-width: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.taking-category {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: #f1f3f5;
-    color: #555;
-    font-size: 12px;
-    font-weight: 800;
-    margin-bottom: 10px;
+/* 카테고리 */
+.taking-category,
+.taking-course-category {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 8px;
+  padding: 0;
+  background: transparent;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
 }
 
+/* 강의 제목 */
+.taking-course-info h2,
 .taking-course-info h3 {
-    margin: 0 0 8px;
-    font-size: 20px;
-    font-weight: 900;
-    color: #222;
+  margin: 0 0 8px;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #000;
+  word-break: keep-all;
 }
 
-.taking-teacher {
-    margin: 0 0 18px;
-    color: #777;
-    font-size: 14px;
+/* 강사명 */
+.taking-teacher,
+.instructor {
+  margin: 0 0 18px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
 }
 
+/* 진도율 박스 */
 .progress-box {
-    margin-top: 12px;
+  width: 100%;
+  margin-top: 4px;
 }
 
+/* 진도율 텍스트 */
 .progress-text {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 13px;
-    color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #111;
 }
 
 .progress-text strong {
-    color: #111;
+  color: #111;
 }
 
+.progress-text span:last-child,
+.progress-text strong:last-child {
+  color: #ff1744;
+  font-weight: 900;
+}
+
+/* 진도율 바 */
 .progress-bar {
-    width: 100%;
-    height: 9px;
-    border-radius: 999px;
-    background: #e9ecef;
-    overflow: hidden;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #ececec;
+  overflow: hidden;
 }
 
+/* 진도율 채워지는 부분 */
 .progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    background: #111;
+  height: 100%;
+  border-radius: 999px;
+  background: #ff1744;
 }
 
+/* 하단 버튼/상태 영역 */
 .taking-bottom {
-    margin-top: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
 }
 
+/* 상태 배지 */
 .completed-badge,
 .ing-badge {
-    display: inline-flex;
-    align-items: center;
-    height: 32px;
-    padding: 0 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
 .completed-badge {
-    background: #e8f5e9;
-    color: #2e7d32;
+  background: #e8f5e9;
+  color: #2e7d32;
 }
 
 .ing-badge {
-    background: #fff4e5;
-    color: #f57c00;
+  background: #fff4e5;
+  color: #f57c00;
 }
 
+/* 이어서 학습하기 버튼 */
 .continue-btn {
-    height: 42px;
-    padding: 0 18px;
-    border-radius: 12px;
-    background: #111;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 900;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  width: 130px;
+  height: 46px;
+  border-radius: 9px;
+  background: #050505;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .continue-btn:hover {
-    background: #333;
+  background: #222;
+}
+
+/* 버튼만 따로 쓰는 구조 대응 */
+.taking-course-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 수강 강의 없을 때 */
+.empty-taking-course {
+  width: 100%;
+  padding: 80px 20px;
+  background: #fff;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.empty-taking-course h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
+}
+
+.empty-taking-course p {
+  margin: 0 0 24px;
+  color: #777;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.empty-course-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 42px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.empty-course-btn:hover {
+  background: #222;
+}
+
+/* 기존 course 계열 클래스 사용하는 HTML 대응 */
+.course-card {
+  width: 100%;
+  padding: 0;
+  position: static;
+}
+
+.course-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 28px;
+  margin-bottom: 0;
+  padding: 28px 18px 36px;
+  border-bottom: 1px solid #e8e8e8;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.course-box {
+  width: 170px;
+  height: 140px;
+}
+
+.course-img {
+  width: 170px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.course-content {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border-right: none;
+}
+
+.course-name {
+  margin: 0 0 8px;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #000;
+}
+
+.percent {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+  line-height: 1.4;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  background-color: #ececec;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.course-move {
+  width: auto;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.learn {
+  padding: 20px 0 0;
+}
+
+.learn-btn {
+  width: 130px;
+  height: 46px;
+  border-radius: 9px;
+  background: #050505;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.learn-btn:hover {
+  background: #222;
+}
+
+.admission {
+  padding: 12px 0 0;
+}
+
+.admission-btn {
+  height: 42px;
+  border-radius: 9px;
+  background: #fff;
+  color: #111;
+  border: 1px solid #aaa;
+  text-decoration: none;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* 보라색 안내 위젯 */
+.widget {
+  width: 100%;
+  padding: 30px 0 0;
+}
+
+.pause {
+  width: 100%;
+  padding: 22px 24px;
+  background-color: #dac6ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.guide {
+  padding-left: 0;
+}
+
+.guide-btn {
+  background-color: #602ac4;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.explain {
+  color: #686868;
+  font-weight: 700;
+}
+
+/* 필요 없는 absolute 아이콘 정리 */
+.box-icon {
+  position: static;
+  display: inline-flex;
+  margin: 0 0 10px;
+  padding: 5px 15px;
+  background-color: #fff;
+  color: #9962e0;
+  border: 3px solid #9962e0;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .main {
+    max-width: 100%;
+    padding: 32px 20px 60px;
+    gap: 24px;
+  }
+
+  .taking-course-sidebar {
+    width: 210px;
+  }
+
+  .taking-course-item,
+  .course-container {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .taking-course-thumb,
+  .course-box,
+  .course-img {
+    width: 150px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    display: block;
+  }
+
+  .taking-course-sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 28px;
+  }
+
+  .taking-course-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .taking-course-header h1,
+  .taking-course-header h2,
+  .banner h1,
+  .banner h2 {
+    font-size: 28px;
+  }
+
+  .taking-course-item,
+  .course-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0 32px;
+  }
+
+  .taking-course-thumb,
+  .course-box,
+  .course-img {
+    width: 100%;
+    height: 190px;
+  }
+
+  .taking-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .continue-btn,
+  .learn-btn {
+    width: 100%;
+  }
+
+  .pause {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
