@@ -1,7 +1,7 @@
 package com.meta12.infoArchive.controller;
 
-import com.meta12.infoArchive.dto.PasswordChangeDto;
 import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
+import com.meta12.infoArchive.dto.PasswordChangeDto;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.ProductStatus;
 import com.meta12.infoArchive.repository.ProductRepository;
@@ -46,15 +46,18 @@ public class InstructorPageController {
         model.addAttribute("totalCount", courses.size());
 
         long approvedCount = courses.stream()
-                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.APPROVED)
+                .filter(course -> course.getStatus() != null
+                        && course.getStatus() == ProductStatus.APPROVED)
                 .count();
 
         long waitingCount = courses.stream()
-                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.WAITING)
+                .filter(course -> course.getStatus() != null
+                        && course.getStatus() == ProductStatus.WAITING)
                 .count();
 
         long rejectedCount = courses.stream()
-                .filter(course -> course.getStatus() != null && course.getStatus() == ProductStatus.REJECTED)
+                .filter(course -> course.getStatus() != null
+                        && course.getStatus() == ProductStatus.REJECTED)
                 .count();
 
         model.addAttribute("approvedCount", approvedCount);

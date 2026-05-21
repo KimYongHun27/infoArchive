@@ -64,13 +64,11 @@ public class InstructorCourseService {
         product.setDescription(dto.getDescription());
         product.setVideoUrl(convertYoutubeUrlToEmbed(dto.getVideoUrl()));
 
-        // 새 이미지 파일을 선택한 경우에만 썸네일 교체
         if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
             String thumbnailUrl = saveThumbnailFile(thumbnailFile);
             product.setThumbnailUrl(thumbnailUrl);
         }
 
-        // 승인/반려된 강의를 수정하면 다시 검토중
         if (product.getStatus() == ProductStatus.REJECTED
                 || product.getStatus() == ProductStatus.APPROVED) {
             product.setStatus(ProductStatus.WAITING);
@@ -84,6 +82,38 @@ public class InstructorCourseService {
     private String saveThumbnailFile(MultipartFile file) {
 
         try {
+            if (file == null || file.isEmpty()) {
+                return null;
+            }
+
+            String contentType = file.getContentType();
+
+            if (contentType == null || !contentType.startsWith("image/")) {
+                throw new IllegalArgumentException("이미지 파일만 업로드할 수 있습니다.");
+            }
+
+            String originalFilename = file.getOriginalFilename();
+
+            if (originalFilename == null || originalFilename.trim().isEmpty()) {
+                throw new IllegalArgumentException("파일명이 올바르지 않습니다.");
+            }
+
+            String extension = "";
+
+            int dotIndex = originalFilename.lastIndexOf(".");
+            if (dotIndex != -1) {
+                extension = originalFilename.substring(dotIndex).toLowerCase();
+            }
+
+            if (!extension.equals(".jpg")
+                    && !extension.equals(".jpeg")
+                    && !extension.equals(".png")
+                    && !extension.equals(".gif")
+                    && !extension.equals(".webp")
+                    && !extension.equals(".bmp")) {
+                throw new IllegalArgumentException("jpg, jpeg, png, gif, webp, bmp 파일만 업로드할 수 있습니다.");
+            }
+
             String uploadDir = System.getProperty("user.dir")
                     + "/src/main/resources/static/uploads/course/";
 
@@ -91,13 +121,6 @@ public class InstructorCourseService {
 
             if (!dir.exists()) {
                 dir.mkdirs();
-            }
-
-            String originalFilename = file.getOriginalFilename();
-            String extension = "";
-
-            if (originalFilename != null && originalFilename.contains(".")) {
-                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
             }
 
             String savedFileName = UUID.randomUUID() + extension;
@@ -123,7 +146,13 @@ public class InstructorCourseService {
         String videoId = null;
 
         if (trimmedUrl.contains("youtube.com/embed/")) {
-            return trimmedUrl;
+            String embedUrl = trimmedUrl;
+
+            if (embedUrl.contains("?")) {
+                embedUrl = embedUrl.substring(0, embedUrl.indexOf("?"));
+            }
+
+            return embedUrl + "?controls=0&disablekb=1&rel=0&modestbranding=1";
         }
 
         if (trimmedUrl.contains("youtube.com/watch?v=")) {
@@ -145,7 +174,8 @@ public class InstructorCourseService {
         }
 
         if (videoId != null && !videoId.isEmpty()) {
-            return "https://www.youtube.com/embed/" + videoId;
+            return "https://www.youtube.com/embed/" + videoId
+                    + "?controls=0&disablekb=1&rel=0&modestbranding=1";
         }
 
         return trimmedUrl;

@@ -57,16 +57,22 @@
                 <p>새로운 강의를 등록하고 수강생에게 공개할 수 있습니다.</p>
             </div>
 
-            <form class="form-box" method="post" th:action="@{/instructor/course-new}">
+            <form class="form-box"
+                  method="post"
+                  th:action="@{/instructor/course-new}"
+                  enctype="multipart/form-data">
 
                 <div class="form-row">
                     <label>강의명</label>
-                    <input type="text" name="title" placeholder="강의명을 입력하세요">
+                    <input type="text"
+                           name="title"
+                           placeholder="강의명을 입력하세요"
+                           required>
                 </div>
 
                 <div class="form-row">
                     <label>카테고리</label>
-                    <select name="category">
+                    <select name="category" required>
                         <option value="">카테고리를 선택하세요</option>
                         <option value="drawing">드로잉</option>
                         <option value="craft">공예</option>
@@ -84,12 +90,20 @@
 
                 <div class="form-row">
                     <label>가격</label>
-                    <input type="number" name="price" placeholder="가격을 입력하세요">
+                    <input type="number"
+                           name="price"
+                           min="0"
+                           placeholder="가격을 입력하세요"
+                           required>
                 </div>
 
                 <div class="form-row">
                     <label>할인율</label>
-                    <input type="number" name="discountRate" placeholder="할인율을 입력하세요. 예: 20">
+                    <input type="number"
+                           name="discountRate"
+                           min="0"
+                           max="100"
+                           placeholder="할인율을 입력하세요. 예: 20">
                 </div>
 
                 <div class="form-row">
@@ -98,24 +112,32 @@
                            name="thumbnailFile"
                            accept="image/*"
                            required>
+                    <p class="form-help">
+                        jpg, jpeg, png, gif, webp, bmp 이미지를 업로드할 수 있습니다.
+                    </p>
                 </div>
 
-                <div class="form-group">
+                <div class="form-row">
                     <label>강의 영상 URL 또는 파일 경로</label>
                     <input type="text"
                            name="videoUrl"
-                           placeholder="예: https://www.youtube.com/embed/영상ID 또는 /videos/sample.mp4">
+                           placeholder="예: https://www.youtube.com/watch?v=영상ID 또는 /videos/sample.mp4">
                 </div>
 
                 <div class="form-row">
                     <label>강의 소개</label>
-                    <textarea name="description" placeholder="강의 소개를 입력하세요"></textarea>
+                    <textarea name="description"
+                              placeholder="강의 소개를 입력하세요"></textarea>
                 </div>
 
-
                 <div class="form-actions">
-                    <a th:href="@{/instructor/courses}" class="cancel-btn">취소</a>
-                    <button type="submit" class="primary-btn">강의 등록</button>
+                    <a th:href="@{/instructor/courses}" class="cancel-btn">
+                        취소
+                    </a>
+
+                    <button type="submit" class="primary-btn">
+                        강의 등록
+                    </button>
                 </div>
 
             </form>

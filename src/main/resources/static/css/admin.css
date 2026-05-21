@@ -482,3 +482,70 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.admin-info-card {
+    margin-top: 28px;
+    padding: 32px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+.admin-info-card h2 {
+    margin: 0 0 24px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.form-line {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-line label {
+    font-weight: 900;
+}
+
+.form-line input {
+    height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 14px;
+}
+
+.save-area {
+    margin-top: 24px;
+}
+
+.save-area button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background: #ff1744;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.alert {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-weight: 800;
+}
+
+.alert.success {
+    background: #eefaf0;
+    color: #16833a;
+    border: 1px solid #bfe8c9;
+}
+
+.alert.error {
+    background: #fff1f1;
+    color: #d62828;
+    border: 1px solid #ffc9c9;
+}

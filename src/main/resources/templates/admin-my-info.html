@@ -104,6 +104,50 @@
         </tr>
         </tbody>
       </table>
+
+      <section class="admin-info-card" id="password-change">
+        <h2>비밀번호 변경</h2>
+
+        <div class="alert success" th:if="${param.passwordSuccess}">
+          비밀번호가 변경되었습니다.
+        </div>
+
+        <div class="alert error" th:if="${param.passwordError}">
+          비밀번호 변경에 실패했습니다. 현재 비밀번호와 새 비밀번호를 확인해주세요.
+        </div>
+
+        <form th:action="@{/admin/password/change}" method="post">
+
+          <div class="form-line">
+            <label>현재 비밀번호</label>
+            <input type="password"
+                   name="currentPassword"
+                   placeholder="현재 비밀번호를 입력해주세요"
+                   required>
+          </div>
+
+          <div class="form-line">
+            <label>새 비밀번호</label>
+            <input type="password"
+                   name="newPassword"
+                   placeholder="새 비밀번호를 입력해주세요"
+                   required>
+          </div>
+
+          <div class="form-line">
+            <label>새 비밀번호 확인</label>
+            <input type="password"
+                   name="confirmPassword"
+                   placeholder="새 비밀번호를 다시 입력해주세요"
+                   required>
+          </div>
+
+          <div class="save-area">
+            <button type="submit">비밀번호 변경하기</button>
+          </div>
+
+        </form>
+      </section>
     </section>
 
   </section>

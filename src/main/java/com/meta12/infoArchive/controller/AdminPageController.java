@@ -170,7 +170,6 @@ public class AdminPageController {
             Authentication authentication,
             PasswordChangeDto passwordChangeDto
     ) {
-
         try {
             userService.changeMyPassword(authentication, passwordChangeDto);
             return "redirect:/admin/my-info?passwordSuccess=true";

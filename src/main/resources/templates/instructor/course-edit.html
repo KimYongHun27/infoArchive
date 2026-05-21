@@ -16,7 +16,6 @@
 <main class="instructor-page">
     <div class="instructor-layout">
 
-        <!-- 사이드바 -->
         <aside class="instructor-sidebar">
             <div class="instructor-side-title">
                 <span>🎓</span>
@@ -50,7 +49,6 @@
             </nav>
         </aside>
 
-        <!-- 본문 -->
         <section class="instructor-content">
 
             <div class="instructor-head">
@@ -70,9 +68,9 @@
                 </div>
 
                 <form th:action="@{/instructor/courses/{id}/edit(id=${course.id})}"
-                      method="post">
+                      method="post"
+                      enctype="multipart/form-data">
 
-                    <!-- 강의명 -->
                     <div class="form-group">
                         <label for="title">강의명</label>
                         <input type="text"
@@ -83,7 +81,6 @@
                                required>
                     </div>
 
-                    <!-- 카테고리 -->
                     <div class="form-group">
                         <label for="category">카테고리</label>
                         <input type="text"
@@ -94,7 +91,6 @@
                                required>
                     </div>
 
-                    <!-- 가격 -->
                     <div class="form-group">
                         <label for="price">가격</label>
                         <input type="number"
@@ -106,7 +102,6 @@
                                required>
                     </div>
 
-                    <!-- 할인율 -->
                     <div class="form-group">
                         <label for="discountRate">할인율</label>
                         <input type="number"
@@ -118,7 +113,6 @@
                                placeholder="예: 10">
                     </div>
 
-                    <!-- 썸네일 파일 -->
                     <div class="form-group">
                         <label for="thumbnailFile">강의 썸네일 이미지</label>
 
@@ -127,6 +121,10 @@
                                name="thumbnailFile"
                                accept="image/*">
 
+                        <p class="form-help">
+                            새 이미지를 선택하면 기존 썸네일이 교체됩니다. 선택하지 않으면 기존 이미지가 유지됩니다.
+                        </p>
+
                         <div class="current-thumb-box"
                              th:if="${course.thumbnailUrl != null and !course.thumbnailUrl.isEmpty()}">
                             <p>현재 썸네일</p>
@@ -134,7 +132,7 @@
                                  alt="현재 썸네일">
                         </div>
                     </div>
-                    <!-- 강의 설명 -->
+
                     <div class="form-group">
                         <label for="description">강의 설명</label>
                         <textarea id="description"
@@ -144,17 +142,15 @@
                                   th:text="${course.description}"></textarea>
                     </div>
 
-                    <!-- 강의 영상 URL -->
                     <div class="form-group">
                         <label for="videoUrl">강의 영상 URL</label>
                         <input type="text"
                                id="videoUrl"
                                name="videoUrl"
                                th:value="${course.videoUrl}"
-                               placeholder="예: https://www.youtube.com/embed/영상ID">
+                               placeholder="예: https://www.youtube.com/watch?v=영상ID">
                     </div>
 
-                    <!-- 현재 상태 표시 -->
                     <div class="form-group">
                         <label>현재 상태</label>
                         <div class="readonly-box" th:text="${course.status}">
