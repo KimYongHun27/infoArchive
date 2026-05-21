@@ -118,374 +118,91 @@
 
     <div class="drawing-grid">
 
-      <!-- 201 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/201}" class="drawing-card">
-          <span class="rank-num red">1</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[201L] != null and !thumbnailMap[201L].isEmpty()} ? @{${thumbnailMap[201L]}} : @{/img/test/test1.jpg}"
-                 alt="라탄 공예 입문 클래스">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">라탄</span>
-            <h3>라탄 공예 입문 클래스</h3>
-            <p class="teacher">라탄 공방 민서</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.9</span>
-                <small>(201)</small>
-              </div>
-              <span class="student-count">수강생 6,201명</span>
-            </div>
-
-            <strong class="price">32,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/201}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(201L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(201L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
+      <!-- 등록된 강의가 없을 때 -->
+      <div th:if="${products == null or #lists.isEmpty(products)}"
+           class="empty-category">
+        등록된 공예 강의가 없습니다.
       </div>
 
-      <!-- 202 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/202}" class="drawing-card">
-          <span class="rank-num red">2</span>
+      <!-- DB 강의 목록 -->
+      <div class="drawing-card-wrap"
+           th:each="product, stat : ${products}">
+
+        <a th:href="@{/product/{id}(id=${product.id})}"
+           class="drawing-card">
+
+          <span class="rank-num"
+                th:classappend="${stat.index < 3} ? ' red' : ''"
+                th:text="${stat.index + 1}">
+            1
+          </span>
 
           <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[202L] != null and !thumbnailMap[202L].isEmpty()} ? @{${thumbnailMap[202L]}} : @{/img/test/test2.jpg}"
-                 alt="비즈 액세서리 만들기">
+
+            <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
+                 th:src="@{${product.thumbnailUrl}}"
+                 th:alt="${product.productName}">
+
+            <div th:if="${product.thumbnailUrl == null or product.thumbnailUrl.isEmpty()}"
+                 class="thumb-empty">
+              IMAGE
+            </div>
+
           </div>
 
           <div class="card-info">
-            <span class="tag">비즈</span>
-            <h3>비즈 액세서리 만들기</h3>
-            <p class="teacher">공예 작가 유리</p>
+
+            <span class="tag"
+                  th:text="${product.category != null ? product.category : '공예'}">
+              공예
+            </span>
+
+            <h3 th:text="${product.productName}">
+              강의명
+            </h3>
+
+            <p class="teacher"
+               th:text="${product.instructorName != null ? product.instructorName : '강사명'}">
+              강사명
+            </p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
                 <span>4.8</span>
-                <small>(184)</small>
+                <small>(0)</small>
               </div>
-              <span class="student-count">수강생 5,402명</span>
+
+              <span class="student-count">
+                수강생 0명
+              </span>
             </div>
 
-            <strong class="price">39,000원</strong>
+            <strong class="price"
+                    th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + '원'">
+              0원
+            </strong>
+
           </div>
+
         </a>
 
-        <form th:action="@{/wishlist/toggle/202}" method="post" class="like-form">
+        <form th:action="@{/wishlist/toggle/{id}(id=${product.id})}"
+              method="post"
+              class="like-form">
+
           <button type="submit"
                   class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(202L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(202L)} ? '♥' : '♡'">♡</span>
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(product.id)} ? ' active'">
+
+            <span th:text="${likedProductIds != null and likedProductIds.contains(product.id)} ? '♥' : '♡'">
+              ♡
+            </span>
+
           </button>
+
         </form>
-      </div>
 
-      <!-- 203 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/203}" class="drawing-card">
-          <span class="rank-num red">3</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[203L] != null and !thumbnailMap[203L].isEmpty()} ? @{${thumbnailMap[203L]}} : @{/img/test/test3.jpg}"
-                 alt="캔들 제작 클래스">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">캔들</span>
-            <h3>캔들 제작 클래스</h3>
-            <p class="teacher">캔들 공방 하린</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(166)</small>
-              </div>
-              <span class="student-count">수강생 4,881명</span>
-            </div>
-
-            <strong class="price">45,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/203}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(203L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(203L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 204 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/204}" class="drawing-card">
-          <span class="rank-num gray">4</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[204L] != null and !thumbnailMap[204L].isEmpty()} ? @{${thumbnailMap[204L]}} : @{/img/test/test4.jpg}"
-                 alt="가죽 공예 지갑 만들기">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">가죽</span>
-            <h3>가죽 공예 지갑 만들기</h3>
-            <p class="teacher">가죽공방 도윤</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.7</span>
-                <small>(142)</small>
-              </div>
-              <span class="student-count">수강생 3,902명</span>
-            </div>
-
-            <strong class="price">69,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/204}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(204L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(204L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 205 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/205}" class="drawing-card">
-          <span class="rank-num gray">5</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[205L] != null and !thumbnailMap[205L].isEmpty()} ? @{${thumbnailMap[205L]}} : @{/img/test/test5.jpg}"
-                 alt="도자기 핸드빌딩 클래스">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">도자기</span>
-            <h3>도자기 핸드빌딩 클래스</h3>
-            <p class="teacher">도예가 수현</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.7</span>
-                <small>(131)</small>
-              </div>
-              <span class="student-count">수강생 3,420명</span>
-            </div>
-
-            <strong class="price">72,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/205}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(205L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(205L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 206 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/206}" class="drawing-card">
-          <span class="rank-num gray">6</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[206L] != null and !thumbnailMap[206L].isEmpty()} ? @{${thumbnailMap[206L]}} : @{/img/test/test6.jpg}"
-                 alt="플라워 공예 클래스">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">플라워</span>
-            <h3>플라워 공예 클래스</h3>
-            <p class="teacher">플로리스트 지아</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.6</span>
-                <small>(119)</small>
-              </div>
-              <span class="student-count">수강생 2,980명</span>
-            </div>
-
-            <strong class="price">52,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/206}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(206L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(206L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 207 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/207}" class="drawing-card">
-          <span class="rank-num gray">7</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[207L] != null and !thumbnailMap[207L].isEmpty()} ? @{${thumbnailMap[207L]}} : @{/img/test/test7.jpg}"
-                 alt="마크라메 월행잉 만들기">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">마크라메</span>
-            <h3>마크라메 월행잉 만들기</h3>
-            <p class="teacher">공예 작가 라온</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.6</span>
-                <small>(101)</small>
-              </div>
-              <span class="student-count">수강생 2,741명</span>
-            </div>
-
-            <strong class="price">43,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/207}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(207L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(207L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 208 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/208}" class="drawing-card">
-          <span class="rank-num gray">8</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[208L] != null and !thumbnailMap[208L].isEmpty()} ? @{${thumbnailMap[208L]}} : @{/img/test/test8.jpg}"
-                 alt="뜨개질 기초 클래스">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">뜨개질</span>
-            <h3>뜨개질 기초 클래스</h3>
-            <p class="teacher">니트 작가 은별</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.5</span>
-                <small>(94)</small>
-              </div>
-              <span class="student-count">수강생 2,310명</span>
-            </div>
-
-            <strong class="price">38,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/208}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(208L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(208L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 209 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/209}" class="drawing-card">
-          <span class="rank-num gray">9</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[209L] != null and !thumbnailMap[209L].isEmpty()} ? @{${thumbnailMap[209L]}} : @{/img/test/test9.jpg}"
-                 alt="레진 아트 소품 만들기">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">레진</span>
-            <h3>레진 아트 소품 만들기</h3>
-            <p class="teacher">레진 작가 하은</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.5</span>
-                <small>(88)</small>
-              </div>
-              <span class="student-count">수강생 2,104명</span>
-            </div>
-
-            <strong class="price">41,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/209}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(209L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(209L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- 210 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/210}" class="drawing-card">
-          <span class="rank-num gray">10</span>
-
-          <div class="thumb">
-            <img th:src="${thumbnailMap != null and thumbnailMap[210L] != null and !thumbnailMap[210L].isEmpty()} ? @{${thumbnailMap[210L]}} : @{/img/test/test10.jpg}"
-                 alt="종이 공예 페이퍼아트">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">페이퍼</span>
-            <h3>종이 공예 페이퍼아트</h3>
-            <p class="teacher">페이퍼 작가 나린</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.4</span>
-                <small>(74)</small>
-              </div>
-              <span class="student-count">수강생 1,930명</span>
-            </div>
-
-            <strong class="price">35,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/210}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(210L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(210L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
       </div>
 
     </div>
@@ -497,6 +214,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
+<script th:src="@{/js/category.js}"></script>
 <script th:src="@{/js/subscribe.js}"></script>
 
 </body>
