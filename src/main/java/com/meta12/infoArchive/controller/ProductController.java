@@ -1,10 +1,12 @@
 package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.entity.Enrollment;
+import com.meta12.infoArchive.entity.PaymentStatus;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.Role;
 import com.meta12.infoArchive.entity.User;
 import com.meta12.infoArchive.repository.EnrollmentRepository;
+import com.meta12.infoArchive.repository.PaymentRepository;
 import com.meta12.infoArchive.service.EnrollmentService;
 import com.meta12.infoArchive.service.ProductService;
 import com.meta12.infoArchive.service.ReviewService;
@@ -30,6 +32,7 @@ public class ProductController {
     private final ReviewService reviewService;
     private final EnrollmentRepository enrollmentRepository;
     private final EnrollmentService enrollmentService;
+    private final PaymentRepository paymentRepository;
 
     // 상품 상세 페이지
     @GetMapping("/product/{id}")
@@ -47,6 +50,8 @@ public class ProductController {
         boolean login = false;
         boolean membershipActive = false;
         boolean enrolled = false;
+        boolean paid = false;
+        boolean canWatch = false;
         int progressRate = 0;
         String userRole = "GUEST";
 
@@ -57,19 +62,30 @@ public class ProductController {
             login = true;
 
             User user = userService.getLoginUser(authentication);
-
             userRole = user.getRole().name();
 
-            // 관리자/강사는 수강/결제 대상이 아니므로 멤버십/수강 여부 체크는 USER일 때만 의미 있음
             if (user.getRole() == Role.USER) {
                 membershipActive = userService.isMembershipActive(user);
 
                 enrolled = enrollmentService.isEnrolled(user, id);
 
+                paid = paymentRepository.existsByUserAndProductIdAndPaymentStatus(
+                        user,
+                        id,
+                        PaymentStatus.COMPLETED
+                );
+
+                canWatch = membershipActive || enrolled || paid;
+
                 progressRate = enrollmentRepository
                         .findByUserIdAndProductId(user.getId(), id)
                         .map(enrollment -> enrollment.getProgressRate() != null ? enrollment.getProgressRate() : 0)
                         .orElse(0);
+            }
+
+            // 관리자와 강사는 상세 확인용으로 영상 접근 허용
+            if (user.getRole() == Role.ADMIN || user.getRole() == Role.INSTRUCTOR) {
+                canWatch = true;
             }
         }
 
@@ -81,6 +97,8 @@ public class ProductController {
         model.addAttribute("userRole", userRole);
         model.addAttribute("membershipActive", membershipActive);
         model.addAttribute("enrolled", enrolled);
+        model.addAttribute("paid", paid);
+        model.addAttribute("canWatch", canWatch);
         model.addAttribute("progressRate", progressRate);
 
         return "category/detail";
@@ -98,7 +116,6 @@ public class ProductController {
 
         User user = userService.getLoginUser(authentication);
 
-        // 관리자/강사는 수강중인 강의 페이지 접근 시 각자 페이지로 이동
         if (user.getRole() == Role.ADMIN) {
             return "redirect:/admin";
         }
@@ -115,7 +132,7 @@ public class ProductController {
         return "mypage/taking-course";
     }
 
-    // 강의보기 버튼 클릭 처리
+    // 이어서 학습하기 / 강의보기 버튼 클릭 처리
     @GetMapping("/course/start/{productId}")
     public String startCourse(
             @PathVariable Long productId,
@@ -127,10 +144,8 @@ public class ProductController {
             return "redirect:/login";
         }
 
-        // user를 먼저 가져와야 함
         User user = userService.getLoginUser(authentication);
 
-        // 관리자/강사는 강의 수강 불가
         if (user.getRole() == Role.ADMIN) {
             return "redirect:/admin/products";
         }
@@ -140,20 +155,27 @@ public class ProductController {
         }
 
         boolean membershipActive = userService.isMembershipActive(user);
+
         boolean alreadyEnrolled = enrollmentService.isEnrolled(user, productId);
 
-        // 멤버십도 아니고 구매도 안 한 일반 유저는 결제 페이지로 이동
-        if (!membershipActive && !alreadyEnrolled) {
+        boolean paid = paymentRepository.existsByUserAndProductIdAndPaymentStatus(
+                user,
+                productId,
+                PaymentStatus.COMPLETED
+        );
+
+        // 결제도 안 했고, 멤버십도 아니고, 수강 등록도 안 되어 있으면 결제 페이지로 이동
+        if (!membershipActive && !paid && !alreadyEnrolled) {
             return "redirect:/payment/checkout?productId=" + productId;
         }
 
-        // 멤버십 유저는 결제 없이 수강 등록
-        if (membershipActive && !alreadyEnrolled) {
+        // 결제 완료했거나 멤버십인데 수강 등록이 아직 없으면 수강 등록 생성
+        if ((membershipActive || paid) && !alreadyEnrolled) {
             enrollmentService.enrollProduct(user, productId);
         }
 
-        // 이미 구매한 유저 또는 멤버십 유저는 수강중인 강의로 이동
-        return "redirect:/taking-course";
+        // 수강 등록 후 상세페이지로 이동
+        return "redirect:/product/" + productId;
     }
 
     // 학습 진도율 저장
@@ -173,9 +195,23 @@ public class ProductController {
 
         User user = userService.getLoginUser(authentication);
 
-        // 관리자/강사는 진도율 저장 안 함
         if (user.getRole() == Role.ADMIN || user.getRole() == Role.INSTRUCTOR) {
             return "not-user";
+        }
+
+        boolean membershipActive = userService.isMembershipActive(user);
+
+        boolean enrolled = enrollmentService.isEnrolled(user, productId);
+
+        boolean paid = paymentRepository.existsByUserAndProductIdAndPaymentStatus(
+                user,
+                productId,
+                PaymentStatus.COMPLETED
+        );
+
+        // 수강 권한 없으면 진도율 저장 차단
+        if (!membershipActive && !enrolled && !paid) {
+            return "no-permission";
         }
 
         enrollmentService.updateProgress(authentication, productId, watchedSeconds, totalSeconds);
