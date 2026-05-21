@@ -5,7 +5,7 @@ WORKDIR /home/src
 RUN ./gradlew build -x test --no-daemon
 
 # 2. 실행 스테이지
-FROM openjdk:17-slim
+FROM openjdk:17-jdk-alpine
 EXPOSE 8080
-COPY --from=build /home/src/build/libs/*-SNAPSHOT.jar app.jar
+COPY build/libs/*-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
