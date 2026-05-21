@@ -115,7 +115,7 @@ public class InstructorCourseService {
             }
 
             String uploadDir = System.getProperty("user.dir")
-                    + "/src/main/resources/static/uploads/course/";
+                    + "/uploads/course/";
 
             File dir = new File(uploadDir);
 
