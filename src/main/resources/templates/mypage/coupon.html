@@ -104,23 +104,24 @@
 
                 <div class="higher-btn">
                     <div class="left">
-                        <a th:href="@{/coupon}" class="possess">
+                        <a th:href="@{/coupon(status='AVAILABLE')}"
+                           th:classappend="${status == 'AVAILABLE'} ? ' active'">
                             사용 가능 쿠폰(<span th:text="${counts.unused}">0</span>)
                         </a>
 
-                        <a th:href="@{/coupon}" class="complete">
+                        <a th:href="@{/coupon(status='USED')}"
+                           th:classappend="${status == 'USED'} ? ' active'">
                             사용 완료 쿠폰(<span th:text="${counts.used}">0</span>)
                         </a>
 
-                        <a th:href="@{/coupon}" class="expiration">
+                        <a th:href="@{/coupon(status='EXPIRED')}"
+                           th:classappend="${status == 'EXPIRED'} ? ' active'">
                             기간 만료 쿠폰(<span th:text="${counts.expired}">0</span>)
                         </a>
                     </div>
 
                     <div class="right">
-                        <a th:href="@{/couponRegistration}" class="register-coupon">
-                            쿠폰 등록 +
-                        </a>
+                        <a th:href="@{/coupon/register}" class="coupon-register-btn">쿠폰 등록 +</a>
                     </div>
                 </div>
 

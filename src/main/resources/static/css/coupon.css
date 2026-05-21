@@ -1,35 +1,57 @@
+@charset "UTF-8";
+
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
   background: #f4f4f4;
   color: #111;
 }
 
-/* 전체 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   전체 레이아웃
+========================= */
+
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  background: #f4f4f4;
+  padding: 46px 0 90px;
 }
 
-/* 메인 */
 .main {
-  display: flex;
-  flex: 1;
+  width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 36px;
+  align-items: flex-start;
 }
 
-/* 왼쪽 사이드바 */
+/* =========================
+   왼쪽 사이드바
+========================= */
+
 .coupon-sidebar {
   width: 230px;
   flex-shrink: 0;
   position: sticky;
   top: 120px;
-  padding: 60px 0px;
-  margin: 0 50px;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar-card {
@@ -37,19 +59,26 @@ body {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 4px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   height: 54px;
   padding: 0 18px;
   background: #111;
   color: #fff;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
+}
+
+.sidebar-title span {
+  width: 18px;
+  text-align: center;
 }
 
 .side-menu {
@@ -58,32 +87,36 @@ body {
 }
 
 .side-menu a {
+  height: 52px;
+  padding: 0 18px;
+  border-bottom: 1px solid #eee;
+
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 52px;
-  padding: 0 18px;
+
   color: #222;
-  text-decoration: none;
-  border-bottom: 1px solid #eee;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .side-menu a span {
   width: 18px;
+  color: #999;
+  font-size: 13px;
   text-align: center;
-  color: #777;
 }
 
 .side-menu a:hover {
   background: #fafafa;
+  color: #ff2448;
 }
 
 .side-menu a.active {
   color: #ff2448;
   background: #fff;
   border-left: 3px solid #ff2448;
+  padding-left: 15px;
 }
 
 .side-menu a.active span {
@@ -91,458 +124,570 @@ body {
 }
 
 .customer-box {
-  padding: 18px;
+  padding: 20px 18px 22px;
   background: #fafafa;
 }
 
 .customer-box h3 {
   margin: 0 0 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
 }
 
 .customer-box p {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: #777;
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .customer-box strong {
   display: block;
   color: #111;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
+  letter-spacing: -0.5px;
 }
 
+/* =========================
+   본문
+========================= */
+
 .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  min-width: 0;
+  display: block;
 }
 
 .banner {
-  display: flex;
-  flex-direction: column;
-  padding: 35px 70px;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.banner h1 {
+  margin: 0 0 26px;
+  color: #111;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
 .p1 {
-  padding-bottom: 50px;
-  color: rgb(134, 134, 134);
-  font-weight: bolder;
+  margin: 0 0 46px;
+  padding: 0;
+  color: #777;
+  font-size: 15px;
+  font-weight: 800;
 }
 
+/* =========================
+   상단 탭 / 쿠폰 등록
+========================= */
+
 .higher-btn {
+  width: 100%;
+  margin-bottom: 0;
+
   display: flex;
-  color: #777;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 24px;
 }
 
 .left {
   display: flex;
-  font-size: 17px;
-  color: #777;
-  font-weight: bolder;
-  gap: 50px;
+  align-items: center;
+  gap: 42px;
 }
 
-.possess {
-  color: rgb(226, 20, 65);
-  text-decoration: none;
+.left a {
+  position: relative;
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+
+  color: #666;
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
-.complete {
-  color: #777;
-  text-decoration: none;
+.left a:hover {
+  color: #ff1744;
 }
 
-.expiration {
-  color: #777;
-  text-decoration: none;
+.left a.active,
+.left a.possess {
+  color: #ff1744;
+}
+
+.left a.active::after,
+.left a.possess::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 100%;
+  height: 3px;
+  background: #ff1744;
+  border-radius: 999px;
 }
 
 .right {
   display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.register-coupon {
-  padding: 10px 20px;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: bold;
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 5px;
-}
+.coupon-register-btn {
+  height: 44px;
+  padding: 0 22px;
+  border: 2px solid #111;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
 
-.line {
-  height: 3px;
-  margin-top: 10px;
-  background-color: #b9b9b9;
-}
-
-.sort-btn{
-  display: flex;
-  padding-top: 30px;
-  justify-content: right;
-  gap: 20px;
-
-}
-
-.all-coupon {
-  text-decoration: none;
-  font-weight: bolder;
-  background-color: rgb(255, 255, 255);
-  color: rgb(105, 105, 105);
-  border: 1.5px solid rgb(212, 212, 212);
-  padding: 10px 40px;
-  border-radius: 5px;
-}
-
-.the-latest {
-  text-decoration: none;
-  font-weight: bolder;
-  background-color: rgb(255, 255, 255);
-  color: rgb(105, 105, 105);
-  border: 1.5px solid rgb(212, 212, 212);
-  padding: 10px 30px;
-  border-radius: 5px;
-}
-
-.notice {
-  display: flex;
-  flex-direction: column;
-  padding: 0px 70px;
-}
-
-.notice-box {
-  background-color: #dfdfdf;
-  padding: 0 20px;
-  border: 2px solid #b9b9b9;
-  border-radius: 10px;
-}
-
-.guideline {
-  color: #777;
-  padding: 0 20px;
-  margin-top: 10px;
-  font-weight: bolder;
-  padding-bottom: 10px;
-}
-
-.coupon-card {
-  padding: 30px 70px;
-}
-
-.coupon-container {
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-
-.coupon-box {
-  height: 300px;
-  border-right: 2px solid rgb(212, 212, 212);
-  background-color: #ffffff;
-}
-
-.box-img {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  height: 300px;
-  justify-content: center;
-}
-
-.coupon-img1 {
-  width: 350px;
-  height: 300px;
-  background-color: #ffd8d8;
-  border-radius: 5px;
-  color: #d60000;
-  text-align: center;
-  align-content: center;
-  padding-bottom: 30px;
-}
-
-.coupon-img2 {
-  width: 350px;
-  height: 300px;
-  background-color: #ead7ff;
-  border-radius: 5px;
-  color: #5700a8;
-  text-align: center;
-  align-content: center;
-  padding-bottom: 30px;
-}
-
-.coupon-img3 {
-  width: 350px;
-  height: 300px;
-  background-color: #d6f8e3;
-  border-radius: 5px;
-  color: #1b8b60;
-  text-align: center;
-  align-content: center;
-  padding-bottom: 30px;
-}
-
-.img-title1 {
-  font-size: 50px;
-  font-weight: bold;
-}
-
-.img-title2 {
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: -40px;
-}
-
-.img-title3 {
-  font-size: 20px;
-}
-
-.coupon-content {
-  width: 725px;
-  padding: 0px 40px;
-  background-color: rgb(255, 255, 255);
-  border-right: 2px solid rgb(212, 212, 212);
-  align-content: center;
-}
-
-.coupon-category1 {
-  display: inline;
-  font-weight: bolder;
-  color: #d60000;
-  padding: 5px;
-  background-color: #ffd8d8;
-  border-radius: 5px;
-}
-
-.coupon-category2 {
-  display: inline;
-  font-weight: bolder;
-  color: #5700a8;
-  padding: 5px;
-  background-color: #ead7ff;
-  border-radius: 5px;
-}
-
-.coupon-category3 {
-  display: inline;
-  font-weight: bolder;
-  color: #1b8b60;
-  padding: 5px;
-  background-color: #d6f8e3;
-  border-radius: 5px;
-}
-
-.coupon-name {
-  padding: 20px 0px;
-  font-size: 25px;
-  font-weight: bolder;
-}
-
-.coupon-explain {
-  color: #777;
-  font-size: 17px;
-  font-weight: bolder;
-  padding-bottom: 20px;
-}
-
-.coupon-details {
-  display: flex;
-  border-top: 2px solid rgb(212, 212, 212);
-}
-
-.expiration-date {
-  padding-right: 100px;
-  font-weight: bolder;
-  color: rgb(155, 155, 155);
-}
-
-.minimum-amount {
-  padding-right: 100px;
-  font-weight: bolder;
-  color: rgb(155, 155, 155);
-}
-
-.coverage {
-  font-weight: bolder;
-  color: rgb(155, 155, 155);
-}
-
-.coupon-btn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 310px;
-  background-color: #ffffff;
-  text-align: center;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  font-size: 15px;
+  font-weight: 900;
 }
 
-.download-btn {
-  width: 100px;
-  font-size: 30px;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  border: 2px solid rgb(73, 73, 73);
-  text-decoration: none;
-  padding: 10px;
+.coupon-register-btn:hover {
+  background: #111;
+  color: #fff;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background: #d9d9d9;
+}
+
+/* =========================
+   정렬 버튼
+========================= */
+
+.sort-btn {
+  margin: 30px 0 28px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+}
+
+.sort-btn a {
+  min-width: 130px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.sort-btn a:hover {
+  border-color: #111;
+  color: #111;
+}
+
+/* =========================
+   안내 박스
+========================= */
+
+.notice {
+  margin-bottom: 28px;
+}
+
+.notice-box {
+  width: 100%;
+  padding: 24px 28px;
+  border: 1px solid #ccc;
   border-radius: 10px;
+  background: #e9e9e9;
 }
 
-.use-btn {
-  width: 130px;
-  font-size: 20px;
-  background-color: rgb(255, 0, 34);
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 15px 20px;
-  border-radius: 10px;
+.notice-box h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #111;
 }
 
+.notice-box p {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 800;
+}
+
+.notice-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================
+   쿠폰 카드 전체
+========================= */
+
+.coupon-card {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* 쿠폰 1개 */
 .coupon-container {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 24px;
-    margin-bottom: 20px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 18px;
+  width: 100%;
+  min-height: 190px;
+  padding: 28px 32px;
+
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.035);
+
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 170px;
+  gap: 34px;
+  align-items: center;
 }
+
+/* =========================
+   왼쪽 금액 박스
+========================= */
 
 .coupon-box {
-    flex: 0 0 160px;
+  width: 100%;
 }
 
-.coupon-img1,
-.coupon-img2,
-.coupon-img3 {
-    width: 150px;
-    height: 110px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    font-weight: 800;
+.box-img {
+  width: 170px;
+  height: 120px;
 }
 
 .coupon-img1 {
-    background: linear-gradient(135deg, #111, #444);
-}
+  width: 170px;
+  height: 120px;
+  border-radius: 16px;
+  background: #111;
+  color: #fff;
 
-.coupon-img2 {
-    background: linear-gradient(135deg, #7c3aed, #a78bfa);
-}
-
-.coupon-img3 {
-    background: linear-gradient(135deg, #f97316, #fb923c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .img-title1 {
-    font-size: 24px;
-    margin: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 29px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
 }
 
 .img-title2 {
-    font-size: 14px;
-    margin-top: 6px;
+  margin: 8px 0 0;
+  color: #ddd;
+  font-size: 14px;
+  font-weight: 800;
 }
+
+/* =========================
+   가운데 쿠폰 정보
+========================= */
 
 .coupon-content {
-    flex: 1;
-}
-
-.coupon-category1,
-.coupon-category2,
-.coupon-category3 {
-    display: inline-block;
-    margin-bottom: 8px;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
+  min-width: 0;
 }
 
 .coupon-category1 {
-    background: #eef2ff;
-    color: #4f46e5;
-}
+  width: fit-content;
+  height: 28px;
+  padding: 0 12px;
+  margin-bottom: 12px;
 
-.coupon-category2 {
-    background: #fef3c7;
-    color: #d97706;
-}
+  border-radius: 999px;
+  background: #eef0ff;
+  color: #4356d8;
 
-.coupon-category3 {
-    background: #fee2e2;
-    color: #dc2626;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .coupon-name {
-    font-size: 20px;
-    font-weight: 800;
-    color: #111;
-    margin-bottom: 8px;
+  margin: 0 0 12px;
+  color: #111;
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 900;
+  word-break: keep-all;
 }
 
 .coupon-explain {
-    color: #666;
-    margin-bottom: 14px;
+  margin: 0 0 16px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 800;
+  word-break: break-all;
 }
 
+/* 유효기간 / 최소주문금액 / 적용범위 */
 .coupon-details {
-    display: flex;
-    gap: 30px;
-    color: #555;
-    font-size: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.coupon-details p {
-    margin: 4px 0;
+.expiration-date,
+.minimum-amount,
+.coverage {
+  min-height: 70px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f7f7f7;
 }
+
+.expiration-date p,
+.minimum-amount p,
+.coverage p {
+  margin: 0;
+}
+
+.expiration-date p:first-child,
+.minimum-amount p:first-child,
+.coverage p:first-child {
+  margin-bottom: 7px;
+  color: #777;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.expiration-date p:last-child,
+.minimum-amount p:last-child,
+.coverage p:last-child {
+  color: #111;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* =========================
+   오른쪽 버튼
+========================= */
 
 .coupon-btn {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
 }
 
 .use-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 90px;
-    height: 38px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    background: #111;
-    color: #fff;
+  width: 100%;
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid #ff1744;
+  background: #ff1744;
+  color: #fff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 900;
 }
 
 .use-btn:hover {
-    background: #000;
+  background: #e90032;
+  border-color: #e90032;
 }
 
 .use-btn.disabled {
-    background: #bbb;
-    color: #fff;
-    cursor: not-allowed;
-    pointer-events: none;
+  background: #eee;
+  color: #999;
+  border: 1px solid #ddd;
+  cursor: default;
+  pointer-events: none;
 }
 
+/* =========================
+   쿠폰 없음
+========================= */
+
 .empty-coupon-box {
-    text-align: center;
-    padding: 60px 0;
-    color: #888;
+  width: 100%;
+  min-height: 260px;
+  padding: 80px 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.empty-coupon-box p {
+  margin: 0;
+  color: #777;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 1280px) {
+  .main {
+    width: calc(100% - 40px);
+  }
+
+  .coupon-container {
+    grid-template-columns: 170px minmax(0, 1fr) 160px;
+    gap: 24px;
+  }
+
+  .box-img,
+  .coupon-img1 {
+    width: 160px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .coupon-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .side-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .side-menu a {
+    justify-content: center;
+  }
+
+  .customer-box {
+    display: none;
+  }
+
+  .higher-btn {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .sort-btn {
+    justify-content: flex-start;
+  }
+
+  .coupon-container {
+    grid-template-columns: 1fr;
+  }
+
+  .box-img,
+  .coupon-img1 {
+    width: 100%;
+  }
+
+  .coupon-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 30px 0 70px;
+  }
+
+  .main {
+    width: calc(100% - 28px);
+  }
+
+  .banner h1 {
+    font-size: 30px;
+  }
+
+  .p1 {
+    margin-bottom: 30px;
+  }
+
+  .higher-btn {
+    display: block;
+  }
+
+  .left {
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .left a {
+    flex-shrink: 0;
+  }
+
+  .right {
+    margin-top: 18px;
+  }
+
+  .coupon-register-btn {
+    width: 100%;
+  }
+
+  .sort-btn {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-btn a {
+    width: 100%;
+  }
+
+  .side-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coupon-container {
+    padding: 22px;
+  }
+
+  .coupon-details {
+    grid-template-columns: 1fr;
+  }
+
+  .coupon-name {
+    font-size: 21px;
+  }
 }
