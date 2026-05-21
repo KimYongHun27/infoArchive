@@ -127,7 +127,8 @@
                                name="thumbnailFile"
                                accept="image/*">
 
-                        <div class="current-thumb-box" th:if="${course.thumbnailUrl != null and !course.thumbnailUrl.isEmpty()}">
+                        <div class="current-thumb-box"
+                             th:if="${course.thumbnailUrl != null and !course.thumbnailUrl.isEmpty()}">
                             <p>현재 썸네일</p>
                             <img th:src="@{${course.thumbnailUrl}}"
                                  alt="현재 썸네일">

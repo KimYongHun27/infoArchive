@@ -51,6 +51,7 @@ body {
     line-height: 1.5;
 }
 
+/* 탭 메뉴 */
 .tab-menu {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -77,10 +78,16 @@ body {
     color: #fff;
 }
 
+/* 탭 내용 */
 .tab-content {
     display: none;
 }
 
+.tab-content.active {
+    display: block;
+}
+
+/* 폼 */
 .form-group {
     margin-bottom: 15px;
 }
@@ -106,6 +113,7 @@ body {
     border-color: #ff2448;
 }
 
+/* 제출 버튼 */
 .submit-btn {
     width: 100%;
     height: 50px;
@@ -123,63 +131,7 @@ body {
     background: #e6002d;
 }
 
-.result-box {
-    margin-top: 18px;
-    padding: 18px;
-    border-radius: 15px;
-    background: #fff0f3;
-    border: 1px solid #ffd1da;
-    text-align: center;
-}
-
-.result-box p {
-    margin: 0 0 6px;
-    color: #666;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.result-box strong {
-    color: #ff2448;
-    font-size: 18px;
-    font-weight: 900;
-    word-break: break-all;
-}
-
-.login-link {
-    display: block;
-    margin-top: 18px;
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-    font-weight: 800;
-    text-decoration: none;
-}
-
-.login-link:hover {
-    color: #ff2448;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-btn.active {
-    background: #111;
-    color: #fff;
-}
-
-.result-box.error {
-    background: #fff5f5;
-    border-color: #ffc9c9;
-}
-
-.result-box.error p {
-    margin: 0;
-    color: #ff2448;
-    font-weight: 900;
-}
-
+/* 결과 박스 */
 .result-box {
     margin-top: 18px;
     padding: 18px;
@@ -203,6 +155,14 @@ body {
     word-break: break-all;
 }
 
+.result-desc {
+    margin-top: 10px !important;
+    color: #777 !important;
+    font-size: 12px !important;
+    line-height: 1.5;
+}
+
+/* 에러 박스 */
 .result-box.error {
     background: #fff5f5;
     border-color: #ffc9c9;
@@ -212,4 +172,39 @@ body {
     margin: 0;
     color: #ff2448;
     font-weight: 900;
+}
+
+/* 로그인 돌아가기 */
+.login-link {
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    color: #ff2448;
+}
+
+/* 반응형 */
+@media (max-width: 520px) {
+    .find-page {
+        padding: 20px;
+    }
+
+    .find-card {
+        padding: 30px 24px;
+        border-radius: 20px;
+    }
+
+    .find-card h1 {
+        font-size: 26px;
+    }
+
+    .tab-btn {
+        font-size: 13px;
+    }
 }

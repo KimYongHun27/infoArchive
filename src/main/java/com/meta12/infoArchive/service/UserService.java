@@ -48,6 +48,11 @@ public class UserService implements UserDetailsService {
         User foundUser = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("이메일 또는 비밀번호가 틀렸습니다."));
 
+        if (Boolean.TRUE.equals(foundUser.getDeleted())
+                || Boolean.FALSE.equals(foundUser.getEnabled())) {
+            throw new UsernameNotFoundException("비활성화된 계정입니다.");
+        }
+
         return org.springframework.security.core.userdetails.User.builder()
                 .username(foundUser.getEmail())
                 .password(foundUser.getPassword())
@@ -67,6 +72,9 @@ public class UserService implements UserDetailsService {
                 .emailAgree(requestDto.getEmailAgree())
                 .smsAgree(requestDto.getSmsAgree())
                 .pushAgree(requestDto.getPushAgree())
+                .enabled(true)
+                .deleted(false)
+                .membershipActive(false)
                 .createdAt(LocalDateTime.now())
                 .build();
 
@@ -74,7 +82,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.findByDeletedFalse();
     }
 
     public User getUser(Long userId) {
@@ -97,14 +105,18 @@ public class UserService implements UserDetailsService {
         return userRepository.save(foundUser);
     }
 
+    // 관리자나 내부용 삭제도 실제 삭제하지 않고 비활성화 처리
+    @Transactional
     public void deleteUser(Long userId) {
 
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        userRepository.delete(foundUser);
-    }
+        foundUser.setDeleted(true);
+        foundUser.setEnabled(false);
 
+        userRepository.save(foundUser);
+    }
 
     // 현재 로그인 회원 조회
     public User getLoginUser(Authentication authentication) {
@@ -115,11 +127,19 @@ public class UserService implements UserDetailsService {
 
         String email = authentication.getName();
 
-        return userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("로그인 회원을 찾을 수 없습니다."));
+
+        if (Boolean.TRUE.equals(user.getDeleted())
+                || Boolean.FALSE.equals(user.getEnabled())) {
+            throw new IllegalArgumentException("비활성화된 계정입니다.");
+        }
+
+        return user;
     }
 
     // 회원정보 수정
+    @Transactional
     public void updateMyInfo(Authentication authentication, MemberInfoUpdateDto requestDto) {
 
         User user = getLoginUser(authentication);
@@ -175,7 +195,6 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        // 이메일 중복 확인
         String email = dto.getEmail().trim();
 
         if (userRepository.existsByEmail(email)) {
@@ -198,6 +217,9 @@ public class UserService implements UserDetailsService {
                 .emailAgree(Boolean.TRUE.equals(dto.getEmailAgree()))
                 .smsAgree(Boolean.TRUE.equals(dto.getSmsAgree()))
                 .pushAgree(Boolean.TRUE.equals(dto.getPushAgree()))
+                .enabled(true)
+                .deleted(false)
+                .membershipActive(false)
                 .build();
 
         userRepository.save(user);
@@ -218,6 +240,7 @@ public class UserService implements UserDetailsService {
         String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
 
         User user = userRepository.findAll().stream()
+                .filter(u -> !Boolean.TRUE.equals(u.getDeleted()))
                 .filter(u -> u.getName() != null && u.getName().equals(inputName))
                 .filter(u -> u.getPhone() != null)
                 .filter(u -> u.getPhone().replaceAll("[^0-9]", "").equals(inputPhone))
@@ -247,6 +270,7 @@ public class UserService implements UserDetailsService {
         String inputPhone = dto.getPhone().replaceAll("[^0-9]", "");
 
         User user = userRepository.findAll().stream()
+                .filter(u -> !Boolean.TRUE.equals(u.getDeleted()))
                 .filter(u -> u.getEmail() != null && u.getEmail().equals(inputEmail))
                 .filter(u -> u.getName() != null && u.getName().equals(inputName))
                 .filter(u -> u.getPhone() != null)
@@ -275,6 +299,7 @@ public class UserService implements UserDetailsService {
     }
 
     // 구독권 가입 처리
+    @Transactional
     public void activateMembership(Authentication authentication) {
 
         User user = getLoginUser(authentication);
@@ -300,16 +325,32 @@ public class UserService implements UserDetailsService {
         return user.getMembershipExpiredAt().isAfter(LocalDateTime.now());
     }
 
+    // 회원 탈퇴
     @Transactional
     public void withdrawMyAccount(Authentication authentication) {
 
         User user = getLoginUser(authentication);
 
-        reviewRepository.deleteByUser(user);
-        instructorApplyRepository.deleteByUser(user);
-        instructorRepository.deleteByUser(user);
+        Long userId = user.getId();
 
-        userRepository.delete(user);
+        // 실제 삭제 X
+        // enrollment, payment, review, answer, coupon 등 FK 연결 때문에 비활성화 처리
+        user.setDeleted(true);
+        user.setEnabled(false);
+
+        // 개인정보 마스킹
+        user.setName("탈퇴회원");
+        user.setPhone(null);
+
+        // unique 제약조건 때문에 이메일/아이디는 고유한 값으로 변경
+        user.setEmail("deleted_user_" + userId + "@deleted.local");
+        user.setUsername("deleted_user_" + userId);
+
+        // 멤버십 종료
+        user.setMembershipActive(false);
+        user.setMembershipExpiredAt(LocalDateTime.now());
+
+        userRepository.save(user);
     }
 
     @Transactional

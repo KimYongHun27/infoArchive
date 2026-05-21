@@ -19,14 +19,16 @@
 
     <div class="tab-menu">
       <button type="button"
-              class="tab-btn active"
-              onclick="openFindTab('id')">
+              id="findIdTabBtn"
+              class="tab-btn"
+              th:classappend="${activeTab == null or activeTab == 'id'} ? ' active' : ''">
         이메일 찾기
       </button>
 
       <button type="button"
+              id="findPasswordTabBtn"
               class="tab-btn"
-              onclick="openFindTab('password')">
+              th:classappend="${activeTab == 'password'} ? ' active' : ''">
         비밀번호 찾기
       </button>
     </div>
@@ -34,13 +36,16 @@
     <!-- 이메일 찾기 -->
     <div id="idTab"
          class="tab-content"
-         th:style="${activeTab == null or activeTab == 'id'} ? 'display:block;' : 'display:none;'">
+         th:classappend="${activeTab == null or activeTab == 'id'} ? ' active' : ''">
 
       <form th:action="@{/account/find-id}" method="post">
 
         <div class="form-group">
           <label>이름</label>
-          <input type="text" name="name" placeholder="이름을 입력하세요" required>
+          <input type="text"
+                 name="name"
+                 placeholder="이름을 입력하세요"
+                 required>
         </div>
 
         <div class="form-group">
@@ -53,10 +58,11 @@
                  required>
         </div>
 
-        <button type="submit" class="submit-btn">이메일 찾기</button>
+        <button type="submit" class="submit-btn">
+          이메일 찾기
+        </button>
       </form>
 
-      <!-- 디버그 확인용 -->
       <div class="result-box" th:if="${debugName != null}">
         <p>입력값 확인</p>
         <strong th:text="'이름: ' + ${debugName} + ' / 전화번호: ' + ${debugPhone}">
@@ -64,15 +70,16 @@
         </strong>
       </div>
 
-      <!-- 이메일 찾기 성공 -->
       <div class="result-box" th:if="${foundEmail != null}">
         <p th:text="${message}">이메일을 찾았습니다.</p>
         <strong th:text="${foundEmail}">user@test.com</strong>
       </div>
 
-      <!-- 이메일 찾기 실패 -->
-      <div class="result-box error" th:if="${errorMessage != null}">
-        <p th:text="${errorMessage}">일치하는 회원 정보를 찾을 수 없습니다.</p>
+      <div class="result-box error"
+           th:if="${errorMessage != null and (activeTab == null or activeTab == 'id')}">
+        <p th:text="${errorMessage}">
+          일치하는 회원 정보를 찾을 수 없습니다.
+        </p>
       </div>
 
     </div>
@@ -80,18 +87,24 @@
     <!-- 비밀번호 찾기 -->
     <div id="passwordTab"
          class="tab-content"
-         th:style="${activeTab == 'password'} ? 'display:block;' : 'display:none;'">
+         th:classappend="${activeTab == 'password'} ? ' active' : ''">
 
       <form th:action="@{/account/reset-password}" method="post">
 
         <div class="form-group">
           <label>이름</label>
-          <input type="text" name="name" placeholder="이름을 입력하세요" required>
+          <input type="text"
+                 name="name"
+                 placeholder="이름을 입력하세요"
+                 required>
         </div>
 
         <div class="form-group">
           <label>이메일</label>
-          <input type="email" name="email" placeholder="가입한 이메일" required>
+          <input type="email"
+                 name="email"
+                 placeholder="가입한 이메일"
+                 required>
         </div>
 
         <div class="form-group">
@@ -104,26 +117,37 @@
                  required>
         </div>
 
-        <button type="submit" class="submit-btn">임시 비밀번호 발급</button>
+        <button type="submit" class="submit-btn">
+          임시 비밀번호 발급
+        </button>
       </form>
 
       <div class="result-box" th:if="${passwordSuccess}">
         <p>임시 비밀번호가 발급되었습니다.</p>
         <strong th:text="${temporaryPassword}">Temp1234!</strong>
-        <p class="result-desc">위 임시 비밀번호로 로그인한 뒤 비밀번호를 변경해주세요.</p>
+        <p class="result-desc">
+          위 임시 비밀번호로 로그인한 뒤 비밀번호를 변경해주세요.
+        </p>
       </div>
 
-      <div class="result-box error" th:if="${errorMessage != null and activeTab == 'password'}">
-        <p th:text="${errorMessage}">일치하는 회원 정보를 찾을 수 없습니다.</p>
+      <div class="result-box error"
+           th:if="${errorMessage != null and activeTab == 'password'}">
+        <p th:text="${errorMessage}">
+          일치하는 회원 정보를 찾을 수 없습니다.
+        </p>
       </div>
+
     </div>
 
-    <a th:href="@{/login}" class="login-link">로그인으로 돌아가기</a>
+    <a th:href="@{/login}" class="login-link">
+      로그인으로 돌아가기
+    </a>
 
   </section>
 
-  <script th:src="@{/js/account-find.js}"></script>
-
 </main>
+
+<script th:src="@{/js/account-find.js}"></script>
+
 </body>
 </html>
