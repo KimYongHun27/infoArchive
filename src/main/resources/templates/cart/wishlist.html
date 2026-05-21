@@ -125,22 +125,26 @@
             </button>
           </form>
 
-          <div class="wish-thumb">
+          <a th:href="@{/product/{id}(id=${wish.product.id})}"
+             class="wish-thumb">
+
             <img th:if="${wish.product.thumbnailUrl != null and !wish.product.thumbnailUrl.isEmpty()}"
                  th:src="@{${wish.product.thumbnailUrl}}"
-                 alt="강의 이미지">
+                 th:alt="${wish.product.productName}">
 
             <div class="no-wish-img"
                  th:if="${wish.product.thumbnailUrl == null or wish.product.thumbnailUrl.isEmpty()}">
-              이미지 없음
+              IMAGE
             </div>
-          </div>
+
+          </a>
 
           <div class="wish-info">
-      <span class="item-category"
-            th:text="${wish.product.category != null ? wish.product.category : '강의'}">
-        카테고리
-      </span>
+
+            <span class="item-category"
+                  th:text="${wish.product.category != null ? wish.product.category : '강의'}">
+              카테고리
+            </span>
 
             <h3 th:text="${wish.product.productName}">
               강의명
@@ -168,6 +172,7 @@
                 </button>
               </form>
             </div>
+
           </div>
 
         </div>

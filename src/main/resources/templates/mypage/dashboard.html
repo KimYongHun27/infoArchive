@@ -156,21 +156,26 @@
           <div class="dash-course-item"
                th:each="enrollment : ${enrollmentList}">
 
-            <img th:if="${enrollment.product.thumbnailUrl != null and !enrollment.product.thumbnailUrl.isEmpty()}"
-                 th:src="@{${enrollment.product.thumbnailUrl}}"
-                 alt="강의 이미지">
+            <a th:href="@{/product/{id}(id=${enrollment.product.id})}"
+               class="dash-course-thumb">
 
-            <div class="dash-course-no-img"
-                 th:if="${enrollment.product.thumbnailUrl == null or enrollment.product.thumbnailUrl.isEmpty()}">
-              IMAGE
-            </div>
+              <img th:if="${enrollment.product.thumbnailUrl != null and !enrollment.product.thumbnailUrl.isEmpty()}"
+                   th:src="@{${enrollment.product.thumbnailUrl}}"
+                   th:alt="${enrollment.product.productName}">
+
+              <div class="dash-course-no-img"
+                   th:if="${enrollment.product.thumbnailUrl == null or enrollment.product.thumbnailUrl.isEmpty()}">
+                IMAGE
+              </div>
+
+            </a>
 
             <div class="dash-course-info">
               <h3 th:text="${enrollment.product.productName}">
                 강의명
               </h3>
 
-              <p th:text="${enrollment.product.instructorName}">
+              <p th:text="${enrollment.product.instructorName != null ? enrollment.product.instructorName : '강사명'}">
                 강사명
               </p>
 
@@ -189,9 +194,9 @@
                 </div>
               </div>
 
-              <a th:href="@{/product/{id}(id=${enrollment.product.id})}"
-                 class="dash-mini-btn">
-                이어서 보기
+              <a th:href="@{/course/start/{productId}(productId=${enrollment.product.id})}"
+                 class="dash-course-btn">
+                이어서 학습하기
               </a>
             </div>
 
@@ -204,6 +209,7 @@
       <!-- 찜한 강의 / 최근 주문 내역 -->
       <section class="dash-two-column">
 
+        <!-- 찜한 강의 -->
         <div class="dash-panel">
 
           <div class="dash-panel-head">
@@ -222,21 +228,26 @@
             <div class="dash-mini-item"
                  th:each="wish : ${wishList}">
 
-              <img th:if="${wish.product.thumbnailUrl != null and !wish.product.thumbnailUrl.isEmpty()}"
-                   th:src="@{${wish.product.thumbnailUrl}}"
-                   alt="찜한 강의 이미지">
+              <a th:href="@{/product/{id}(id=${wish.product.id})}"
+                 class="dash-mini-thumb">
 
-              <div class="dash-mini-no-img"
-                   th:if="${wish.product.thumbnailUrl == null or wish.product.thumbnailUrl.isEmpty()}">
-                IMAGE
-              </div>
+                <img th:if="${wish.product.thumbnailUrl != null and !wish.product.thumbnailUrl.isEmpty()}"
+                     th:src="@{${wish.product.thumbnailUrl}}"
+                     th:alt="${wish.product.productName}">
+
+                <div class="dash-mini-no-img"
+                     th:if="${wish.product.thumbnailUrl == null or wish.product.thumbnailUrl.isEmpty()}">
+                  IMAGE
+                </div>
+
+              </a>
 
               <div class="dash-mini-info">
                 <h4 th:text="${wish.product.productName}">
                   찜한 강의 제목
                 </h4>
 
-                <p th:text="${wish.product.instructorName}">
+                <p th:text="${wish.product.instructorName != null ? wish.product.instructorName : '강사명'}">
                   강사명
                 </p>
 
@@ -256,6 +267,7 @@
 
         </div>
 
+        <!-- 최근 주문 내역 -->
         <div class="dash-panel">
 
           <div class="dash-panel-head">
@@ -274,13 +286,24 @@
             <div class="dash-mini-item"
                  th:each="payment : ${recentPayments}">
 
-              <img th:if="${payment.product != null and payment.product.thumbnailUrl != null and !payment.product.thumbnailUrl.isEmpty()}"
-                   th:src="@{${payment.product.thumbnailUrl}}"
-                   alt="주문 강의 이미지">
+              <a th:if="${payment.product != null}"
+                 th:href="@{/product/{id}(id=${payment.product.id})}"
+                 class="dash-mini-thumb">
 
-              <div class="dash-mini-no-img"
-                   th:if="${payment.product == null or payment.product.thumbnailUrl == null or payment.product.thumbnailUrl.isEmpty()}">
-                ORDER
+                <img th:if="${payment.product.thumbnailUrl != null and !payment.product.thumbnailUrl.isEmpty()}"
+                     th:src="@{${payment.product.thumbnailUrl}}"
+                     th:alt="${payment.product.productName}">
+
+                <div class="dash-mini-no-img"
+                     th:if="${payment.product.thumbnailUrl == null or payment.product.thumbnailUrl.isEmpty()}">
+                  IMAGE
+                </div>
+
+              </a>
+
+              <div th:if="${payment.product == null}"
+                   class="dash-mini-thumb dash-mini-no-img">
+                MEMBERSHIP
               </div>
 
               <div class="dash-mini-info">
@@ -319,13 +342,17 @@
 
           <div class="dash-benefit-list">
             <div>
-              <span>보유 포인트</span>
-              <strong>0P</strong>
+              <span>보유 쿠폰</span>
+              <strong th:text="${couponCount != null ? couponCount + '장' : '0장'}">
+                0장
+              </strong>
             </div>
 
             <div>
-              <span>보유 쿠폰</span>
-              <strong>0개</strong>
+              <span>멤버십</span>
+              <strong th:text="${user.membershipActive != null and user.membershipActive ? '이용중' : '미이용'}">
+                미이용
+              </strong>
             </div>
           </div>
 
@@ -335,13 +362,25 @@
 
           <div class="dash-panel-head">
             <h3>공지사항</h3>
+            <a th:href="@{/notice}">더보기 ></a>
           </div>
 
-          <div class="dash-notice-list">
-            <div>[공지] InfoArchive 서비스 안내</div>
-            <div>[안내] 강의 이용 관련 안내</div>
-            <div>[이벤트] 신규 회원 혜택 안내</div>
-          </div>
+          <ul class="dash-notice-list">
+            <li>
+              <span>INFO ARCHIVE 신규 강의가 업데이트되었습니다.</span>
+              <small>NEW</small>
+            </li>
+
+            <li>
+              <span>수강 진도율 저장 기능이 적용되었습니다.</span>
+              <small>안내</small>
+            </li>
+
+            <li>
+              <span>쿠폰함에서 사용 가능한 쿠폰을 확인하세요.</span>
+              <small>혜택</small>
+            </li>
+          </ul>
 
         </div>
 

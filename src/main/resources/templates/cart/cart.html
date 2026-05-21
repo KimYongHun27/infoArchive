@@ -52,6 +52,7 @@
             th:action="@{/payment/checkout}"
             method="post">
 
+        <!-- 장바구니 비었을 때 -->
         <div th:if="${cartList == null or #lists.isEmpty(cartList)}"
              class="empty-cart">
           장바구니가 비어 있습니다.
@@ -63,6 +64,7 @@
           </div>
         </div>
 
+        <!-- 장바구니 목록 -->
         <div th:each="cartItem : ${cartList}"
              class="cart-card">
 
@@ -77,9 +79,17 @@
             <a th:href="@{/product/{id}(id=${cartItem.product.id})}"
                class="cart-product-link">
 
-              <img th:src="@{${cartItem.product.thumbnailUrl}}"
+              <!-- 썸네일 이미지 있음 -->
+              <img th:if="${cartItem.product.thumbnailUrl != null and !cartItem.product.thumbnailUrl.isEmpty()}"
+                   th:src="@{${cartItem.product.thumbnailUrl}}"
                    th:alt="${cartItem.product.productName}"
                    class="cart-thumb">
+
+              <!-- 썸네일 이미지 없음 -->
+              <div th:if="${cartItem.product.thumbnailUrl == null or cartItem.product.thumbnailUrl.isEmpty()}"
+                   class="cart-thumb cart-thumb-empty">
+                IMAGE
+              </div>
 
               <div class="cart-info">
                 <h3 th:text="${cartItem.product.productName}">
@@ -174,6 +184,8 @@
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
+
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>

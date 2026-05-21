@@ -448,3 +448,24 @@ body {
     background: #ff1744;
     color: #fff;
 }
+
+.rank-thumb {
+    width: 100%;
+    overflow: hidden;
+    background: #f1f3f5;
+}
+
+.rank-card.big .rank-thumb {
+    height: 260px;
+}
+
+.rank-card.small .rank-thumb {
+    height: 170px;
+}
+
+.rank-thumb img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
