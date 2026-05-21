@@ -88,8 +88,8 @@
                     </a>
                 </div>
 
-                <!-- 일반 회원: 구매했거나 멤버십 이용 중 -->
-                <div th:if="${userRole == 'USER' and (membershipActive or enrolled)}"
+                <!-- 일반 회원: 결제 완료 / 멤버십 / 수강 등록 완료 -->
+                <div th:if="${userRole == 'USER' and canWatch}"
                      class="learning-progress-box">
 
                     <div class="progress-title-row">
@@ -112,8 +112,8 @@
 
                 </div>
 
-                <!-- 일반 회원: 미구매 + 멤버십 없음 -->
-                <div th:if="${userRole == 'USER' and !membershipActive and !enrolled}">
+                <!-- 일반 회원: 미구매 + 멤버십 없음 + 수강 등록 없음 -->
+                <div th:if="${userRole == 'USER' and !canWatch}">
 
                     <a th:href="@{/payment/checkout(productId=${product.id})}"
                        class="buy-btn">
@@ -156,8 +156,9 @@
     <section class="detail-section">
         <h2>강의 영상</h2>
 
+        <!-- 구매자 / 멤버십 / 수강 등록자 / 관리자 / 강사만 영상 노출 -->
         <div class="video-box"
-             th:if="${product.videoUrl != null and !product.videoUrl.isEmpty()}">
+             th:if="${canWatch and product.videoUrl != null and !product.videoUrl.isEmpty()}">
 
             <iframe id="productPlayer"
                     th:data-product-id="${product.id}"
@@ -170,9 +171,39 @@
 
         </div>
 
+        <!-- 권한은 있는데 영상 URL이 없는 경우 -->
         <div class="empty-video"
-             th:if="${product.videoUrl == null or product.videoUrl.isEmpty()}">
+             th:if="${canWatch and (product.videoUrl == null or product.videoUrl.isEmpty())}">
             등록된 강의 영상이 없습니다.
+        </div>
+
+        <!-- 결제 전 사용자에게는 영상 잠금 -->
+        <div class="locked-video-box"
+             th:if="${!canWatch}">
+            <h3>결제 후 수강할 수 있는 강의입니다.</h3>
+            <p>강의 영상을 보려면 결제를 완료해주세요.</p>
+
+            <div class="locked-video-actions">
+                <a th:if="${userRole == 'GUEST'}"
+                   th:href="@{/login}"
+                   class="locked-pay-btn">
+                    로그인 후 결제하기
+                </a>
+
+                <a th:if="${userRole == 'USER'}"
+                   th:href="@{/payment/checkout(productId=${product.id})}"
+                   class="locked-pay-btn">
+                    결제하기
+                </a>
+
+                <form th:if="${userRole == 'USER'}"
+                      th:action="@{/cart/insert/{id}(id=${product.id})}"
+                      method="post">
+                    <button type="submit" class="locked-cart-btn">
+                        장바구니 담기
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -185,8 +216,9 @@
             </div>
         </div>
 
-        <!-- 리뷰 작성 -->
+        <!-- 리뷰 작성: 일반 회원 + 결제/수강 권한 있을 때만 -->
         <form class="review-write-box"
+              th:if="${userRole == 'USER' and canWatch}"
               th:action="@{/product/{id}/reviews(id=${product.id})}"
               method="post">
 
@@ -228,6 +260,18 @@
 
         </form>
 
+        <!-- 결제 전 리뷰 작성 잠금 -->
+        <div class="review-locked-box"
+             th:if="${userRole == 'GUEST' or (userRole == 'USER' and !canWatch)}">
+            <p>리뷰는 강의를 수강한 회원만 작성할 수 있습니다.</p>
+        </div>
+
+        <!-- 관리자/강사 리뷰 작성 제한 -->
+        <div class="review-locked-box"
+             th:if="${userRole == 'ADMIN' or userRole == 'INSTRUCTOR'}">
+            <p>관리자와 강사는 리뷰를 작성할 수 없습니다.</p>
+        </div>
+
         <!-- 리뷰 목록 -->
         <div class="review-list">
 
@@ -247,17 +291,17 @@
                         </strong>
 
                         <span th:text="${review.createDate != null ? #temporals.format(review.createDate, 'yyyy.MM.dd') : '-'}">
-                2026.05.18
-            </span>
+                            2026.05.18
+                        </span>
                     </div>
                 </div>
 
                 <div class="review-content">
                     <div class="review-stars"
                          th:text="${review.rating == 5 ? '★★★★★' :
-                      review.rating == 4 ? '★★★★☆' :
-                      review.rating == 3 ? '★★★☆☆' :
-                      review.rating == 2 ? '★★☆☆☆' : '★☆☆☆☆'}">
+                                  review.rating == 4 ? '★★★★☆' :
+                                  review.rating == 3 ? '★★★☆☆' :
+                                  review.rating == 2 ? '★★☆☆☆' : '★☆☆☆☆'}">
                         ★★★★★
                     </div>
 
@@ -284,8 +328,11 @@
 
 <script th:src="@{/js/subscribe.js}"></script>
 
-<script src="https://www.youtube.com/iframe_api"></script>
-<script th:src="@{/js/product-progress.js}"></script>
+<!-- 강의 영상 권한이 있을 때만 유튜브 API/진도율 JS 로드 -->
+<th:block th:if="${canWatch}">
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script th:src="@{/js/product-progress.js}"></script>
+</th:block>
 
 </body>
 </html>
