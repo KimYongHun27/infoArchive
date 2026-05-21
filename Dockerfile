@@ -1,5 +1,5 @@
 # 1. 빌드 스테이지
-FROM gradle:8.10-jdk21 AS build
+FROM gradle:7.6-jdk17 AS build
 
 WORKDIR /home/src
 
@@ -10,7 +10,7 @@ RUN ./gradlew clean bootJar -x test --no-daemon
 
 
 # 2. 실행 스테이지
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
