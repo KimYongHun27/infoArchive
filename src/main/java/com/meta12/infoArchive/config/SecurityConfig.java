@@ -35,7 +35,8 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
-                                "/img/**"
+                                "/img/**",
+                                "/uploads/**"
                         ).permitAll()
 
                         .requestMatchers("/account/**").permitAll()
