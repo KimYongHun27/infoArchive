@@ -1,35 +1,57 @@
+@charset "UTF-8";
+
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
   background: #f4f4f4;
   color: #111;
 }
 
-/* 전체 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   전체 레이아웃
+========================= */
+
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  background: #f4f4f4;
+  padding: 46px 0 90px;
 }
 
-/* 메인 */
 .main {
-  display: flex;
-  flex: 1;
+  width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 36px;
+  align-items: flex-start;
 }
 
-/* 왼쪽 사이드바 */
+/* =========================
+   왼쪽 사이드바
+========================= */
+
 .order-details-sidebar {
   width: 230px;
   flex-shrink: 0;
   position: sticky;
   top: 120px;
-  padding: 60px 0px;
-  margin: 0 50px;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar-card {
@@ -37,7 +59,7 @@ body {
   background: #fff;
   border: 1px solid #eee;
   border-radius: 4px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar-title {
@@ -49,7 +71,12 @@ body {
   background: #111;
   color: #fff;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
+}
+
+.sidebar-title span {
+  width: 18px;
+  text-align: center;
 }
 
 .side-menu {
@@ -64,26 +91,28 @@ body {
   height: 52px;
   padding: 0 18px;
   color: #222;
-  text-decoration: none;
   border-bottom: 1px solid #eee;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .side-menu a span {
   width: 18px;
   text-align: center;
-  color: #777;
+  color: #999;
+  font-size: 13px;
 }
 
 .side-menu a:hover {
   background: #fafafa;
+  color: #ff2448;
 }
 
 .side-menu a.active {
   color: #ff2448;
   background: #fff;
   border-left: 3px solid #ff2448;
+  padding-left: 15px;
 }
 
 .side-menu a.active span {
@@ -91,310 +120,436 @@ body {
 }
 
 .customer-box {
-  padding: 18px;
+  padding: 20px 18px 22px;
   background: #fafafa;
 }
 
 .customer-box h3 {
   margin: 0 0 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 900;
 }
 
 .customer-box p {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: #777;
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .customer-box strong {
   display: block;
   color: #111;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
+  letter-spacing: -0.5px;
 }
 
+/* =========================
+   본문
+========================= */
+
 .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-width: 0;
+  display: block;
 }
 
 .banner {
-  display: flex;
-  flex-direction: column;
-  padding: 35px 70px;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.banner h1 {
+  margin: 0 0 26px;
+  color: #111;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
 .p1 {
-  padding-bottom: 50px;
-  color: rgb(134, 134, 134);
-  font-weight: bolder;
+  margin: 0 0 46px;
+  padding: 0;
+  color: #777;
+  font-size: 15px;
+  font-weight: 800;
 }
+
+/* =========================
+   탭 / 검색 영역
+========================= */
 
 .higher-btn {
+  width: 100%;
   display: flex;
-  color: #777;
+  align-items: flex-end;
   justify-content: space-between;
-}
-
-.left {
- display: flex;
- font-size: 17px;
- color: #777;
- font-weight: bolder;
- gap: 50px;
-}
-
-.total {
-  color: rgb(226, 20, 65);
-  text-decoration: none;
-}
-
-.course {
+  gap: 24px;
+  margin-bottom: 0;
   color: #777;
-  text-decoration: none;
 }
 
-.membership {
-  color: #777;
-  text-decoration: none;
+/* higher-btn 바로 아래의 a 3개만 탭 처리 */
+.higher-btn > a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  margin-right: 38px;
+  color: #666;
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.higher-btn > a:hover {
+  color: #ff1744;
+}
+
+.higher-btn > a.active {
+  color: #ff1744;
+}
+
+.higher-btn > a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 100%;
+  height: 3px;
+  background: #ff1744;
+  border-radius: 999px;
 }
 
 .right {
+  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 }
 
 .recently {
-  height: 50px;
-  text-decoration: none;
-  font-weight: bolder;
-  background-color: rgb(255, 255, 255);
-  color: rgb(105, 105, 105);
-  border: 1.5px solid rgb(212, 212, 212);
-  padding: 10px 20px;
-  border-radius: 5px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.recently:hover {
+  border-color: #111;
+  color: #111;
+}
+
+.order-search-section {
+  margin: 0;
 }
 
 .order-search-box {
-  max-width: 720px;
-  height: 50px;
-  margin: 0 auto;
-  padding: 0 8px 0 22px;
+  width: 260px;
+  height: 44px;
+  margin: 0;
+  padding: 0 8px 0 14px;
   background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  margin-right: 10px;
-
+  border: 1px solid #ddd;
+  border-radius: 6px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .order-search-box input {
   flex: 1;
   min-width: 0;
+  height: 100%;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 16px;
   color: #111;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .order-search-box input::placeholder {
-  color: rgb(105, 105, 105);
-  font-weight: bolder;
+  color: #777;
+  font-weight: 800;
 }
 
-.order-button {
-  width: 22px;
-  height: 22px;
+#order-button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
   border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .find {
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   object-fit: contain;
-  border: none;s
+  display: block;
 }
 
-.line{
-  width: 350px;
-  height: 3px;
-  background-color: #b9b9b9;
+.line {
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background: #d9d9d9;
 }
+
+/* =========================
+   주문 카드 영역
+========================= */
 
 .order-card {
-  padding: 10px 70px;
+  padding: 0;
 }
 
 .order-container {
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 40px;
+  width: 100%;
+  margin-bottom: 22px;
+  display: block;
 }
 
 .order-box {
-  display: flex;
-  height: 250px;
-  border-right: 2px solid rgb(212, 212, 212);
+  width: 100%;
+  min-height: 210px;
+  display: grid;
+  grid-template-columns: 430px minmax(0, 1fr) 190px;
+  align-items: stretch;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.035);
 }
 
+/* =========================
+   주문번호 / 날짜 / 이미지
+========================= */
+
 .receipt {
-  width: 300px;
-  background-color: rgb(255, 255, 255);
-  border-right: 2px solid rgb(212, 212, 212);
-  padding: 0px 30px;
+  width: 100%;
+  min-width: 0;
+  padding: 24px 26px;
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  grid-template-rows: auto auto auto;
+  column-gap: 20px;
   align-content: center;
 }
 
-.order-number{
-  color: #525252;
-  font-weight: bold;
+.order-number,
+.order-date {
+  color: #555;
+  font-size: 14px;
+  font-weight: 900;
 }
 
-.order-date{
-  color: #525252;
-  font-weight: bold;
+.order-number {
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 16px;
 }
 
-.order-price{
-  font-size: 20px;
-  font-weight: bold;
+.order-date {
+  grid-column: 1;
+  grid-row: 2;
+  margin-bottom: 16px;
+}
+
+.order-number p,
+.order-date p {
+  margin: 8px 0 0;
+  color: #222;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.order-price {
+  grid-column: 1;
+  grid-row: 3;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
 }
 
 .order-img {
-  width: 250px;
-  height: 250px;
-  background-color: #ffffff;
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  width: 150px;
+  height: 110px;
+  align-self: center;
+  justify-self: end;
+  background: #f1f3f5;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .course-img {
-  width: 220px;
-  height: 220px;
-  margin: 15px;
-  border-radius: 10px;
+  width: 150px;
+  height: 110px;
+  margin: 0;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
 }
+
+.no-order-img {
+  width: 150px;
+  height: 110px;
+  margin: 0;
+  border-radius: 12px;
+  background: #f1f3f5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* =========================
+   상품 정보
+========================= */
 
 .course-content {
-  width: 600px;
-  padding: 40px;
-  background-color: rgb(255, 255, 255);
-  border-right: 2px solid rgb(212, 212, 212);
+  width: 100%;
+  min-width: 0;
+  padding: 34px 36px;
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.category{
-  color: #525252;
-  font-weight: bold;
-  padding-bottom: 20px;
+.category {
+  margin: 0 0 12px;
+  padding: 0;
+  color: #777;
+  font-size: 14px;
+  font-weight: 900;
 }
 
-.course-name{
-  color: #000000;
-  font-weight: bold;
-  font-size: 20px;
-  padding-bottom: 20px;
+.course-name,
+.membership-name {
+  margin: 0 0 12px;
+  padding: 0;
+  color: #111;
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 900;
+  word-break: keep-all;
 }
 
-.instructor{
-  color: #525252;
-  font-weight: bold;
-  padding-bottom: 20px;
+.instructor,
+.subscription {
+  margin: 0 0 18px;
+  padding: 0;
+  color: #666;
+  font-size: 15px;
+  font-weight: 800;
 }
 
-.price{
-  color: #000000;
-  font-weight: bold;
-  font-size: 20px;
+.price {
+  margin: 0;
+  color: #111;
+  font-size: 22px;
+  font-weight: 900;
 }
+
+/* =========================
+   상태 / 버튼
+========================= */
 
 .right-btn {
-  width: 265px;
-  padding: 20px 20px;
-  background-color: rgb(255, 255, 255);
-  align-content: center;
+  width: 100%;
+  padding: 28px 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.payment,
+.use {
+  margin: 0 0 8px;
+  padding: 0;
+  text-align: center;
+  font-weight: 900;
+  font-size: 16px;
 }
 
 .payment {
-  text-align: right;
-  font-weight: bold;
-  font-size: 20px;
-  color: rgb(36, 119, 228);
-  padding-right: 15px;
-  padding-bottom: 10px;
-}
-
-.course-btn {
-  padding: 20px 0px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.course-move {
-  background-color: rgb(255, 0, 34);
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 20px 60px;
-  border-radius: 10px;
-}
-
-.order-btn {
-  margin-top: 10px;
-  padding: 20px 0px;
-  text-align: center;
-}
-
-.order-view {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  border: 2px solid rgb(73, 73, 73);
-  text-decoration: none;
-  padding: 20px 50px;
-  border-radius: 10px;
-}
-
-.membership-name {
-  color: #000000;
-  font-weight: bold;
-  font-size: 20px;
-  padding-bottom: 20px;
-}
-
-.subscription {
-  color: #525252;
-  font-weight: bold;
-  padding-bottom: 20px;
-
+  color: #1976d2;
 }
 
 .use {
-  text-align: right;
-  font-weight: bold;
-  font-size: 20px;
-  color: rgb(0, 145, 24);
-  padding-right: 15px;
-  padding-bottom: 20px;
+  color: #009118;
 }
 
+.course-btn,
+.order-btn,
 .membership-btn {
-  margin-top: 10px;
-  padding: 40px 0px;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
+.course-move,
+.order-view,
 .membership-manage {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  border: 2px solid rgb(73, 73, 73);
+  width: 100%;
+  height: 46px;
+  padding: 0;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  padding: 20px 50px;
-  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.course-move {
+  background: #ff1744;
+  color: #fff;
+  border: 1px solid #ff1744;
+}
+
+.course-move:hover {
+  background: #e90032;
+  border-color: #e90032;
+}
+
+.order-view,
+.membership-manage {
+  background: #fff;
+  color: #111;
+  border: 1px solid #111;
+}
+
+.order-view:hover,
+.membership-manage:hover {
+  background: #111;
+  color: #fff;
 }
 
 /* =========================
@@ -402,47 +557,191 @@ body {
 ========================= */
 
 .empty-orders {
-    width: 100%;
-    padding: 90px 20px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  min-height: 260px;
+  padding: 80px 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
 .empty-orders h2 {
-    margin: 0 0 12px;
-    font-size: 24px;
-    font-weight: 900;
-    color: #111;
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #111;
 }
 
 .empty-orders p {
-    margin: 0 0 28px;
-    color: #777;
-    font-size: 15px;
-    line-height: 1.7;
-    font-weight: 700;
+  margin: 0 0 28px;
+  color: #777;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 700;
 }
 
 .empty-orders-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 140px;
-    height: 44px;
-
-    border-radius: 10px;
-    background: #111;
-    color: #fff;
-
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 44px;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
 }
 
 .empty-orders-btn:hover {
-    background: #222;
+  background: #222;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 1280px) {
+  .main {
+    width: calc(100% - 40px);
+  }
+
+  .order-box {
+    grid-template-columns: 390px minmax(0, 1fr) 180px;
+  }
+
+  .receipt {
+    grid-template-columns: minmax(0, 1fr) 130px;
+  }
+
+  .order-img,
+  .course-img,
+  .no-order-img {
+    width: 130px;
+    height: 96px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .order-details-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .side-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .side-menu a {
+    justify-content: center;
+  }
+
+  .customer-box {
+    display: none;
+  }
+
+  .higher-btn {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .right {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .order-box {
+    grid-template-columns: 1fr;
+  }
+
+  .receipt {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .course-content {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .right-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 30px 0 70px;
+  }
+
+  .main {
+    width: calc(100% - 28px);
+  }
+
+  .banner h1 {
+    font-size: 30px;
+  }
+
+  .p1 {
+    margin-bottom: 30px;
+  }
+
+  .higher-btn {
+    display: block;
+  }
+
+  .higher-btn > a {
+    margin-right: 20px;
+    margin-bottom: 12px;
+  }
+
+  .right {
+    margin-top: 18px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .recently,
+  .order-search-box {
+    width: 100%;
+  }
+
+  .side-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .receipt {
+    display: block;
+    padding: 22px;
+  }
+
+  .order-number,
+  .order-date,
+  .order-price {
+    margin-bottom: 16px;
+  }
+
+  .order-img,
+  .course-img,
+  .no-order-img {
+    width: 100%;
+    height: 190px;
+  }
+
+  .course-content {
+    padding: 24px 22px;
+  }
+
+  .right-btn {
+    padding: 22px;
+  }
 }

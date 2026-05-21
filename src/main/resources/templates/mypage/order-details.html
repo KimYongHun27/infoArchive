@@ -104,19 +104,20 @@
 
                 <div class="higher-btn">
 
-                    <div class="left">
-                        <a th:href="@{/orders}" class="total">
-                            전체(<span th:text="${totalCount}">0</span>)
-                        </a>
+                    <a th:href="@{/orders(type='ALL')}"
+                       th:classappend="${type == 'ALL'} ? 'active'">
+                        전체(<span th:text="${allCount}">0</span>)
+                    </a>
 
-                        <a th:href="@{/orders}" class="course">
-                            강의(<span th:text="${courseCount}">0</span>)
-                        </a>
+                    <a th:href="@{/orders(type='COURSE')}"
+                       th:classappend="${type == 'COURSE'} ? 'active'">
+                        강의(<span th:text="${courseCount}">0</span>)
+                    </a>
 
-                        <a th:href="@{/orders}" class="membership">
-                            멤버십/장바구니(<span th:text="${membershipCount}">0</span>)
-                        </a>
-                    </div>
+                    <a th:href="@{/orders(type='ETC')}"
+                       th:classappend="${type == 'ETC'} ? 'active'">
+                        멤버십/장바구니(<span th:text="${etcCount}">0</span>)
+                    </a>
 
                     <div class="right">
                         <a th:href="@{/orders}" class="recently">최근 주문 순 ∨</a>

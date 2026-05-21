@@ -4,8 +4,13 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
   background: #f4f4f4;
   color: #111;
@@ -31,7 +36,7 @@ a {
   width: 1240px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 230px 1fr;
+  grid-template-columns: 230px minmax(0, 1fr);
   gap: 36px;
   align-items: flex-start;
 }
@@ -41,6 +46,7 @@ a {
 ========================= */
 
 .dash-sidebar {
+  width: 230px;
   background: #fff;
   border-radius: 4px;
   overflow: hidden;
@@ -52,17 +58,19 @@ a {
   padding: 0 20px;
   background: #111;
   color: #fff;
-
   display: flex;
   align-items: center;
   gap: 10px;
-
   font-size: 16px;
   font-weight: 900;
 }
 
 .dash-sidebar-title span {
   font-size: 13px;
+}
+
+.dash-sidebar-title strong {
+  font-weight: 900;
 }
 
 .dash-menu {
@@ -74,15 +82,12 @@ a {
   height: 54px;
   padding: 0 20px;
   border-bottom: 1px solid #eee;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   color: #222;
   font-size: 14px;
   font-weight: 800;
-
   transition: 0.2s;
 }
 
@@ -90,6 +95,7 @@ a {
   width: 16px;
   color: #999;
   font-size: 13px;
+  text-align: center;
 }
 
 .dash-menu a:hover {
@@ -101,6 +107,7 @@ a {
   background: #fff;
   color: #ff3658;
   border-left: 3px solid #ff3658;
+  padding-left: 17px;
 }
 
 .dash-menu a.active span {
@@ -141,7 +148,6 @@ a {
 
 .dash-head {
   margin-bottom: 34px;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -187,16 +193,15 @@ a {
   padding: 38px 52px;
   border-radius: 12px;
   background: #fff;
-
   display: grid;
-  grid-template-columns: 1fr 1px 1.15fr;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(280px, 1.15fr);
   align-items: center;
   gap: 48px;
-
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
 }
 
 .dash-profile-left {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 36px;
@@ -211,10 +216,15 @@ a {
   background: #ddd;
 }
 
+.dash-profile-info {
+  min-width: 0;
+}
+
 .dash-profile-info h2 {
   margin: 0 0 22px;
   font-size: 30px;
   font-weight: 900;
+  word-break: keep-all;
 }
 
 .dash-profile-info p {
@@ -222,6 +232,7 @@ a {
   color: #111;
   font-size: 20px;
   font-weight: 700;
+  word-break: break-all;
 }
 
 .dash-profile-info span {
@@ -274,7 +285,6 @@ a {
 
 .dash-section-head {
   margin-bottom: 20px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -304,17 +314,14 @@ a {
   border-radius: 12px;
   background: #fff;
   border: 1px solid #e7e7e7;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 14px;
-
   color: #777;
   font-size: 15px;
   font-weight: 700;
-
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.03);
 }
 
@@ -338,15 +345,153 @@ a {
 .dash-empty-small {
   min-height: 110px;
   padding: 24px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: #777;
   font-size: 15px;
   font-weight: 700;
   text-align: center;
+}
+
+/* =========================
+   대시보드 - 수강중인 강의
+========================= */
+
+.dash-course-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* 강의 한 줄 */
+.dash-course-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  padding: 26px 18px 34px;
+  border-top: 1px solid #eee;
+  background: transparent;
+}
+
+/* 썸네일 */
+.dash-course-thumb {
+  width: 220px;
+  height: 140px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f1f3f5;
+  display: block;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.dash-course-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 이미지 없을 때 */
+.dash-course-no-img {
+  width: 220px;
+  height: 140px;
+  border-radius: 14px;
+  background: #f1f3f5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* 강의 정보 */
+.dash-course-info {
+  min-width: 0;
+  padding-top: 0;
+}
+
+.dash-course-info h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #000;
+  word-break: keep-all;
+}
+
+.dash-course-info p {
+  margin: 0 0 16px;
+  color: #888;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 진도율 */
+.dash-progress-box {
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+.dash-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+}
+
+.dash-progress-top span {
+  white-space: nowrap;
+}
+
+.dash-progress-top strong {
+  color: #ff1744;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.dash-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #eee;
+  overflow: hidden;
+}
+
+.dash-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #ff1744;
+}
+
+/* 이어서 학습하기 버튼 */
+.dash-course-btn {
+  width: 130px;
+  height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #050505;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.dash-course-btn:hover {
+  background: #222;
 }
 
 /* =========================
@@ -373,7 +518,6 @@ a {
   min-height: 58px;
   padding: 0 22px;
   border-bottom: 1px solid #eee;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -396,6 +540,110 @@ a {
 }
 
 /* =========================
+   작은 리스트 - 찜한 강의 / 주문
+========================= */
+
+.dash-mini-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-mini-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border-top: 1px solid #eee;
+}
+
+.dash-mini-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f3f5;
+  display: block;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.dash-mini-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 작은 리스트 이미지 없을 때 */
+.dash-mini-no-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  background: #f1f3f5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.dash-mini-info {
+  min-width: 0;
+}
+
+.dash-mini-info h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #111;
+}
+
+.dash-mini-info p {
+  margin: 0 0 5px;
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dash-mini-info strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.dash-mini-view {
+  width: 46px;
+  height: 32px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dash-mini-view:hover {
+  background: #222;
+}
+
+.dash-order-status {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: #f4efff;
+  color: #7c4dff;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+/* =========================
    혜택 / 공지
 ========================= */
 
@@ -409,7 +657,6 @@ a {
   margin-bottom: 12px;
   border-radius: 10px;
   background: #f8f8f8;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -431,23 +678,35 @@ a {
 }
 
 .dash-notice-list {
+  margin: 0;
   padding: 18px 22px;
+  list-style: none;
 }
 
-.dash-notice-list div {
+.dash-notice-list li {
   min-height: 42px;
   border-bottom: 1px solid #eee;
-
   display: flex;
   align-items: center;
-
+  justify-content: space-between;
+  gap: 12px;
   color: #555;
   font-size: 14px;
   font-weight: 700;
 }
 
-.dash-notice-list div:last-child {
+.dash-notice-list li:last-child {
   border-bottom: none;
+}
+
+.dash-notice-list small {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff1f4;
+  color: #ff3658;
+  font-size: 11px;
+  font-weight: 900;
 }
 
 /* =========================
@@ -559,245 +818,37 @@ a {
   .dash-menu {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-.dash-course-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+  .dash-course-item {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 22px 0 30px;
+  }
 
-.dash-course-item {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 18px;
-  padding: 18px;
-  border-top: 1px solid #eee;
-  align-items: center;
-}
+  .dash-course-thumb,
+  .dash-course-no-img {
+    width: 100%;
+    height: 190px;
+  }
 
-.dash-course-item img,
-.dash-course-no-img {
-  width: 150px;
-  height: 92px;
-  border-radius: 12px;
-  object-fit: cover;
-  background: #f1f1f1;
-}
+  .dash-course-btn {
+    width: 100%;
+  }
 
-.dash-course-no-img,
-.dash-mini-no-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 12px;
-  font-weight: 900;
-}
+  .dash-mini-item {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
 
-.dash-course-info h3 {
-  margin: 0 0 6px;
-  font-size: 17px;
-  font-weight: 900;
-}
+  .dash-mini-view,
+  .dash-order-status {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
+  }
 
-.dash-course-info p {
-  margin: 0 0 12px;
-  color: #777;
-  font-size: 13px;
-}
-
-.dash-progress-box {
-  margin: 8px 0 12px;
-}
-
-.dash-progress-top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.dash-progress-top strong {
-  color: #ff1744;
-}
-
-.dash-progress-bar {
-  width: 100%;
-  height: 8px;
-  border-radius: 999px;
-  background: #eee;
-  overflow: hidden;
-}
-
-.dash-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: #ff1744;
-}
-
-.dash-mini-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 96px;
-  height: 34px;
-  border-radius: 8px;
-  background: #111;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 900;
-  text-decoration: none;
-}
-
-.dash-mini-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.dash-mini-item {
-  display: grid;
-  grid-template-columns: 74px 1fr auto;
-  gap: 12px;
-  align-items: center;
-  padding: 14px 18px;
-  border-top: 1px solid #eee;
-}
-
-.dash-mini-item img,
-.dash-mini-no-img {
-  width: 74px;
-  height: 54px;
-  border-radius: 10px;
-  object-fit: cover;
-  background: #f1f1f1;
-}
-
-.dash-mini-info h4 {
-  margin: 0 0 5px;
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 1.35;
-}
-
-.dash-mini-info p {
-  margin: 0 0 5px;
-  color: #777;
-  font-size: 12px;
-}
-
-.dash-mini-info strong {
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.dash-mini-view {
-  width: 46px;
-  height: 32px;
-  border-radius: 8px;
-  background: #111;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-.dash-order-status {
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: #f4efff;
-  color: #7c4dff;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.dash-course-thumb {
-  width: 220px;
-  height: 140px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f1f3f5;
-  flex-shrink: 0;
-  display: block;
-  text-decoration: none;
-}
-
-.dash-course-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 기존 dash-course-item 안 img 스타일과 충돌 방지 */
-.dash-course-item > img {
-  display: none;
-}
-
-.dash-course-no-img {
-  width: 100%;
-  height: 100%;
-  background: #f1f3f5;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.dash-course-btn {
-  margin-top: 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 38px;
-  padding: 0 16px;
-  border-radius: 10px;
-  background: #111;
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.dash-mini-thumb {
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #f1f3f5;
-  flex-shrink: 0;
-  display: block;
-  text-decoration: none;
-}
-
-.dash-mini-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 기존 dash-mini-item 안 img 스타일과 충돌 방지 */
-.dash-mini-item > img {
-  display: none;
-}
-
-.dash-mini-no-img {
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
-  background: #f1f3f5;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 900;
-  text-align: center;
+  .dash-mini-thumb,
+  .dash-mini-no-img {
+    width: 64px;
+    height: 64px;
+  }
 }

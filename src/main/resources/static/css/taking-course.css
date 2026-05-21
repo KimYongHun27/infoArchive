@@ -648,3 +648,118 @@ body {
     align-items: flex-start;
   }
 }
+
+/* 수강중인 강의 레이아웃 강제 수정 */
+.course-container {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: 170px minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 28px !important;
+  row-gap: 0 !important;
+  align-items: start !important;
+
+  padding: 28px 18px 36px !important;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+/* 이미지 영역 */
+.course-box {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+
+  width: 170px !important;
+  height: 130px !important;
+}
+
+.course-img {
+  width: 170px !important;
+  height: 130px !important;
+  object-fit: cover !important;
+  border-radius: 12px !important;
+  display: block !important;
+}
+
+/* 강의 제목/강사명/진도율 영역 */
+.course-content {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border-right: none !important;
+}
+
+.course-name {
+  margin: 0 0 6px !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  line-height: 1.35 !important;
+  color: #000 !important;
+}
+
+.instructor {
+  margin: 0 0 14px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #999 !important;
+}
+
+.percent {
+  margin: 0 0 8px !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: #111 !important;
+}
+
+/* 진도율 바 */
+.progress {
+  width: 100% !important;
+  height: 8px !important;
+  background: #eeeeee !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+
+/* 버튼 영역 */
+.course-move {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+
+  width: 100% !important;
+  padding: 14px 0 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  text-align: left !important;
+}
+
+/* 버튼 */
+.learn {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.learn-btn {
+  width: 130px !important;
+  height: 42px !important;
+  padding: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 8px !important;
+  background: #050505 !important;
+  color: #fff !important;
+
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}

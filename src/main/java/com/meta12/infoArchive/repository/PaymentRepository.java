@@ -10,16 +10,16 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    // 로그인한 유저의 주문내역 최신순
     List<Payment> findByUserOrderByOrderDateDesc(User user);
 
-    // 전체 주문 개수
+    List<Payment> findByUserAndProductIsNotNullOrderByOrderDateDesc(User user);
+
+    List<Payment> findByUserAndProductIsNullOrderByOrderDateDesc(User user);
+
     long countByUser(User user);
 
-    // 강의 주문 개수: product_id가 있는 결제
     long countByUserAndProductIsNotNull(User user);
 
-    // product_id가 없는 결제: 멤버십 또는 장바구니 묶음 결제
     long countByUserAndProductIsNull(User user);
 
     List<Payment> findTop5ByUserOrderByOrderDateDesc(User user);
