@@ -648,3 +648,29 @@ main.instructor-layout {
     border-radius: 10px;
     border: 1px solid #ddd;
 }
+
+.course-action-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete-course-form {
+    display: inline-block;
+    margin: 0;
+}
+
+.danger-btn {
+    border: none;
+    background: #ff1744;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.danger-btn:hover {
+    background: #d9002f;
+}

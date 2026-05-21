@@ -347,3 +347,84 @@ main {
   display: block;
   border-radius: 8px;
 }
+
+.course-card {
+  position: relative;
+}
+
+.course-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.course-card-link:hover,
+.course-card-link:visited,
+.course-card-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.course-card .thumb {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f1f3f5;
+}
+
+.course-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 기존 heart 위치 유지 */
+.main-like-form {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  margin: 0;
+}
+
+.main-like-form .heart {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #ff1744;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.main-like-form .heart.active {
+  background: #ff1744;
+  color: #fff;
+}
+
+.main-thumb-empty {
+  width: 100%;
+  height: 100%;
+  background: #f1f3f5;
+  color: #999;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.main-empty-course {
+  grid-column: 1 / -1;
+  padding: 70px 20px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  color: #777;
+  font-weight: 800;
+}

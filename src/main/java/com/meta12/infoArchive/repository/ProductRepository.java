@@ -12,42 +12,41 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    // 상품명 검색
     Page<Product> findByProductNameContaining(String kw, Pageable pageable);
 
-    // 상태별 조회 - List용
     List<Product> findByStatus(ProductStatus status);
 
-    // 상태별 조회 - Page용
     Page<Product> findByStatus(ProductStatus status, Pageable pageable);
 
-    // TOP10용
     List<Product> findTop10ByStatusOrderByCreatedAtDesc(ProductStatus status);
 
-    // 사용자 화면: 승인된 상품만 검색
     Page<Product> findByProductNameContainingAndStatus(
             String kw,
             ProductStatus status,
             Pageable pageable
     );
 
-    // 카테고리 + 승인 상태 조회
     List<Product> findByCategoryAndStatus(String category, ProductStatus status);
 
-    // 카테고리 + 승인 상태 + 정렬 조회
     List<Product> findByCategoryAndStatusOrderByIdAsc(String category, ProductStatus status);
 
-    // 강의 타입별 조회
     List<Product> findByProductType(ProductType productType);
 
-    // 강사명 기준 조회
     List<Product> findByInstructorName(String instructorName);
 
-    // 강사 + 타입 기준 조회
     List<Product> findByInstructorNameAndProductType(
             String instructorName,
             ProductType productType
     );
+
+    // 강사센터: 본인 강의 중 삭제되지 않은 강의만 조회
+    List<Product> findByInstructorNameAndStatusNotOrderByCreatedAtDesc(
+            String instructorName,
+            ProductStatus status
+    );
+
+    // 관리자용: 삭제되지 않은 전체 강의 조회
+    List<Product> findByStatusNotOrderByCreatedAtDesc(ProductStatus status);
 
     Page<Product> findAll(Specification<Product> spec, Pageable pageable);
 }

@@ -101,92 +101,72 @@
     <div class="section-title-row">
       <h2>오늘의 TOP 10</h2>
       <div class="arrow-box">
-        <button>‹</button>
-        <button>›</button>
+        <button type="button">‹</button>
+        <button type="button">›</button>
       </div>
     </div>
 
     <div class="course-grid">
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course01.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">06.30 오픈</span>
-          <span>디자인</span>
-        </div>
-        <h3>혁신을 디자인하는 ‘디자인 씽킹’</h3>
-        <p>TED강사 김선생</p>
+
+      <div th:if="${products == null or #lists.isEmpty(products)}"
+           class="main-empty-course">
+        등록된 강의가 없습니다.
       </div>
 
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course02.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">수강가능</span>
-          <span>미용</span>
-        </div>
-        <h3>얼굴으로 끝내는 메이크업 완전정복</h3>
-        <p>지니뷰티아카데미</p>
+      <div class="course-card"
+           th:each="product : ${products}">
+
+        <a th:href="@{/product/{id}(id=${product.id})}"
+           class="course-card-link">
+
+          <div class="thumb">
+
+            <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
+                 th:src="${product.thumbnailUrl}"
+                 th:alt="${product.productName}"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+            <div class="main-thumb-empty"
+                 th:style="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()} ? 'display:none;' : 'display:flex;'">
+              IMAGE
+            </div>
+
+          </div>
+
+          <div class="tags">
+            <span class="red">수강가능</span>
+            <span th:text="${product.category != null ? product.category : '강의'}">강의</span>
+          </div>
+
+          <h3 th:text="${product.productName}">강의명</h3>
+
+          <p th:text="${product.instructorName != null ? product.instructorName : '강사명'}">
+            강사명
+          </p>
+
+        </a>
+
+        <form th:action="@{/wishlist/toggle/{id}(id=${product.id})}"
+              method="post"
+              class="main-like-form">
+
+          <button type="submit"
+                  class="heart"
+                  th:classappend="${likedProductIds != null and likedProductIds.contains(product.id)} ? ' active'">
+
+          <span th:text="${likedProductIds != null and likedProductIds.contains(product.id)} ? '♥' : '♡'">
+            ♡
+          </span>
+
+          </button>
+
+        </form>
+
       </div>
 
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course03.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">수강가능</span>
-          <span>드로잉</span>
-        </div>
-        <h3>엣지에서 태어나는 삽화소설 AtoZ</h3>
-        <p>일러스트레이터 예성</p>
-      </div>
-
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course04.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">06.30 오픈</span>
-          <span>AI</span>
-        </div>
-        <h3>제조업 혁신의 핵심 동력 ‘AI’</h3>
-        <p>민지아I 최선생</p>
-      </div>
-
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course05.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">수강가능</span>
-          <span>3D</span>
-        </div>
-        <h3>쉽게 익히는 블렌더 3D 기초 트레이닝</h3>
-        <p>3D디자이너 루미</p>
-      </div>
-
-      <div class="course-card">
-        <div class="thumb">
-          <img th:src="@{/img/main/course06.png}">
-          <button class="heart">♡</button>
-        </div>
-        <div class="tags">
-          <span class="red">수강가능</span>
-          <span>클래식</span>
-        </div>
-        <h3>11만이 사랑하는 집에서 배우는 클래식</h3>
-        <p>린다쌤</p>
-      </div>
     </div>
 
-    <a href="/top10" class="more-link">자세히보기 →</a>
+    <a th:href="@{/top10}" class="more-link">자세히보기 →</a>
   </section>
 
   <!-- 후기 -->

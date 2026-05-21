@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,38 @@ public class InstructorCourseService {
 
     private final ProductRepository productRepository;
 
+    // 내 강의 목록
+    public List<Product> getMyCourses(Authentication authentication) {
+
+        String instructorName = authentication.getName();
+
+        return productRepository.findByInstructorNameAndStatusNotOrderByCreatedAtDesc(
+                instructorName,
+                ProductStatus.DELETED
+        );
+    }
+
+    // 내 강의 단건 조회
+    public Product getMyCourse(Authentication authentication, Long id) {
+
+        String instructorName = authentication.getName();
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 강의가 없습니다. id=" + id));
+
+        if (product.getStatus() == ProductStatus.DELETED) {
+            throw new IllegalArgumentException("삭제된 강의입니다.");
+        }
+
+        if (product.getInstructorName() == null
+                || !product.getInstructorName().equals(instructorName)) {
+            throw new IllegalArgumentException("본인이 등록한 강의만 접근할 수 있습니다.");
+        }
+
+        return product;
+    }
+
+    // 강의 등록
     @Transactional
     public void createCourse(
             Authentication authentication,
@@ -48,14 +81,15 @@ public class InstructorCourseService {
         productRepository.save(product);
     }
 
+    // 강의 수정
     @Transactional
     public void updateCourse(
+            Authentication authentication,
             Long id,
             InstructorCourseCreateDto dto,
             MultipartFile thumbnailFile
     ) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 강의가 없습니다. id=" + id));
+        Product product = getMyCourse(authentication, id);
 
         product.setProductName(dto.getTitle());
         product.setCategory(dto.getCategory());
@@ -75,6 +109,19 @@ public class InstructorCourseService {
             product.setRejectReason(null);
             product.setReviewedAt(null);
         }
+
+        productRepository.save(product);
+    }
+
+    // 강의 삭제 - 실제 삭제 X, 상태만 DELETED
+    @Transactional
+    public void deleteCourse(Authentication authentication, Long id) {
+
+        Product product = getMyCourse(authentication, id);
+
+        product.setStatus(ProductStatus.DELETED);
+        product.setRejectReason(null);
+        product.setReviewedAt(null);
 
         productRepository.save(product);
     }

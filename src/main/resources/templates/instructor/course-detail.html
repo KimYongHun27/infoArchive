@@ -73,14 +73,25 @@
                 강의 수정이 완료되었습니다.
             </div>
 
-            <div class="panel">
-                <div class="panel-head">
-                    <h2>강의 상세 정보</h2>
+            <div class="panel-head">
+                <h2>강의 상세 정보</h2>
 
+                <div class="course-action-box">
                     <a th:href="@{/instructor/courses/{id}/edit(id=${course.id})}" class="primary-btn">
                         수정하기
                     </a>
+
+                    <form th:action="@{/instructor/courses/{id}/delete(id=${course.id})}"
+                          method="post"
+                          class="delete-course-form"
+                          onsubmit="return confirm('정말 이 강의를 삭제하시겠습니까? 삭제 후 사용자 화면에 노출되지 않습니다.');">
+
+                        <button type="submit" class="danger-btn">
+                            삭제하기
+                        </button>
+                    </form>
                 </div>
+            </div>
 
                 <table class="table">
                     <tbody>

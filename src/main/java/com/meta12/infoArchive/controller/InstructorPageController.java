@@ -4,7 +4,6 @@ import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
 import com.meta12.infoArchive.dto.PasswordChangeDto;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.ProductStatus;
-import com.meta12.infoArchive.repository.ProductRepository;
 import com.meta12.infoArchive.service.InstructorCourseService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,6 @@ import java.util.List;
 public class InstructorPageController {
 
     private final UserService userService;
-    private final ProductRepository productRepository;
     private final InstructorCourseService instructorCourseService;
 
     @GetMapping("/instructor")
@@ -38,9 +36,11 @@ public class InstructorPageController {
     }
 
     @GetMapping("/instructor/courses")
-    public String instructorCourses(Model model) {
-
-        List<Product> courses = productRepository.findAll();
+    public String instructorCourses(
+            Authentication authentication,
+            Model model
+    ) {
+        List<Product> courses = instructorCourseService.getMyCourses(authentication);
 
         model.addAttribute("courses", courses);
         model.addAttribute("totalCount", courses.size());
@@ -109,11 +109,11 @@ public class InstructorPageController {
 
     @GetMapping("/instructor/courses/{id}")
     public String instructorCourseDetail(
+            Authentication authentication,
             @PathVariable Long id,
             Model model
     ) {
-        Product course = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 강의가 없습니다. id=" + id));
+        Product course = instructorCourseService.getMyCourse(authentication, id);
 
         model.addAttribute("course", course);
 
@@ -122,11 +122,11 @@ public class InstructorPageController {
 
     @GetMapping("/instructor/courses/{id}/edit")
     public String instructorCourseEdit(
+            Authentication authentication,
             @PathVariable Long id,
             Model model
     ) {
-        Product course = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 강의가 없습니다. id=" + id));
+        Product course = instructorCourseService.getMyCourse(authentication, id);
 
         model.addAttribute("course", course);
 
@@ -135,12 +135,23 @@ public class InstructorPageController {
 
     @PostMapping("/instructor/courses/{id}/edit")
     public String instructorCourseUpdate(
+            Authentication authentication,
             @PathVariable Long id,
             InstructorCourseCreateDto dto,
             @RequestParam(value = "thumbnailFile", required = false) MultipartFile thumbnailFile
     ) {
-        instructorCourseService.updateCourse(id, dto, thumbnailFile);
+        instructorCourseService.updateCourse(authentication, id, dto, thumbnailFile);
 
         return "redirect:/instructor/courses/" + id + "?updateSuccess=true";
+    }
+
+    @PostMapping("/instructor/courses/{id}/delete")
+    public String instructorCourseDelete(
+            Authentication authentication,
+            @PathVariable Long id
+    ) {
+        instructorCourseService.deleteCourse(authentication, id);
+
+        return "redirect:/instructor/courses?deleteSuccess=true";
     }
 }
