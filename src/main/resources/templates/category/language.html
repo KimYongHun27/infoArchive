@@ -124,7 +124,8 @@
           <span class="rank-num red">1</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test1.jpg}" alt="처음 시작하는 영어 회화">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1001L] != null and !thumbnailMap[1001L].isEmpty()} ? @{${thumbnailMap[1001L]}} : @{/img/test/test1.jpg}"
+                 alt="처음 시작하는 영어 회화">
           </div>
 
           <div class="card-info">
@@ -160,7 +161,8 @@
           <span class="rank-num red">2</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test2.jpg}" alt="히라가나부터 시작하는 일본어">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1002L] != null and !thumbnailMap[1002L].isEmpty()} ? @{${thumbnailMap[1002L]}} : @{/img/test/test2.jpg}"
+                 alt="히라가나부터 시작하는 일본어">
           </div>
 
           <div class="card-info">
@@ -196,7 +198,8 @@
           <span class="rank-num red">3</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test3.jpg}" alt="왕초보 중국어 회화">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1003L] != null and !thumbnailMap[1003L].isEmpty()} ? @{${thumbnailMap[1003L]}} : @{/img/test/test3.jpg}"
+                 alt="왕초보 중국어 회화">
           </div>
 
           <div class="card-info">
@@ -232,7 +235,8 @@
           <span class="rank-num">4</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test4.jpg}" alt="여행 스페인어 입문">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1004L] != null and !thumbnailMap[1004L].isEmpty()} ? @{${thumbnailMap[1004L]}} : @{/img/test/test4.jpg}"
+                 alt="여행 스페인어 입문">
           </div>
 
           <div class="card-info">
@@ -268,7 +272,8 @@
           <span class="rank-num">5</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test5.jpg}" alt="감성 프랑스어 기초">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1005L] != null and !thumbnailMap[1005L].isEmpty()} ? @{${thumbnailMap[1005L]}} : @{/img/test/test5.jpg}"
+                 alt="감성 프랑스어 기초">
           </div>
 
           <div class="card-info">
@@ -304,7 +309,8 @@
           <span class="rank-num">6</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test6.jpg}" alt="실무 비즈니스 영어">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1006L] != null and !thumbnailMap[1006L].isEmpty()} ? @{${thumbnailMap[1006L]}} : @{/img/test/test6.jpg}"
+                 alt="실무 비즈니스 영어">
           </div>
 
           <div class="card-info">
@@ -340,7 +346,8 @@
           <span class="rank-num">7</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test7.jpg}" alt="일본 여행 회화 실전">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1007L] != null and !thumbnailMap[1007L].isEmpty()} ? @{${thumbnailMap[1007L]}} : @{/img/test/test7.jpg}"
+                 alt="일본 여행 회화 실전">
           </div>
 
           <div class="card-info">
@@ -376,7 +383,8 @@
           <span class="rank-num">8</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test8.jpg}" alt="중국어 성조와 발음 완성">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1008L] != null and !thumbnailMap[1008L].isEmpty()} ? @{${thumbnailMap[1008L]}} : @{/img/test/test8.jpg}"
+                 alt="중국어 성조와 발음 완성">
           </div>
 
           <div class="card-info">
@@ -412,7 +420,8 @@
           <span class="rank-num">9</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test9.jpg}" alt="영어 면접 표현 완성">
+            <img th:src="${thumbnailMap != null and thumbnailMap[1009L] != null and !thumbnailMap[1009L].isEmpty()} ? @{${thumbnailMap[1009L]}} : @{/img/test/test9.jpg}"
+                 alt="영어 면접 표현 완성">
           </div>
 
           <div class="card-info">
@@ -439,55 +448,4 @@
                   th:classappend="${likedProductIds != null and likedProductIds.contains(1009L)} ? ' active'">
             <span th:text="${likedProductIds != null and likedProductIds.contains(1009L)} ? '♥' : '♡'">♡</span>
           </button>
-        </form>
-      </div>
-
-      <!-- 1010 -->
-      <div class="drawing-card-wrap">
-        <a th:href="@{/product/1010}" class="drawing-card">
-          <span class="rank-num">10</span>
-
-          <div class="thumb">
-            <img th:src="@{/img/test/test10.jpg}" alt="기초 독일어 회화">
-          </div>
-
-          <div class="card-info">
-            <span class="tag">독일어</span>
-            <h3>기초 독일어 회화</h3>
-            <p class="teacher">독일어강사 최도현</p>
-
-            <div class="meta">
-              <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(218)</small>
-              </div>
-              <span class="student-count">수강생 5,672명</span>
-            </div>
-
-            <strong class="price">54,000원</strong>
-          </div>
-        </a>
-
-        <form th:action="@{/wishlist/toggle/1010}" method="post" class="like-form">
-          <button type="submit"
-                  class="like-btn"
-                  th:classappend="${likedProductIds != null and likedProductIds.contains(1010L)} ? ' active'">
-            <span th:text="${likedProductIds != null and likedProductIds.contains(1010L)} ? '♥' : '♡'">♡</span>
-          </button>
-        </form>
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-<div th:replace="~{fragments/footer :: footer}"></div>
-<div th:replace="~{fragments/subscribe :: subscribe}"></div>
-
-<script th:src="@{/js/category.js}"></script>
-
-</body>
-</html>
+        </

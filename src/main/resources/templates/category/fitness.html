@@ -124,7 +124,8 @@
           <span class="rank-num red">1</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test1.jpg}" alt="집에서 시작하는 홈트레이닝">
+            <img th:src="${thumbnailMap != null and thumbnailMap[601L] != null and !thumbnailMap[601L].isEmpty()} ? @{${thumbnailMap[601L]}} : @{/img/test/test1.jpg}"
+                 alt="집에서 시작하는 홈트레이닝">
           </div>
 
           <div class="card-info">
@@ -160,24 +161,25 @@
           <span class="rank-num red">2</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test2.jpg}" alt="체지방 감량 운동 루틴">
+            <img th:src="${thumbnailMap != null and thumbnailMap[602L] != null and !thumbnailMap[602L].isEmpty()} ? @{${thumbnailMap[602L]}} : @{/img/test/test2.jpg}"
+                 alt="초보자를 위한 근력 운동">
           </div>
 
           <div class="card-info">
-            <span class="tag">다이어트</span>
-            <h3>체지방 감량 운동 루틴</h3>
-            <p class="teacher">피트니스 코치 이서윤</p>
+            <span class="tag">근력</span>
+            <h3>초보자를 위한 근력 운동</h3>
+            <p class="teacher">피트니스 코치 이준호</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
                 <span>4.8</span>
-                <small>(132)</small>
+                <small>(184)</small>
               </div>
-              <span class="student-count">수강생 4,312명</span>
+              <span class="student-count">수강생 5,402명</span>
             </div>
 
-            <strong class="price">55,000원</strong>
+            <strong class="price">59,000원</strong>
           </div>
         </a>
 
@@ -196,21 +198,22 @@
           <span class="rank-num red">3</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test3.jpg}" alt="초보자를 위한 근력 운동">
+            <img th:src="${thumbnailMap != null and thumbnailMap[603L] != null and !thumbnailMap[603L].isEmpty()} ? @{${thumbnailMap[603L]}} : @{/img/test/test3.jpg}"
+                 alt="필라테스 기초 클래스">
           </div>
 
           <div class="card-info">
-            <span class="tag">근력</span>
-            <h3>초보자를 위한 근력 운동</h3>
-            <p class="teacher">헬스 트레이너 박민재</p>
+            <span class="tag">필라테스</span>
+            <h3>필라테스 기초 클래스</h3>
+            <p class="teacher">필라테스 강사 박서윤</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.9</span>
-                <small>(92)</small>
+                <span>4.8</span>
+                <small>(166)</small>
               </div>
-              <span class="student-count">수강생 3,812명</span>
+              <span class="student-count">수강생 4,881명</span>
             </div>
 
             <strong class="price">69,000원</strong>
@@ -229,27 +232,28 @@
       <!-- 604 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/604}" class="drawing-card">
-          <span class="rank-num">4</span>
+          <span class="rank-num gray">4</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test4.jpg}" alt="바른 자세 필라테스 기초">
+            <img th:src="${thumbnailMap != null and thumbnailMap[604L] != null and !thumbnailMap[604L].isEmpty()} ? @{${thumbnailMap[604L]}} : @{/img/test/test4.jpg}"
+                 alt="매일 10분 스트레칭">
           </div>
 
           <div class="card-info">
-            <span class="tag">필라테스</span>
-            <h3>바른 자세 필라테스 기초</h3>
-            <p class="teacher">필라테스 강사 최유진</p>
+            <span class="tag">스트레칭</span>
+            <h3>매일 10분 스트레칭</h3>
+            <p class="teacher">트레이너 정하늘</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(176)</small>
+                <span>4.7</span>
+                <small>(142)</small>
               </div>
-              <span class="student-count">수강생 5,341명</span>
+              <span class="student-count">수강생 3,902명</span>
             </div>
 
-            <strong class="price">59,000원</strong>
+            <strong class="price">39,000원</strong>
           </div>
         </a>
 
@@ -265,27 +269,28 @@
       <!-- 605 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/605}" class="drawing-card">
-          <span class="rank-num">5</span>
+          <span class="rank-num gray">5</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test5.jpg}" alt="하루 20분 요가 스트레칭">
+            <img th:src="${thumbnailMap != null and thumbnailMap[605L] != null and !thumbnailMap[605L].isEmpty()} ? @{${thumbnailMap[605L]}} : @{/img/test/test5.jpg}"
+                 alt="다이어트 홈트 루틴">
           </div>
 
           <div class="card-info">
-            <span class="tag">요가</span>
-            <h3>하루 20분 요가 스트레칭</h3>
-            <p class="teacher">요가 강사 한지우</p>
+            <span class="tag">다이어트</span>
+            <h3>다이어트 홈트 루틴</h3>
+            <p class="teacher">헬스 코치 윤지</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(143)</small>
+                <span>4.7</span>
+                <small>(131)</small>
               </div>
-              <span class="student-count">수강생 4,085명</span>
+              <span class="student-count">수강생 3,420명</span>
             </div>
 
-            <strong class="price">45,000원</strong>
+            <strong class="price">55,000원</strong>
           </div>
         </a>
 
@@ -301,27 +306,28 @@
       <!-- 606 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/606}" class="drawing-card">
-          <span class="rank-num">6</span>
+          <span class="rank-num gray">6</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test6.jpg}" alt="기구 없이 하는 맨몸 운동">
+            <img th:src="${thumbnailMap != null and thumbnailMap[606L] != null and !thumbnailMap[606L].isEmpty()} ? @{${thumbnailMap[606L]}} : @{/img/test/test6.jpg}"
+                 alt="요가 입문 클래스">
           </div>
 
           <div class="card-info">
-            <span class="tag">맨몸운동</span>
-            <h3>기구 없이 하는 맨몸 운동</h3>
-            <p class="teacher">운동 코치 오세준</p>
+            <span class="tag">요가</span>
+            <h3>요가 입문 클래스</h3>
+            <p class="teacher">요가 강사 강도현</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.7</span>
-                <small>(88)</small>
+                <span>4.6</span>
+                <small>(119)</small>
               </div>
-              <span class="student-count">수강생 2,921명</span>
+              <span class="student-count">수강생 2,980명</span>
             </div>
 
-            <strong class="price">39,000원</strong>
+            <strong class="price">62,000원</strong>
           </div>
         </a>
 
@@ -337,27 +343,28 @@
       <!-- 607 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/607}" class="drawing-card">
-          <span class="rank-num">7</span>
+          <span class="rank-num gray">7</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test7.jpg}" alt="거북목·라운드숄더 교정 운동">
+            <img th:src="${thumbnailMap != null and thumbnailMap[607L] != null and !thumbnailMap[607L].isEmpty()} ? @{${thumbnailMap[607L]}} : @{/img/test/test7.jpg}"
+                 alt="체형교정 운동 클래스">
           </div>
 
           <div class="card-info">
             <span class="tag">체형교정</span>
-            <h3>거북목·라운드숄더 교정 운동</h3>
-            <p class="teacher">재활 트레이너 윤다은</p>
+            <h3>체형교정 운동 클래스</h3>
+            <p class="teacher">운동처방사 한재민</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(112)</small>
+                <span>4.6</span>
+                <small>(101)</small>
               </div>
-              <span class="student-count">수강생 3,201명</span>
+              <span class="student-count">수강생 2,741명</span>
             </div>
 
-            <strong class="price">52,000원</strong>
+            <strong class="price">75,000원</strong>
           </div>
         </a>
 
@@ -373,27 +380,28 @@
       <!-- 608 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/608}" class="drawing-card">
-          <span class="rank-num">8</span>
+          <span class="rank-num gray">8</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test8.jpg}" alt="복부와 코어 강화 루틴">
+            <img th:src="${thumbnailMap != null and thumbnailMap[608L] != null and !thumbnailMap[608L].isEmpty()} ? @{${thumbnailMap[608L]}} : @{/img/test/test8.jpg}"
+                 alt="러닝 기초 트레이닝">
           </div>
 
           <div class="card-info">
-            <span class="tag">코어</span>
-            <h3>복부와 코어 강화 루틴</h3>
-            <p class="teacher">피트니스 강사 강소라</p>
+            <span class="tag">러닝</span>
+            <h3>러닝 기초 트레이닝</h3>
+            <p class="teacher">러닝 코치 이서연</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.9</span>
-                <small>(164)</small>
+                <span>4.5</span>
+                <small>(94)</small>
               </div>
-              <span class="student-count">수강생 3,654명</span>
+              <span class="student-count">수강생 2,310명</span>
             </div>
 
-            <strong class="price">48,000원</strong>
+            <strong class="price">42,000원</strong>
           </div>
         </a>
 
@@ -409,27 +417,28 @@
       <!-- 609 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/609}" class="drawing-card">
-          <span class="rank-num">9</span>
+          <span class="rank-num gray">9</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test9.jpg}" alt="초보자를 위한 러닝 입문">
+            <img th:src="${thumbnailMap != null and thumbnailMap[609L] != null and !thumbnailMap[609L].isEmpty()} ? @{${thumbnailMap[609L]}} : @{/img/test/test9.jpg}"
+                 alt="상체 근력 집중 클래스">
           </div>
 
           <div class="card-info">
-            <span class="tag">러닝</span>
-            <h3>초보자를 위한 러닝 입문</h3>
-            <p class="teacher">러닝 코치 문예린</p>
+            <span class="tag">상체운동</span>
+            <h3>상체 근력 집중 클래스</h3>
+            <p class="teacher">피트니스 코치 최유진</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.7</span>
-                <small>(97)</small>
+                <span>4.5</span>
+                <small>(88)</small>
               </div>
-              <span class="student-count">수강생 2,314명</span>
+              <span class="student-count">수강생 2,104명</span>
             </div>
 
-            <strong class="price">35,000원</strong>
+            <strong class="price">53,000원</strong>
           </div>
         </a>
 
@@ -445,27 +454,28 @@
       <!-- 610 -->
       <div class="drawing-card-wrap">
         <a th:href="@{/product/610}" class="drawing-card">
-          <span class="rank-num">10</span>
+          <span class="rank-num gray">10</span>
 
           <div class="thumb">
-            <img th:src="@{/img/test/test10.jpg}" alt="나에게 맞는 운동 루틴 설계">
+            <img th:src="${thumbnailMap != null and thumbnailMap[610L] != null and !thumbnailMap[610L].isEmpty()} ? @{${thumbnailMap[610L]}} : @{/img/test/test10.jpg}"
+                 alt="하체 운동 완전정복">
           </div>
 
           <div class="card-info">
-            <span class="tag">루틴설계</span>
-            <h3>나에게 맞는 운동 루틴 설계</h3>
-            <p class="teacher">퍼스널 트레이너 최도현</p>
+            <span class="tag">하체운동</span>
+            <h3>하체 운동 완전정복</h3>
+            <p class="teacher">트레이너 나윤</p>
 
             <div class="meta">
               <div class="rating">
                 <i class="fa-solid fa-star"></i>
-                <span>4.8</span>
-                <small>(218)</small>
+                <span>4.4</span>
+                <small>(74)</small>
               </div>
-              <span class="student-count">수강생 5,672명</span>
+              <span class="student-count">수강생 1,930명</span>
             </div>
 
-            <strong class="price">65,000원</strong>
+            <strong class="price">57,000원</strong>
           </div>
         </a>
 
@@ -487,7 +497,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <div th:replace="~{fragments/subscribe :: subscribe}"></div>
 
-<script th:src="@{/js/category.js}"></script>
+<script th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>
