@@ -92,6 +92,13 @@
         <p>관리자센터</p>
       </a>
 
+      <!-- 특별계정 -->
+      <a sec:authorize="hasRole('SPECIAL')"
+         th:href="@{/special}">
+        <span><img th:src="@{/img/admin/admin.png}" width="40" alt=""></span>
+        <p>특별관리</p>
+      </a>
+
       <!-- 로그인한 사람 전체 -->
       <a th:href="@{/logout}">
         <span><img th:src="@{/img/header/logout.png}" width="40" alt=""></span>
@@ -168,7 +175,13 @@
       </div>
 
       <a th:href="@{/top10}">TOP 10</a>
-      <a th:href="@{/membership}">멤버십</a>
+
+      <!-- 비로그인 + 일반회원만 멤버십 표시 -->
+      <a sec:authorize="isAnonymous() or hasRole('USER')"
+         th:href="@{/membership}">
+        멤버십
+      </a>
+
       <a th:href="@{/community}">커뮤니티</a>
       <a th:href="@{/faq}">FAQ</a>
 

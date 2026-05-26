@@ -33,7 +33,6 @@ public class SecurityConfig {
                                 "/login",
                                 "/signup",
                                 "/top10",
-                                "/membership",
                                 "/faq",
                                 "/category/**",
                                 "/product/**",
@@ -44,6 +43,8 @@ public class SecurityConfig {
                                 "/img/**",
                                 "/uploads/**"
                         ).permitAll()
+
+                        .requestMatchers("/membership", "/membership/**").hasRole("USER")
 
                         // 보안관리자 전용
                         .requestMatchers("/special/**").hasRole("SPECIAL")

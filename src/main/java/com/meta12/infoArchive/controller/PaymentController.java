@@ -4,7 +4,9 @@ import com.meta12.infoArchive.dto.PaymentConfirmRequestDto;
 import com.meta12.infoArchive.entity.Cart;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.UserCoupon;
 import com.meta12.infoArchive.repository.CartRepository;
+import com.meta12.infoArchive.service.CouponService;
 import com.meta12.infoArchive.service.EnrollmentService;
 import com.meta12.infoArchive.service.PaymentService;
 import com.meta12.infoArchive.service.ProductService;
@@ -16,8 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.meta12.infoArchive.service.CouponService;
-import com.meta12.infoArchive.entity.UserCoupon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,19 +35,36 @@ public class PaymentController {
     private final CartRepository cartRepository;
     private final EnrollmentService enrollmentService;
 
-
     // 멤버십 페이지
     @GetMapping("/membership")
     public String membershipPage(Authentication authentication, Model model) {
 
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
-
+        // 비로그인 사용자는 멤버십 안내 페이지 볼 수 있음
+        if (isAnonymous(authentication)) {
             model.addAttribute("login", false);
             model.addAttribute("membershipActive", false);
 
             return "membership";
+        }
+
+        // 관리자는 멤버십 페이지 접근 금지
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        // 강사는 멤버십 페이지 접근 금지
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        // 특별계정도 멤버십 페이지 접근 금지
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        // 일반회원만 멤버십 페이지 이용 가능
+        if (!hasRole(authentication, "ROLE_USER")) {
+            return "redirect:/main";
         }
 
         User user = userService.getLoginUser(authentication);
@@ -67,10 +84,25 @@ public class PaymentController {
             Authentication authentication,
             Model model
     ) {
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
+        if (isAnonymous(authentication)) {
             return "redirect:/login";
+        }
+
+        // 관리자 / 강사 / 특별계정은 결제 페이지 접근 차단
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        if (!hasRole(authentication, "ROLE_USER")) {
+            return "redirect:/main";
         }
 
         User user = userService.getLoginUser(authentication);
@@ -112,12 +144,12 @@ public class PaymentController {
             }
 
             model.addAttribute("orderId", orderId);
-            model.addAttribute("amount", 239000);
+            model.addAttribute("amount", 9900);
             model.addAttribute("productId", null);
             model.addAttribute("productName", "INFO ARCHIVE 프리미엄 멤버십");
             model.addAttribute("membershipType", "MONTHLY");
             model.addAttribute("availableCoupons", List.of());
-            model.addAttribute("originalAmount", 239000);
+            model.addAttribute("originalAmount", 9900);
             model.addAttribute("discountAmount", 0);
 
             return "payment/checkout";
@@ -133,10 +165,24 @@ public class PaymentController {
             Authentication authentication,
             Model model
     ) {
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
+        if (isAnonymous(authentication)) {
             return "redirect:/login";
+        }
+
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        if (!hasRole(authentication, "ROLE_USER")) {
+            return "redirect:/main";
         }
 
         if (cartIds == null || cartIds.isEmpty()) {
@@ -185,10 +231,24 @@ public class PaymentController {
             PaymentConfirmRequestDto dto,
             Authentication authentication
     ) {
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
+        if (isAnonymous(authentication)) {
             return "redirect:/login";
+        }
+
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        if (!hasRole(authentication, "ROLE_USER")) {
+            return "redirect:/main";
         }
 
         try {
@@ -210,29 +270,54 @@ public class PaymentController {
 
             return "redirect:/payment/payment-complete";
 
-
         } catch (IllegalArgumentException e) {
             return "redirect:/membership?already=true";
         }
     }
 
     @GetMapping("/payment/payment-complete")
-    public String paymentCompletePage() {
-        return "payment/payment-complete";
-    }
+    public String paymentCompletePage(Authentication authentication) {
 
-    private String createOrderId() {
-        return "ORDER-" + LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        if (isAnonymous(authentication)) {
+            return "redirect:/login";
+        }
+
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        return "payment/payment-complete";
     }
 
     @PostMapping("/membership/cancel")
     public String cancelMembership(Authentication authentication) {
 
-        if (authentication == null
-                || !authentication.isAuthenticated()
-                || "anonymousUser".equals(authentication.getPrincipal())) {
+        if (isAnonymous(authentication)) {
             return "redirect:/login";
+        }
+
+        if (hasRole(authentication, "ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        if (hasRole(authentication, "ROLE_INSTRUCTOR")) {
+            return "redirect:/instructor";
+        }
+
+        if (hasRole(authentication, "ROLE_SPECIAL")) {
+            return "redirect:/special";
+        }
+
+        if (!hasRole(authentication, "ROLE_USER")) {
+            return "redirect:/main";
         }
 
         try {
@@ -242,5 +327,25 @@ public class PaymentController {
         } catch (IllegalArgumentException e) {
             return "redirect:/membership?error=true";
         }
+    }
+
+    private String createOrderId() {
+        return "ORDER-" + LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+    }
+
+    private boolean isAnonymous(Authentication authentication) {
+        return authentication == null
+                || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal());
+    }
+
+    private boolean hasRole(Authentication authentication, String role) {
+        if (authentication == null) {
+            return false;
+        }
+
+        return authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals(role));
     }
 }

@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
-<div th:fragment="subscribe" class="subscribe-sticky">
+<div th:fragment="subscribe"
+     class="subscribe-sticky"
+     sec:authorize="isAnonymous() or hasRole('USER')">
+
     <div class="subscribe-inner">
         <p class="subscribe-text">
             구독 할인 종료까지<br>
@@ -31,7 +35,9 @@
             </div>
         </div>
 
-        <a th:href="@{/membership}" class="subscribe-btn">구독 시작하기</a>
+        <a th:href="@{/membership}" class="subscribe-btn">
+            구독 시작하기
+        </a>
     </div>
 </div>
 
