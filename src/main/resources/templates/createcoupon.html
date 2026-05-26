@@ -73,8 +73,24 @@
 
         <section class="admin-header">
             <h1>쿠폰 관리</h1>
-            <p>관리자가 쿠폰을 생성하고 유저가 쿠폰 코드를 등록할 수 있습니다.</p>
+            <p>관리자가 쿠폰을 생성하고 사용 여부를 관리할 수 있습니다.</p>
         </section>
+
+        <div class="success-message" th:if="${param.createSuccess}">
+            쿠폰이 생성되었습니다.
+        </div>
+
+        <div class="success-message" th:if="${param.stopSuccess}">
+            쿠폰이 중지되었습니다.
+        </div>
+
+        <div class="success-message" th:if="${param.resumeSuccess}">
+            쿠폰이 다시 사용 가능 상태로 변경되었습니다.
+        </div>
+
+        <div class="success-message" th:if="${param.deleteSuccess}">
+            쿠폰이 삭제되었습니다.
+        </div>
 
         <section class="admin-table-section">
             <div class="table-title">
@@ -94,19 +110,22 @@
                        name="discountAmount"
                        placeholder="할인금액"
                        value="10000"
-                       min="0">
+                       min="0"
+                       required>
 
                 <input type="number"
                        name="minOrderAmount"
                        placeholder="최소주문금액"
                        value="50000"
-                       min="0">
+                       min="0"
+                       required>
 
                 <input type="number"
                        name="validDays"
                        placeholder="유효기간 일수"
                        value="30"
-                       min="1">
+                       min="1"
+                       required>
 
                 <button type="submit">
                     쿠폰 자동 생성
@@ -131,6 +150,7 @@
                     <th>최소주문금액</th>
                     <th>만료일</th>
                     <th>상태</th>
+                    <th>관리</th>
                 </tr>
                 </thead>
 
@@ -168,10 +188,42 @@
                             중지
                         </span>
                     </td>
+
+                    <td>
+                        <div class="coupon-action-box">
+
+                            <form th:if="${coupon.active}"
+                                  th:action="@{/admin/coupons/{id}/stop(id=${coupon.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('이 쿠폰을 중지하시겠습니까?');">
+                                <button type="submit" class="coupon-stop-btn">
+                                    중지
+                                </button>
+                            </form>
+
+                            <form th:if="${!coupon.active}"
+                                  th:action="@{/admin/coupons/{id}/resume(id=${coupon.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('이 쿠폰을 다시 사용 가능하게 변경하시겠습니까?');">
+                                <button type="submit" class="coupon-resume-btn">
+                                    재개
+                                </button>
+                            </form>
+
+                            <form th:action="@{/admin/coupons/{id}/delete(id=${coupon.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('이 쿠폰을 삭제하시겠습니까? 삭제 후 관리자 목록에서 보이지 않습니다.');">
+                                <button type="submit" class="coupon-delete-btn">
+                                    삭제
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(coupons)}">
-                    <td colspan="7" class="empty">
+                    <td colspan="8" class="empty">
                         등록된 쿠폰이 없습니다.
                     </td>
                 </tr>

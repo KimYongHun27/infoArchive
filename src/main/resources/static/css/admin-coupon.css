@@ -52,3 +52,60 @@
     font-size: 13px;
     font-weight: 700;
 }
+
+.success-message {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: 800;
+}
+
+.coupon-action-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.coupon-action-box form {
+    margin: 0;
+}
+
+.coupon-stop-btn,
+.coupon-resume-btn,
+.coupon-delete-btn {
+    border: none;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 9px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.coupon-stop-btn {
+    background: #6b7280;
+}
+
+.coupon-stop-btn:hover {
+    background: #4b5563;
+}
+
+.coupon-resume-btn {
+    background: #16a34a;
+}
+
+.coupon-resume-btn:hover {
+    background: #15803d;
+}
+
+.coupon-delete-btn {
+    background: #ef4444;
+}
+
+.coupon-delete-btn:hover {
+    background: #dc2626;
+}

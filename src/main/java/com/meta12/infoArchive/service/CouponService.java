@@ -1,17 +1,15 @@
 package com.meta12.infoArchive.service;
 
-import com.meta12.infoArchive.entity.*;
+import com.meta12.infoArchive.entity.Coupon;
+import com.meta12.infoArchive.entity.CouponStatus;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.entity.UserCoupon;
 import com.meta12.infoArchive.repository.CouponRepository;
 import com.meta12.infoArchive.repository.UserCouponRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.meta12.infoArchive.entity.Coupon;
-import com.meta12.infoArchive.entity.CouponStatus;
-import com.meta12.infoArchive.entity.User;
-import com.meta12.infoArchive.entity.UserCoupon;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -29,11 +27,12 @@ public class CouponService {
 
     // 관리자 쿠폰 자동 생성
     @Transactional
-    public void createCoupon(String couponName,
-                             int discountAmount,
-                             int minOrderAmount,
-                             int validDays) {
-
+    public void createCoupon(
+            String couponName,
+            int discountAmount,
+            int minOrderAmount,
+            int validDays
+    ) {
         String couponCode = generateCouponCode();
 
         while (couponRepository.existsByCouponCode(couponCode)) {
@@ -46,6 +45,7 @@ public class CouponService {
         coupon.setDiscountAmount(discountAmount);
         coupon.setMinOrderAmount(minOrderAmount);
         coupon.setActive(true);
+        coupon.setDeleted(false);
         coupon.setExpiredAt(LocalDateTime.now().plusDays(validDays));
 
         couponRepository.save(coupon);
@@ -69,6 +69,10 @@ public class CouponService {
 
         Coupon coupon = couponRepository.findByCouponCode(typedCouponCode)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰 코드입니다."));
+
+        if (coupon.isDeleted()) {
+            throw new IllegalArgumentException("존재하지 않는 쿠폰 코드입니다.");
+        }
 
         if (!coupon.isActive()) {
             throw new IllegalArgumentException("사용할 수 없는 쿠폰입니다.");
@@ -111,7 +115,10 @@ public class CouponService {
         User user = userService.getLoginUser(authentication);
 
         List<UserCoupon> coupons =
-                userCouponRepository.findByUserAndStatusOrderByIssuedAtDesc(user, CouponStatus.AVAILABLE);
+                userCouponRepository.findByUserAndStatusOrderByIssuedAtDesc(
+                        user,
+                        CouponStatus.AVAILABLE
+                );
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -125,9 +132,11 @@ public class CouponService {
 
         return coupons.stream()
                 .filter(uc -> uc.getStatus() == CouponStatus.AVAILABLE)
+                .filter(uc -> uc.getCoupon() != null)
+                .filter(uc -> !uc.getCoupon().isDeleted())
+                .filter(uc -> uc.getCoupon().isActive())
                 .toList();
     }
-
 
     // 쿠폰 할인금액 계산
     @Transactional(readOnly = true)
@@ -154,6 +163,10 @@ public class CouponService {
 
         Coupon coupon = userCoupon.getCoupon();
 
+        if (coupon == null || coupon.isDeleted()) {
+            throw new IllegalArgumentException("사용할 수 없는 쿠폰입니다.");
+        }
+
         if (!coupon.isActive()) {
             throw new IllegalArgumentException("사용할 수 없는 쿠폰입니다.");
         }
@@ -168,7 +181,6 @@ public class CouponService {
 
         return Math.min(coupon.getDiscountAmount(), originalAmount);
     }
-
 
     // 결제 완료 후 쿠폰 사용 처리
     @Transactional
@@ -189,16 +201,57 @@ public class CouponService {
             throw new IllegalArgumentException("사용 가능한 쿠폰이 아닙니다.");
         }
 
+        Coupon coupon = userCoupon.getCoupon();
+
+        if (coupon == null || coupon.isDeleted() || !coupon.isActive()) {
+            throw new IllegalArgumentException("사용할 수 없는 쿠폰입니다.");
+        }
+
         userCoupon.setStatus(CouponStatus.USED);
         userCoupon.setUsedAt(LocalDateTime.now());
     }
 
-    // 관리자 쿠폰 전체 목록
+    // 관리자 쿠폰 목록: 삭제되지 않은 쿠폰만
     @Transactional(readOnly = true)
     public List<Coupon> getAllCoupons() {
-        return couponRepository.findAll();
+        return couponRepository.findByDeletedFalseOrderByIdDesc();
     }
 
+    // 관리자 쿠폰 중지
+    @Transactional
+    public void stopCoupon(Long couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰을 찾을 수 없습니다."));
+
+        if (coupon.isDeleted()) {
+            throw new IllegalArgumentException("이미 삭제된 쿠폰입니다.");
+        }
+
+        coupon.setActive(false);
+    }
+
+    // 관리자 쿠폰 재개
+    @Transactional
+    public void resumeCoupon(Long couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰을 찾을 수 없습니다."));
+
+        if (coupon.isDeleted()) {
+            throw new IllegalArgumentException("이미 삭제된 쿠폰입니다.");
+        }
+
+        coupon.setActive(true);
+    }
+
+    // 관리자 쿠폰 삭제: 실제 삭제 X, 목록에서 숨김
+    @Transactional
+    public void deleteCoupon(Long couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("쿠폰을 찾을 수 없습니다."));
+
+        coupon.setActive(false);
+        coupon.setDeleted(true);
+    }
 
     // 내 쿠폰 목록
     @Transactional
@@ -215,6 +268,7 @@ public class CouponService {
             Coupon coupon = userCoupon.getCoupon();
 
             if (userCoupon.getStatus() == CouponStatus.AVAILABLE
+                    && coupon != null
                     && coupon.getExpiredAt() != null
                     && coupon.getExpiredAt().isBefore(now)) {
 
@@ -224,7 +278,6 @@ public class CouponService {
 
         return myCoupons;
     }
-
 
     // 내 쿠폰 개수
     @Transactional(readOnly = true)

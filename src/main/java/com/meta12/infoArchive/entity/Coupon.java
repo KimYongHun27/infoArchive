@@ -35,6 +35,10 @@ public class Coupon {
     @Column(nullable = false)
     private boolean active = true;
 
+    // 관리자 삭제 여부
+    @Column(nullable = false)
+    private boolean deleted = false;
+
     // 생성일
     private LocalDateTime createdAt;
 

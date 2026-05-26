@@ -1,5 +1,6 @@
 package com.meta12.infoArchive.controller;
 
+import com.meta12.infoArchive.entity.Coupon;
 import com.meta12.infoArchive.entity.CouponStatus;
 import com.meta12.infoArchive.entity.UserCoupon;
 import com.meta12.infoArchive.service.CouponService;
@@ -19,6 +20,102 @@ import java.util.stream.Collectors;
 public class CouponController {
 
     private final CouponService couponService;
+
+    /*
+     * =========================
+     * 관리자 쿠폰 관리
+     * =========================
+     */
+
+    @GetMapping("/admin/coupons")
+    public String adminCoupons(Model model) {
+
+        List<Coupon> coupons = couponService.getAllCoupons();
+
+        model.addAttribute("coupons", coupons);
+        model.addAttribute("couponCount", coupons.size());
+
+        return "admin-coupons";
+    }
+
+    @PostMapping("/coupons/generate")
+    public String generateCoupon(
+            @RequestParam String couponName,
+            @RequestParam int discountAmount,
+            @RequestParam int minOrderAmount,
+            @RequestParam int validDays,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            couponService.createCoupon(
+                    couponName,
+                    discountAmount,
+                    minOrderAmount,
+                    validDays
+            );
+
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 생성되었습니다.");
+            return "redirect:/admin/coupons?createSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/coupons?createError=true";
+        }
+    }
+
+    @PostMapping("/admin/coupons/{couponId}/stop")
+    public String stopCoupon(
+            @PathVariable Long couponId,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            couponService.stopCoupon(couponId);
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 중지되었습니다.");
+            return "redirect:/admin/coupons?stopSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/coupons?stopError=true";
+        }
+    }
+
+    @PostMapping("/admin/coupons/{couponId}/resume")
+    public String resumeCoupon(
+            @PathVariable Long couponId,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            couponService.resumeCoupon(couponId);
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 다시 사용 가능 상태로 변경되었습니다.");
+            return "redirect:/admin/coupons?resumeSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/coupons?resumeError=true";
+        }
+    }
+
+    @PostMapping("/admin/coupons/{couponId}/delete")
+    public String deleteCoupon(
+            @PathVariable Long couponId,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            couponService.deleteCoupon(couponId);
+            redirectAttributes.addFlashAttribute("successMessage", "쿠폰이 삭제되었습니다.");
+            return "redirect:/admin/coupons?deleteSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/coupons?deleteError=true";
+        }
+    }
+
+    /*
+     * =========================
+     * 일반회원 쿠폰함
+     * =========================
+     */
 
     @GetMapping("/coupon")
     public String couponPage(
