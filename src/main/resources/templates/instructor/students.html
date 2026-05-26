@@ -141,12 +141,12 @@
 
                         <td>
                             <span class="status-badge status-approved"
-                                  th:if="${Boolean.TRUE.equals(enrollment.completed)}">
+                                  th:if="${enrollment.completed == true}">
                                 완료
                             </span>
 
                             <span class="status-badge status-waiting"
-                                  th:if="${!Boolean.TRUE.equals(enrollment.completed)}">
+                                  th:if="${enrollment.completed != true}">
                                 수강중
                             </span>
                         </td>
