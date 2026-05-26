@@ -2,8 +2,11 @@ package com.meta12.infoArchive.controller;
 
 import com.meta12.infoArchive.dto.InstructorCourseCreateDto;
 import com.meta12.infoArchive.dto.PasswordChangeDto;
+import com.meta12.infoArchive.entity.Enrollment;
 import com.meta12.infoArchive.entity.Product;
 import com.meta12.infoArchive.entity.ProductStatus;
+import com.meta12.infoArchive.entity.User;
+import com.meta12.infoArchive.repository.EnrollmentRepository;
 import com.meta12.infoArchive.service.InstructorCourseService;
 import com.meta12.infoArchive.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class InstructorPageController {
 
     private final UserService userService;
     private final InstructorCourseService instructorCourseService;
+    private final EnrollmentRepository enrollmentRepository;
 
     @GetMapping("/instructor")
     public String instructorDashboard() {
@@ -31,8 +35,29 @@ public class InstructorPageController {
     }
 
     @GetMapping("/instructor/my-info")
-    public String instructorMyInfo() {
+    public String instructorMyInfo(
+            Authentication authentication,
+            Model model
+    ) {
+        User user = userService.getLoginUser(authentication);
+
+        model.addAttribute("user", user);
+
         return "instructor/my-info";
+    }
+
+    @PostMapping("/instructor/phone/change")
+    public String changeInstructorPhone(
+            Authentication authentication,
+            @RequestParam String phone
+    ) {
+        try {
+            userService.changeMyPhone(authentication, phone);
+            return "redirect:/instructor/my-info?phoneSuccess=true";
+
+        } catch (IllegalArgumentException e) {
+            return "redirect:/instructor/my-info?phoneError=true";
+        }
     }
 
     @GetMapping("/instructor/courses")
@@ -84,7 +109,50 @@ public class InstructorPageController {
     }
 
     @GetMapping("/instructor/students")
-    public String instructorStudents() {
+    public String instructorStudents(
+            Authentication authentication,
+            Model model
+    ) {
+        String instructorName = authentication.getName();
+
+        List<Enrollment> enrollmentList =
+                enrollmentRepository.findByProduct_InstructorNameOrderByEnrolledAtDesc(instructorName);
+
+        long totalStudentCount = enrollmentList.stream()
+                .filter(enrollment -> enrollment.getUser() != null)
+                .map(enrollment -> enrollment.getUser().getId())
+                .distinct()
+                .count();
+
+        long studyingCount = enrollmentList.stream()
+                .filter(enrollment -> !Boolean.TRUE.equals(enrollment.getCompleted()))
+                .count();
+
+        long completedCount = enrollmentList.stream()
+                .filter(enrollment -> Boolean.TRUE.equals(enrollment.getCompleted()))
+                .count();
+
+        int averageProgress = 0;
+
+        if (!enrollmentList.isEmpty()) {
+            averageProgress = (int) Math.round(
+                    enrollmentList.stream()
+                            .mapToInt(enrollment ->
+                                    enrollment.getProgressRate() != null
+                                            ? enrollment.getProgressRate()
+                                            : 0
+                            )
+                            .average()
+                            .orElse(0)
+            );
+        }
+
+        model.addAttribute("enrollmentList", enrollmentList);
+        model.addAttribute("totalStudentCount", totalStudentCount);
+        model.addAttribute("studyingCount", studyingCount);
+        model.addAttribute("completedCount", completedCount);
+        model.addAttribute("averageProgress", averageProgress);
+
         return "instructor/students";
     }
 

@@ -60,22 +60,22 @@
             <section class="stat-grid">
                 <div class="stat-card">
                     <p>전체 수강생</p>
-                    <h3>0</h3>
+                    <h3 th:text="${totalStudentCount}">0</h3>
                 </div>
 
                 <div class="stat-card">
                     <p>수강중</p>
-                    <h3>0</h3>
+                    <h3 th:text="${studyingCount}">0</h3>
                 </div>
 
                 <div class="stat-card">
                     <p>수강 완료</p>
-                    <h3>0</h3>
+                    <h3 th:text="${completedCount}">0</h3>
                 </div>
 
                 <div class="stat-card">
                     <p>평균 진도율</p>
-                    <h3>0%</h3>
+                    <h3 th:text="${averageProgress + '%'}">0%</h3>
                 </div>
             </section>
 
@@ -90,6 +90,7 @@
                         <th>번호</th>
                         <th>수강생</th>
                         <th>이메일</th>
+                        <th>휴대폰번호</th>
                         <th>수강 강의</th>
                         <th>진도율</th>
                         <th>수강 상태</th>
@@ -98,11 +99,63 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td colspan="7" class="empty-table">
+
+                    <tr th:if="${enrollmentList == null or #lists.isEmpty(enrollmentList)}">
+                        <td colspan="8" class="empty-table">
                             아직 수강생이 없습니다.
                         </td>
                     </tr>
+
+                    <tr th:each="enrollment, stat : ${enrollmentList}">
+                        <td th:text="${stat.count}">1</td>
+
+                        <td th:text="${enrollment.user != null and enrollment.user.name != null ? enrollment.user.name : '-'}">
+                            홍길동
+                        </td>
+
+                        <td th:text="${enrollment.user != null and enrollment.user.email != null ? enrollment.user.email : '-'}">
+                            user@test.com
+                        </td>
+
+                        <td th:text="${enrollment.user != null and enrollment.user.phone != null ? enrollment.user.phone : '-'}">
+                            010-0000-0000
+                        </td>
+
+                        <td th:text="${enrollment.product != null and enrollment.product.productName != null ? enrollment.product.productName : '-'}">
+                            강의명
+                        </td>
+
+                        <td>
+                            <div class="student-progress-wrap">
+                                <div class="student-progress-bar">
+                                    <div class="student-progress-fill"
+                                         th:style="'width:' + ${enrollment.progressRate != null ? enrollment.progressRate : 0} + '%'">
+                                    </div>
+                                </div>
+
+                                <strong th:text="${(enrollment.progressRate != null ? enrollment.progressRate : 0) + '%'}">
+                                    0%
+                                </strong>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="status-badge status-approved"
+                                  th:if="${Boolean.TRUE.equals(enrollment.completed)}">
+                                완료
+                            </span>
+
+                            <span class="status-badge status-waiting"
+                                  th:if="${!Boolean.TRUE.equals(enrollment.completed)}">
+                                수강중
+                            </span>
+                        </td>
+
+                        <td th:text="${enrollment.enrolledAt != null ? #temporals.format(enrollment.enrolledAt, 'yyyy.MM.dd HH:mm') : '-'}">
+                            -
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>

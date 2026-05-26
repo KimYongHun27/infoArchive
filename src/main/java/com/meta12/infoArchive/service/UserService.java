@@ -173,6 +173,27 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    // 휴대폰번호 변경
+    @Transactional
+    public void changeMyPhone(Authentication authentication, String phone) {
+
+        User user = getLoginUser(authentication);
+
+        if (phone == null || phone.trim().isEmpty()) {
+            throw new IllegalArgumentException("휴대폰번호를 입력해주세요.");
+        }
+
+        String cleanedPhone = phone.trim();
+
+        if (!cleanedPhone.matches("^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$")) {
+            throw new IllegalArgumentException("휴대폰번호 형식이 올바르지 않습니다.");
+        }
+
+        user.setPhone(cleanedPhone);
+
+        userRepository.save(user);
+    }
+
     public void signup(UserSignupRequestDto dto) {
 
         if (dto.getName() == null || dto.getName().trim().isEmpty()) {

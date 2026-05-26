@@ -17,4 +17,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
     Optional<Enrollment> findByUserIdAndProductId(Long userId, Long productId);
 
     long countByUserId(Long userId);
+
+    // 강사센터 수강생 관리용
+    List<Enrollment> findByProduct_InstructorNameOrderByEnrolledAtDesc(String instructorName);
 }
