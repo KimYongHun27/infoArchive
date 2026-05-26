@@ -81,7 +81,7 @@ body {
 
 .product-table {
     width: 100%;
-    min-width: 900px;
+    min-width: 980px;
     border-collapse: collapse;
 }
 
@@ -100,6 +100,10 @@ body {
     vertical-align: middle;
 }
 
+.product-table tr:last-child td {
+    border-bottom: none;
+}
+
 .product-thumb {
     width: 90px;
     height: 58px;
@@ -108,51 +112,12 @@ body {
     background: #eee;
 }
 
-.action-box {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.action-box form {
-    margin: 0;
-}
-
-.detail-btn,
-.delete-btn {
-    height: 34px;
-    padding: 0 12px;
-    border-radius: 9px;
-    border: none;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 900;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.detail-btn {
-    background: #2563eb;
-}
-
-.delete-btn {
-    background: #ff1515;
-}
-
-.empty {
-    text-align: center;
-    color: #999;
-    padding: 32px;
-}
-
 .product-thumb-box {
     width: 72px;
-    height: 48px;
+    height: 52px;
     border-radius: 8px;
-    background: #f1f3f5;
+    background: #f1f1f1;
+    overflow: hidden;
     border: 1px solid #e5e7eb;
 
     display: flex;
@@ -164,12 +129,32 @@ body {
     font-weight: 900;
 }
 
+.product-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-thumb-box span {
+    color: #999;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.empty {
+    text-align: center;
+    color: #999;
+    padding: 32px;
+}
+
 .empty-table {
     text-align: center !important;
     padding: 46px 20px !important;
     color: #6b7280;
     font-weight: 800;
 }
+
+/* 상태 배지 */
 
 .status {
     display: inline-flex;
@@ -204,6 +189,72 @@ body {
     color: #374151;
 }
 
+/* 기존 status-badge 방식도 같이 대응 */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 62px;
+    padding: 7px 10px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.status-waiting {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-approved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-deleted,
+.status-none {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* 반려 사유 */
+
+.reason-text {
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.reject-reason-cell {
+    max-width: 260px;
+    white-space: normal;
+    line-height: 1.5;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.empty-reason {
+    color: #aaa;
+}
+
+.admin-small-text {
+    margin: 6px 0 0;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* 액션 버튼 */
+
 .action-box {
     display: flex;
     align-items: center;
@@ -225,18 +276,47 @@ body {
     cursor: pointer;
 }
 
+.admin-product-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.admin-inline-form {
+    margin: 0;
+}
+
+.detail-btn,
+.delete-btn,
+.approve-btn,
+.reject-btn,
+.reject-open-btn,
+.close-btn {
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 9px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-btn {
+    background: #2563eb;
+}
+
+.detail-btn:hover {
+    background: #1d4ed8;
+}
+
 .approve-btn {
     background: #16a34a;
-    color: #fff;
-}
-
-.reject-btn {
-    background: #ef4444;
-    color: #fff;
-}
-
-.close-btn {
-    background: #111827;
     color: #fff;
 }
 
@@ -244,40 +324,194 @@ body {
     background: #15803d;
 }
 
-.reject-btn:hover {
+.reject-btn,
+.reject-open-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.reject-btn:hover,
+.reject-open-btn:hover {
     background: #dc2626;
+}
+
+.delete-btn {
+    background: #ff1515;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+.close-btn {
+    background: #111827;
+    color: #fff;
 }
 
 .close-btn:hover {
     background: #374151;
 }
 
-.reason-text {
-    color: #6b7280;
-    font-size: 13px;
+/* =========================
+   반려 사유 모달
+========================= */
+
+.reject-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    align-items: center;
+    justify-content: center;
+}
+
+.reject-modal.show {
+    display: flex;
+}
+
+.reject-modal-box {
+    width: 460px;
+    max-width: calc(100% - 40px);
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.reject-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.reject-modal-head h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 900;
+    color: #111;
+}
+
+.reject-modal-close {
+    border: none;
+    background: none;
+    font-size: 28px;
+    font-weight: 900;
+    color: #555;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.reject-modal-close:hover {
+    color: #111;
+}
+
+.reject-course-info {
+    background: #f8f9fb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+}
+
+.reject-course-info p {
+    margin: 0 0 5px;
+    font-size: 12px;
+    color: #777;
     font-weight: 700;
 }
 
-.product-thumb-box {
-  width: 72px;
-  height: 52px;
-  border-radius: 8px;
-  background: #f1f1f1;
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.reject-course-info strong {
+    display: block;
+    font-size: 15px;
+    color: #111;
 }
 
-.product-thumb-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.reject-modal-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #111;
 }
 
-.product-thumb-box span {
-  color: #999;
-  font-size: 12px;
-  font-weight: 900;
+.reject-modal-form textarea {
+    width: 100%;
+    min-height: 130px;
+    resize: vertical;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 13px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.reject-modal-form textarea:focus {
+    border-color: #ef4444;
+}
+
+.reject-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.modal-cancel-btn,
+.modal-reject-btn {
+    border: none;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.modal-cancel-btn {
+    background: #f1f3f5;
+    color: #333;
+}
+
+.modal-cancel-btn:hover {
+    background: #e5e7eb;
+}
+
+.modal-reject-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.modal-reject-btn:hover {
+    background: #dc2626;
+}
+
+/* 반응형 */
+
+@media (max-width: 768px) {
+    .admin-products-page {
+        max-width: calc(100% - 24px);
+        margin-top: 32px;
+    }
+
+    .page-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .page-title h1 {
+        font-size: 28px;
+    }
+
+    .product-table-section {
+        padding: 18px;
+    }
+
+    .reject-modal-box {
+        width: calc(100% - 32px);
+        padding: 20px;
+    }
 }

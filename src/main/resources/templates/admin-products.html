@@ -38,6 +38,7 @@
                 <th>종류</th>
                 <th>가격</th>
                 <th>상태</th>
+                <th>반려 사유</th>
                 <th>등록일</th>
                 <th>처리일</th>
                 <th>관리</th>
@@ -46,8 +47,8 @@
 
             <tbody>
 
-            <tr th:if="${#lists.isEmpty(products)}">
-                <td colspan="9" class="empty-table">
+            <tr th:if="${products == null or #lists.isEmpty(products)}">
+                <td colspan="10" class="empty-table">
                     등록된 강의가 없습니다.
                 </td>
             </tr>
@@ -57,7 +58,7 @@
 
                 <td>
                     <div class="product-thumb-box">
-                        <img th:if="${product.thumbnailUrl != null}"
+                        <img th:if="${product.thumbnailUrl != null and !product.thumbnailUrl.isEmpty()}"
                              th:src="@{${product.thumbnailUrl}}"
                              alt="강의 썸네일">
 
@@ -67,7 +68,15 @@
                     </div>
                 </td>
 
-                <td th:text="${product.productName}">강의명</td>
+                <td>
+                    <strong th:text="${product.productName}">강의명</strong>
+
+                    <p class="admin-small-text"
+                       th:if="${product.description != null and !product.description.isEmpty()}"
+                       th:text="${#strings.abbreviate(product.description, 45)}">
+                        강의 설명
+                    </p>
+                </td>
 
                 <td>
                     <span th:if="${product.productType != null and product.productType.name() == 'COURSE'}">
@@ -103,9 +112,26 @@
                         반려완료
                     </span>
 
+                    <span th:if="${product.status != null and product.status.name() == 'DELETED'}"
+                          class="status close">
+                        삭제됨
+                    </span>
+
                     <span th:if="${product.status == null}"
                           class="status close">
                         상태없음
+                    </span>
+                </td>
+
+                <td class="reject-reason-cell">
+                    <span th:if="${product.rejectReason != null and !product.rejectReason.isEmpty()}"
+                          th:text="${product.rejectReason}">
+                        반려 사유
+                    </span>
+
+                    <span th:if="${product.rejectReason == null or product.rejectReason.isEmpty()}"
+                          class="empty-reason">
+                        -
                     </span>
                 </td>
 
@@ -120,26 +146,23 @@
                 <td>
                     <div class="action-box">
 
-                        <!-- 검토중일 때만 승인/반려 가능 -->
+                        <!-- 검토중일 때만 승인 가능 -->
                         <form th:if="${product.status != null and product.status.name() == 'WAITING'}"
                               th:action="@{/admin/products/{id}/approve(id=${product.id})}"
-                              method="post">
+                              method="post"
+                              onsubmit="return confirm('이 강의를 승인하시겠습니까?');">
                             <button type="submit" class="approve-btn">
                                 승인
                             </button>
                         </form>
 
-                        <form th:if="${product.status != null and product.status.name() == 'WAITING'}"
-                              th:action="@{/admin/products/{id}/reject(id=${product.id})}"
-                              method="post">
-                            <input type="hidden"
-                                   name="rejectReason"
-                                   value="관리자 검토 결과 반려되었습니다.">
-
-                            <button type="submit" class="reject-btn">
-                                반려
-                            </button>
-                        </form>
+                        <!-- 검토중일 때만 반려 모달 열기 -->
+                        <button th:if="${product.status != null and product.status.name() == 'WAITING'}"
+                                type="button"
+                                class="reject-open-btn"
+                                th:data-product-id="${product.id}">
+                            반려
+                        </button>
 
                         <!-- 승인 완료 -->
                         <span th:if="${product.status != null and product.status.name() == 'APPROVED'}"
@@ -149,12 +172,69 @@
 
                         <!-- 반려 완료 -->
                         <span th:if="${product.status != null and product.status.name() == 'REJECTED'}"
-                              class="reason-text"
-                              th:text="${product.rejectReason != null ? product.rejectReason : '반려완료'}">
+                              class="reason-text">
                             반려완료
                         </span>
 
+                        <!-- 삭제됨 -->
+                        <span th:if="${product.status != null and product.status.name() == 'DELETED'}"
+                              class="reason-text">
+                            삭제됨
+                        </span>
+
                     </div>
+
+                    <!-- 반려 사유 작성 모달 -->
+                    <div class="reject-modal"
+                         th:id="'rejectModal-' + ${product.id}">
+
+                        <div class="reject-modal-box">
+
+                            <div class="reject-modal-head">
+                                <h3>반려 사유 작성</h3>
+
+                                <button type="button"
+                                        class="reject-modal-close"
+                                        th:data-product-id="${product.id}">
+                                    ×
+                                </button>
+                            </div>
+
+                            <div class="reject-course-info">
+                                <p>반려할 강의</p>
+                                <strong th:text="${product.productName}">
+                                    강의명
+                                </strong>
+                            </div>
+
+                            <form th:action="@{/admin/products/{id}/reject(id=${product.id})}"
+                                  method="post"
+                                  class="reject-modal-form">
+
+                                <label for="rejectReason">반려 사유</label>
+
+                                <textarea id="rejectReason"
+                                          name="rejectReason"
+                                          placeholder="반려 사유를 입력하세요. 예: 썸네일 이미지가 부적절합니다."
+                                          required></textarea>
+
+                                <div class="reject-modal-actions">
+                                    <button type="button"
+                                            class="modal-cancel-btn"
+                                            th:data-product-id="${product.id}">
+                                        취소
+                                    </button>
+
+                                    <button type="submit" class="modal-reject-btn">
+                                        반려 처리
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
                 </td>
             </tr>
 
@@ -166,5 +246,6 @@
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
+<script th:src="@{/js/admin-products.js}"></script>
 </body>
 </html>
