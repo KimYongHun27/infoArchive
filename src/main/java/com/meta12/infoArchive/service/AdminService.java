@@ -127,8 +127,6 @@ public class AdminService {
         User foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-        // 실제 삭제하지 않음
-        // FK 오류 방지용 비활성화 처리
         foundUser.setDeleted(true);
         foundUser.setEnabled(false);
 
@@ -192,8 +190,9 @@ public class AdminService {
     }
 
     // 관리자 - 전체 강의/상품 조회
+    // 삭제되지 않은 강의만 최신 등록순으로 조회
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findByStatusNotOrderByCreatedAtDesc(ProductStatus.DELETED);
     }
 
     // 관리자 - 상품 단건 조회

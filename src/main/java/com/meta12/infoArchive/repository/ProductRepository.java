@@ -39,13 +39,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             ProductType productType
     );
 
-    // 강사센터: 본인 강의 중 삭제되지 않은 강의만 조회
     List<Product> findByInstructorNameAndStatusNotOrderByCreatedAtDesc(
             String instructorName,
             ProductStatus status
     );
 
-    // 관리자용: 삭제되지 않은 전체 강의 조회
+    // 관리자 강의관리: 삭제되지 않은 강의 최신순
     List<Product> findByStatusNotOrderByCreatedAtDesc(ProductStatus status);
 
     Page<Product> findAll(Specification<Product> spec, Pageable pageable);
