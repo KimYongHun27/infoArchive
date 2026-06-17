@@ -32,7 +32,7 @@ public class CommunityService {
         if (category == null || category.isEmpty() || category.equals("all")) {
             if (kw == null || kw.isEmpty()) return communityRepository.findAll(pageable);
             return communityRepository.findByTitleContaining(kw, pageable);
-        } else {
+        } else {  nb
             if (kw == null || kw.isEmpty()) return communityRepository.findByCategory(category, pageable);
             return communityRepository.findByCategoryAndTitleContaining(category, kw, pageable);
         }
